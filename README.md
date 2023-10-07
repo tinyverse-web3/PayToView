@@ -1,2 +1,2 @@
 # PayToView
-付费阅读
+Pay to read
