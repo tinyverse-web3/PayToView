@@ -106,6 +106,8 @@ func (b *BotService) handleCommand(chatId int64, command string) error {
 		screaming = true
 	case "/whisper":
 		screaming = false
+	case "/start":
+		err = b.sendMenu(chatId)
 	case "/menu":
 		err = b.sendMenu(chatId)
 	}
