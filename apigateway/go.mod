@@ -1,4 +1,4 @@
-module github.com/tinyverse-web3/paytoview/apiserver
+module github.com/tinyverse-web3/paytoview/apigateway
 
 go 1.20
 
