@@ -1,17 +1,17 @@
 import { SimpleGrid, Image, IconButton } from '@chakra-ui/react';
 import { useTitle } from 'react-use';
 import { useNavigate } from 'react-router-dom';
-import {Icon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import { ROUTE_PATH } from '@/router';
 
 export default function Index() {
   useTitle('PayToView');
 
-  const nav = useNavigate()
-  
+  const nav = useNavigate();
+
   const toAdd = () => {
-    nav(ROUTE_PATH.ADD)
-  }
+    nav(ROUTE_PATH.INDEX);
+  };
   return (
     <div className='h-full p-4'>
       <div className='h-full overflow-y-auto'>
@@ -40,7 +40,8 @@ export default function Index() {
           colorScheme='teal'
           aria-label='Done'
           fontSize='20px'
-          icon={<Icon icon="material-symbols:add" className='text-3xl' />}
+          onClick={toAdd}
+          icon={<Icon icon='material-symbols:add' className='text-3xl' />}
         />
       </div>
     </div>
