@@ -1,5 +1,11 @@
 {
   "app": {
     "title": "PayToView"
+  },
+  "common": {
+    "upload": {
+      "title": "上传",
+      "description": "Upload a file to the server"
+    }
   }
 }

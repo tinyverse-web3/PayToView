@@ -6,28 +6,32 @@
     "allowJs": false,
     "module": "ESNext",
     "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
     },
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "moduleResolution": "Node",
+    // "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "typeRoots": ["src/type"],
+    // "typeRoots": ["src/type"],
     
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": false,
+    "forceConsistentCasingInFileNames": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
