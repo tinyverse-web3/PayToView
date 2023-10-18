@@ -8,17 +8,19 @@ import (
 	"net/http"
 
 	"github.com/ipfs/go-cid"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/http3"
 )
 
 type ipfsAddResp struct {
+	PubKey string
 	Cid    string
 	Code   int
 	Result string
 }
 
 type ipfsCatResp struct {
+	PubKey string
 	Cid    string
 	Code   int
 	Result string
@@ -28,47 +30,50 @@ type Size interface {
 	Size() int64
 }
 
-type IpfsService struct {
-	server *http3.Http3Server
+func RegistIpfsHandle(h *http3.Http3Server) {
+	h.AddHandler("/ipfs/add", ipfsAddHandler)
+	h.AddHandler("/ipfs/cat", ipfsCatHandler)
 }
 
-func NewIpfsService(h *http3.Http3Server) *IpfsService {
-	ret := &IpfsService{
-		server: h,
-	}
-	ret.initHttpHandler()
-	return ret
-}
-
-func (s *IpfsService) ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
-	resp := ipfsAddResp{
-		Cid:    "",
-		Code:   0,
-		Result: "succ",
-	}
-
+func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.Header().Set("Content-Type", "application/json")
-		var sizeInBytes int64 = 100 * 1024 * 1024 // 100M
+		w.WriteHeader(http.StatusOK)
+		r.ParseForm()
+
+		resp := ipfsAddResp{
+			PubKey: r.PostFormValue("pubkey"),
+			Cid:    "",
+			Code:   0,
+			Result: "succ",
+		}
 
 		setErrResp := func(code int, result string) {
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
-			io.WriteString(w, string(jsonData))
+			len, err := io.WriteString(w, string(jsonData))
+			if err != nil {
+				logger.Errorf("ipfsAddHandler: WriteString: error: %+v", err)
+			}
+			logger.Debugf("ipfsAddHandler: WriteString len: %d", len)
 		}
 
+		var sizeInBytes int64 = 100 * 1024 * 1024 // 100M
 		err := r.ParseMultipartForm(sizeInBytes)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 		var file multipart.File
-		file, _, err = r.FormFile("uploadfile")
+		file, _, err = r.FormFile("file")
 		if err != nil {
+			file.Close()
 			setErrResp(-1, err.Error())
 			return
 		}
+		defer file.Close()
+
 		if sizeInterface, ok := file.(Size); ok {
 			size := sizeInterface.Size()
 			content := make([]byte, size)
@@ -79,21 +84,29 @@ func (s *IpfsService) ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
+
 		jsonData, _ := json.Marshal(resp)
-		io.WriteString(w, string(jsonData))
+		len, err := io.WriteString(w, string(jsonData))
+		if err != nil {
+			logger.Errorf("ipfsAddHandler: WriteString: error: %+v", err)
+		}
+		logger.Debugf("ipfsAddHandler: WriteString len: %d", len)
 		return
 	}
 
 	io.WriteString(w, `<html><body><form action="/ipfs/add" method="post" enctype="multipart/form-data">
-	<input type="file" name="uploadfile"><br>
+	<input type="file" name="file"><br>
 	<input type="submit">
 </form></body></html>`)
 }
 
-func (s *IpfsService) ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodGet {
+func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		w.WriteHeader(http.StatusOK)
+		r.ParseForm()
 		resp := ipfsCatResp{
-			Cid:    r.URL.Query().Get("cid"),
+			PubKey: r.PostFormValue("pubkey"),
+			Cid:    r.PostFormValue("cid"),
 			Code:   0,
 			Result: "succ",
 		}
@@ -103,12 +116,20 @@ func (s *IpfsService) ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
-			io.WriteString(w, string(jsonData))
+			len, err := io.WriteString(w, string(jsonData))
+			if err != nil {
+				logger.Errorf("ipfsCatHandler: WriteString: error: %+v", err)
+			}
+			logger.Debugf("ipfsCatHandler: WriteString len: %d", len)
 		}
 
+		if resp.PubKey == "" || resp.Cid == "" {
+			setErrResp(-1, "invalid params")
+			return
+		}
 		c, err := cid.Decode(resp.Cid)
 		if err != nil {
-			setErrResp(-1, err.Error())
+			setErrResp(-1, "invalid cid format")
 			return
 		}
 
@@ -123,18 +144,14 @@ func (s *IpfsService) ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		_, err = io.Copy(w, reader)
+		len, err := io.Copy(w, reader)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
+		logger.Debugf("ipfsCatHandler: len: %d", len)
 
 		w.Header().Set("Content-Disposition", "attachment; filename="+resp.Cid)
 		return
 	}
-}
-
-func (s *IpfsService) initHttpHandler() {
-	s.server.AddHandler("/ipfs/add", s.ipfsAddHandler)
-	s.server.AddHandler("/ipfs/cat", s.ipfsCatHandler)
 }

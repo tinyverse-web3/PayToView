@@ -1,5 +1,9 @@
 package config
 
+import (
+	tvbaseConfig "github.com/tinyverse-web3/tvbase/common/config"
+)
+
 type Http3Config struct {
 	EnableQlog bool
 	Addr       string
@@ -20,10 +24,11 @@ type MsgConfig struct {
 }
 
 type TvnGatewayConfig struct {
-	Http3 Http3Config
-	Ipfs  IpfsConfig
-	Dkvs  DkvsConfig
-	Msg   MsgConfig
+	Tvbase *tvbaseConfig.TvbaseConfig
+	Http3  Http3Config
+	Ipfs   IpfsConfig
+	Dkvs   DkvsConfig
+	Msg    MsgConfig
 }
 
 func NewTvnGatewayConfig() *TvnGatewayConfig {
@@ -44,7 +49,7 @@ func NewTvnGatewayConfig() *TvnGatewayConfig {
 			ServerUrl: "http://103.103.245.177:9099/msg/",
 		},
 	}
-
+	ret.Tvbase = tvbaseConfig.NewDefaultTvbaseConfig()
 	return ret
 }
 

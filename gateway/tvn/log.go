@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	logName = "tvn.main"
+	logName = "gateway.tvn.main"
 )
 
 var logger = ipfsLog.Logger(logName)
@@ -17,7 +17,11 @@ func init() {
 
 func initLog() (err error) {
 	var moduleLevels = map[string]string{
-		"tvn": "debug",
+		"tvn":            "debug",
+		"tvbase":         "debug",
+		"dkvs":           "debug",
+		"dmsg":           "debug",
+		"customProtocol": "debug",
 	}
 	err = util.SetLogModule(moduleLevels)
 	if err != nil {

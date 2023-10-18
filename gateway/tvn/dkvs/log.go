@@ -1,11 +1,11 @@
-package http3
+package dkvs
 
 import (
 	ipfsLog "github.com/ipfs/go-log/v2"
 )
 
 const (
-	logName = "tvn.http3"
+	logName = "gateway.tvn.dkvs"
 )
 
 var logger = ipfsLog.Logger(logName)
