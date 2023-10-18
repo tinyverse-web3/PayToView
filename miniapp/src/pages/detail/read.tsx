@@ -1,10 +1,9 @@
 import { Button, Image, Card, CardBody } from '@chakra-ui/react';
 import { useTitle } from 'react-use';
 import { BackButton } from '@vkruglikov/react-telegram-web-app';
-import { PayLimit } from './components/PayLimit';
 import { useNavigate } from 'react-router-dom';
 
-export default function DetailEdit() {
+export default function DetailRead() {
   useTitle('PayToView');
   const nav = useNavigate();
   const type = 'image';
@@ -43,11 +42,8 @@ export default function DetailEdit() {
         <div className='text-sm'>123</div>
       </div>
       <div className=''>
-        <div className='mb-4'>
-          <PayLimit type={type} />
-        </div>
         <Button colorScheme='messenger' size='lg' className='w-full'>
-          修改
+          支付
         </Button>
       </div>
     </div>

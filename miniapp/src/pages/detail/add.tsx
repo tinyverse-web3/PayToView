@@ -14,7 +14,7 @@ import { PayLimit } from './components/PayLimit';
 import { BackButton, useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate } from 'react-router-dom';
 
-export default function AddIndex() {
+export default function DetailAdd() {
   useTitle('PayToView');
   const nav = useNavigate();
   const imageChange = async (file: File) => {

@@ -3,6 +3,7 @@ import Root from '@/Root';
 import Index from '@/pages';
 import DetailAdd from '@/pages/detail/add';
 import DetailEdit from '@/pages/detail/edit';
+import DetailRead from '@/pages/detail/read';
 
 const resolveHashPath = (path: string) => {
   return `/#${path}`;
@@ -12,6 +13,7 @@ export const ROUTE_PATH = {
   INDEX: '/',
   DETAIL_ADD: '/add',
   DETAIL_EDIT: '/edit',
+  DETAIL_READ: '/read',
 };
 const hashPath: any = {};
 Object.keys(ROUTE_PATH).forEach((k: any) => {
@@ -37,6 +39,10 @@ export const routes: RouteObject[] = [
       {
         path: ROUTE_PATH.DETAIL_EDIT,
         element: <DetailEdit />,
+      },
+      {
+        path: ROUTE_PATH.DETAIL_READ,
+        element: <DetailRead />,
       },
     ],
   },
