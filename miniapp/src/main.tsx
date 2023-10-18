@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import '@/locales';
-import App from '@/App.tsx';
+import App from '@/App';
 import '@/style/tailwind.css';
 import '@/style/index.css';
 
