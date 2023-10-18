@@ -1,6 +1,6 @@
 import { createHashRouter, RouteObject } from 'react-router-dom';
 import Root from '@/Root.tsx';
-import Index from '@/pages';
+import Index from '@/pages/index.tsx';
 import DetailAdd from '@/pages/detail/add.tsx';
 import DetailEdit from '@/pages/detail/edit.tsx';
 
