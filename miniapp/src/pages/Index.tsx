@@ -10,13 +10,19 @@ export default function Index() {
   const nav = useNavigate();
 
   const toAdd = () => {
-    nav(ROUTE_PATH.INDEX);
+    nav(ROUTE_PATH.DETAIL_ADD);
   };
+  const toEdit = () => {
+    nav(ROUTE_PATH.DETAIL_EDIT);
+  };
+
   return (
     <div className='h-full p-4'>
       <div className='h-full overflow-y-auto'>
         <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
-          <div className='rounded-lg bg-gray-50 overflow-hidden flex justify-center items-center h-48'>
+          <div
+            className='rounded-lg bg-gray-50 overflow-hidden flex justify-center items-center h-48'
+            onClick={toEdit}>
             <Image
               src='https://via.placeholder.com/300'
               height='100%'
