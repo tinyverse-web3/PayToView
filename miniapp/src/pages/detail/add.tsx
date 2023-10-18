@@ -11,7 +11,7 @@ import { useTitle } from 'react-use';
 import { Upload } from '@/components/Upload';
 import { TextUpload } from './components/TextUpload';
 import { PayLimit } from './components/PayLimit';
-import { BackButton } from '@vkruglikov/react-telegram-web-app';
+import { BackButton, useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddIndex() {
@@ -22,9 +22,22 @@ export default function AddIndex() {
   };
   const [tabIndex, setTabIndex] = useState(0);
   const type = useMemo(() => (tabIndex === 0 ? 'image' : 'text'), [tabIndex]);
+
+  const webApp = useWebApp();
+  const add = async () => {
+    webApp.sendData({
+      type: 'add',
+      data: {
+        type,
+        title: 'title',
+        description: 'description',
+        image: 'https://via.placeholder.com/300',
+      },
+    });
+  };
   return (
-    <div className='min-h-ful pt-4'>
-      <BackButton onClick={() => nav(-1)}/>
+    <div className='min-h-ful py-4'>
+      <BackButton onClick={() => nav(-1)} />
       <Tabs
         variant='soft-rounded'
         onChange={(index) => setTabIndex(index)}
@@ -46,7 +59,11 @@ export default function AddIndex() {
         <div className='mb-4'>
           <PayLimit type={type} />
         </div>
-        <Button colorScheme='messenger' size='lg' className='w-full'>
+        <Button
+          colorScheme='messenger'
+          size='lg'
+          className='w-full'
+          onClick={add}>
           发布
         </Button>
       </div>
