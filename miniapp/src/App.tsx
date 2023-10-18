@@ -5,12 +5,29 @@ import {
   WebAppProvider,
   BackButton,
   MainButton,
+  useShowPopup,
 } from '@vkruglikov/react-telegram-web-app';
 function App() {
+  const showPopup = useShowPopup();
+
   return (
-    <ChakraProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </ChakraProvider>
+    <WebAppProvider
+      options={{
+        smoothButtonsTransition: true,
+      }}>
+      <BackButton
+        onClick={() => {
+          showPopup({
+            message: 'back button click',
+          });
+        }}
+      />
+      <div>123</div>
+      {/* <ChakraProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </ChakraProvider>
+      // <MainButton text="test"/> */}
+    </WebAppProvider>
   );
 }
 
