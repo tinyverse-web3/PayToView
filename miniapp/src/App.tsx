@@ -11,10 +11,7 @@ function App() {
   const showPopup = useShowPopup();
 
   return (
-    <WebAppProvider
-      options={{
-        smoothButtonsTransition: true,
-      }}>
+    <WebAppProvider>
       <BackButton
         onClick={() => {
           showPopup({
