@@ -1,8 +1,8 @@
 import { createHashRouter, RouteObject } from 'react-router-dom';
-import Root from '@/Root.tsx';
-import Index from '@/pages/index.tsx';
-import DetailAdd from '@/pages/detail/add.tsx';
-import DetailEdit from '@/pages/detail/edit.tsx';
+import Root from '@/Root';
+import Index from '@/pages';
+import DetailAdd from '@/pages/detail/add';
+import DetailEdit from '@/pages/detail/edit';
 
 const resolveHashPath = (path: string) => {
   return `/#${path}`;
