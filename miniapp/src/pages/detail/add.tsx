@@ -25,7 +25,7 @@ export default function AddIndex() {
 
   const webApp = useWebApp();
   const add = async () => {
-    webApp.sendData({
+    webApp.sendData(JSON.stringify({
       type: 'add',
       data: {
         type,
@@ -33,7 +33,7 @@ export default function AddIndex() {
         description: 'description',
         image: 'https://via.placeholder.com/300',
       },
-    });
+    }));
   };
   return (
     <div className='min-h-ful py-4'>
