@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/tinyverse-web3/paytoview/apigateway/bot"
+	"github.com/tinyverse-web3/paytoview/gateway/bot"
 )
 
 func main() {
