@@ -6,13 +6,15 @@
     "allowJs": false,
     "module": "ESNext",
     "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
     },
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "Node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -24,6 +26,7 @@
     /* Linting */
     "strict": true,
     "noUnusedLocals": false,
+    "forceConsistentCasingInFileNames": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false
