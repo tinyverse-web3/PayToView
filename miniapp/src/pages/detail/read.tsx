@@ -2,14 +2,18 @@ import { Button, Image, Card, CardBody, HStack } from '@chakra-ui/react';
 import { useTitle } from 'react-use';
 import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from '@/router';
 
 export default function DetailRead() {
   useTitle('PayToView');
   const nav = useNavigate();
   const type = 'image';
+  const toIndex = () => {
+    nav(ROUTE_PATH.INDEX, { replace: true });
+  };
   return (
     <div className='min-h-ful p-4'>
-      <BackButton onClick={() => nav(-1)} />
+      <BackButton onClick={toIndex} />
       <div className='mb-4'>
         {type !== 'image' ? (
           <div className='flex justify-center items-center'>
@@ -41,7 +45,7 @@ export default function DetailRead() {
         <div className='font-bold mb-2'>合约名称</div>
         <div className='text-sm'>123</div>
       </div>
-      <HStack spacing="20px">
+      <HStack spacing='20px'>
         <Button colorScheme='messenger' size='lg' className='flex-1'>
           付费
         </Button>

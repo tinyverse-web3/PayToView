@@ -15,7 +15,7 @@ export default function Root() {
     check();
   }, []);
   return (
-    <main>
+    <main className='h-full'>
       {loading ? (
         <div className='w-screen h-screen flex justify-center items-center'>
           {' '}

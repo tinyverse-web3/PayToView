@@ -71,13 +71,14 @@ export default function DetailAdd() {
         forwarder: 15,
       });
     }
-    
+    nav(-1);
   };
   return (
     <div className='min-h-ful py-4'>
       <BackButton onClick={() => nav(-1)} />
       <Tabs
         variant='soft-rounded'
+        align='center'
         onChange={(index) => setTabIndex(index)}
         colorScheme='green'>
         <TabList className='px-2'>

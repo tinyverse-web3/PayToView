@@ -7,5 +7,5 @@ body,
 
 a, button,input, textarea {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-user-modify: read-write-plaintext-only;
+  /* -webkit-user-modify: read-write-plaintext-only; */
 }
