@@ -1,4 +1,4 @@
-import { Button, Image, Card, CardBody } from '@chakra-ui/react';
+import { Button, Image, Card, CardBody, HStack } from '@chakra-ui/react';
 import { useTitle } from 'react-use';
 import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate } from 'react-router-dom';
@@ -41,11 +41,14 @@ export default function DetailRead() {
         <div className='font-bold mb-2'>合约名称</div>
         <div className='text-sm'>123</div>
       </div>
-      <div className=''>
-        <Button colorScheme='messenger' size='lg' className='w-full'>
-          支付
+      <HStack spacing="20px">
+        <Button colorScheme='messenger' size='lg' className='flex-1'>
+          付费
         </Button>
-      </div>
+        <Button colorScheme='messenger' size='lg' className='flex-1'>
+          分享
+        </Button>
+      </HStack>
     </div>
   );
 }
