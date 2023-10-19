@@ -3,6 +3,7 @@ package dkvs
 import (
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -31,7 +32,16 @@ type Size interface {
 
 var dkvsService common.DkvsService
 
-func RegistDkvsHandle(hs *http3.Http3Server, ds common.DkvsService) {
+func IsExistUserProfile(userPubkey string) bool {
+	key := fmt.Sprintf("/%s/%s/%s", "user", userPubkey, "Profile")
+	value, _, _, _, _, err := dkvsService.Get(key)
+	if err != nil || value == nil {
+		return false
+	}
+	return true
+}
+
+func RegistHandle(hs *http3.Http3Server, ds common.DkvsService) {
 	dkvsService = ds
 	hs.AddHandler("/dkvs/get", dkvsGetHandler)
 	hs.AddHandler("/dkvs/put", dkvsPutHandler)

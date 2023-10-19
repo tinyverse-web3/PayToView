@@ -5,16 +5,16 @@ import (
 	"os"
 )
 
-func LoadConfig(cfg any, filePath string) error {
-	if filePath != "" {
-		cfgFile, err := os.Open(filePath)
+func LoadConfig(cfg any, path string) error {
+	if path != "" {
+		f, err := os.Open(path)
 		if err != nil {
 			return err
 		}
-		defer cfgFile.Close()
+		defer f.Close()
 
-		decoder := json.NewDecoder(cfgFile)
-		err = decoder.Decode(&cfg)
+		d := json.NewDecoder(f)
+		err = d.Decode(&cfg)
 		if err != nil {
 			return err
 		}

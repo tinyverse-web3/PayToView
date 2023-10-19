@@ -29,8 +29,6 @@ func (s *Tvnode) Start(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-
-	s.GetMsgService().SetProxyPubkey("")
 	// wait rendezvous
 	if s.tvbase.GetIsRendezvous() {
 		return nil
@@ -44,6 +42,10 @@ func (s *Tvnode) Start(ctx context.Context) error {
 			return ctx.Err()
 		}
 	}
+}
+
+func (m *Tvnode) GetTvbase() *tvbase.TvBase {
+	return m.tvbase
 }
 
 func (m *Tvnode) GetDkvsService() tvCommon.DkvsService {
