@@ -90,18 +90,18 @@ func genEcdsaKey() (privkey string, pubkey string, err error) {
 
 func genConfigFile(rootPath string) error {
 	cfg := config.NewTvnGatewayConfig()
-	privkey, _, err := genEd25519Key()
-	if err != nil {
-		return err
-	}
-	cfg.Proxy.PrivKey = privkey
-
-	privkey, _, err = genEcdsaKey()
+	privkey, _, err := genEcdsaKey()
 	if err != nil {
 		return err
 	}
 
 	cfg.Tvbase.Mode = nodeMode
+	cfg.Proxy.PrivKey = privkey
+
+	privkey, _, err = genEd25519Key()
+	if err != nil {
+		return err
+	}
 	cfg.Tvbase.Identity.PrivKey = privkey
 
 	cfg.Tvbase.SetMdns(false)

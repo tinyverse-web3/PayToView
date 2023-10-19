@@ -10,10 +10,11 @@ import (
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
 	shell "github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
+
+	// "github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
-	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
+	// "github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
+	// "github.com/tinyverse-web3/paytoview/gateway/tvnode"
 )
 
 func main() {
@@ -52,38 +53,40 @@ func main() {
 	}
 
 	svr := http3.NewHttp3Server()
-	svr.SetQlog(rootPath)
-	svr.SetAddr(cfg.Http3.Addr)
 
-	node, err := tvnode.NewTvNode(ctx, rootPath, cfg.Tvbase)
-	if err != nil {
-		logger.Fatalf("tvn->main: NewTvNode: error: %+v", err)
-	}
-	err = node.Start(ctx)
-	if err != nil {
-		logger.Fatalf("tvn->main: node.Start: error: %+v", err)
-	}
+	// debug
+	// svr.SetQlog(rootPath)
+
+	// node, err := tvnode.NewTvNode(ctx, rootPath, cfg.Tvbase)
+	// if err != nil {
+	// 	logger.Fatalf("tvn->main: NewTvNode: error: %+v", err)
+	// }
+	// err = node.Start(ctx)
+	// if err != nil {
+	// 	logger.Fatalf("tvn->main: node.Start: error: %+v", err)
+	// }
 
 	// ipfs
 	ipfs.RegistHandle(svr)
 
 	// dkvs
-	dkvs.RegistHandle(svr, node.GetDkvsService())
+	// dkvs.RegistHandle(svr, node.GetDkvsService())
 
 	// msg
-	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(cfg.Proxy.PrivKey)
-	if err != nil {
-		logger.Fatalf("tvn->main: getEcdsaPrivKey: error: %+v", err)
-	}
+	// userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(cfg.Proxy.PrivKey)
+	// if err != nil {
+	// 	logger.Fatalf("tvn->main: getEcdsaPrivKey: error: %+v", err)
+	// }
 
-	userPrivkeyHex := hex.EncodeToString(userPrivkeyData)
-	userPubkeyHex := hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey))
-	logger.Infof("tvn->main: userPrivkeyHex: %s, userPubkeyHex: %s", userPrivkeyHex, userPubkeyHex)
+	// proxyPrivkeyHex := hex.EncodeToString(userPrivkeyData)
+	// proxyPubkeyHex := hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey))
+	// logger.Infof("tvn->main:\nproxyPrivkeyHex: %s\nproxyPubkeyHex: %s", proxyPrivkeyHex, proxyPubkeyHex)
 
-	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
-	msgInstance.RegistHandle(svr)
+	// msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
+	// msgInstance.RegistHandle(svr)
 
-	svr.ListenAndServeTLS(cfg.Http3.CertPath, cfg.Http3.PrivPath)
+	go svr.ListenUdpTLS(cfg.Http3.UdpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
+	go svr.ListenTcpTLS(cfg.Http3.TcpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
 	<-ctx.Done()
 }
 
