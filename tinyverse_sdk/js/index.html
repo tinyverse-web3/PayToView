@@ -1,0 +1,32 @@
+<html>  
+    <head>
+        <meta charset="utf-8"/>
+        <title>Test Js Call Go func</title>
+        <link rel="icon" type="image/svg+xml" href="/javascript.svg" />
+        <script  type="module" src="./lib/main.js"></script>
+        <script type="module">
+            import TvsWasm from './lib/main.js'
+            const tvsWasmObj = new TvsWasm()
+            tvsWasmObj.initWasm().then(() => {
+                let tvswasm = tvsWasmObj.wasm
+                if (tvswasm === null || tvswasm  === undefined) {
+                    // tvnwasm 为空
+                    console.log('tvnwasm is empty or undefined');
+                } else {
+                    // tvnwasm 不为空
+                    document.getElementById("runButton").disabled = false;
+                }
+            })
+            window.run = (() => {
+                console.clear()
+                const jsonObject = { telegramID: "123456", sssData: "222" };
+                const jsonString = JSON.stringify(jsonObject);
+                console.log("jsonString: ", jsonString);
+                tvsWasmObj.createAccount(jsonString)
+            })
+        </script>
+    </head>
+    <body>
+        <button onClick="run()" id="runButton" disabled>Run</button>
+    </body>
+</html> 

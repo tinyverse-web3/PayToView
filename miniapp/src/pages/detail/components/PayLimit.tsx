@@ -7,21 +7,25 @@ import {
   InputRightAddon,
   NumberInputField,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useMap } from 'react-use';
 interface PayLimitProps {
   type: 'image' | 'text';
+  onChange?: (data: any) => void;
 }
 
-export const PayLimit = ({ type }: PayLimitProps) => {
+export const PayLimit = ({ onChange, type }: PayLimitProps) => {
   const [data, { set }] = useMap({
     textLimit: 10,
-    platform: 0.5,
-    developer: 1,
-    announcer: 7,
-    forwarder: 1.5,
-    content: '',
+    platform: 5,
+    developer: 10,
+    announcer: 70,
+    forwarder: 15,
   });
 
+  useEffect(() => {
+    onChange?.(data);
+  }, [data]);
   return (
     <div>
       <FormControl className='mb-4'>
@@ -73,7 +77,7 @@ export const PayLimit = ({ type }: PayLimitProps) => {
             <div className='text-sm mb-1 text-center'>发布人</div>
             <NumberInput
               min={0}
-              max={6}
+              max={70}
               width='100%'
               size='sm'
               variant='filled'
@@ -85,8 +89,8 @@ export const PayLimit = ({ type }: PayLimitProps) => {
           <div>
             <div className='text-sm mb-1 text-center'>转发人</div>
             <NumberInput
-              min={1.5}
-              max={8.5}
+              min={15}
+              max={85}
               size='sm'
               width='100%'
               variant='filled'

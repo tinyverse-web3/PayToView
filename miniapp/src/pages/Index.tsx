@@ -1,43 +1,47 @@
-import { SimpleGrid, Image, IconButton } from '@chakra-ui/react';
+import { SimpleGrid, IconButton, Tabs, TabList, Tab } from '@chakra-ui/react';
+import { useState } from 'react';
+import { IndexItem } from '@/components/IndexItem';
+import { Empty } from '@/components/Empty';
 import { useTitle } from 'react-use';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { ROUTE_PATH } from '@/router';
 
+import { useListStore } from '@/store/list';
+
 export default function Index() {
   useTitle('PayToView');
-
+  const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
+  const { list } = useListStore((state) => state);
 
   const toAdd = () => {
     nav(ROUTE_PATH.DETAIL_ADD);
   };
-  const toEdit = () => {
-    nav(ROUTE_PATH.DETAIL_EDIT);
-  };
 
   return (
-    <div className='h-full p-4'>
+    <div className='h-full overflow-hidden'>
       <div className='h-full overflow-y-auto'>
-        <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
-          <div
-            className='rounded-lg bg-gray-50 overflow-hidden flex justify-center items-center h-48'
-            onClick={toEdit}>
-            <Image
-              src='https://via.placeholder.com/300'
-              height='100%'
-              fit='cover'
-            />
-          </div>
-          <div className='rounded-lg bg-gray-50 overflow-hidden flex justify-center items-center  h-48'>
-            <div className='break-all p-4 h-full overflow-hidden'>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam
-              reiciendis praesentium enim quod! Impedit sequi itaque qui, autem
-              nam voluptatum quaerat placeat adipisci quia. Dolorem cumque a
-              accusantium atque repellat.
-            </div>
-          </div>
-        </SimpleGrid>
+        <div className=' sticky top-0 z-20 bg-white py-2'>
+          <Tabs
+            variant='soft-rounded'
+            align='center'
+            onChange={(index) => setTabIndex(index)}
+            colorScheme='green'>
+            <TabList className='px-2'>
+              <Tab>我上传的</Tab>
+              <Tab>我阅读过的</Tab>
+            </TabList>
+          </Tabs>
+        </div>
+        <div className='p-4'>
+          {list.length === 0 && <Empty />}
+          <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
+            {list.map((v, i) => (
+              <IndexItem item={v} key={i} />
+            ))}
+          </SimpleGrid>
+        </div>
       </div>
       <div className='absolute bottom-4 right-4'>
         <IconButton
@@ -45,7 +49,6 @@ export default function Index() {
           variant='solid'
           colorScheme='teal'
           aria-label='Done'
-          fontSize='20px'
           onClick={toAdd}
           icon={<Icon icon='material-symbols:add' className='text-3xl' />}
         />

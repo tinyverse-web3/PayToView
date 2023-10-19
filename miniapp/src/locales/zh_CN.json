@@ -6,6 +6,10 @@
     "upload": {
       "title": "上传",
       "description": "Upload a file to the server"
+    },
+    "empty": {
+      "title": "暂无数据",
+      "description": "Empty"
     }
   }
 }
