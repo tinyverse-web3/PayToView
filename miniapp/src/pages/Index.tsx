@@ -29,8 +29,8 @@ export default function Index() {
             onChange={(index) => setTabIndex(index)}
             colorScheme='green'>
             <TabList className='px-2'>
-              <Tab>我上传的</Tab>
-              <Tab>我阅读过的</Tab>
+              <Tab>上传的</Tab>
+              <Tab>付费的</Tab>
             </TabList>
           </Tabs>
         </div>
