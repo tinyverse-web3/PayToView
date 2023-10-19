@@ -42,6 +42,16 @@ func main() {
 		logger.Fatalf("tvn->main: loadConfig: %+v", err)
 	}
 
+	if isTest {
+		cfg.Tvbase.SetLocalNet(true)
+		cfg.Tvbase.SetMdns(false)
+		cfg.Tvbase.SetDhtProtocolPrefix("/tvnode_test")
+		cfg.Tvbase.InitMode(nodeMode)
+		cfg.Tvbase.ClearBootstrapPeers()
+		cfg.Tvbase.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWPThTtBAaC5vvnj6NE2iQSfuBHRUdtPweM6dER62R57R2")
+		cfg.Tvbase.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWPThTtBAaC5vvnj6NE2iQSfuBHRUdtPweM6dER62R57R2")
+	}
+
 	err = initLog()
 	if err != nil {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
