@@ -1,12 +1,20 @@
-const path = require('path')
-const { defineConfig } = require('vite')
+import { resolve } from 'path'
+import { defineConfig } from 'vite'
+import viteCompression from 'vite-plugin-compression';
 
-module.exports = defineConfig({
+
+export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'lib/main.js'),
+      entry: resolve(__dirname, 'lib/main.js'),
       name: 'tvs',
-      fileName: (format) => `tvs.${format}.js`
+      fileName: 'tvs'
     }
-  }
+  },
+  plugins : [
+    viteCompression({
+      algorithm: 'gzip',
+    })
+  ]
 });
+

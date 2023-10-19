@@ -2,8 +2,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>Test Js Call Go func</title>
-        <!-- <script  src="./lib/wasm-exec/wasm_exec_1.20.3.js"></script> -->
-   
+        <link rel="icon" type="image/svg+xml" href="/javascript.svg" />
         <script  type="module" src="./lib/main.js"></script>
         <script type="module">
             import TvsWasm from './lib/main.js'
@@ -20,8 +19,10 @@
             })
             window.run = (() => {
                 console.clear()
-                //tvsWasmObj.createAccount()
-                tvsWasmObj.sendMsg("什么是DKVS")
+                const jsonObject = { telegramID: "123456", sssData: "222" };
+                const jsonString = JSON.stringify(jsonObject);
+                console.log("jsonString: ", jsonString);
+                tvsWasmObj.createAccount(jsonString)
             })
         </script>
     </head>
