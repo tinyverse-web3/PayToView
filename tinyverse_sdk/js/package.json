@@ -1,0 +1,26 @@
+{
+  "name": "tvs",
+  "version": "1.0.0",
+  "description": "golang tinverse_skd for js",
+  "files":["dist"],
+  "main":"./dist/tvs.umd.js",
+  "module":"./dist/tvs.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/tvs.es.js",
+      "require": "./dist/tvs.umd.js"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "tinyverse",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^4.4.11"
+  }
+}
