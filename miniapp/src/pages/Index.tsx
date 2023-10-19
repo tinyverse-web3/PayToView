@@ -1,5 +1,5 @@
 import { SimpleGrid, IconButton, Tabs, TabList, Tab } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { IndexItem } from '@/components/IndexItem';
 import { Empty } from '@/components/Empty';
 import { useTitle } from 'react-use';
@@ -13,12 +13,14 @@ export default function Index() {
   useTitle('PayToView');
   const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
-  const { list } = useListStore((state) => state);
+  const { list, payedList } = useListStore((state) => state);
 
   const toAdd = () => {
     nav(ROUTE_PATH.DETAIL_ADD);
   };
-
+  const dataList = useMemo(() => {
+    return tabIndex === 0 ? list : payedList;
+  }, [tabIndex, list, payedList]);
   return (
     <div className='h-full overflow-hidden'>
       <div className='h-full overflow-y-auto'>
@@ -29,15 +31,15 @@ export default function Index() {
             onChange={(index) => setTabIndex(index)}
             colorScheme='green'>
             <TabList className='px-2'>
-              <Tab>我上传的</Tab>
-              <Tab>我阅读过的</Tab>
+              <Tab>上传的</Tab>
+              <Tab>付费的</Tab>
             </TabList>
           </Tabs>
         </div>
         <div className='p-4'>
-          {list.length === 0 && <Empty />}
+          {dataList.length === 0 && <Empty />}
           <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
-            {list.map((v, i) => (
+            {dataList.map((v, i) => (
               <IndexItem item={v} key={i} />
             ))}
           </SimpleGrid>
