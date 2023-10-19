@@ -48,7 +48,7 @@ func NewTvnGatewayConfig() *TvnGatewayConfig {
 			PrivPath:   "./priv.key",
 		},
 		Ipfs: IpfsConfig{
-			ShellAddr: "/ip4/127.0.0.1/5001",
+			ShellAddr: "/ip4/127.0.0.1/tcp/5001",
 		},
 		Dkvs: DkvsConfig{
 			ServiceUrl: "http://103.103.245.177:9099/tvbase/",
