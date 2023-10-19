@@ -2,13 +2,17 @@ package main
 
 import (
 	"context"
+	"crypto/ecdsa"
+	"encoding/hex"
 	"os"
 
+	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
-	ipfsShell "github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
+	shell "github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
 	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
 )
 
@@ -42,14 +46,14 @@ func main() {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
 	}
 
-	_, err = ipfsShell.CreateIpfsShellProxy(cfg.Ipfs.ShellAddr)
+	_, err = shell.CreateIpfsShellProxy(cfg.Ipfs.ShellAddr)
 	if err != nil {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
 	}
 
-	http3Svr := http3.NewHttp3Server()
-	http3Svr.SetQlog(rootPath)
-	http3Svr.SetAddr(cfg.Http3.Addr)
+	svr := http3.NewHttp3Server()
+	svr.SetQlog(rootPath)
+	svr.SetAddr(cfg.Http3.Addr)
 
 	node, err := tvnode.NewTvNode(ctx, rootPath, cfg.Tvbase)
 	if err != nil {
@@ -60,9 +64,37 @@ func main() {
 		logger.Fatalf("tvn->main: node.Start: error: %+v", err)
 	}
 
-	ipfs.RegistIpfsHandle(http3Svr)
-	dkvs.RegistDkvsHandle(http3Svr, node.GetDkvsService())
+	// ipfs
+	ipfs.RegistHandle(svr)
 
-	http3Svr.ListenAndServeTLS(cfg.Http3.CertPath, cfg.Http3.PrivPath)
+	// dkvs
+	dkvs.RegistHandle(svr, node.GetDkvsService())
+
+	// msg
+	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(cfg.Proxy.PrivKey)
+	if err != nil {
+		logger.Fatalf("tvn->main: getEcdsaPrivKey: error: %+v", err)
+	}
+
+	userPrivkeyHex := hex.EncodeToString(userPrivkeyData)
+	userPubkeyHex := hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey))
+	logger.Infof("tvn->main: userPrivkeyHex: %s, userPubkeyHex: %s", userPrivkeyHex, userPubkeyHex)
+
+	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
+	msgInstance.RegistHandle(svr)
+
+	svr.ListenAndServeTLS(cfg.Http3.CertPath, cfg.Http3.PrivPath)
 	<-ctx.Done()
+}
+
+func getEcdsaPrivKey(privkeyHex string) ([]byte, *ecdsa.PrivateKey, error) {
+	privkeyData, err := hex.DecodeString(privkeyHex)
+	if err != nil {
+		return privkeyData, nil, err
+	}
+	privkey, err := eth_crypto.ToECDSA(privkeyData)
+	if err != nil {
+		return privkeyData, nil, err
+	}
+	return privkeyData, privkey, nil
 }

@@ -10,6 +10,7 @@ import (
 	"github.com/ipfs/go-cid"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 )
 
 type ipfsAddResp struct {
@@ -30,7 +31,7 @@ type Size interface {
 	Size() int64
 }
 
-func RegistIpfsHandle(h *http3.Http3Server) {
+func RegistHandle(h *http3.Http3Server) {
 	h.AddHandler("/ipfs/add", ipfsAddHandler)
 	h.AddHandler("/ipfs/cat", ipfsCatHandler)
 }
@@ -57,6 +58,11 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 				logger.Errorf("ipfsAddHandler: WriteString: error: %+v", err)
 			}
 			logger.Debugf("ipfsAddHandler: WriteString len: %d", len)
+		}
+
+		if !dkvs.IsExistUserProfile(resp.PubKey) {
+			setErrResp(-1, "user profile not exist")
+			return
 		}
 
 		var sizeInBytes int64 = 100 * 1024 * 1024 // 100M
@@ -127,6 +133,7 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, "invalid params")
 			return
 		}
+
 		c, err := cid.Decode(resp.Cid)
 		if err != nil {
 			setErrResp(-1, "invalid cid format")
@@ -135,6 +142,11 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 
 		if c.Version() < 1 {
 			setErrResp(-1, "invalid cid version")
+			return
+		}
+
+		if !dkvs.IsExistUserProfile(resp.PubKey) {
+			setErrResp(-1, "user profile not exist")
 			return
 		}
 

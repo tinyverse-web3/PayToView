@@ -40,7 +40,7 @@ func (s *Http3Server) AddHandler(pattern string, handler func(http.ResponseWrite
 }
 
 func (s *Http3Server) SetQlog(logPath string) {
-	s.server.QuicConfig.Tracer = func(ctx context.Context, p logging.Perspective, connID quic.ConnectionID) *logging.ConnectionTracer {
+	s.server.QuicConfig.Tracer = func(ctx context.Context, p logging.Perspective, connID quic.ConnectionID) logging.ConnectionTracer {
 		filename := fmt.Sprintf(logPath+"server_%x.qlog", connID)
 		f, err := os.Create(filename)
 		if err != nil {

@@ -11,6 +11,25 @@
             "mode": "auto",
             "program": "${workspaceFolder}/apiserver/bot/example/tutorial",
             "console": "integratedTerminal",
-        }
+            "args": []
+        },
+        {
+            "name": "tvn-init",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/gateway/tvn",
+            "console": "integratedTerminal",
+            "args": ["-init"]
+        },
+        {
+            "name": "tvn-run",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/gateway/tvn",
+            "console": "integratedTerminal",
+            "args": []
+        },
     ]
 }
