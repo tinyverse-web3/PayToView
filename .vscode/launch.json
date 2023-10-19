@@ -23,7 +23,7 @@
             "args": ["-init"]
         },
         {
-            "name": "tvn-run",
+            "name": "tvn-run-test",
             "type": "go",
             "request": "launch",
             "mode": "auto",

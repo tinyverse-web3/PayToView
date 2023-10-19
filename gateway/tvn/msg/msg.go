@@ -155,7 +155,7 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		destPubkey := r.PostFormValue("pubkey")
+		destPubkey := r.PostFormValue("destPubkey")
 		if destPubkey == "" {
 			setErrResp(-1, "invalid params destPubkey")
 			return
@@ -192,6 +192,7 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 		logger.Debugf("msg->msgProxySendMsgHandler: WriteString len: %d", len)
 		return
 	}
+	w.WriteHeader(http.StatusNotFound)
 }
 
 func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
@@ -255,4 +256,5 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 		logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d", len)
 		return
 	}
+	w.WriteHeader(http.StatusNotFound)
 }

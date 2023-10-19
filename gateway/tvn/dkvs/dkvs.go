@@ -88,6 +88,7 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 		logger.Debugf("dkvsGetHandler: WriteString len: %d", len)
 		return
 	}
+	w.WriteHeader(http.StatusNotFound)
 }
 
 func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
@@ -138,7 +139,7 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		ttl, err := strconv.ParseUint(r.PostFormValue("issuetime"), 10, 64)
+		ttl, err := strconv.ParseUint(r.PostFormValue("ttl"), 10, 64)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
@@ -164,4 +165,5 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 		logger.Debugf("dkvsPutHandler: WriteString len: %d", len)
 		return
 	}
+	w.WriteHeader(http.StatusNotFound)
 }
