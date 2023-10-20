@@ -6,7 +6,6 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
 	"github.com/tinyverse-web3/tvbase/common"
@@ -140,7 +139,11 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		issuetime := uint64(time.Now().UnixMilli())
+		issuetime, err := strconv.ParseUint(reqParams["issuetime"], 10, 64)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
 
 		sig, err := base64.StdEncoding.DecodeString(reqParams["sig"])
 		if err != nil {
