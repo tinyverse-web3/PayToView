@@ -77,6 +77,7 @@ func main() {
 	if err != nil {
 		logger.Fatalf("tvn->main: node.Start: error: %+v", err)
 	}
+	logger.Infof("tvn->main: node.Start, find rendezvous and join tvnode network")
 
 	// ipfs
 	ipfs.RegistHandle(svr)

@@ -23,7 +23,7 @@ var isTest bool
 
 func parseCmdParams() string {
 	init := flag.Bool("init", false, "Initialize tvnode with default setting configuration file if not already initialized.")
-	mode := flag.String("mode", "service", "Initialize tvnode mode for service mode or light mode.")
+	mode := flag.String("mode", "light", "Initialize tvnode mode for service mode or light mode.")
 	path := flag.String("path", defaultPath, "Path to configuration file and data file to use.")
 	help := flag.Bool("help", false, "Show help.")
 	test := flag.Bool("test", false, "Test mode.")
