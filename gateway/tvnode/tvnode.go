@@ -15,7 +15,6 @@ type Tvnode struct {
 func NewTvNode(ctx context.Context, rootPath string, cfg *config.TvbaseConfig) (*Tvnode, error) {
 	ret, err := tvbase.NewTvbase(ctx, cfg, rootPath)
 	if err != nil {
-		logger.Errorf("NewTvbaseService: NewTvbase error: %+v", err)
 		return nil, err
 	}
 

@@ -30,10 +30,6 @@ func NewHttp3Server() *Http3Server {
 	}
 }
 
-func (s *Http3Server) SetAddr(addr string) {
-	s.server.Addr = addr
-}
-
 func (s *Http3Server) AddHandler(pattern string, handler func(http.ResponseWriter, *http.Request)) {
 	mux := s.server.Handler.(*http.ServeMux)
 	mux.HandleFunc(pattern, handler)
@@ -50,10 +46,18 @@ func (s *Http3Server) SetQlog(logPath string) {
 	}
 }
 
-func (s *Http3Server) ListenAndServeTLS(certPath string, prikeyPath string) {
+func (s *Http3Server) ListenUdpTLS(addr string, certPath string, prikeyPath string) {
+	s.server.Addr = addr
 	err := s.server.ListenAndServeTLS(certPath, prikeyPath)
 	if err != nil {
-		logger.Errorf("Http3Server:setQlog: ListenAndServeTLS error: %v", err)
+		logger.Fatalf("Http3Server:ListenUdpTLS: ListenAndServeTLS error: %v", err)
+	}
+}
+
+func (s *Http3Server) ListenTcpTLS(addr string, certPath string, prikeyPath string) {
+	err := http3.ListenAndServe(addr, certPath, prikeyPath, s.server.Handler)
+	if err != nil {
+		logger.Fatalf("Http3Server:ListenTcpTLS: ListenAndServe error: %v", err)
 	}
 }
 

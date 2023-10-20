@@ -19,12 +19,14 @@ const (
 )
 
 var nodeMode tvbaseConfig.NodeMode = tvbaseConfig.LightMode
+var isTest bool
 
 func parseCmdParams() string {
 	init := flag.Bool("init", false, "Initialize tvnode with default setting configuration file if not already initialized.")
 	mode := flag.String("mode", "service", "Initialize tvnode mode for service mode or light mode.")
 	path := flag.String("path", defaultPath, "Path to configuration file and data file to use.")
 	help := flag.Bool("help", false, "Show help.")
+	test := flag.Bool("test", false, "Test mode.")
 
 	flag.Parse()
 
@@ -37,6 +39,10 @@ func parseCmdParams() string {
 
 	if *mode == "service" {
 		nodeMode = tvbaseConfig.ServiceMode
+	}
+
+	if *test {
+		isTest = true
 	}
 
 	if *init {
@@ -90,18 +96,18 @@ func genEcdsaKey() (privkey string, pubkey string, err error) {
 
 func genConfigFile(rootPath string) error {
 	cfg := config.NewTvnGatewayConfig()
-	privkey, _, err := genEd25519Key()
-	if err != nil {
-		return err
-	}
-	cfg.Proxy.PrivKey = privkey
-
-	privkey, _, err = genEcdsaKey()
+	privkey, _, err := genEcdsaKey()
 	if err != nil {
 		return err
 	}
 
 	cfg.Tvbase.Mode = nodeMode
+	cfg.Proxy.PrivKey = privkey
+
+	privkey, _, err = genEd25519Key()
+	if err != nil {
+		return err
+	}
 	cfg.Tvbase.Identity.PrivKey = privkey
 
 	cfg.Tvbase.SetMdns(false)

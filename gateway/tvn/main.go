@@ -10,6 +10,7 @@ import (
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
 	shell "github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
+
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
@@ -41,6 +42,16 @@ func main() {
 		logger.Fatalf("tvn->main: loadConfig: %+v", err)
 	}
 
+	if isTest {
+		cfg.Tvbase.SetLocalNet(true)
+		cfg.Tvbase.SetMdns(false)
+		cfg.Tvbase.SetDhtProtocolPrefix("/tvnode_test")
+		cfg.Tvbase.InitMode(nodeMode)
+		cfg.Tvbase.ClearBootstrapPeers()
+		cfg.Tvbase.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
+		cfg.Tvbase.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
+	}
+
 	err = initLog()
 	if err != nil {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
@@ -52,8 +63,11 @@ func main() {
 	}
 
 	svr := http3.NewHttp3Server()
-	svr.SetQlog(rootPath)
-	svr.SetAddr(cfg.Http3.Addr)
+
+	// debug
+	if isTest {
+		svr.SetQlog(rootPath)
+	}
 
 	node, err := tvnode.NewTvNode(ctx, rootPath, cfg.Tvbase)
 	if err != nil {
@@ -76,14 +90,15 @@ func main() {
 		logger.Fatalf("tvn->main: getEcdsaPrivKey: error: %+v", err)
 	}
 
-	userPrivkeyHex := hex.EncodeToString(userPrivkeyData)
-	userPubkeyHex := hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey))
-	logger.Infof("tvn->main: userPrivkeyHex: %s, userPubkeyHex: %s", userPrivkeyHex, userPubkeyHex)
+	proxyPrivkeyHex := hex.EncodeToString(userPrivkeyData)
+	proxyPubkeyHex := hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey))
+	logger.Infof("tvn->main:\nproxyPrivkeyHex: %s\nproxyPubkeyHex: %s", proxyPrivkeyHex, proxyPubkeyHex)
 
 	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
 	msgInstance.RegistHandle(svr)
 
-	svr.ListenAndServeTLS(cfg.Http3.CertPath, cfg.Http3.PrivPath)
+	go svr.ListenUdpTLS(cfg.Http3.UdpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
+	go svr.ListenTcpTLS(cfg.Http3.TcpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
 	<-ctx.Done()
 }
 

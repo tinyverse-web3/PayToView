@@ -6,7 +6,8 @@ import (
 
 type Http3Config struct {
 	EnableQlog bool
-	Addr       string
+	TcpAddr    string
+	UdpAddr    string
 	CertPath   string
 	PrivPath   string
 }
@@ -43,7 +44,8 @@ func NewTvnGatewayConfig() *TvnGatewayConfig {
 		},
 		Http3: Http3Config{
 			EnableQlog: false,
-			Addr:       "localhost:80",
+			TcpAddr:    "0.0.0.0:443",
+			UdpAddr:    "0.0.0.0:4430",
 			CertPath:   "./cert.pem",
 			PrivPath:   "./priv.key",
 		},

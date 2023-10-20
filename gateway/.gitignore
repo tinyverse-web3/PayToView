@@ -2,4 +2,9 @@
 __debug_bin*
 
 config.json
+dht_data
+msg_data
+unsynckv
+*.qlog
+
 

@@ -166,4 +166,5 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Disposition", "attachment; filename="+resp.Cid)
 		return
 	}
+	w.WriteHeader(http.StatusNotFound)
 }
