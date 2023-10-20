@@ -41,7 +41,8 @@ class TvsWasm{
       createAccount(parameters)
     }
 
-    jsDeployTvsCommission(parameters){
+    // 部署代理人合约
+    jsDeployCommission(parameters){
         deployCommission(parameters)
     }
     
