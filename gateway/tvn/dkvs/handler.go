@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
 	"github.com/tinyverse-web3/tvbase/common"
@@ -77,11 +78,22 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 }
 
+func parseJsonForm(reader io.Reader, ret map[string]string) error {
+	body, err := io.ReadAll(reader)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(body, &ret)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
-		r.ParseForm()
 
 		resp := dkvsPutResp{
 			Key:    "",
@@ -100,38 +112,43 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 			logger.Debugf("dkvs->dkvsPutHandler: WriteString len: %d", len)
 		}
 
-		key := r.PostFormValue("key")
+		reqParams := map[string]string{}
+		err := parseJsonForm(r.Body, reqParams)
+		if err == nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+
+		logger.Debugf("dkvs->dkvsPutHandler: reqParams:\n%+v", reqParams)
+
+		key := reqParams["key"]
 		if key == "" {
 			setErrResp(-1, "invalid params key")
 			return
 		}
 		resp.Key = key
 
-		value, err := base64.StdEncoding.DecodeString(r.PostFormValue("value"))
+		value, err := base64.StdEncoding.DecodeString(reqParams["value"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		pubkey, err := base64.StdEncoding.DecodeString(r.PostFormValue("pubkey"))
+		pubkey, err := base64.StdEncoding.DecodeString(reqParams["pubkey"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		issuetime, err := strconv.ParseUint(r.PostFormValue("issuetime"), 10, 64)
+		issuetime := uint64(time.Now().UnixMilli())
+
+		sig, err := base64.StdEncoding.DecodeString(reqParams["sig"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		ttl, err := strconv.ParseUint(r.PostFormValue("ttl"), 10, 64)
-		if err != nil {
-			setErrResp(-1, err.Error())
-			return
-		}
-
-		sig, err := base64.StdEncoding.DecodeString(r.PostFormValue("sig"))
+		ttl, err := strconv.ParseUint(reqParams["ttl"], 10, 64)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return

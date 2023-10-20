@@ -49,6 +49,7 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 			Result: "succ",
 		}
 
+		logger.Debugf("ipfs->ipfsCatHandler: resp: %+v", resp)
 		setErrResp := func(code int, result string) {
 			resp.Code = -1
 			resp.Result = result
