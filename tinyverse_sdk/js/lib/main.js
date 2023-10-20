@@ -1,6 +1,6 @@
 import * as _ from "./wasm-exec/wasm_exec_1.20.3"
 import { wasmBrowserInstantiate } from "./wasm-exec/instantiateWasm"
-import wasmData from "../../../../tinyverse_sdk-paytoview/wasm/main.wasm?url"
+import wasmData from "../../../../tinyverse_sdk_pay2view/wasm/main.wasm?url"
 
 
 class TvsWasm{
@@ -37,8 +37,47 @@ class TvsWasm{
      * @param {string}  parameters - jsonString: {"telegramID":"123456","sssData":""} The parameters for creating the account.
      * @return {undefined}
      */
-    createAccount(parameters){
-      createTvsAccount(parameters)
+    jsCreateAccount(parameters){
+      createAccount(parameters)
+    }
+
+    jsDeployTvsCommission(parameters){
+        deployCommission(parameters)
+    }
+    
+    // 部署付费阅读合约
+    jsDeployPayToView(parameters){
+        deployPayToView(parameters)
+    }
+    
+    // 付费
+    jsPayToView(parameters){
+        payToView(parameters)
+    }
+    
+    // 获取阅读凭证
+    jsApplyViewProof(parameters){
+        applyViewProof(parameters)
+    }
+    
+    // 获取阅读密码
+    jsGetViewPassword(parameters){
+        getViewPassword(parameters)
+    }
+    
+    // 获取代理人合约列表
+    jsGetCommissionList(){
+        getCommissionList()
+    }
+    
+    // 获取付费阅读合约列表
+    jsGetPayToViewList(){
+        getPayToViewList()
+    }
+    
+    // 获取付费列表
+    getPaiedList(){
+        getPaiedList()
     }
    
     sendMsg(msg){
