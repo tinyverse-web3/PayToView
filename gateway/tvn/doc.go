@@ -71,6 +71,7 @@ package main
 // - pubkey string
 // - destPubkey string
 // - content []byte
+// - sig []byte
 // return:
 // - code int
 //  -  0: succ
@@ -83,7 +84,7 @@ package main
 // params:
 // - pubkey string
 // - timeout int64, no must
-// - content []byte
+// - sig []byte
 // return:
 // - code int
 //  -  0: succ

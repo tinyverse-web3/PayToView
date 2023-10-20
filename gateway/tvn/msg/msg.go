@@ -13,8 +13,8 @@ import (
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	"github.com/tinyverse-web3/mtv_go_utils/crypto"
+	"github.com/tinyverse-web3/mtv_go_utils/key"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/tvbase/dmsg"
 	"github.com/tinyverse-web3/tvbase/dmsg/client"
 	"github.com/tinyverse-web3/tvbase/tvbase"
@@ -79,6 +79,7 @@ func (m *MsgService) getUser(pubkey string) (*client.DmsgService, error) {
 	// set proxy pubkey
 	proxyPubkey := hex.EncodeToString(eth_crypto.FromECDSAPub(&m.proxyPrivkey.PublicKey))
 	ret.SetProxyPubkey(proxyPubkey)
+	ret.SetProxyReqPubkey(pubkey)
 
 	// create msg user
 	getSig := func(protoData []byte) ([]byte, error) {
@@ -109,6 +110,7 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 	if err != nil {
 		return err
 	}
+
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {
 		return err
@@ -161,19 +163,21 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !dkvs.IsExistUserProfile(pubkey) {
-			setErrResp(-1, "user profile not exist")
-			return
-		}
-
-		if !dkvs.IsExistUserProfile(destPubkey) {
-			setErrResp(-1, "dest user profile not exist")
+		sig, err := base64.StdEncoding.DecodeString(r.PostFormValue("sig"))
+		if err != nil {
+			setErrResp(-1, err.Error())
 			return
 		}
 
 		content, err := base64.StdEncoding.DecodeString(r.PostFormValue("content"))
 		if err != nil {
 			setErrResp(-1, err.Error())
+			return
+		}
+
+		isVerify := verifyUserSig(pubkey, content, sig)
+		if !isVerify {
+			setErrResp(-1, "invalid sig")
 			return
 		}
 
@@ -225,8 +229,15 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		resp.Key = pubkey
 
-		if !dkvs.IsExistUserProfile(pubkey) {
-			setErrResp(-1, "user profile not exist")
+		sig, err := base64.StdEncoding.DecodeString(r.PostFormValue("sig"))
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+
+		isVerify := verifyUserSig(pubkey, []byte(pubkey), sig)
+		if !isVerify {
+			setErrResp(-1, "invalid sig")
 			return
 		}
 
@@ -257,4 +268,23 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
+}
+
+func verifyUserSig(pubkeyHex string, content []byte, sign []byte) bool {
+	pubkeyData, err := key.TranslateKeyStringToProtoBuf(pubkeyHex)
+	if err != nil {
+		logger.Errorf("msg->verifyUserSig: TranslateKeyStringToProtoBuf error: %v", err)
+		return false
+	}
+	pubkey, err := key.ECDSAProtoBufToPublicKey(pubkeyData)
+	if err != nil {
+		logger.Errorf("msg->verifyUserSig: Public key is not ECDSA KEY, error: %v", err)
+		return false
+	}
+	isVerify, err := crypto.VerifyDataSignByEcdsa(pubkey, content, sign)
+	if err != nil {
+		logger.Errorf("msg->verifyUserSig: VerifyDataSignByEcdsa error: %v", err)
+		return false
+	}
+	return isVerify
 }
