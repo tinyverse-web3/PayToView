@@ -114,7 +114,7 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 
 		reqParams := map[string]string{}
 		err := parseJsonForm(r.Body, reqParams)
-		if err == nil {
+		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
