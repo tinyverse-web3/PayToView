@@ -10,6 +10,7 @@ import (
 	"github.com/ipfs/go-cid"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 )
 
@@ -40,7 +41,6 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		r.ParseForm()
 
 		resp := ipfsAddResp{
 			PubKey: r.PostFormValue("pubkey"),
@@ -49,7 +49,6 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 			Result: "succ",
 		}
 
-		logger.Debugf("ipfs->ipfsCatHandler: resp: %+v", resp)
 		setErrResp := func(code int, result string) {
 			resp.Code = -1
 			resp.Result = result
@@ -110,15 +109,14 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
-		r.ParseForm()
+
 		resp := ipfsCatResp{
-			PubKey: r.PostFormValue("pubkey"),
-			Cid:    r.PostFormValue("cid"),
+			PubKey: "",
+			Cid:    "",
 			Code:   0,
 			Result: "succ",
 		}
 
-		logger.Debugf("ipfs->ipfsCatHandler: resp: %+v", resp)
 		setErrResp := func(code int, result string) {
 			w.Header().Set("Content-Type", "application/json")
 			resp.Code = -1
@@ -131,11 +129,21 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			logger.Debugf("ipfs->ipfsCatHandler: WriteString len: %d", len)
 		}
 
+		reqParams := map[string]string{}
+		err := util.ParseJsonForm(r.Body, reqParams)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+		logger.Debugf("ipfs->ipfsCatHandler: reqParams: %+v", reqParams)
+
+		resp.PubKey = reqParams["pubkey"]
 		if resp.PubKey == "" {
 			setErrResp(-1, "invalid param pubkey")
 			return
 		}
 
+		resp.Cid = reqParams["cid"]
 		if resp.Cid == "" {
 			setErrResp(-1, "invalid param cid")
 			return

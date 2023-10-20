@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
 	"github.com/tinyverse-web3/tvbase/common"
 	dkvspb "github.com/tinyverse-web3/tvbase/dkvs/pb"
 )
@@ -37,11 +38,9 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
-		r.ParseForm()
 
-		key := r.PostFormValue("key")
 		resp := dkvsGetResp{
-			Key:    key,
+			Key:    "",
 			Record: &dkvspb.DkvsRecord{},
 			Code:   0,
 			Result: "succ",
@@ -59,7 +58,15 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 			logger.Debugf("dkvs->dkvsGetHandler: WriteString len: %d", len)
 		}
 
-		var err error
+		reqParams := map[string]string{}
+		err := util.ParseJsonForm(r.Body, reqParams)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+		logger.Debugf("dkvs->dkvsPutHandler: reqParams:\n%+v", reqParams)
+
+		key := reqParams["key"]
 		resp.Record, err = dkvsService.GetRecord(key)
 		if err != nil {
 			setErrResp(-1, err.Error())
@@ -75,18 +82,6 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
-}
-
-func parseJsonForm(reader io.Reader, ret map[string]string) error {
-	body, err := io.ReadAll(reader)
-	if err != nil {
-		return err
-	}
-	err = json.Unmarshal(body, &ret)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
@@ -112,12 +107,11 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		reqParams := map[string]string{}
-		err := parseJsonForm(r.Body, reqParams)
+		err := util.ParseJsonForm(r.Body, reqParams)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
-
 		logger.Debugf("dkvs->dkvsPutHandler: reqParams:\n%+v", reqParams)
 
 		key := reqParams["key"]

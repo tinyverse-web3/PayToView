@@ -10,6 +10,7 @@ import (
 
 	"github.com/tinyverse-web3/mtv_go_utils/crypto"
 	"github.com/tinyverse-web3/mtv_go_utils/key"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
 	"github.com/tinyverse-web3/tvbase/dmsg"
 )
 
@@ -31,9 +32,7 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
-		r.ParseForm()
 
-		// key := r.PostFormValue("key")
 		resp := msgProxySendMsgResp{
 			Code:   0,
 			Result: "succ",
@@ -51,25 +50,33 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 			logger.Debugf("msg->msgProxySendMsgHandler: WriteString len: %d", len)
 		}
 
-		pubkey := r.PostFormValue("pubkey")
+		reqParams := map[string]string{}
+		err := util.ParseJsonForm(r.Body, reqParams)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+		logger.Debugf("msg->msgProxySendMsgHandler: reqParams:\n%+v", reqParams)
+
+		pubkey := reqParams["pubkey"]
 		if pubkey == "" {
 			setErrResp(-1, "invalid params pubkey")
 			return
 		}
 
-		destPubkey := r.PostFormValue("destPubkey")
+		destPubkey := reqParams["destPubkey"]
 		if destPubkey == "" {
 			setErrResp(-1, "invalid params destPubkey")
 			return
 		}
 
-		sig, err := base64.StdEncoding.DecodeString(r.PostFormValue("sig"))
+		sig, err := base64.StdEncoding.DecodeString(reqParams["sig"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		content, err := base64.StdEncoding.DecodeString(r.PostFormValue("content"))
+		content, err := base64.StdEncoding.DecodeString(reqParams["content"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
@@ -122,14 +129,22 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 			logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d", len)
 		}
 
-		pubkey := r.PostFormValue("pubkey")
+		reqParams := map[string]string{}
+		err := util.ParseJsonForm(r.Body, reqParams)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+		logger.Debugf("msg->msgProxySendMsgHandler: reqParams:\n%+v", reqParams)
+
+		pubkey := reqParams["pubkey"]
 		if pubkey == "" {
 			setErrResp(-1, "invalid params pubkey")
 			return
 		}
 		resp.Key = pubkey
 
-		sig, err := base64.StdEncoding.DecodeString(r.PostFormValue("sig"))
+		sig, err := base64.StdEncoding.DecodeString(reqParams["sig"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
@@ -142,7 +157,7 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		duration := 30 * time.Second
-		timeout, err := strconv.ParseInt(r.PostFormValue("timeout"), 10, 64)
+		timeout, err := strconv.ParseInt(reqParams["timeout"], 10, 64)
 		if err == nil {
 			duration = time.Second * time.Duration(timeout)
 		}
