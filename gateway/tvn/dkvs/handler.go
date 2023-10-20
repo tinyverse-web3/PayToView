@@ -3,7 +3,6 @@ package dkvs
 import (
 	"encoding/base64"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -26,22 +25,9 @@ type dkvsPutResp struct {
 	Result string
 }
 
-type Size interface {
-	Size() int64
-}
-
 var dkvsService common.DkvsService
 
-func IsExistUserProfile(userPubkey string) bool {
-	key := fmt.Sprintf("/%s/%s/%s", "user", userPubkey, "Profile")
-	value, _, _, _, _, err := dkvsService.Get(key)
-	if err != nil || value == nil {
-		return false
-	}
-	return true
-}
-
-func RegistHandle(hs *http3.Http3Server, ds common.DkvsService) {
+func RegistHandler(hs *http3.Http3Server, ds common.DkvsService) {
 	dkvsService = ds
 	hs.AddHandler("/dkvs/get", dkvsGetHandler)
 	hs.AddHandler("/dkvs/put", dkvsPutHandler)
@@ -68,9 +54,9 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 			jsonData, _ := json.Marshal(resp)
 			len, err := io.WriteString(w, string(jsonData))
 			if err != nil {
-				logger.Errorf("dkvsGetHandler: WriteString: error: %+v", err)
+				logger.Errorf("dkvs->dkvsGetHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("dkvsGetHandler: WriteString len: %d", len)
+			logger.Debugf("dkvs->dkvsGetHandler: WriteString len: %d", len)
 		}
 
 		var err error
@@ -83,9 +69,9 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
-			logger.Errorf("dkvsGetHandler: WriteString: error: %+v", err)
+			logger.Errorf("dkvs->dkvsGetHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("dkvsGetHandler: WriteString len: %d", len)
+		logger.Debugf("dkvs->dkvsGetHandler: WriteString len: %d", len)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
@@ -109,9 +95,9 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 			jsonData, _ := json.Marshal(resp)
 			len, err := io.WriteString(w, string(jsonData))
 			if err != nil {
-				logger.Errorf("dkvsPutHandler: WriteString: error: %+v", err)
+				logger.Errorf("dkvs->dkvsPutHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("dkvsPutHandler: WriteString len: %d", len)
+			logger.Debugf("dkvs->dkvsPutHandler: WriteString len: %d", len)
 		}
 
 		key := r.PostFormValue("key")
@@ -160,9 +146,9 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 		jsonData, _ := json.Marshal(resp)
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
-			logger.Errorf("dkvsPutHandler: WriteString: error: %+v", err)
+			logger.Errorf("dkvs->dkvsPutHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("dkvsPutHandler: WriteString len: %d", len)
+		logger.Debugf("dkvs->dkvsPutHandler: WriteString len: %d", len)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)

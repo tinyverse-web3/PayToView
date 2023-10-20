@@ -80,10 +80,10 @@ func main() {
 	logger.Infof("tvn->main: node.Start, find rendezvous and join tvnode network")
 
 	// ipfs
-	ipfs.RegistHandle(svr)
+	ipfs.RegistHandler(svr)
 
 	// dkvs
-	dkvs.RegistHandle(svr, node.GetDkvsService())
+	dkvs.RegistHandler(svr, node.GetDkvsService())
 
 	// msg
 	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(cfg.Proxy.PrivKey)
@@ -96,7 +96,7 @@ func main() {
 	logger.Infof("tvn->main:\nproxyPrivkeyHex: %s\nproxyPubkeyHex: %s", proxyPrivkeyHex, proxyPubkeyHex)
 
 	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
-	msgInstance.RegistHandle(svr)
+	msgInstance.RegistHandler(svr)
 
 	go svr.ListenUdpTLS(cfg.Http3.UdpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
 	go svr.ListenTcpTLS(cfg.Http3.TcpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)

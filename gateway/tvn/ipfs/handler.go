@@ -31,7 +31,7 @@ type Size interface {
 	Size() int64
 }
 
-func RegistHandle(h *http3.Http3Server) {
+func RegistHandler(h *http3.Http3Server) {
 	h.AddHandler("/ipfs/add", ipfsAddHandler)
 	h.AddHandler("/ipfs/cat", ipfsCatHandler)
 }
@@ -55,9 +55,9 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 			jsonData, _ := json.Marshal(resp)
 			len, err := io.WriteString(w, string(jsonData))
 			if err != nil {
-				logger.Errorf("ipfsAddHandler: WriteString: error: %+v", err)
+				logger.Errorf("ipfs->ipfsAddHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("ipfsAddHandler: WriteString len: %d", len)
+			logger.Debugf("ipfs->ipfsAddHandler: WriteString len: %d", len)
 		}
 
 		if !dkvs.IsExistUserProfile(resp.PubKey) {
@@ -94,9 +94,9 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 		jsonData, _ := json.Marshal(resp)
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
-			logger.Errorf("ipfsAddHandler: WriteString: error: %+v", err)
+			logger.Errorf("ipfs->ipfsAddHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("ipfsAddHandler: WriteString len: %d", len)
+		logger.Debugf("ipfs->ipfsAddHandler: WriteString len: %d", len)
 		return
 	}
 
@@ -117,6 +117,7 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			Result: "succ",
 		}
 
+		logger.Debugf("ipfs->ipfsCatHandler: resp: %+v", resp)
 		setErrResp := func(code int, result string) {
 			w.Header().Set("Content-Type", "application/json")
 			resp.Code = -1
@@ -124,13 +125,18 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			jsonData, _ := json.Marshal(resp)
 			len, err := io.WriteString(w, string(jsonData))
 			if err != nil {
-				logger.Errorf("ipfsCatHandler: WriteString: error: %+v", err)
+				logger.Errorf("ipfs->ipfsCatHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("ipfsCatHandler: WriteString len: %d", len)
+			logger.Debugf("ipfs->ipfsCatHandler: WriteString len: %d", len)
 		}
 
-		if resp.PubKey == "" || resp.Cid == "" {
-			setErrResp(-1, "invalid params")
+		if resp.PubKey == "" {
+			setErrResp(-1, "invalid param pubkey")
+			return
+		}
+
+		if resp.Cid == "" {
+			setErrResp(-1, "invalid param cid")
 			return
 		}
 
@@ -161,7 +167,7 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, err.Error())
 			return
 		}
-		logger.Debugf("ipfsCatHandler: len: %d", len)
+		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len)
 
 		w.Header().Set("Content-Disposition", "attachment; filename="+resp.Cid)
 		return
