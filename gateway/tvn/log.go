@@ -17,11 +17,10 @@ func init() {
 
 func initLog() (err error) {
 	var moduleLevels = map[string]string{
-		"tvn":            "debug",
-		"tvbase":         "debug",
-		"dkvs":           "debug",
-		"dmsg":           "debug",
-		"customProtocol": "debug",
+		"tvn":    "debug",
+		"tvbase": "info",
+		"dkvs":   "info",
+		"dmsg":   "debug",
 	}
 	err = util.SetLogModule(moduleLevels)
 	if err != nil {
