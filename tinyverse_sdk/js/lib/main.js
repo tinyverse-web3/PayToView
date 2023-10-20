@@ -77,7 +77,7 @@ class TvsWasm{
     }
     
     // 获取付费列表
-    getPaiedList(){
+    jsGetPaiedList(){
         getPaiedList()
     }
    
