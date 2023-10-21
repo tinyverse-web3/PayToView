@@ -119,7 +119,7 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 }
 
-func msgProxyCreateMailbox(w http.ResponseWriter, r *http.Request) {
+func msgProxyCreateUser(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")

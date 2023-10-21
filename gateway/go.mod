@@ -10,7 +10,7 @@ require (
 	github.com/libp2p/go-libp2p v0.31.0
 	github.com/quic-go/quic-go v0.38.1
 	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231021024631-2aa34db23b57
-	github.com/tinyverse-web3/tvbase v0.0.0-20231021082611-e5b301dfd18f
+	github.com/tinyverse-web3/tvbase v0.0.0-20231021130621-0382c60c1cba
 )
 
 require (
