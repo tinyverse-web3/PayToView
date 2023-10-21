@@ -20,7 +20,7 @@ export default function DetailAdd() {
   useTitle('PayToView');
   const nav = useNavigate();
   const [data, { set }] = useMap({
-    title: '',
+    title: 'PayToView First Image',
     content: '',
     image: '',
     textLimit: 10,
@@ -34,6 +34,7 @@ export default function DetailAdd() {
   const [tabIndex, setTabIndex] = useState(0);
   const type = useMemo(() => (tabIndex === 0 ? 'image' : 'text'), [tabIndex]);
   const contentChange = (v) => {
+    console.log(v)
     set('title', v.title);
     set('content', v.content);
   };
