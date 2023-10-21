@@ -35,6 +35,12 @@ type msgReadMailboxResp struct {
 	Result  string
 }
 
+type msgCreateMailboxResp struct {
+	Key    string
+	Code   int
+	Result string
+}
+
 func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
@@ -111,6 +117,58 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
+}
+
+func msgProxyCreateMailbox(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		w.WriteHeader(http.StatusOK)
+		w.Header().Set("Content-Type", "application/json")
+
+		resp := msgCreateMailboxResp{
+			Code:   0,
+			Result: "succ",
+		}
+
+		setErrResp := func(code int, result string) {
+			w.Header().Set("Content-Type", "application/json")
+			resp.Code = -1
+			resp.Result = result
+			jsonData, _ := json.Marshal(resp)
+			len, err := io.WriteString(w, string(jsonData))
+			if err != nil {
+				logger.Errorf("msg->msgProxyCreateMailbox: WriteString: error: %+v", err)
+			}
+			logger.Debugf("msg->msgProxyCreateMailbox: WriteString len: %d", len)
+		}
+
+		reqParams := map[string]string{}
+		err := util.ParseJsonForm(r.Body, reqParams)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+		logger.Debugf("msg->msgProxyCreateMailbox: reqParams:\n%+v", reqParams)
+
+		pubkey := reqParams["pubkey"]
+		if pubkey == "" {
+			setErrResp(-1, "invalid params pubkey")
+			return
+		}
+		resp.Key = pubkey
+
+		err = service.createUser(pubkey)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+
+		jsonData, _ := json.Marshal(resp)
+		len, err := io.WriteString(w, string(jsonData))
+		if err != nil {
+			logger.Errorf("msg->msgProxyReadMailboxHandler: WriteString: error: %+v", err)
+		}
+		logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d", len)
+	}
 }
 
 func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
