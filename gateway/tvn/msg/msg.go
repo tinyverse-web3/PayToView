@@ -8,7 +8,7 @@ import (
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	"github.com/tinyverse-web3/mtv_go_utils/crypto"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/define"
 	"github.com/tinyverse-web3/tvbase/dmsg"
 	"github.com/tinyverse-web3/tvbase/dmsg/client"
 	"github.com/tinyverse-web3/tvbase/tvbase"
@@ -38,7 +38,7 @@ func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 	return service
 }
 
-func (m *MsgService) RegistHandler(s *http3.Http3Server) {
+func (m *MsgService) RegistHandler(s define.WebServer) {
 	s.AddHandler("/msg/sendmsg", msgProxySendMsgHandler)
 	s.AddHandler("/msg/readmailbox", msgProxyReadMailboxHandler)
 }

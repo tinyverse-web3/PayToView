@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/define"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
 	"github.com/tinyverse-web3/tvbase/common"
 	dkvspb "github.com/tinyverse-web3/tvbase/dkvs/pb"
@@ -28,7 +28,7 @@ type dkvsPutResp struct {
 
 var dkvsService common.DkvsService
 
-func RegistHandler(hs *http3.Http3Server, ds common.DkvsService) {
+func RegistHandler(hs define.WebServer, ds common.DkvsService) {
 	dkvsService = ds
 	hs.AddHandler("/dkvs/get", dkvsGetHandler)
 	hs.AddHandler("/dkvs/put", dkvsPutHandler)

@@ -7,13 +7,15 @@ import (
 	"os"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/define"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http2"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
 	shell "github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
-
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
+
 	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
 )
 
@@ -62,13 +64,6 @@ func main() {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
 	}
 
-	svr := http3.NewHttp3Server()
-
-	// debug
-	if isTest {
-		svr.SetQlog(rootPath)
-	}
-
 	node, err := tvnode.NewTvNode(ctx, rootPath, cfg.Tvbase)
 	if err != nil {
 		logger.Fatalf("tvn->main: NewTvNode: error: %+v", err)
@@ -78,12 +73,6 @@ func main() {
 		logger.Fatalf("tvn->main: node.Start: error: %+v", err)
 	}
 	logger.Infof("tvn->main: node.Start, find rendezvous and join tvnode network")
-
-	// ipfs
-	ipfs.RegistHandler(svr)
-
-	// dkvs
-	dkvs.RegistHandler(svr, node.GetDkvsService())
 
 	// msg
 	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(cfg.Proxy.PrivKey)
@@ -96,10 +85,27 @@ func main() {
 	logger.Infof("tvn->main:\nproxyPrivkeyHex: %s\nproxyPubkeyHex: %s", proxyPrivkeyHex, proxyPubkeyHex)
 
 	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
-	msgInstance.RegistHandler(svr)
 
-	go svr.ListenUdpTLS(cfg.Http3.UdpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
-	go svr.ListenTcpTLS(cfg.Http3.TcpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
+	var svr define.WebServer
+	if cfg.Http3 == nil {
+		httpSvr := http2.NewWebServer()
+		svr = httpSvr
+
+		go httpSvr.Listen("0.0.0.0:80")
+		go httpSvr.ListenTLS("0.0.0.0:443", cfg.Http3.CertPath, cfg.Http3.PrivPath)
+	} else {
+		httpSvr := http3.NewWebServer()
+		svr = httpSvr
+		if isTest {
+			httpSvr.SetQlog(rootPath)
+		}
+
+		go httpSvr.ListenUdpTLS(cfg.Http3.UdpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
+		go httpSvr.ListenTcpTLS(cfg.Http3.TcpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
+	}
+	msgInstance.RegistHandler(svr)
+	ipfs.RegistHandler(svr)
+	dkvs.RegistHandler(svr, node.GetDkvsService())
 	<-ctx.Done()
 }
 

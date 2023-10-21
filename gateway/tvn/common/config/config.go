@@ -29,33 +29,33 @@ type ProxyConfig struct {
 }
 
 type TvnGatewayConfig struct {
-	Proxy  ProxyConfig
+	Proxy  *ProxyConfig
 	Tvbase *tvbaseConfig.TvbaseConfig
-	Http3  Http3Config
-	Ipfs   IpfsConfig
-	Dkvs   DkvsConfig
-	Msg    MsgConfig
+	Http3  *Http3Config
+	Ipfs   *IpfsConfig
+	Dkvs   *DkvsConfig
+	Msg    *MsgConfig
 }
 
 func NewTvnGatewayConfig() *TvnGatewayConfig {
 	ret := &TvnGatewayConfig{
-		Proxy: ProxyConfig{
+		Proxy: &ProxyConfig{
 			PrivKey: "",
 		},
-		Http3: Http3Config{
+		Http3: &Http3Config{
 			EnableQlog: false,
 			TcpAddr:    "0.0.0.0:443",
 			UdpAddr:    "0.0.0.0:4430",
 			CertPath:   "./cert.pem",
 			PrivPath:   "./priv.key",
 		},
-		Ipfs: IpfsConfig{
+		Ipfs: &IpfsConfig{
 			ShellAddr: "/ip4/127.0.0.1/tcp/5001",
 		},
-		Dkvs: DkvsConfig{
+		Dkvs: &DkvsConfig{
 			ServiceUrl: "http://103.103.245.177:9099/tvbase/",
 		},
-		Msg: MsgConfig{
+		Msg: &MsgConfig{
 			ServerUrl: "http://103.103.245.177:9099/msg/",
 		},
 	}
