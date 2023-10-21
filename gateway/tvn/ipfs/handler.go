@@ -46,6 +46,7 @@ func RegistHandler(h webserver.WebServerHandle) {
 
 func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 
@@ -116,7 +117,7 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
-
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		resp := ipfsCatResp{
 			PubKey: "",
 			Cid:    "",
