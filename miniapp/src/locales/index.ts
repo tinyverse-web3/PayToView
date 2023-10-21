@@ -36,11 +36,11 @@ i18n
     debug: true,
     detection: {
       order: [
+        'navigator',
         'htmlTag',
         'localStorage',
         'sessionStorage',
         'cookie',
-        'navigator',
       ],
     },
     interpolation: {

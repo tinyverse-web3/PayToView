@@ -19,7 +19,7 @@ import logging
 from html import escape
 from uuid import uuid4
 
-from telegram import InlineQueryResultArticle, InputTextMessageContent, Update, InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo, SwitchInlineQueryChosenChat
+from telegram import InlineQueryResultArticle, InputTextMessageContent, Update, InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo, SwitchInlineQueryChosenChat, Bot
 from telegram.constants import ParseMode
 from telegram.ext import Application, CommandHandler, ContextTypes, InlineQueryHandler, MessageHandler, filters
 
@@ -60,7 +60,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             parse_mode='HTML',
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(
-                    text="Pay Wallet!",
+                    text="👛 Wallet Pay",
                     url="https://t.me/ItToolBot?start=read"
                 ),
                 InlineKeyboardButton(
@@ -84,6 +84,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def read(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message with a button that opens a the web app."""
+    await update.callback_query.answer()
     await update.message.reply_text(
         "Please press the button below to choose a color via the WebApp.",
         reply_markup=InlineKeyboardMarkup.from_button(
