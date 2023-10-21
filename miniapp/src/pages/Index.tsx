@@ -6,11 +6,12 @@ import { useTitle } from 'react-use';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import  { ROUTE_PATH } from '@/router';
-
+import { useTranslation } from 'react-i18next';
 import { useListStore } from '@/store/list';
 
 export default function Index() {
   useTitle('PayToView');
+  const { t } = useTranslation();
   const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
   const { list, payedList } = useListStore((state) => state);
@@ -31,9 +32,9 @@ export default function Index() {
             onChange={(index) => setTabIndex(index)}
             colorScheme='green'>
             <TabList className='px-2'>
-              <Tab>上传的</Tab>
-              <Tab>付费的</Tab>
-              <Tab>分享的</Tab>
+              <Tab>{t('pages.index.tab_1')}</Tab>
+              <Tab>{t('pages.index.tab_2')}</Tab>
+              <Tab>{t('pages.index.tab_3')}</Tab>
             </TabList>
           </Tabs>
         </div>
@@ -46,7 +47,7 @@ export default function Index() {
           </SimpleGrid>
         </div>
       </div>
-      <div className='absolute bottom-4 right-4 z-50'>
+      <div className='absolute top-2 right-2 z-50'>
         <IconButton
           isRound={true}
           variant='solid'

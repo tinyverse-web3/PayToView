@@ -9,12 +9,14 @@ import {
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useMap } from 'react-use';
+import { useTranslation } from 'react-i18next';
 interface PayLimitProps {
   type: 'image' | 'text';
   onChange?: (data: any) => void;
 }
 
 export const PayLimit = ({ onChange, type }: PayLimitProps) => {
+  const { t } = useTranslation();
   const [data, { set }] = useMap({
     textLimit: 10,
     platform: 5,
@@ -29,7 +31,7 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
   return (
     <div>
       <FormControl className='mb-4'>
-        <FormLabel>预览方式</FormLabel>
+        <FormLabel>{t('pages.detail.preview_mode')}</FormLabel>
         {type === 'text' ? (
           <InputGroup size='md'>
             <NumberInput
@@ -43,14 +45,14 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
             <InputRightAddon children='%' />
           </InputGroup>
         ) : (
-          <div className='text-sm'>模糊显示</div>
+          <div className='text-sm'>{t('pages.detail.blur_show')}</div>
         )}
       </FormControl>
       <FormControl>
-        <FormLabel>分成比例</FormLabel>
+        <FormLabel>{t('pages.detail.divide_ratio')}</FormLabel>
         <SimpleGrid columns={4} spacing='10px'>
           <div>
-            <div className='text-sm mb-1 text-center'>平台</div>
+            <div className='text-sm mb-1 text-center'>{t('pages.detail.network')}</div>
             <NumberInput
               isReadOnly
               width='100%'
@@ -62,7 +64,7 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
             </NumberInput>
           </div>
           <div>
-            <div className='text-sm mb-1 text-center'>应用开发商</div>
+            <div className='text-sm mb-1 text-center'>{t('pages.detail.app')}</div>
             <NumberInput
               isReadOnly
               width='100%'
@@ -74,7 +76,7 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
             </NumberInput>
           </div>
           <div>
-            <div className='text-sm mb-1 text-center'>发布人</div>
+            <div className='text-sm mb-1 text-center'>{t('pages.detail.sender')}</div>
             <NumberInput
               min={0}
               max={70}
@@ -87,7 +89,7 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
             </NumberInput>
           </div>
           <div>
-            <div className='text-sm mb-1 text-center'>转发人</div>
+            <div className='text-sm mb-1 text-center'>{t('pages.detail.forwarder')}</div>
             <NumberInput
               min={15}
               max={85}

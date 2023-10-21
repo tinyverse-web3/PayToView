@@ -3,10 +3,12 @@ import { useTitle } from 'react-use';
 import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/router';
+import { useTranslation } from 'react-i18next';
 
 export default function DetailRead() {
   useTitle('PayToView');
   const nav = useNavigate();
+  const { t } = useTranslation();
   const type = 'image';
   const toIndex = () => {
     nav(ROUTE_PATH.INDEX, { replace: true });
@@ -15,11 +17,11 @@ export default function DetailRead() {
     <div className='min-h-ful p-4'>
       <BackButton onClick={toIndex} />
       <div className='mb-4'>
-        {type !== 'image' ? (
+        {type === 'image' ? (
           <div className='flex justify-center items-center'>
             <div className='w-48 h-48'>
               <Image
-                src='https://via.placeholder.com/300'
+                src='https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png'
                 height='100%'
                 fit='cover'
               />
@@ -42,15 +44,15 @@ export default function DetailRead() {
         )}
       </div>
       <div className='mb-4'>
-        <div className='font-bold mb-2'>合约名称</div>
-        <div className='text-sm'>123</div>
+        <div className='font-bold mb-2'>{t('pages.detail.contract_name')}</div>
+        <div className='text-sm'>PayToView</div>
       </div>
       <HStack spacing='20px'>
         <Button colorScheme='messenger' size='lg' className='flex-1'>
-          付费
+          {t('common.pay')}
         </Button>
         <Button colorScheme='messenger' size='lg' className='flex-1'>
-          分享
+          {t('common.forward')}
         </Button>
       </HStack>
     </div>

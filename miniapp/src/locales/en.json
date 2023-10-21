@@ -3,13 +3,36 @@
     "title": "PayToView"
   },
   "common": {
+    "text": "Text",
+    "image": "Image",
+    "pay": "pay",
+    "forward": "Forward",
+    "release": "Release",
+    "change": "Change",
     "upload": {
-      "title": "上传",
+      "title": "Upload",
       "description": "Upload a file to the server"
     },
     "empty": {
-      "title": "暂无数据",
+      "title": "Empty",
       "description": "Empty"
+    }
+  },
+  "pages": {
+    "detail": {
+      "preview_mode": "Preview Mode",
+      "blur_show": "Blur Show",
+      "divide_ratio": "Divide Ratio",
+      "network": "Network",
+      "app": "App",
+      "sender": "Sender",
+      "forwarder": "Forwarder",
+      "contract_name": "Contract Name"
+    },
+    "index": {
+      "tab_1": "Uploaded",
+      "tab_2": "Readed",
+      "tab_3": "Forwarded"
     }
   }
 }
