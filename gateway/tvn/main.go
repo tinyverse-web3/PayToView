@@ -15,6 +15,7 @@ import (
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
+	"github.com/tinyverse-web3/tvbase/common/config"
 
 	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
 )
@@ -39,19 +40,21 @@ func main() {
 		}
 	}()
 
-	cfg, err := loadConfig(rootPath)
-	if err != nil || cfg == nil {
-		logger.Fatalf("tvn->main: loadConfig: %+v", err)
+	cfg := config.NewDefaultTvbaseConfig()
+	privkey, _, err := genEd25519Key()
+	if err != nil {
+		logger.Fatalf("tvn->main: genEd25519Key: %+v", err)
 	}
+	cfg.Identity.PrivKey = privkey
+	cfg.SetMdns(false)
 
 	if isTest {
-		cfg.Tvbase.SetLocalNet(true)
-		cfg.Tvbase.SetMdns(false)
-		cfg.Tvbase.SetDhtProtocolPrefix("/tvnode_test")
-		cfg.Tvbase.InitMode(nodeMode)
-		cfg.Tvbase.ClearBootstrapPeers()
-		cfg.Tvbase.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
-		cfg.Tvbase.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
+		cfg.SetLocalNet(true)
+		cfg.SetDhtProtocolPrefix("/tvnode_test")
+		cfg.InitMode(nodeMode)
+		cfg.ClearBootstrapPeers()
+		cfg.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
+		cfg.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
 	}
 
 	err = initLog()
@@ -59,12 +62,12 @@ func main() {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
 	}
 
-	_, err = shell.CreateIpfsShellProxy(cfg.Ipfs.ShellAddr)
+	_, err = shell.CreateIpfsShellProxy("/ip4/127.0.0.1/tcp/5001")
 	if err != nil {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
 	}
 
-	node, err := tvnode.NewTvNode(ctx, rootPath, cfg.Tvbase)
+	node, err := tvnode.NewTvNode(ctx, rootPath, cfg)
 	if err != nil {
 		logger.Fatalf("tvn->main: NewTvNode: error: %+v", err)
 	}
@@ -75,7 +78,11 @@ func main() {
 	logger.Infof("tvn->main: node.Start, find rendezvous and join tvnode network")
 
 	// msg
-	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(cfg.Proxy.PrivKey)
+	privkey, _, err = genEcdsaKey()
+	if err != nil {
+		logger.Fatalf("tvn->main: genEcdsaKey: error: %+v", err)
+	}
+	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(privkey)
 	if err != nil {
 		logger.Fatalf("tvn->main: getEcdsaPrivKey: error: %+v", err)
 	}
@@ -86,22 +93,19 @@ func main() {
 
 	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
 
+	const certPath = "./cert.pem"
+	const privPath = "./priv.key"
 	var svr define.WebServer
-	if cfg.Http3 == nil {
+	if true {
 		httpSvr := http2.NewWebServer()
 		svr = httpSvr
-
 		go httpSvr.Listen("0.0.0.0:80")
-		go httpSvr.ListenTLS("0.0.0.0:443", cfg.Http3.CertPath, cfg.Http3.PrivPath)
+		go httpSvr.ListenTLS("0.0.0.0:443", certPath, privPath)
 	} else {
 		httpSvr := http3.NewWebServer()
 		svr = httpSvr
-		if isTest {
-			httpSvr.SetQlog(rootPath)
-		}
-
-		go httpSvr.ListenUdpTLS(cfg.Http3.UdpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
-		go httpSvr.ListenTcpTLS(cfg.Http3.TcpAddr, cfg.Http3.CertPath, cfg.Http3.PrivPath)
+		go httpSvr.ListenUdpTLS("0.0.0.0:4430", certPath, privPath)
+		go httpSvr.ListenTcpTLS("0.0.0.0:443", certPath, privPath)
 	}
 	msgInstance.RegistHandler(svr)
 	ipfs.RegistHandler(svr)

@@ -3,14 +3,11 @@ package main
 import (
 	"encoding/base64"
 	"encoding/hex"
-	"encoding/json"
 	"flag"
 	"os"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	"github.com/libp2p/go-libp2p/core/crypto"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/config"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
 	tvbaseConfig "github.com/tinyverse-web3/tvbase/common/config"
 )
 
@@ -22,7 +19,6 @@ var nodeMode tvbaseConfig.NodeMode = tvbaseConfig.LightMode
 var isTest bool
 
 func parseCmdParams() string {
-	init := flag.Bool("init", false, "Initialize tvnode with default setting configuration file if not already initialized.")
 	mode := flag.String("mode", "light", "Initialize tvnode mode for service mode or light mode.")
 	path := flag.String("path", defaultPath, "Path to configuration file and data file to use.")
 	help := flag.Bool("help", false, "Show help.")
@@ -45,24 +41,6 @@ func parseCmdParams() string {
 		isTest = true
 	}
 
-	if *init {
-		dataPath, err := util.GetRootPath(*path)
-		if err != nil {
-			logger.Fatalf("GetRootPath error: %v", err)
-		}
-		_, err = os.Stat(dataPath)
-		if os.IsNotExist(err) {
-			err := os.MkdirAll(dataPath, 0755)
-			if err != nil {
-				logger.Fatalf("MkdirAll error: %v", err)
-			}
-		}
-		err = genConfigFile(dataPath)
-		if err != nil {
-			logger.Fatalf("Failed to generate config file: %v", err)
-		}
-		os.Exit(0)
-	}
 	return *path
 }
 
@@ -92,35 +70,4 @@ func genEcdsaKey() (privkey string, pubkey string, err error) {
 	}
 
 	return hex.EncodeToString(eth_crypto.FromECDSA(privk)), hex.EncodeToString(eth_crypto.FromECDSAPub(&privk.PublicKey)), nil
-}
-
-func genConfigFile(rootPath string) error {
-	cfg := config.NewTvnGatewayConfig()
-	privkey, _, err := genEcdsaKey()
-	if err != nil {
-		return err
-	}
-
-	cfg.Tvbase.Mode = nodeMode
-	cfg.Proxy.PrivKey = privkey
-
-	privkey, _, err = genEd25519Key()
-	if err != nil {
-		return err
-	}
-	cfg.Tvbase.Identity.PrivKey = privkey
-
-	cfg.Tvbase.SetMdns(false)
-
-	file, err := json.MarshalIndent(cfg, "", " ")
-	if err != nil {
-		return err
-	}
-
-	if err := os.WriteFile(rootPath+configFileName, file, 0644); err != nil {
-		return err
-	}
-
-	logger.Infof("generate config file: " + rootPath + configFileName)
-	return nil
 }
