@@ -83,6 +83,7 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 		return fmt.Errorf("msg->sendmsg: dest mailbox isn't exist")
 	}
 	service.SetProxyReqPubkey(userPubkey)
+	service.SubscribeDestUser(destPubkey, false)
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {
 		return err
