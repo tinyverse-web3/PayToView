@@ -3,7 +3,6 @@ package msg
 import (
 	"crypto/ecdsa"
 	"encoding/hex"
-	"sync"
 	"time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
@@ -17,7 +16,6 @@ import (
 type MsgService struct {
 	tvbase       *tvbase.TvBase
 	proxyPrivkey *ecdsa.PrivateKey
-	serviceList  sync.Map
 }
 
 var service *MsgService
@@ -30,40 +28,18 @@ func GetInstance(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 }
 
 func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
-	service := &MsgService{
+	ret := &MsgService{
 		tvbase:       base,
 		proxyPrivkey: privkey,
-		serviceList:  sync.Map{},
 	}
-	return service
-}
-
-func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
-	s.AddHandler("/msg/sendmsg", msgProxySendMsgHandler)
-	s.AddHandler("/msg/readmailbox", msgProxyReadMailboxHandler)
-}
-
-func (m *MsgService) getUser(pubkey string) (*client.DmsgService, error) {
-	var ret *client.DmsgService
-	var err error
-	s, ok := m.serviceList.Load(pubkey)
-	if ok && s != nil {
-		return s.(*client.DmsgService), nil
-	}
-
-	ret, err = client.CreateService(m.tvbase)
-	if err != nil {
-		return nil, nil
-	}
-
+	service := ret.tvbase.GetClientDmsgService()
 	// set proxy pubkey
-	proxyPubkey := hex.EncodeToString(eth_crypto.FromECDSAPub(&m.proxyPrivkey.PublicKey))
-	ret.SetProxyPubkey(proxyPubkey)
-	ret.SetProxyReqPubkey(pubkey)
+	proxyPubkey := hex.EncodeToString(eth_crypto.FromECDSAPub(&ret.proxyPrivkey.PublicKey))
+	service.SetProxyPubkey(proxyPubkey)
 
 	// create msg user
 	getSig := func(protoData []byte) ([]byte, error) {
-		sig, err := crypto.SignDataByEcdsa(m.proxyPrivkey, protoData)
+		sig, err := crypto.SignDataByEcdsa(ret.proxyPrivkey, protoData)
 		if err != nil {
 			logger.Errorf("msg->getUser: SignDataByEcdsa error: %v", err)
 		}
@@ -71,26 +47,37 @@ func (m *MsgService) getUser(pubkey string) (*client.DmsgService, error) {
 		return sig, nil
 	}
 
-	err = ret.SubscribeSrcUser(pubkey, getSig, false)
+	err := service.SubscribeSrcUser(proxyPubkey, getSig, false)
 	if err != nil {
-		return nil, err
+		logger.Panicf("msg->newMsgService: SubscribeSrcUser error: %+v", err)
 	}
 
-	err = ret.CreateMailbox(pubkey)
-	if err != nil {
-		return nil, err
-	}
-
-	m.serviceList.Store(pubkey, ret)
-	return ret, nil
+	return ret
 }
 
-func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
-	service, err := m.getUser(userPubkey)
+func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
+	s.AddHandler("/msg/sendmsg", msgProxySendMsgHandler)
+	s.AddHandler("/msg/readmailbox", msgProxyReadMailboxHandler)
+	s.AddHandler("msg/createmailbox", msgProxyCreateMailbox)
+}
+
+func (m *MsgService) getService(pubkey string) *client.DmsgService {
+	service := m.tvbase.GetClientDmsgService()
+	return service
+}
+
+func (m *MsgService) createUser(pubkey string) error {
+	service := m.getService(pubkey)
+	err := service.CreateMailbox(pubkey)
 	if err != nil {
 		return err
 	}
+	return nil
+}
 
+func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
+	service := m.getService(destPubkey)
+	service.SetProxyReqPubkey(userPubkey)
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {
 		return err
@@ -100,9 +87,6 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 }
 
 func (m *MsgService) readMailbox(userPubkey string, duration time.Duration) ([]dmsg.Msg, error) {
-	service, err := m.getUser(userPubkey)
-	if err != nil {
-		return nil, err
-	}
+	service := m.getService(userPubkey)
 	return service.RequestReadMailbox(duration)
 }
