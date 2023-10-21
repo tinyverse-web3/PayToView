@@ -53,6 +53,7 @@ export default function DetailAdd() {
     if (type === 'image') {
       await add({
         type,
+        title: data.title,
         image: 'https://via.placeholder.com/300',
         textLimit: 10,
         platform: 5,
