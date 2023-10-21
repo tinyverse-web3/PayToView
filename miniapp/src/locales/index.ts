@@ -35,13 +35,13 @@ i18n
     fallbackLng: 'zh-CN',
     debug: true,
     detection: {
-      // order: [
-      //   'localStorage',
-      //   'sessionStorage',
-      //   'cookie',
-      //   'htmlTag',
-      //   'navigator',
-      // ],
+      order: [
+        'htmlTag',
+        'localStorage',
+        'sessionStorage',
+        'cookie',
+        'navigator',
+      ],
     },
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
