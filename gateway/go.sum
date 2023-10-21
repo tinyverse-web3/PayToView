@@ -41,8 +41,6 @@ git.apache.org/thrift.git v0.0.0-20180902110319-2566ecd5d999/go.mod h1:fPE2ZNJGy
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/DataDog/zstd v1.4.1/go.mod h1:1jcaCB/ufaK+sKp1NBhlGmpz41jOoPQ35bpF36t7BBo=
-github.com/MichaelS11/go-file-lock v0.1.0 h1:g4qTgY/xzmynZdY342GsUB20eVrNMfSbXlnDVXI5ggw=
-github.com/MichaelS11/go-file-lock v0.1.0/go.mod h1:EnleEs3QBsn1Sb2DpUadeb0YH/xSYk422Dbo+cggaII=
 github.com/OneOfOne/xxhash v1.2.2 h1:KMrpdQIwFcEqXDklaen+P1axHaj9BSKzvpUUfnHldSE=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239/go.mod h1:2FmKhYUyUczH0OGQWaF5ceTx0UBShxjsH6f8oGKYe2c=
@@ -564,8 +562,8 @@ github.com/syndtr/goleveldb v1.0.0/go.mod h1:ZVVdQEZoIme9iO1Ch2Jdy24qqXrMMOU6lpP
 github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 h1:epCh84lMvA70Z7CTTCmYQn2CKbY8j86K7/FAIr141uY=
 github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7/go.mod h1:q4W45IWZaF22tdD+VEXcAWRA037jwmWEB5VWYORlTpc=
 github.com/tarm/serial v0.0.0-20180830185346-98f6abe2eb07/go.mod h1:kDXzergiv9cbyO7IOYJZWg1U88JhDg3PB6klq9Hg2pA=
-github.com/tinyverse-web3/mtv_go_utils v0.0.0-20230927093723-c3570c9f829d h1:bAl6JpctqYLTRbP2hfvNTO8nw8FALu9Xm/pgoWvzkho=
-github.com/tinyverse-web3/mtv_go_utils v0.0.0-20230927093723-c3570c9f829d/go.mod h1:R1p7/i/09d/+94T/ZBaINg3u+bFL3pjXMtVmKxUEyYA=
+github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231021024631-2aa34db23b57 h1:FZaCjf7VrFRQ/SHiXpqBl0u1o8PhVaWunHp5aACZ6H4=
+github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231021024631-2aa34db23b57/go.mod h1:R1p7/i/09d/+94T/ZBaINg3u+bFL3pjXMtVmKxUEyYA=
 github.com/tinyverse-web3/tvbase v0.0.0-20231019095601-438fb17e572c h1:9rLLlJSV+QbnGQkn1yqXaqK1YB7F6RfQUbZbMohgCf8=
 github.com/tinyverse-web3/tvbase v0.0.0-20231019095601-438fb17e572c/go.mod h1:fL0a59bPtKoxPLwTIkZuIT9fP7zdmKbmxCd0fKKhDjw=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=

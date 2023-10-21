@@ -8,10 +8,18 @@ import (
 	"net/http"
 
 	"github.com/ipfs/go-cid"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
+	ipfsLog "github.com/ipfs/go-log/v2"
+	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 )
+
+const (
+	logName = "gateway.tvn.ipfs"
+)
+
+var logger = ipfsLog.Logger(logName)
 
 type ipfsAddResp struct {
 	PubKey string
@@ -31,16 +39,16 @@ type Size interface {
 	Size() int64
 }
 
-func RegistHandle(h *http3.Http3Server) {
+func RegistHandler(h webserver.WebServerHandle) {
 	h.AddHandler("/ipfs/add", ipfsAddHandler)
 	h.AddHandler("/ipfs/cat", ipfsCatHandler)
 }
 
 func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		r.ParseForm()
 
 		resp := ipfsAddResp{
 			PubKey: r.PostFormValue("pubkey"),
@@ -55,9 +63,9 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 			jsonData, _ := json.Marshal(resp)
 			len, err := io.WriteString(w, string(jsonData))
 			if err != nil {
-				logger.Errorf("ipfsAddHandler: WriteString: error: %+v", err)
+				logger.Errorf("ipfs->ipfsAddHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("ipfsAddHandler: WriteString len: %d", len)
+			logger.Debugf("ipfs->ipfsAddHandler: WriteString len: %d", len)
 		}
 
 		if !dkvs.IsExistUserProfile(resp.PubKey) {
@@ -94,9 +102,9 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 		jsonData, _ := json.Marshal(resp)
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
-			logger.Errorf("ipfsAddHandler: WriteString: error: %+v", err)
+			logger.Errorf("ipfs->ipfsAddHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("ipfsAddHandler: WriteString len: %d", len)
+		logger.Debugf("ipfs->ipfsAddHandler: WriteString len: %d", len)
 		return
 	}
 
@@ -109,10 +117,10 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
-		r.ParseForm()
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		resp := ipfsCatResp{
-			PubKey: r.PostFormValue("pubkey"),
-			Cid:    r.PostFormValue("cid"),
+			PubKey: "",
+			Cid:    "",
 			Code:   0,
 			Result: "succ",
 		}
@@ -124,13 +132,28 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			jsonData, _ := json.Marshal(resp)
 			len, err := io.WriteString(w, string(jsonData))
 			if err != nil {
-				logger.Errorf("ipfsCatHandler: WriteString: error: %+v", err)
+				logger.Errorf("ipfs->ipfsCatHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("ipfsCatHandler: WriteString len: %d", len)
+			logger.Debugf("ipfs->ipfsCatHandler: WriteString len: %d", len)
 		}
 
-		if resp.PubKey == "" || resp.Cid == "" {
-			setErrResp(-1, "invalid params")
+		reqParams := map[string]string{}
+		err := util.ParseJsonForm(r.Body, reqParams)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+		logger.Debugf("ipfs->ipfsCatHandler: reqParams: %+v", reqParams)
+
+		resp.PubKey = reqParams["pubkey"]
+		if resp.PubKey == "" {
+			setErrResp(-1, "invalid param pubkey")
+			return
+		}
+
+		resp.Cid = reqParams["cid"]
+		if resp.Cid == "" {
+			setErrResp(-1, "invalid param cid")
 			return
 		}
 
@@ -161,7 +184,7 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, err.Error())
 			return
 		}
-		logger.Debugf("ipfsCatHandler: len: %d", len)
+		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len)
 
 		w.Header().Set("Content-Disposition", "attachment; filename="+resp.Cid)
 		return

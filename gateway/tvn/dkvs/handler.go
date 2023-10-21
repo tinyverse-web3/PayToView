@@ -8,10 +8,18 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
+	ipfsLog "github.com/ipfs/go-log/v2"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 	"github.com/tinyverse-web3/tvbase/common"
 	dkvspb "github.com/tinyverse-web3/tvbase/dkvs/pb"
 )
+
+const (
+	logName = "gateway.tvn.dkvs"
+)
+
+var logger = ipfsLog.Logger(logName)
 
 type dkvsGetResp struct {
 	Key    string
@@ -26,22 +34,9 @@ type dkvsPutResp struct {
 	Result string
 }
 
-type Size interface {
-	Size() int64
-}
-
 var dkvsService common.DkvsService
 
-func IsExistUserProfile(userPubkey string) bool {
-	key := fmt.Sprintf("/%s/%s/%s", "user", userPubkey, "Profile")
-	value, _, _, _, _, err := dkvsService.Get(key)
-	if err != nil || value == nil {
-		return false
-	}
-	return true
-}
-
-func RegistHandle(hs *http3.Http3Server, ds common.DkvsService) {
+func RegistHandler(hs webserver.WebServerHandle, ds common.DkvsService) {
 	dkvsService = ds
 	hs.AddHandler("/dkvs/get", dkvsGetHandler)
 	hs.AddHandler("/dkvs/put", dkvsPutHandler)
@@ -49,13 +44,12 @@ func RegistHandle(hs *http3.Http3Server, ds common.DkvsService) {
 
 func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
-		r.ParseForm()
 
-		key := r.PostFormValue("key")
 		resp := dkvsGetResp{
-			Key:    key,
+			Key:    "",
 			Record: &dkvspb.DkvsRecord{},
 			Code:   0,
 			Result: "succ",
@@ -68,12 +62,20 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 			jsonData, _ := json.Marshal(resp)
 			len, err := io.WriteString(w, string(jsonData))
 			if err != nil {
-				logger.Errorf("dkvsGetHandler: WriteString: error: %+v", err)
+				logger.Errorf("dkvs->dkvsGetHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("dkvsGetHandler: WriteString len: %d", len)
+			logger.Debugf("dkvs->dkvsGetHandler: WriteString len: %d", len)
 		}
 
-		var err error
+		reqParams := map[string]string{}
+		err := util.ParseJsonForm(r.Body, reqParams)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+		logger.Debugf("dkvs->dkvsPutHandler: reqParams:\n%+v", reqParams)
+
+		key := reqParams["key"]
 		resp.Record, err = dkvsService.GetRecord(key)
 		if err != nil {
 			setErrResp(-1, err.Error())
@@ -83,19 +85,20 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
-			logger.Errorf("dkvsGetHandler: WriteString: error: %+v", err)
+			logger.Errorf("dkvs->dkvsGetHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("dkvsGetHandler: WriteString len: %d", len)
+		logger.Debugf("dkvs->dkvsGetHandler: WriteString len: %d", len)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
 }
 
 func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
+
 	if r.Method == http.MethodPost {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
-		r.ParseForm()
 
 		resp := dkvsPutResp{
 			Key:    "",
@@ -109,43 +112,51 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 			jsonData, _ := json.Marshal(resp)
 			len, err := io.WriteString(w, string(jsonData))
 			if err != nil {
-				logger.Errorf("dkvsPutHandler: WriteString: error: %+v", err)
+				logger.Errorf("dkvs->dkvsPutHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("dkvsPutHandler: WriteString len: %d", len)
+			logger.Debugf("dkvs->dkvsPutHandler: WriteString len: %d", len)
 		}
 
-		key := r.PostFormValue("key")
+		reqParams := map[string]string{}
+		err := util.ParseJsonForm(r.Body, reqParams)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+		logger.Debugf("dkvs->dkvsPutHandler: reqParams:\n%+v", reqParams)
+
+		key := reqParams["key"]
 		if key == "" {
 			setErrResp(-1, "invalid params key")
 			return
 		}
 		resp.Key = key
 
-		value, err := base64.StdEncoding.DecodeString(r.PostFormValue("value"))
+		value, err := base64.StdEncoding.DecodeString(reqParams["value"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		pubkey, err := base64.StdEncoding.DecodeString(r.PostFormValue("pubkey"))
+		pubkey, err := base64.StdEncoding.DecodeString(reqParams["pubkey"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		issuetime, err := strconv.ParseUint(r.PostFormValue("issuetime"), 10, 64)
+		issuetime, err := strconv.ParseUint(reqParams["issuetime"], 10, 64)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		ttl, err := strconv.ParseUint(r.PostFormValue("ttl"), 10, 64)
+		sig, err := base64.StdEncoding.DecodeString(reqParams["sig"])
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		sig, err := base64.StdEncoding.DecodeString(r.PostFormValue("sig"))
+		ttl, err := strconv.ParseUint(reqParams["ttl"], 10, 64)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
@@ -160,10 +171,19 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 		jsonData, _ := json.Marshal(resp)
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
-			logger.Errorf("dkvsPutHandler: WriteString: error: %+v", err)
+			logger.Errorf("dkvs->dkvsPutHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("dkvsPutHandler: WriteString len: %d", len)
+		logger.Debugf("dkvs->dkvsPutHandler: WriteString len: %d", len)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
+}
+
+func IsExistUserProfile(userPubkey string) bool {
+	key := fmt.Sprintf("/%s/%s/%s", "user", userPubkey, "Profile")
+	value, _, _, _, _, err := dkvsService.Get(key)
+	if err != nil || value == nil {
+		return false
+	}
+	return true
 }
