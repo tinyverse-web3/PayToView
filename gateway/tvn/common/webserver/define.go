@@ -1,7 +1,7 @@
-package define
+package webserver
 
 import "net/http"
 
-type WebServer interface {
+type WebServerHandle interface {
 	AddHandler(pattern string, handler func(http.ResponseWriter, *http.Request))
 }

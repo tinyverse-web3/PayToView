@@ -7,17 +7,14 @@ import (
 	"os"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/define"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http2"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/http3"
-	shell "github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
+	shell "github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/webserver"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
-	"github.com/tinyverse-web3/tvbase/common/config"
-
 	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
+	"github.com/tinyverse-web3/tvbase/common/config"
 )
 
 func main() {
@@ -41,7 +38,7 @@ func main() {
 	}()
 
 	cfg := config.NewDefaultTvbaseConfig()
-	privkey, _, err := genEd25519Key()
+	privkey, _, err := util.GenEd25519Key()
 	if err != nil {
 		logger.Fatalf("tvn->main: genEd25519Key: %+v", err)
 	}
@@ -78,7 +75,7 @@ func main() {
 	logger.Infof("tvn->main: node.Start, find rendezvous and join tvnode network")
 
 	// msg
-	privkey, _, err = genEcdsaKey()
+	privkey, _, err = util.GenEcdsaKey()
 	if err != nil {
 		logger.Fatalf("tvn->main: genEcdsaKey: error: %+v", err)
 	}
@@ -95,14 +92,14 @@ func main() {
 
 	const certPath = "./cert.pem"
 	const privPath = "./priv.key"
-	var svr define.WebServer
+	var svr webserver.WebServerHandle
 	if true {
-		httpSvr := http2.NewWebServer()
+		httpSvr := webserver.NewWebServer()
 		svr = httpSvr
 		go httpSvr.Listen("0.0.0.0:80")
 		go httpSvr.ListenTLS("0.0.0.0:443", certPath, privPath)
 	} else {
-		httpSvr := http3.NewWebServer()
+		httpSvr := webserver.NewQuicWebServer()
 		svr = httpSvr
 		go httpSvr.ListenUdpTLS("0.0.0.0:4430", certPath, privPath)
 		go httpSvr.ListenTcpTLS("0.0.0.0:443", certPath, privPath)

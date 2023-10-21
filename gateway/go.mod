@@ -7,12 +7,10 @@ require (
 	github.com/ethereum/go-ethereum v1.13.1
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/ipfs/go-cid v0.4.1
-	github.com/ipfs/go-ipfs-api v0.7.0
 	github.com/ipfs/go-log/v2 v2.5.1
 	github.com/libp2p/go-libp2p v0.31.0
-	github.com/multiformats/go-multiaddr v0.11.0
 	github.com/quic-go/quic-go v0.38.1
-	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20230927093723-c3570c9f829d
+	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231021024631-2aa34db23b57
 	github.com/tinyverse-web3/tvbase v0.0.0-20231019095601-438fb17e572c
 )
 
@@ -64,6 +62,7 @@ require (
 	github.com/ipfs/go-datastore v0.6.0 // indirect
 	github.com/ipfs/go-ds-badger2 v0.1.3 // indirect
 	github.com/ipfs/go-ds-leveldb v0.5.0 // indirect
+	github.com/ipfs/go-ipfs-api v0.7.0 // indirect
 	github.com/ipfs/go-ipfs-util v0.0.3 // indirect
 	github.com/ipfs/go-ipld-format v0.5.0 // indirect
 	github.com/ipfs/go-ipld-legacy v0.2.1 // indirect
@@ -104,6 +103,7 @@ require (
 	github.com/mr-tron/base58 v1.2.0 // indirect
 	github.com/multiformats/go-base32 v0.1.0 // indirect
 	github.com/multiformats/go-base36 v0.2.0 // indirect
+	github.com/multiformats/go-multiaddr v0.11.0 // indirect
 	github.com/multiformats/go-multiaddr-dns v0.3.1 // indirect
 	github.com/multiformats/go-multiaddr-fmt v0.1.0 // indirect
 	github.com/multiformats/go-multibase v0.2.0 // indirect

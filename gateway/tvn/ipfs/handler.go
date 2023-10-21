@@ -8,9 +8,9 @@ import (
 	"net/http"
 
 	"github.com/ipfs/go-cid"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/define"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/ipfs"
+	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/webserver"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 )
 
@@ -32,7 +32,7 @@ type Size interface {
 	Size() int64
 }
 
-func RegistHandler(h define.WebServer) {
+func RegistHandler(h webserver.WebServerHandle) {
 	h.AddHandler("/ipfs/add", ipfsAddHandler)
 	h.AddHandler("/ipfs/cat", ipfsCatHandler)
 }
