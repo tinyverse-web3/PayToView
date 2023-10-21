@@ -1,7 +1,7 @@
 <html>  
     <head>
         <meta charset="utf-8"/>
-        <title>Test Js Call Go func</title>
+        <title>Test js call tinyverse with go func</title>
         <link rel="icon" type="image/svg+xml" href="/javascript.svg" />
         <script  type="module" src="./lib/main.js"></script>
         <script type="module">
@@ -15,18 +15,51 @@
                 } else {
                     // tvnwasm 不为空
                     document.getElementById("runButton").disabled = false;
+                    document.getElementById("uploader").disabled = false;
                 }
             })
             window.run = (() => {
                 console.clear()
-                const jsonObject = { telegramID: "123456", sssData: "222" };
+                const jsonObject = { provider: "telegram", userID: "tl_000003", sssData: "" };
                 const jsonString = JSON.stringify(jsonObject);
                 console.log("jsonString: ", jsonString);
-                tvsWasmObj.createAccount(jsonString)
+                createAccount(jsonString)
             })
+
+            document.getElementById('uploader').addEventListener('change', function (event) {
+                // 获取文件输入元素
+                const fileInput = event.target;
+
+                // 检查是否有选中文件
+                if (fileInput.files.length > 0) {
+                    const jsonObject = { provider: "telegram", userId: "tl_000003", sssData: "" };
+                    const jsonString = JSON.stringify(jsonObject);
+                    console.log("jsonString: ", jsonString);
+                    createAccount(jsonString)
+                    // 获取第一个选择的文件
+                    const selectedFile = fileInput.files[0];
+                    // 获取文件名
+                    const fileName = selectedFile.name;
+                    console.log('Selected file:', fileName);
+                    // 读取文件数据（内容）
+                    const reader = new FileReader();
+                    reader.re
+                    reader.onload = function (e) {
+                        // 文件数据在 e.target.result 中
+                        const fileData = e.target.result;
+                        console.log('File data:', fileData);
+                        let bytes = new Uint8Array(fileData);
+                        addFileToIPFS(fileName, bytes)
+                    };
+                    reader.readAsArrayBuffer(selectedFile);
+                } else {
+                    console.log('No file selected.');
+                }
+            });
         </script>
     </head>
     <body>
+        <input type="file" id="uploader" disabled />
         <button onClick="run()" id="runButton" disabled>Run</button>
     </body>
 </html> 
