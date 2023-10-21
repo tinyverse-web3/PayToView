@@ -5,7 +5,7 @@ import { Empty } from '@/components/Empty';
 import { useTitle } from 'react-use';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import { ROUTE_PATH } from '@/router';
+import  { ROUTE_PATH } from '@/router';
 
 import { useListStore } from '@/store/list';
 
@@ -33,6 +33,7 @@ export default function Index() {
             <TabList className='px-2'>
               <Tab>上传的</Tab>
               <Tab>付费的</Tab>
+              <Tab>分享的</Tab>
             </TabList>
           </Tabs>
         </div>
@@ -45,7 +46,7 @@ export default function Index() {
           </SimpleGrid>
         </div>
       </div>
-      <div className='absolute bottom-4 right-4'>
+      <div className='absolute bottom-4 right-4 z-50'>
         <IconButton
           isRound={true}
           variant='solid'

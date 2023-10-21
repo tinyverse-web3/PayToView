@@ -44,6 +44,7 @@ func RegistHandler(hs webserver.WebServerHandle, ds common.DkvsService) {
 
 func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
 
@@ -93,7 +94,9 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
+
 	if r.Method == http.MethodPost {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
 

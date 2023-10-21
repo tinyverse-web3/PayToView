@@ -8,7 +8,7 @@ export const Empty = ({ text, className }: EmptyProps) => {
   return (
     <div className={`w-full h-20 flex flex-col justify-center items-center text-sm text-gray-500 mt-20 ${className}`}>
       <img src='/empty.png' className='w-20 h-20 mb-4' />
-      <span>{text || t('common.empty_data')}</span>
+      <span>{text || t('common.empty.title')}</span>
     </div>
   );
 };

@@ -8,8 +8,8 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useTitle } from 'react-use';
-import { Upload } from '@/components/Upload';
-import { TextUpload } from './components/TextUpload';
+
+import { ContentUpload } from './components/ContentUpload';
 import { PayLimit } from './components/PayLimit';
 import { BackButton, useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { useListStore } from '@/store/list';
@@ -20,7 +20,7 @@ export default function DetailAdd() {
   useTitle('PayToView');
   const nav = useNavigate();
   const [data, { set }] = useMap({
-    title: '',
+    title: 'PayToView First Image',
     content: '',
     image: '',
     textLimit: 10,
@@ -30,12 +30,11 @@ export default function DetailAdd() {
     forwarder: 15,
   });
   const { add } = useListStore((state) => state);
-  const imageChange = async (file: File) => {
-    console.log(file);
-  };
+
   const [tabIndex, setTabIndex] = useState(0);
   const type = useMemo(() => (tabIndex === 0 ? 'image' : 'text'), [tabIndex]);
-  const textChange = (v) => {
+  const contentChange = (v) => {
+    console.log(v)
     set('title', v.title);
     set('content', v.content);
   };
@@ -48,9 +47,14 @@ export default function DetailAdd() {
   };
   // const webApp = useWebApp();
   const addHandler = async () => {
+    // const commissionResult = await globalThis.getCommissionList();
+    // if (commissionResult.code !== '000000') {
+    //   return;
+    // }
     if (type === 'image') {
       await add({
         type,
+        title: data.title,
         image: 'https://via.placeholder.com/300',
         textLimit: 10,
         platform: 5,
@@ -79,21 +83,17 @@ export default function DetailAdd() {
       <Tabs
         variant='soft-rounded'
         align='center'
+        className='mb-4'
         onChange={(index) => setTabIndex(index)}
         colorScheme='green'>
         <TabList className='px-2'>
           <Tab>图片</Tab>
           <Tab>文本</Tab>
         </TabList>
-        <TabPanels>
-          <TabPanel>
-            <Upload onChange={imageChange} />
-          </TabPanel>
-          <TabPanel className='p-0'>
-            <TextUpload onChange={textChange} />
-          </TabPanel>
-        </TabPanels>
       </Tabs>
+      <div className='mb-4 px-4'>
+        <ContentUpload type={type} onChange={contentChange} />
+      </div>
       <div className='px-4'>
         <div className='mb-4'>
           <PayLimit type={type} onChange={payChange} />
