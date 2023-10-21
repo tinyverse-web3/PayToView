@@ -3,9 +3,11 @@ import { useTitle } from 'react-use';
 import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { PayLimit } from './components/PayLimit';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function DetailEdit() {
   useTitle('PayToView');
+  const { t } = useTranslation();
   const nav = useNavigate();
   const type = 'image';
   return (
@@ -39,15 +41,15 @@ export default function DetailEdit() {
         )}
       </div>
       <div className='mb-4'>
-        <div className='font-bold mb-2'>合约名称</div>
-        <div className='text-sm'>123</div>
+        <div className='font-bold mb-2'>{t('pages.detail.contract_name')}</div>
+        <div className='text-sm'>PayToView</div>
       </div>
       <div className=''>
         <div className='mb-4'>
           <PayLimit type={type} />
         </div>
         <Button colorScheme='messenger' size='lg' className='w-full'>
-          修改
+        {t('common.change')}
         </Button>
       </div>
     </div>

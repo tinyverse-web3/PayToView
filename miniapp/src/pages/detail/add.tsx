@@ -15,10 +15,12 @@ import { BackButton, useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { useListStore } from '@/store/list';
 import { useNavigate } from 'react-router-dom';
 import { useMap } from 'react-use';
+import { useTranslation } from 'react-i18next';
 
 export default function DetailAdd() {
   useTitle('PayToView');
   const nav = useNavigate();
+  const { t } = useTranslation()
   const [data, { set }] = useMap({
     title: 'PayToView First Image',
     content: '',
@@ -87,8 +89,8 @@ export default function DetailAdd() {
         onChange={(index) => setTabIndex(index)}
         colorScheme='green'>
         <TabList className='px-2'>
-          <Tab>图片</Tab>
-          <Tab>文本</Tab>
+          <Tab>{t('common.image')}</Tab>
+          <Tab>{t('common.text')}</Tab>
         </TabList>
       </Tabs>
       <div className='mb-4 px-4'>
@@ -103,7 +105,7 @@ export default function DetailAdd() {
           size='lg'
           className='w-full'
           onClick={addHandler}>
-          发布
+          {t('common.release')}
         </Button>
       </div>
     </div>
