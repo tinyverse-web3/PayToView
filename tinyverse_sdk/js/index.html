@@ -20,10 +20,13 @@
             })
             window.run = (() => {
                 console.clear()
-                const jsonObject = { provider: "telegram", userID: "tl_000003", sssData: "" };
+                const jsonObject = { provider: "telegram", userID: "tl_0000019", sssData: "" };
                 const jsonString = JSON.stringify(jsonObject);
                 console.log("jsonString: ", jsonString);
-                createAccount(jsonString)
+                createAccount(jsonString).then((result) => {
+                    console.log('createAccount success');
+                    console.log(result);
+                })
             })
 
             document.getElementById('uploader').addEventListener('change', function (event) {
@@ -32,10 +35,6 @@
 
                 // 检查是否有选中文件
                 if (fileInput.files.length > 0) {
-                    const jsonObject = { provider: "telegram", userId: "tl_000003", sssData: "" };
-                    const jsonString = JSON.stringify(jsonObject);
-                    console.log("jsonString: ", jsonString);
-                    createAccount(jsonString)
                     // 获取第一个选择的文件
                     const selectedFile = fileInput.files[0];
                     // 获取文件名
@@ -49,7 +48,10 @@
                         const fileData = e.target.result;
                         console.log('File data:', fileData);
                         let bytes = new Uint8Array(fileData);
-                        addFileToIPFS(fileName, bytes)
+                        addFileToIPFS(fileName, bytes).then((result) => {
+                            console.log('addFileToIPFS success');
+                            console.log("addFileToIPFS cid: " + result);
+                        })
                     };
                     reader.readAsArrayBuffer(selectedFile);
                 } else {
