@@ -82,56 +82,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         # )
 
 
-async def read(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Send a message with a button that opens a the web app."""
-    await update.callback_query.answer()
-    await update.message.reply_text(
-        "Please press the button below to choose a color via the WebApp.",
-        reply_markup=InlineKeyboardMarkup.from_button(
-            InlineKeyboardButton(
-                text="Open the color picker!",
-                web_app=WebAppInfo(url="https://throbbing-art-9358.on.fleek.co/#/read"),)
-        ),
-    )
-
-
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message when the command /help is issued."""
     await update.message.reply_text("Help!")
-
-
-async def inline_query(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Handle the inline query. This is run when you type: @botusername <query>"""
-    query = update.inline_query.query
-    print(query)
-    if not query:  # empty query should not be handled
-        return
-
-    results = [
-        InlineQueryResultArticle(
-            id=str(uuid4()),
-            title="Caps",
-            input_message_content=InputTextMessageContent(query.upper()),
-        ),
-        InlineQueryResultArticle(
-            id=str(uuid4()),
-            title="Bold",
-            input_message_content=InputTextMessageContent(
-                f"<b>{escape(query)}</b>", parse_mode=ParseMode.HTML
-            ),
-        ),
-        InlineQueryResultArticle(
-            id=str(uuid4()),
-            title="Italic",
-            input_message_content=InputTextMessageContent(
-                f"<i>{escape(query)}</i>", parse_mode=ParseMode.HTML
-            ),
-        ),
-    ]
-
-    await update.inline_query.answer(results)
-
-# Handle incoming WebAppData
 
 
 async def web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -150,19 +103,7 @@ async def web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         text += f"{description}\n\n"
 
     text += 'Share this image with your friends!'
-    # if image:
-    #     text += f"<a href='{image}'></a>"
 
-    # await update.message.reply_html(
-    #     text=(text),
-    #     reply_markup=InlineKeyboardMarkup.from_button(
-    #         InlineKeyboardButton(
-    #             text="Read Detail!",
-    #             url="https://t.me/ItToolBot?start=read"
-    #         ),
-    #     )
-    # )
-    print(123)
     await context.bot.send_photo(
         chat_id=update.message.chat_id,
         photo=image,
@@ -185,11 +126,8 @@ def main() -> None:
 
     # on different commands - answer in Telegram
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("read", read))
     application.add_handler(CommandHandler("help", help_command))
 
-    # on inline queries - show corresponding inline results
-    application.add_handler(InlineQueryHandler(inline_query))
     application.add_handler(MessageHandler(
         filters.StatusUpdate.WEB_APP_DATA, web_app_data))
     # Run the bot until the user presses Ctrl-C
