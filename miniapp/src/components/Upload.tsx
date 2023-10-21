@@ -7,7 +7,7 @@ interface UploadProps {
 }
 export const Upload = ({ onChange }: UploadProps) => {
   const { t } = useTranslation();
-  const [previewSrc, setPreviewSrc] = useState('');
+  const [previewSrc, setPreviewSrc] = useState('https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png');
   const imageChange = async (e: any) => {
     const image = e.target.files[0];
     const reader = new FileReader();

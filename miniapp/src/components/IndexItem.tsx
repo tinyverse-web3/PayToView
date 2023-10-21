@@ -22,7 +22,8 @@ export const IndexItem = ({ item }: IndexItemProps) => {
         item.type === 'image'
           ? {
               type: item.type,
-              image: 'https://via.placeholder.com/300',
+              title: item.title,
+              image: 'https://test.tinyverse.space/paytoview_blur.png',
             }
           : {
               type: item.type,
@@ -39,7 +40,7 @@ export const IndexItem = ({ item }: IndexItemProps) => {
         onClick={toEdit}>
         {item.type === 'image' ? (
           <Image
-            src='https://via.placeholder.com/300'
+            src='https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png'
             height='100%'
             fit='cover'
           />
