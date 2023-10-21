@@ -3,15 +3,23 @@ package dkvs
 import (
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
 
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/webserver"
+	ipfsLog "github.com/ipfs/go-log/v2"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 	"github.com/tinyverse-web3/tvbase/common"
 	dkvspb "github.com/tinyverse-web3/tvbase/dkvs/pb"
 )
+
+const (
+	logName = "gateway.tvn.dkvs"
+)
+
+var logger = ipfsLog.Logger(logName)
 
 type dkvsGetResp struct {
 	Key    string
@@ -166,4 +174,13 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
+}
+
+func IsExistUserProfile(userPubkey string) bool {
+	key := fmt.Sprintf("/%s/%s/%s", "user", userPubkey, "Profile")
+	value, _, _, _, _, err := dkvsService.Get(key)
+	if err != nil || value == nil {
+		return false
+	}
+	return true
 }

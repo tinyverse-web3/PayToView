@@ -8,11 +8,18 @@ import (
 	"net/http"
 
 	"github.com/ipfs/go-cid"
+	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/webserver"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 )
+
+const (
+	logName = "gateway.tvn.ipfs"
+)
+
+var logger = ipfsLog.Logger(logName)
 
 type ipfsAddResp struct {
 	PubKey string

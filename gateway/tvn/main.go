@@ -4,18 +4,61 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"encoding/hex"
-	"os"
+	"flag"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
+	ipfsLog "github.com/ipfs/go-log/v2"
 	shell "github.com/tinyverse-web3/mtv_go_utils/ipfs"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/util"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/common/webserver"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
 	"github.com/tinyverse-web3/tvbase/common/config"
+	tvbaseConfig "github.com/tinyverse-web3/tvbase/common/config"
 )
+
+const (
+	logName = "gateway.tvn.main"
+)
+
+var logger = ipfsLog.Logger(logName)
+
+func init() {
+	ipfsLog.SetLogLevelRegex(logName, "info")
+}
+
+func initLog() (err error) {
+	var moduleLevels = map[string]string{
+		"tvn":    "debug",
+		"tvbase": "info",
+		"dkvs":   "info",
+		"dmsg":   "debug",
+	}
+	err = util.SetLogModule(moduleLevels)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+const (
+	defaultPath = "."
+)
+
+var isTest bool
+
+func parseCmdParams() string {
+	path := flag.String("path", defaultPath, "Path to configuration file and data file to use.")
+	test := flag.Bool("test", false, "Test mode.")
+	flag.Parse()
+	if *test {
+		isTest = true
+	}
+
+	return *path
+}
 
 func main() {
 	ctx := context.Background()
@@ -24,18 +67,6 @@ func main() {
 	if err != nil {
 		logger.Fatalf("tvn->main: GetRootPath: %+v", err)
 	}
-
-	lock, pidFileName := lockProcess(rootPath)
-	defer func() {
-		err = lock.Unlock()
-		if err != nil {
-			logger.Errorf("tvn->main: pid file unlock: %+v", err)
-		}
-		err = os.Remove(pidFileName)
-		if err != nil {
-			logger.Errorf("tvn->main: pid file remove: %+v", err)
-		}
-	}()
 
 	cfg := config.NewDefaultTvbaseConfig()
 	privkey, _, err := util.GenEd25519Key()
@@ -48,7 +79,7 @@ func main() {
 	if isTest {
 		cfg.SetLocalNet(true)
 		cfg.SetDhtProtocolPrefix("/tvnode_test")
-		cfg.InitMode(nodeMode)
+		cfg.InitMode(tvbaseConfig.LightMode)
 		cfg.ClearBootstrapPeers()
 		cfg.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
 		cfg.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
