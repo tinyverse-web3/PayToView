@@ -3,9 +3,11 @@ import { devtools, persist } from 'zustand/middleware';
 
 interface ListState {
   list: any[];
-  payedList: any[];
+  paiedList: any[];
+  forwardList: any[];
   getList: (l: any[]) => void;
-  getPayedList: (l: any[]) => void;
+  setPaiedList: (l: any[]) => void;
+  setForwardList: (l: any[]) => void;
   add: (d: any) => void;
   reset: () => void;
 }
@@ -15,15 +17,21 @@ export const useListStore = create<ListState>()(
     persist(
       (set) => ({
         list: [],
-        payedList: [],
+        paiedList: [],
+        forwardList: [],
         getList: (list) => {
           set({
             list,
           });
         },
-        getPayedList: (list) => {
+        setPaiedList: (list) => {
           set({
-            list,
+            paiedList: list,
+          });
+        },
+        setForwardList: (list) => {
+          set({
+            forwardList: list,
           });
         },
         add: (d: any) => {

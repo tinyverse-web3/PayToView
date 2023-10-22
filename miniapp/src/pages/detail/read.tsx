@@ -3,7 +3,7 @@ import { useTitle } from 'react-use';
 import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/router';
-import { useDetailStore } from '@/store/detail';
+import { useDetailStore, useListStore } from '@/store';
 import { useTranslation } from 'react-i18next';
 import { useWebApp } from '@vkruglikov/react-telegram-web-app';
 
@@ -13,6 +13,7 @@ export default function DetailRead() {
   const nav = useNavigate();
   const { t } = useTranslation();
   const { readStatus, setReadStatus } = useDetailStore((state) => state);
+  const { setPaiedList,setForwardList } = useListStore((state) => state);
   const type = 'image';
   const webApp = useWebApp();
   const toIndex = () => {
@@ -20,10 +21,20 @@ export default function DetailRead() {
   };
   const toPay = () => {
     setReadStatus(true);
+    setPaiedList([{
+      type: 'image',
+      title: 'PayToView First Image',
+      image: 'https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png',
+    }])
     webApp?.close();
   };
   const shareHandler = () => {
     console.log('share');
+    setForwardList([{
+      type: 'image',
+      title: 'PayToView First Image',
+      image: 'https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png',
+    }])
     webApp?.sendData(
       JSON.stringify({
         type: 'image',

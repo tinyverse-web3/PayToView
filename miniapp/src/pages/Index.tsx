@@ -14,7 +14,7 @@ export default function Index() {
   const { t } = useTranslation();
   const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
-  const { list, payedList } = useListStore((state) => state);
+  const { list, paiedList, forwardList } = useListStore((state) => state);
 
   const toAdd = () => {
     nav(ROUTE_PATH.DETAIL_ADD);
@@ -24,8 +24,18 @@ export default function Index() {
     location.reload();
   }
   const dataList = useMemo(() => {
-    return tabIndex === 0 ? list : payedList;
-  }, [tabIndex, list, payedList]);
+    
+    if (tabIndex === 0) {
+      return list;
+    }
+    if (tabIndex === 1) {
+      return paiedList;
+    }
+    if (tabIndex === 2) {
+      return forwardList;
+    }
+    return [];
+  }, [tabIndex, list, paiedList, forwardList]);
   return (
     <div className='h-full overflow-hidden'>
       <div className='h-full overflow-y-auto'>

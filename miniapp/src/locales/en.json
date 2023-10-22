@@ -32,8 +32,8 @@
       "paied": "Paied"
     },
     "index": {
-      "tab_1": "Uploaded",
-      "tab_2": "Readed",
+      "tab_1": "Published",
+      "tab_2": "Paid",
       "tab_3": "Forwarded"
     }
   }
