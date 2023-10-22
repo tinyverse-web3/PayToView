@@ -19,6 +19,10 @@ export default function Index() {
   const toAdd = () => {
     nav(ROUTE_PATH.DETAIL_ADD);
   };
+  const clear = () => {
+    localStorage.clear();
+    location.reload();
+  }
   const dataList = useMemo(() => {
     return tabIndex === 0 ? list : payedList;
   }, [tabIndex, list, payedList]);
@@ -47,6 +51,7 @@ export default function Index() {
           </SimpleGrid>
         </div>
       </div>
+      <div className='absolute top-2 left-2 z-50 w-10 h-10'  onClick={clear}></div>
       <div className='absolute top-2 right-2 z-50'>
         <IconButton
           isRound={true}

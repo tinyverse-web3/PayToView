@@ -44,12 +44,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
         await update.message.reply_text(
             "Open the web app",
-            reply_markup=ReplyKeyboardMarkup.from_button(
-                KeyboardButton(
-                    text=button_text,
-                    web_app=WebAppInfo(
-                        url=button_url),
-                )
+            reply_markup=ReplyKeyboardMarkup([[KeyboardButton(
+                text=button_text,
+                web_app=WebAppInfo(
+                    url=button_url),
+            )]]
+
             ),
         )
     else:
