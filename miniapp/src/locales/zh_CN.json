@@ -27,7 +27,8 @@
       "app": "应用开发商",
       "sender": "发布人",
       "forwarder": "转发人",
-      "contract_name": "合约名称"
+      "contract_name": "合约名称",
+      "paied": "已经支付"
     },
     "index": {
       "tab_1": "上传的",

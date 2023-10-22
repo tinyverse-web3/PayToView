@@ -16,6 +16,7 @@
     "empty": {
       "title": "Empty",
       "description": "Empty"
+      
     }
   },
   "pages": {
@@ -27,7 +28,8 @@
       "app": "App",
       "sender": "Sender",
       "forwarder": "Forwarder",
-      "contract_name": "Contract Name"
+      "contract_name": "Contract Name",
+      "paied": "Paied"
     },
     "index": {
       "tab_1": "Uploaded",

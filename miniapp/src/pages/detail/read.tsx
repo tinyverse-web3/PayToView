@@ -3,16 +3,38 @@ import { useTitle } from 'react-use';
 import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/router';
+import { useDetailStore } from '@/store/detail';
 import { useTranslation } from 'react-i18next';
+import { useWebApp } from '@vkruglikov/react-telegram-web-app';
 
 export default function DetailRead() {
   useTitle('PayToView');
+
   const nav = useNavigate();
   const { t } = useTranslation();
+  const { readStatus, setReadStatus } = useDetailStore((state) => state);
   const type = 'image';
+  const webApp = useWebApp();
   const toIndex = () => {
     nav(ROUTE_PATH.INDEX, { replace: true });
   };
+  const toPay = () => {
+    setReadStatus(true);
+    webApp?.close();
+  };
+  const shareHandler = () => {
+    console.log('share');
+    webApp?.sendData(
+      JSON.stringify({
+        type: 'image',
+        title: 'PayToView First Image',
+        image: 'https://test.tinyverse.space/paytoview_blur.png',
+      }),
+    );
+  };
+  const imageSrc = readStatus
+    ? 'https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png'
+    : 'https://test.tinyverse.space/paytoview_blur.png';
   return (
     <div className='min-h-ful p-4'>
       <BackButton onClick={toIndex} />
@@ -20,11 +42,7 @@ export default function DetailRead() {
         {type === 'image' ? (
           <div className='flex justify-center items-center'>
             <div className='w-48 h-48'>
-              <Image
-                src='https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png'
-                height='100%'
-                fit='cover'
-              />
+              <Image src={imageSrc} height='100%' fit='cover' />
             </div>
           </div>
         ) : (
@@ -48,10 +66,21 @@ export default function DetailRead() {
         <div className='text-sm'>PayToView</div>
       </div>
       <HStack spacing='20px'>
-        <Button colorScheme='messenger' size='lg' className='flex-1'>
-          {t('common.pay')}
-        </Button>
-        <Button colorScheme='messenger' size='lg' className='flex-1'>
+        {!readStatus && (
+          <Button
+            colorScheme='messenger'
+            size='lg'
+            className='flex-1'
+            onClick={toPay}>
+            {readStatus ? t('pages.detail.paied') : t('common.pay')}
+          </Button>
+        )}
+
+        <Button
+          colorScheme='messenger'
+          size='lg'
+          className='flex-1'
+          onClick={shareHandler}>
           {t('common.forward')}
         </Button>
       </HStack>
