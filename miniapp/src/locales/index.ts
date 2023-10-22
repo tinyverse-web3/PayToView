@@ -36,8 +36,8 @@ i18n
     debug: true,
     detection: {
       order: [
-        'navigator',
         'htmlTag',
+        'navigator',
         'localStorage',
         'sessionStorage',
         'cookie',
