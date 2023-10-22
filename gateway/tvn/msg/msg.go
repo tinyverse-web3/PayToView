@@ -3,7 +3,6 @@ package msg
 import (
 	"crypto/ecdsa"
 	"encoding/hex"
-	"fmt"
 	"time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
@@ -36,7 +35,7 @@ func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 	service := ret.tvbase.GetClientDmsgService()
 	// set proxy pubkey
 	proxyPubkey := hex.EncodeToString(eth_crypto.FromECDSAPub(&ret.proxyPrivkey.PublicKey))
-	service.SetProxyPubkey(proxyPubkey)
+	// service.SetProxyPubkey(proxyPubkey)
 
 	// create msg user
 	getSig := func(protoData []byte) ([]byte, error) {
@@ -59,7 +58,7 @@ func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
 	s.AddHandler("/msg/sendmsg", msgProxySendMsgHandler)
 	s.AddHandler("/msg/readmailbox", msgProxyReadMailboxHandler)
-	s.AddHandler("msg/createmailbox", msgProxyCreateMailbox)
+	s.AddHandler("/msg/createuser", msgProxyCreateUser)
 }
 
 func (m *MsgService) getService() *client.DmsgService {
@@ -69,6 +68,7 @@ func (m *MsgService) getService() *client.DmsgService {
 
 func (m *MsgService) createUser(pubkey string) error {
 	service := m.getService()
+	service.SubscribeDestUser(pubkey, false)
 	err := service.CreateMailbox(pubkey)
 	if err != nil {
 		return err
@@ -78,11 +78,7 @@ func (m *MsgService) createUser(pubkey string) error {
 
 func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
 	service := m.getService()
-	isExist := service.IsExistMailbox(destPubkey)
-	if !isExist {
-		return fmt.Errorf("msg->sendmsg: dest mailbox isn't exist")
-	}
-	service.SetProxyReqPubkey(userPubkey)
+	service.SetProxyPubkey(userPubkey)
 	service.SubscribeDestUser(destPubkey, false)
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {
