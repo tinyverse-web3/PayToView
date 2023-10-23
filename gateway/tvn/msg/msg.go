@@ -68,8 +68,11 @@ func (m *MsgService) getService() *client.DmsgService {
 
 func (m *MsgService) createUser(pubkey string) error {
 	service := m.getService()
-	service.SubscribeDestUser(pubkey, false)
-	err := service.CreateMailbox(pubkey)
+	err := service.SetProxyPubkey(pubkey)
+	if err != nil {
+		return err
+	}
+	err = service.CreateMailbox(pubkey)
 	if err != nil {
 		return err
 	}
@@ -78,8 +81,10 @@ func (m *MsgService) createUser(pubkey string) error {
 
 func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
 	service := m.getService()
-	service.SetProxyPubkey(userPubkey)
-	service.SubscribeDestUser(destPubkey, false)
+	err := service.SetProxyPubkey(userPubkey)
+	if err != nil {
+		return err
+	}
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {
 		return err
