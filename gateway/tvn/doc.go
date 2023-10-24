@@ -54,7 +54,7 @@ package main
 //  - 0: succ
 //  - -1 failure
 // - result string
-// DkvsRecord struct
+// Content []byte
 
 // cat download cid content for file
 // path:  http://103.103.245.177:8080/ipfs/{cid}
