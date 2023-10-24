@@ -155,11 +155,13 @@ func msgProxyCreateUser(w http.ResponseWriter, r *http.Request) {
 		}
 		resp.Key = pubkey
 
-		err = service.createUser(pubkey)
+		existUser, err := service.createUser(pubkey)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
+
+		logger.Debugf("msg->msgProxyCreateMailbox: existUser: %v", existUser)
 
 		jsonData, _ := json.Marshal(resp)
 		len, err := io.WriteString(w, string(jsonData))

@@ -14,8 +14,8 @@ import (
 )
 
 type MsgService struct {
-	tvbase       *tvbase.TvBase
-	proxyPrivkey *ecdsa.PrivateKey
+	tvbase  *tvbase.TvBase
+	privkey *ecdsa.PrivateKey
 }
 
 var service *MsgService
@@ -29,17 +29,16 @@ func GetInstance(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 
 func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 	ret := &MsgService{
-		tvbase:       base,
-		proxyPrivkey: privkey,
+		tvbase:  base,
+		privkey: privkey,
 	}
 	service := ret.tvbase.GetClientDmsgService()
 	// set proxy pubkey
-	proxyPubkey := hex.EncodeToString(eth_crypto.FromECDSAPub(&ret.proxyPrivkey.PublicKey))
-	// service.SetProxyPubkey(proxyPubkey)
+	svrPubkey := hex.EncodeToString(eth_crypto.FromECDSAPub(&ret.privkey.PublicKey))
 
 	// create msg user
 	getSig := func(protoData []byte) ([]byte, error) {
-		sig, err := crypto.SignDataByEcdsa(ret.proxyPrivkey, protoData)
+		sig, err := crypto.SignDataByEcdsa(ret.privkey, protoData)
 		if err != nil {
 			logger.Errorf("msg->getUser: SignDataByEcdsa error: %v", err)
 		}
@@ -47,7 +46,7 @@ func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 		return sig, nil
 	}
 
-	err := service.SubscribeSrcUser(proxyPubkey, getSig, false)
+	err := service.SubscribeSrcUser(svrPubkey, getSig, false)
 	if err != nil {
 		logger.Panicf("msg->newMsgService: SubscribeSrcUser error: %+v", err)
 	}
@@ -66,20 +65,21 @@ func (m *MsgService) getService() *client.DmsgService {
 	return service
 }
 
-func (m *MsgService) createUser(userPubkey string) error {
+func (m *MsgService) createUser(userPubkey string) (existUser bool, err error) {
 	service := m.getService()
 	if service.GetProxyPubkey() != userPubkey {
 		service.ClearProxyPubkey()
 	}
-	err := service.SetProxyPubkey(userPubkey)
+	err = service.SetProxyPubkey(userPubkey)
 	if err != nil {
-		return err
+		return false, err
 	}
-	err = service.CreateMailbox(userPubkey)
+
+	existUser, err = service.CreateMailbox(userPubkey)
 	if err != nil {
-		return err
+		return existUser, err
 	}
-	return nil
+	return existUser, nil
 }
 
 func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {

@@ -9,8 +9,9 @@ require (
 	github.com/ipfs/go-log/v2 v2.5.1
 	github.com/libp2p/go-libp2p v0.31.0
 	github.com/quic-go/quic-go v0.38.1
+	github.com/rs/cors v1.10.1
 	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231021024631-2aa34db23b57
-	github.com/tinyverse-web3/tvbase v0.0.0-20231024041713-7183135f50a9
+	github.com/tinyverse-web3/tvbase v0.0.0-20231024100931-948e88e027eb
 )
 
 require (
@@ -126,7 +127,6 @@ require (
 	github.com/quic-go/qtls-go1-20 v0.3.4 // indirect
 	github.com/quic-go/webtransport-go v0.5.3 // indirect
 	github.com/raulk/go-watchdog v1.3.0 // indirect
-	github.com/rs/cors v1.10.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
 	github.com/whyrusleeping/go-keyspace v0.0.0-20160322163242-5b898ac5add1 // indirect
