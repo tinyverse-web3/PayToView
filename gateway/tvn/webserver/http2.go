@@ -10,10 +10,7 @@ import (
 type WebServer struct {
 }
 
-var mux *http.ServeMux
-
 func NewWebServer() *WebServer {
-	mux = http.NewServeMux()
 	return &WebServer{}
 }
 
@@ -22,7 +19,8 @@ func (s *WebServer) AddHandler(pattern string, handler func(http.ResponseWriter,
 }
 
 func (s *WebServer) ListenTLS(addr string, certPath string, prikeyPath string) {
-	err := http.ListenAndServeTLS(addr, certPath, prikeyPath, nil)
+	handler := cors.Default().Handler(mux)
+	err := http.ListenAndServeTLS(addr, certPath, prikeyPath, handler)
 	if err != nil {
 		logger.Fatalf("WebServer:ListenTLS: ListenAndServeTLS error: %v", err)
 	}

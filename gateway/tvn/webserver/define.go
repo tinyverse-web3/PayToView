@@ -15,3 +15,8 @@ const (
 )
 
 var logger = ipfsLog.Logger(logName)
+var mux *http.ServeMux
+
+func init() {
+	mux = http.NewServeMux()
+}
