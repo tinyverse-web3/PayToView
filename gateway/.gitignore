@@ -6,5 +6,7 @@ dht_data
 msg_data
 unsynckv
 *.qlog
+tvn
+*.log
 
 
