@@ -3,7 +3,6 @@ package msg
 import (
 	"crypto/ecdsa"
 	"encoding/hex"
-	"sync"
 	"time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
@@ -14,11 +13,14 @@ import (
 	"github.com/tinyverse-web3/tvbase/tvbase"
 )
 
+type MsgUser struct {
+	service *client.DmsgService
+}
+
 type MsgService struct {
 	tvbase   *tvbase.TvBase
 	privkey  *ecdsa.PrivateKey
-	userList map[string]*client.DmsgService
-	mutex    sync.Mutex
+	userList map[string]*MsgUser
 }
 
 var service *MsgService
@@ -34,7 +36,7 @@ func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 	ret := &MsgService{
 		tvbase:   base,
 		privkey:  privkey,
-		userList: make(map[string]*client.DmsgService),
+		userList: make(map[string]*MsgUser),
 	}
 	service := ret.tvbase.GetClientDmsgService()
 	// set proxy pubkey
@@ -73,49 +75,25 @@ func (m *MsgService) getService(pubkey string) (*client.DmsgService, error) {
 		return nil, nil
 	}
 	if m.userList[pubkey] != nil {
-		s = m.userList[pubkey]
+		s = m.userList[pubkey].service
 	} else {
-		m.userList[pubkey] = s
+		m.userList[pubkey] = &MsgUser{
+			service: s,
+		}
+		err = s.SetProxyPubkey(pubkey)
+		if err != nil {
+			return s, err
+		}
+
+		_, err = s.CreateMailbox(pubkey)
+		if err != nil {
+			return s, err
+		}
 	}
 	return s, nil
 }
 
-func (m *MsgService) initUser(userPubkey string) (existUser bool, err error) {
-	service, err := m.getService(userPubkey)
-	if err != nil {
-		return false, nil
-	}
-	if service.GetProxyPubkey() != userPubkey {
-		service.ClearProxyPubkey()
-		err = service.SetProxyPubkey(userPubkey)
-		if err != nil {
-			return false, err
-		}
-
-		existUser, err = service.CreateMailbox(userPubkey)
-		if err != nil {
-			return existUser, err
-		}
-	}
-
-	return existUser, nil
-}
-
 func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
-	_, err := m.initUser(userPubkey)
-	if err != nil {
-		return err
-	}
-
-	// if !service.IsExistDestUser(destPubkey) {
-	// 	err := service.SubscribeDestUser(destPubkey, false)
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	// }
-
 	service, err := m.getService(userPubkey)
 	if err != nil {
 		return err
@@ -129,12 +107,6 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 }
 
 func (m *MsgService) readMailbox(userPubkey string, duration time.Duration) ([]dmsg.Msg, error) {
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
-	_, err := m.initUser(userPubkey)
-	if err != nil {
-		return nil, err
-	}
 	service, err := m.getService(userPubkey)
 	if err != nil {
 		return nil, err
