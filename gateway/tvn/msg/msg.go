@@ -3,6 +3,7 @@ package msg
 import (
 	"crypto/ecdsa"
 	"encoding/hex"
+	"sync"
 	"time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
@@ -17,6 +18,7 @@ type MsgService struct {
 	tvbase   *tvbase.TvBase
 	privkey  *ecdsa.PrivateKey
 	userList map[string]any
+	mutex    sync.Mutex
 }
 
 var service *MsgService
@@ -75,6 +77,8 @@ func (m *MsgService) initUser(userPubkey string) (existUser bool, err error) {
 			return false, err
 		}
 		m.userList[userPubkey] = userPubkey
+		m.mutex.Lock()
+		defer m.mutex.Unlock()
 		existUser, err = service.CreateMailbox(userPubkey)
 		if err != nil {
 			return existUser, err
