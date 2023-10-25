@@ -35,12 +35,6 @@ type msgReadMailboxResp struct {
 	Result  string
 }
 
-type msgCreateMailboxResp struct {
-	Key    string
-	Code   int
-	Result string
-}
-
 func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
