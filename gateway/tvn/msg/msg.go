@@ -14,8 +14,9 @@ import (
 )
 
 type MsgService struct {
-	tvbase  *tvbase.TvBase
-	privkey *ecdsa.PrivateKey
+	tvbase   *tvbase.TvBase
+	privkey  *ecdsa.PrivateKey
+	userList map[string]any
 }
 
 var service *MsgService
@@ -29,8 +30,9 @@ func GetInstance(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 
 func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 	ret := &MsgService{
-		tvbase:  base,
-		privkey: privkey,
+		tvbase:   base,
+		privkey:  privkey,
+		userList: nil,
 	}
 	service := ret.tvbase.GetClientDmsgService()
 	// set proxy pubkey
@@ -57,7 +59,6 @@ func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
 	s.AddHandler("/msg/sendmsg", msgProxySendMsgHandler)
 	s.AddHandler("/msg/readmailbox", msgProxyReadMailboxHandler)
-	s.AddHandler("/msg/createuser", msgProxyCreateUser)
 }
 
 func (m *MsgService) getService() *client.DmsgService {
@@ -65,7 +66,7 @@ func (m *MsgService) getService() *client.DmsgService {
 	return service
 }
 
-func (m *MsgService) createUser(userPubkey string) (existUser bool, err error) {
+func (m *MsgService) getUser(userPubkey string) (existUser bool, err error) {
 	service := m.getService()
 	if service.GetProxyPubkey() != userPubkey {
 		service.ClearProxyPubkey()
@@ -73,31 +74,29 @@ func (m *MsgService) createUser(userPubkey string) (existUser bool, err error) {
 		if err != nil {
 			return false, err
 		}
+
+		existUser, err = service.CreateMailbox(userPubkey)
+		if err != nil {
+			return existUser, err
+		}
 	}
 
-	existUser, err = service.CreateMailbox(userPubkey)
-	if err != nil {
-		return existUser, err
-	}
 	return existUser, nil
 }
 
 func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
 	service := m.getService()
-	if service.GetProxyPubkey() != userPubkey {
-		service.ClearProxyPubkey()
-		err := service.SetProxyPubkey(userPubkey)
-		if err != nil {
-			return err
-		}
+	_, err := m.getUser(userPubkey)
+	if err != nil {
+		return err
 	}
 
-	if !service.IsExistDestUser(destPubkey) {
-		err := service.SubscribeDestUser(destPubkey, false)
-		if err != nil {
-			return err
-		}
-	}
+	// if !service.IsExistDestUser(destPubkey) {
+	// 	err := service.SubscribeDestUser(destPubkey, false)
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// }
 
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {
@@ -108,5 +107,10 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 }
 
 func (m *MsgService) readMailbox(userPubkey string, duration time.Duration) ([]dmsg.Msg, error) {
-	return m.getService().RequestReadMailbox(duration)
+	service := m.getService()
+	_, err := m.getUser(userPubkey)
+	if err != nil {
+		return nil, err
+	}
+	return service.RequestReadMailbox(duration)
 }
