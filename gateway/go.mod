@@ -11,7 +11,7 @@ require (
 	github.com/quic-go/quic-go v0.38.1
 	github.com/rs/cors v1.10.1
 	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231021024631-2aa34db23b57
-	github.com/tinyverse-web3/tvbase v0.0.0-20231024100931-948e88e027eb
+	github.com/tinyverse-web3/tvbase v0.0.0-20231025054503-dfdfe188a209
 )
 
 require (
