@@ -14,6 +14,7 @@ import (
 	"github.com/quic-go/quic-go/http3"
 	"github.com/quic-go/quic-go/logging"
 	"github.com/quic-go/quic-go/qlog"
+	"github.com/rs/cors"
 )
 
 type WebQuicServer struct {
@@ -48,6 +49,7 @@ func (s *WebQuicServer) SetQlog(logPath string) {
 
 func (s *WebQuicServer) ListenUdpTLS(addr string, certPath string, prikeyPath string) {
 	s.server.Addr = addr
+	s.server.Handler = mux
 	err := s.server.ListenAndServeTLS(certPath, prikeyPath)
 	if err != nil {
 		logger.Fatalf("WebQuicServer:ListenUdpTLS: ListenAndServeTLS error: %v", err)
@@ -55,7 +57,8 @@ func (s *WebQuicServer) ListenUdpTLS(addr string, certPath string, prikeyPath st
 }
 
 func (s *WebQuicServer) ListenTcpTLS(addr string, certPath string, prikeyPath string) {
-	err := http3.ListenAndServe(addr, certPath, prikeyPath, s.server.Handler)
+	handler := cors.Default().Handler(mux)
+	err := http3.ListenAndServe(addr, certPath, prikeyPath, handler)
 	if err != nil {
 		logger.Fatalf("WebQuicServer:ListenTcpTLS: ListenAndServe error: %v", err)
 	}

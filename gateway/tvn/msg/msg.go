@@ -13,9 +13,17 @@ import (
 	"github.com/tinyverse-web3/tvbase/tvbase"
 )
 
+type MsgUser struct {
+	service *client.DmsgService
+}
+
 type MsgService struct {
-	tvbase       *tvbase.TvBase
-	proxyPrivkey *ecdsa.PrivateKey
+	tvbase   *tvbase.TvBase
+	privkey  *ecdsa.PrivateKey
+	userList map[string]*MsgUser
+
+	svrPubkey string
+	getSig    func(protoData []byte) ([]byte, error)
 }
 
 var service *MsgService
@@ -29,27 +37,22 @@ func GetInstance(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 
 func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 	ret := &MsgService{
-		tvbase:       base,
-		proxyPrivkey: privkey,
+		tvbase:   base,
+		privkey:  privkey,
+		userList: make(map[string]*MsgUser),
 	}
-	service := ret.tvbase.GetClientDmsgService()
+
 	// set proxy pubkey
-	proxyPubkey := hex.EncodeToString(eth_crypto.FromECDSAPub(&ret.proxyPrivkey.PublicKey))
-	// service.SetProxyPubkey(proxyPubkey)
+	ret.svrPubkey = hex.EncodeToString(eth_crypto.FromECDSAPub(&ret.privkey.PublicKey))
 
 	// create msg user
-	getSig := func(protoData []byte) ([]byte, error) {
-		sig, err := crypto.SignDataByEcdsa(ret.proxyPrivkey, protoData)
+	ret.getSig = func(protoData []byte) ([]byte, error) {
+		sig, err := crypto.SignDataByEcdsa(ret.privkey, protoData)
 		if err != nil {
 			logger.Errorf("msg->getUser: SignDataByEcdsa error: %v", err)
 		}
 
 		return sig, nil
-	}
-
-	err := service.SubscribeSrcUser(proxyPubkey, getSig, false)
-	if err != nil {
-		logger.Panicf("msg->newMsgService: SubscribeSrcUser error: %+v", err)
 	}
 
 	return ret
@@ -58,28 +61,47 @@ func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
 	s.AddHandler("/msg/sendmsg", msgProxySendMsgHandler)
 	s.AddHandler("/msg/readmailbox", msgProxyReadMailboxHandler)
-	s.AddHandler("/msg/createuser", msgProxyCreateUser)
 }
 
-func (m *MsgService) getService() *client.DmsgService {
-	service := m.tvbase.GetClientDmsgService()
-	return service
-}
-
-func (m *MsgService) createUser(pubkey string) error {
-	service := m.getService()
-	service.SubscribeDestUser(pubkey, false)
-	err := service.CreateMailbox(pubkey)
+func (m *MsgService) getService(pubkey string) (*client.DmsgService, error) {
+	// service := m.tvbase.GetClientDmsgService()
+	service, err := client.CreateService(m.tvbase)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	err = service.Start()
+	if err != nil {
+		return nil, err
+	}
+	err = service.SubscribeSrcUser(m.svrPubkey, m.getSig, false)
+	if err != nil {
+		logger.Panicf("msg->newMsgService: SubscribeSrcUser error: %+v", err)
+	}
+
+	if m.userList[pubkey] != nil {
+		service = m.userList[pubkey].service
+	} else {
+		m.userList[pubkey] = &MsgUser{
+			service: service,
+		}
+		err = service.SetProxyPubkey(pubkey)
+		if err != nil {
+			return service, err
+		}
+
+		_, err = service.CreateMailbox(pubkey)
+		if err != nil {
+			return service, err
+		}
+	}
+	return service, nil
 }
 
 func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
-	service := m.getService()
-	service.SetProxyPubkey(userPubkey)
-	service.SubscribeDestUser(destPubkey, false)
+	service, err := m.getService(userPubkey)
+	if err != nil {
+		return err
+	}
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {
 		return err
@@ -89,5 +111,9 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 }
 
 func (m *MsgService) readMailbox(userPubkey string, duration time.Duration) ([]dmsg.Msg, error) {
-	return m.getService().RequestReadMailbox(duration)
+	service, err := m.getService(userPubkey)
+	if err != nil {
+		return nil, err
+	}
+	return service.RequestReadMailbox(duration)
 }

@@ -29,10 +29,11 @@ type ipfsAddResp struct {
 }
 
 type ipfsCatResp struct {
-	PubKey string
-	Cid    string
-	Code   int
-	Result string
+	PubKey  string
+	Cid     string
+	Code    int
+	Result  string
+	Content []byte
 }
 
 type Size interface {
@@ -46,7 +47,6 @@ func RegistHandler(h webserver.WebServerHandle) {
 
 func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 
@@ -117,12 +117,12 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Access-Control-Allow-Origin", "*")
 		resp := ipfsCatResp{
-			PubKey: "",
-			Cid:    "",
-			Code:   0,
-			Result: "succ",
+			PubKey:  "",
+			Cid:     "",
+			Code:    0,
+			Result:  "succ",
+			Content: nil,
 		}
 
 		setErrResp := func(code int, result string) {
@@ -179,13 +179,16 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		len, err := io.Copy(w, reader)
+		resp.Content, err = io.ReadAll(reader)
+		// len, err := io.Copy(w, reader)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
-		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len)
 
+		jsonData, _ := json.Marshal(resp)
+		len, err := io.WriteString(w, string(jsonData))
+		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len)
 		w.Header().Set("Content-Disposition", "attachment; filename="+resp.Cid)
 		return
 	}
