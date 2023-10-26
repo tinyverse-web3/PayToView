@@ -1,13 +1,13 @@
 import { SimpleGrid, IconButton, Tabs, TabList, Tab } from '@chakra-ui/react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { IndexItem } from '@/components/IndexItem';
 import { Empty } from '@/components/Empty';
 import { useTitle } from 'react-use';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import  { ROUTE_PATH } from '@/router';
+import { ROUTE_PATH } from '@/router';
 import { useTranslation } from 'react-i18next';
-import { useListStore } from '@/store/list';
+import { useListStore, useTvsStore } from '@/store';
 
 export default function Index() {
   useTitle('PayToView');
@@ -15,6 +15,7 @@ export default function Index() {
   const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
   const { list, paiedList, forwardList } = useListStore((state) => state);
+  const { tvs } = useTvsStore((state) => state);
 
   const toAdd = () => {
     nav(ROUTE_PATH.DETAIL_ADD);
@@ -22,9 +23,12 @@ export default function Index() {
   const clear = () => {
     localStorage.clear();
     location.reload();
-  }
+  };
+  const getList = async () => {
+    const result = await tvs.getPayToViewList();
+    console.log(result);
+  };
   const dataList = useMemo(() => {
-    
     if (tabIndex === 0) {
       return list;
     }
@@ -36,6 +40,10 @@ export default function Index() {
     }
     return [];
   }, [tabIndex, list, paiedList, forwardList]);
+
+  useEffect(() => {
+    getList();
+  }, []);
   return (
     <div className='h-full overflow-hidden'>
       <div className='h-full overflow-y-auto'>
@@ -61,7 +69,9 @@ export default function Index() {
           </SimpleGrid>
         </div>
       </div>
-      <div className='absolute top-2 left-2 z-50 w-10 h-10'  onClick={clear}></div>
+      <div
+        className='absolute top-2 left-2 z-50 w-10 h-10'
+        onClick={clear}></div>
       <div className='absolute top-2 right-2 z-50'>
         <IconButton
           isRound={true}

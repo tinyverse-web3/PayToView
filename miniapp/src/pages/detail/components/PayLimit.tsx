@@ -18,6 +18,7 @@ interface PayLimitProps {
 export const PayLimit = ({ onChange, type }: PayLimitProps) => {
   const { t } = useTranslation();
   const [data, { set }] = useMap({
+    amount: 0,
     textLimit: 10,
     platform: 5,
     developer: 10,
@@ -48,11 +49,25 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
           <div className='text-sm'>{t('pages.detail.blur_show')}</div>
         )}
       </FormControl>
+      <FormControl className='mb-4'>
+        <FormLabel>{t('pages.detail.divide_ratio')}</FormLabel>
+        <NumberInput
+          isReadOnly
+          width='100%'
+          size='sm'
+          variant='filled'
+          value={data.amount}
+          onChange={(_, e: number) => set('amount', e)}>
+          <NumberInputField />
+        </NumberInput>
+      </FormControl>
       <FormControl>
         <FormLabel>{t('pages.detail.divide_ratio')}</FormLabel>
         <SimpleGrid columns={4} spacing='10px'>
           <div>
-            <div className='text-sm mb-1 text-center'>{t('pages.detail.network')}</div>
+            <div className='text-sm mb-1 text-center'>
+              {t('pages.detail.network')}
+            </div>
             <NumberInput
               isReadOnly
               width='100%'
@@ -64,7 +79,9 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
             </NumberInput>
           </div>
           <div>
-            <div className='text-sm mb-1 text-center'>{t('pages.detail.app')}</div>
+            <div className='text-sm mb-1 text-center'>
+              {t('pages.detail.app')}
+            </div>
             <NumberInput
               isReadOnly
               width='100%'
@@ -76,7 +93,9 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
             </NumberInput>
           </div>
           <div>
-            <div className='text-sm mb-1 text-center'>{t('pages.detail.sender')}</div>
+            <div className='text-sm mb-1 text-center'>
+              {t('pages.detail.sender')}
+            </div>
             <NumberInput
               min={0}
               max={70}
@@ -89,7 +108,9 @@ export const PayLimit = ({ onChange, type }: PayLimitProps) => {
             </NumberInput>
           </div>
           <div>
-            <div className='text-sm mb-1 text-center'>{t('pages.detail.forwarder')}</div>
+            <div className='text-sm mb-1 text-center'>
+              {t('pages.detail.forwarder')}
+            </div>
             <NumberInput
               min={15}
               max={85}

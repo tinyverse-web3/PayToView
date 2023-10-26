@@ -5,7 +5,7 @@ interface ListState {
   list: any[];
   paiedList: any[];
   forwardList: any[];
-  getList: (l: any[]) => void;
+  setList: (l: any[]) => void;
   setPaiedList: (l: any[]) => void;
   setForwardList: (l: any[]) => void;
   add: (d: any) => void;
@@ -19,7 +19,7 @@ export const useListStore = create<ListState>()(
         list: [],
         paiedList: [],
         forwardList: [],
-        getList: (list) => {
+        setList: (list) => {
           set({
             list,
           });
