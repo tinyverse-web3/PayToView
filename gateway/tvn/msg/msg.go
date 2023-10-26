@@ -60,41 +60,41 @@ func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 
 func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
 	s.AddHandler("/msg/sendmsg", msgProxySendMsgHandler)
-	s.AddHandler("/msg/readmailbox", msgProxyReadMailboxHandler)
+	s.AddHandler("/msg/readmailbox1", msgProxyReadMailboxHandler)
 }
 
 func (m *MsgService) getService(pubkey string) (*client.DmsgService, error) {
-	// service := m.tvbase.GetClientDmsgService()
-	service, err := client.CreateService(m.tvbase)
-	if err != nil {
-		return nil, err
-	}
-	err = service.Start()
-	if err != nil {
-		return nil, err
-	}
-	err = service.SubscribeSrcUser(m.svrPubkey, m.getSig, false)
-	if err != nil {
-		logger.Panicf("msg->newMsgService: SubscribeSrcUser error: %+v", err)
-	}
-
-	if m.userList[pubkey] != nil {
-		service = m.userList[pubkey].service
-	} else {
-		m.userList[pubkey] = &MsgUser{
-			service: service,
+	user := m.userList[pubkey]
+	if user == nil {
+		service, err := client.CreateService(m.tvbase)
+		if err != nil {
+			return nil, err
+		}
+		err = service.Start()
+		if err != nil {
+			return nil, err
+		}
+		// service = m.tvbase.GetClientDmsgService()
+		err = service.SubscribeSrcUser(m.svrPubkey, m.getSig, false)
+		if err != nil {
+			return nil, err
 		}
 		err = service.SetProxyPubkey(pubkey)
 		if err != nil {
-			return service, err
+			return nil, err
 		}
 
 		_, err = service.CreateMailbox(pubkey)
 		if err != nil {
-			return service, err
+			return nil, err
 		}
+
+		user = &MsgUser{
+			service: service,
+		}
+		m.userList[pubkey] = user
 	}
-	return service, nil
+	return user.service, nil
 }
 
 func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
