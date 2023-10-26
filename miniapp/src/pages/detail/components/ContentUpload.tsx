@@ -10,6 +10,7 @@ interface ContentUploadProps {
 export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
   const [data, { set }] = useMap({
     title: 'PayToView First Image',
+    description: '',
     content: '',
     image: null,
   });
@@ -25,14 +26,26 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
     set('content', e.target.value);
     onChange?.(data);
   };
+  const descriptionChange = (e) => {
+    set('description', e.target.value);
+    onChange?.(data);
+  };
   return (
     <div>
       <FormControl className='mb-4'>
         <Input
-          type='email'
+          type='text'
           placeholder='Title'
           value={data.title}
           onChange={titleChange}
+        />
+      </FormControl>
+      <FormControl className='mb-4'>
+        <Input
+          type='text'
+          placeholder='Description'
+          value={data.description}
+          onChange={descriptionChange}
         />
       </FormControl>
       {type === 'image' ? (

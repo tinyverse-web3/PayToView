@@ -2,7 +2,8 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@chakra-ui/react';
 import { useWebApp, useCloudStorage } from '@vkruglikov/react-telegram-web-app';
-import TvsWasm from '@/lib/tvs';
+import TvsWasm from '@/lib/tvsWasm';
+import { useTvsStore } from './store';
 export default function Root() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -11,6 +12,7 @@ export default function Root() {
   const user = searchParams.get('user');
   const webApp = useWebApp();
   const cloudstorage = useCloudStorage();
+  const { tvs } = useTvsStore((state) => state);
   const getUserId = async () => {
     if (!window.Telegram) {
       return undefined;
@@ -26,27 +28,27 @@ export default function Root() {
     }
     const userId = getUserId();
     setLoading(true);
-    const tvs = new TvsWasm();
+    const tvsWasm = new TvsWasm();
     console.log(tvs);
-    await tvs.initWasm();
+    await tvsWasm.initWasm();
 
     if (!userId) {
       setError(true);
     } else {
       // const tSssData = (await cloudstorage.getItem(`user_${userId}_sss`)) || '';
-      const result = await globalThis.createAccount(
-        JSON.stringify({ telegramID: '123456', sssData: '' }),
-      );
+      const result = await tvs.createAccount({
+        telegramID: '123456',
+        sssData: '',
+      });
       if (result.code === '000000') {
         setError(false);
       }
       console.log(result);
     }
-    console.log(123);
     setLoading(false);
   };
   useEffect(() => {
-    // check();
+    check();
   }, []);
   return (
     <main className='h-full'>
