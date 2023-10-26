@@ -16,7 +16,6 @@ import (
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
 	"github.com/tinyverse-web3/tvbase/common/config"
-	tvbaseConfig "github.com/tinyverse-web3/tvbase/common/config"
 )
 
 const (
@@ -61,6 +60,9 @@ func parseCmdParams() string {
 }
 
 func main() {
+
+	privkey := "78c8cc427bc0474d77ef61f53cb4ee455e59492b38b0ef7e506c87a695012a18"
+
 	ctx := context.Background()
 	rootPath := parseCmdParams()
 	rootPath, err := util.GetRootPath(rootPath)
@@ -69,7 +71,7 @@ func main() {
 	}
 
 	cfg := config.NewDefaultTvbaseConfig()
-	privkey, _, err := util.GenEd25519Key()
+	privkey, _, err = util.GenEd25519Key()
 	if err != nil {
 		logger.Fatalf("tvn->main: genEd25519Key: %+v", err)
 	}
@@ -79,7 +81,7 @@ func main() {
 	if isTest {
 		cfg.SetLocalNet(true)
 		cfg.SetDhtProtocolPrefix("/tvnode_test")
-		cfg.InitMode(tvbaseConfig.LightMode)
+		cfg.InitMode(config.LightMode)
 		cfg.ClearBootstrapPeers()
 		cfg.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
 		cfg.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
@@ -110,6 +112,8 @@ func main() {
 	if err != nil {
 		logger.Fatalf("tvn->main: genEcdsaKey: error: %+v", err)
 	}
+
+	// privkey = "78c8cc427bc0474d77ef61f53cb4ee455e59492b38b0ef7e506c87a695012a18"
 	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(privkey)
 	if err != nil {
 		logger.Fatalf("tvn->main: getEcdsaPrivKey: error: %+v", err)
