@@ -153,9 +153,12 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 		return err
 	}
 
-	err = service.SubscribeDestUser(destPubkey, false)
-	if err != nil {
-		return err
+	if !service.IsExistDestUser(destPubkey) {
+		err = service.SubscribeDestUser(destPubkey, true) // false: private user key,  true: public user key
+		if err != nil {
+			logger.Errorf("msg->getService: SubscribeSrcUser failed: %v", err)
+			return err
+		}
 	}
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {

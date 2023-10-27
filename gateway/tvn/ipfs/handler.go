@@ -11,7 +11,6 @@ import (
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 )
 
@@ -26,14 +25,6 @@ type ipfsAddResp struct {
 	Cid    string
 	Code   int
 	Result string
-}
-
-type ipfsCatResp struct {
-	PubKey  string
-	Cid     string
-	Code    int
-	Result  string
-	Content []byte
 }
 
 type Size interface {
@@ -117,47 +108,28 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		w.WriteHeader(http.StatusOK)
-		resp := ipfsCatResp{
-			PubKey:  "",
-			Cid:     "",
-			Code:    0,
-			Result:  "succ",
-			Content: nil,
-		}
 
 		setErrResp := func(code int, result string) {
 			w.Header().Set("Content-Type", "application/json")
-			resp.Code = -1
-			resp.Result = result
-			jsonData, _ := json.Marshal(resp)
-			len, err := io.WriteString(w, string(jsonData))
-			if err != nil {
-				logger.Errorf("ipfs->ipfsCatHandler: WriteString: error: %+v", err)
-			}
-			logger.Debugf("ipfs->ipfsCatHandler: WriteString len: %d", len)
+			w.WriteHeader(http.StatusNotFound)
 		}
 
-		reqParams := map[string]string{}
-		err := util.ParseJsonForm(r.Body, reqParams)
-		if err != nil {
-			setErrResp(-1, err.Error())
-			return
-		}
-		logger.Debugf("ipfs->ipfsCatHandler: reqParams: %+v", reqParams)
+		logger.Debugf("ipfs->ipfsCatHandler: reqParams: %+v", r.URL.Query())
 
-		resp.PubKey = reqParams["pubkey"]
-		if resp.PubKey == "" {
+		pubkey := r.URL.Query().Get("pubkey")
+
+		if pubkey == "" {
 			setErrResp(-1, "invalid param pubkey")
 			return
 		}
 
-		resp.Cid = reqParams["cid"]
-		if resp.Cid == "" {
+		cidStr := r.URL.Query().Get("cid")
+		if cidStr == "" {
 			setErrResp(-1, "invalid param cid")
 			return
 		}
 
-		c, err := cid.Decode(resp.Cid)
+		c, err := cid.Decode(cidStr)
 		if err != nil {
 			setErrResp(-1, "invalid cid format")
 			return
@@ -168,28 +140,25 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !dkvs.IsExistUserProfile(resp.PubKey) {
+		if !dkvs.IsExistUserProfile(pubkey) {
 			setErrResp(-1, "user profile not exist")
 			return
 		}
 
-		reader, err := ipfs.GetIpfsShellProxy().Cat(resp.Cid)
+		reader, err := ipfs.GetIpfsShellProxy().Cat(cidStr)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		resp.Content, err = io.ReadAll(reader)
-		// len, err := io.Copy(w, reader)
+		len, err := io.Copy(w, reader)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
 
-		jsonData, _ := json.Marshal(resp)
-		len, err := io.WriteString(w, string(jsonData))
 		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len)
-		w.Header().Set("Content-Disposition", "attachment; filename="+resp.Cid)
+		w.Header().Set("Content-Disposition", "attachment; filename="+cidStr)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)

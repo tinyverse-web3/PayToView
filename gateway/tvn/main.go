@@ -96,9 +96,9 @@ func main() {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
 	}
 
-	_, err = shell.CreateIpfsShellProxy("/ip4/127.0.0.1/tcp/5001")
+	_, err = shell.CreateIpfsShellProxy("/ip4/103.103.245.177/tcp/5001")
 	if err != nil {
-		logger.Fatalf("tvn->main: initLog: %+v", err)
+		logger.Fatalf("tvn->main: CreateIpfsShellProxy: %+v", err)
 	}
 
 	node, err := tvnode.NewTvNode(ctx, rootPath, cfg)
