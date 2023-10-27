@@ -172,3 +172,33 @@ func (m *MsgService) readMailbox(userPubkey string, duration time.Duration) ([]d
 	}
 	return service.RequestReadMailbox(duration)
 }
+
+func (m *MsgService) TickerCleanRestResource() {
+	defaultTimeout := 5 * time.Minute
+	ticker := time.NewTicker(defaultTimeout)
+	for {
+		select {
+		case <-ticker.C:
+			func() {
+				m.mu.Lock()
+				defer m.mu.Unlock()
+				m.userList.Range(func(key, value any) bool {
+					user := value.(*MsgUser)
+					user.mu.Lock()
+					if time.Since(user.lastAccessTime) > defaultTimeout {
+						if user.service != nil {
+							user.service.Stop()
+							user.service = nil
+						}
+						m.userList.Delete(key)
+					}
+					user.mu.Unlock()
+					return true
+				})
+			}()
+		case <-m.tvbase.GetCtx().Done():
+			ticker.Stop()
+
+		}
+	}
+}
