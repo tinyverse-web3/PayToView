@@ -3,6 +3,7 @@ package msg
 import (
 	"crypto/ecdsa"
 	"encoding/hex"
+	"sync"
 	"time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
@@ -15,14 +16,16 @@ import (
 )
 
 type MsgUser struct {
-	service *client.DmsgService
+	service        *client.DmsgService
+	mu             *sync.Mutex
+	lastAccessTime time.Time
 }
 
 type MsgService struct {
-	tvbase   *tvbase.TvBase
-	privkey  *ecdsa.PrivateKey
-	userList map[string]*MsgUser
-
+	tvbase    *tvbase.TvBase
+	privkey   *ecdsa.PrivateKey
+	mu        sync.Mutex
+	userList  sync.Map
 	svrPubkey string
 	getSig    func(protoData []byte) ([]byte, error)
 }
@@ -38,9 +41,8 @@ func GetInstance(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 
 func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 	ret := &MsgService{
-		tvbase:   base,
-		privkey:  privkey,
-		userList: make(map[string]*MsgUser),
+		tvbase:  base,
+		privkey: privkey,
 	}
 
 	// set proxy pubkey
@@ -65,35 +67,56 @@ func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
 }
 
 func (m *MsgService) getService(pubkey string) (*client.DmsgService, error) {
-	user := m.userList[pubkey]
+	m.mu.Lock()
+	data, _ := m.userList.Load(pubkey)
+	user, _ := data.(*MsgUser)
 	if user == nil {
-		service, err := client.CreateService(m.tvbase)
-		if err != nil {
-			return nil, err
+		user = &MsgUser{
+			service: nil,
+			mu:      &sync.Mutex{},
 		}
-		err = service.Start()
-		if err != nil {
-			return nil, err
+	}
+	m.mu.Unlock()
+
+	user.mu.Lock()
+	defer user.mu.Unlock()
+	if user.service == nil {
+		var lastErr error
+		var service *client.DmsgService
+
+		service, lastErr = client.CreateService(m.tvbase)
+		if lastErr != nil {
+			return nil, lastErr
 		}
 
-		privkey, _, err := util.GenEcdsaKey()
-		if err != nil {
-			logger.Error("MsgService->getService: genEcdsaKey: error: %+v", err)
-			return nil, err
-		}
-		userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(privkey)
-		if err != nil {
-			logger.Error("MsgService->getService: getEcdsaPrivKey: error: %+v", err)
-			return nil, err
+		lastErr = service.Start()
+		if lastErr != nil {
+			return nil, lastErr
 		}
 
-		proxyPrivkeyHex := hex.EncodeToString(userPrivkeyData)
-		proxyPubkeyHex := hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey))
-		logger.Infof("MsgService->main:\nproxyPrivkeyHex: %s\nproxyPubkeyHex: %s", proxyPrivkeyHex, proxyPubkeyHex)
-		userPubkeyData := eth_crypto.FromECDSAPub(&userPrivkey.PublicKey)
+		defer func() {
+			if lastErr != nil {
+				err := service.Stop()
+				if err != nil {
+					logger.Errorf("MsgService->getService: Stop error: %v", err)
+				}
+			}
+		}()
 
-		// userPubkeyData = eth_crypto.FromECDSAPub(&m.privkey.PublicKey)
-		userPubkey := hex.EncodeToString(userPubkeyData)
+		var privkey string
+		privkey, _, lastErr = util.GenEcdsaKey()
+		if lastErr != nil {
+			logger.Error("MsgService->getService: genEcdsaKey: error: %+v", lastErr)
+			return nil, lastErr
+		}
+
+		var userPrivkey *ecdsa.PrivateKey
+		_, userPrivkey, lastErr = util.GetEcdsaPrivKey(privkey)
+		if lastErr != nil {
+			logger.Error("MsgService->getService: GetEcdsaPrivKey: error: %+v", lastErr)
+			return nil, lastErr
+		}
+
 		getSig := func(protoData []byte) ([]byte, error) {
 			sig, err := crypto.SignDataByEcdsa(userPrivkey, protoData)
 			if err != nil {
@@ -102,25 +125,25 @@ func (m *MsgService) getService(pubkey string) (*client.DmsgService, error) {
 			return sig, nil
 		}
 
-		err = service.SubscribeSrcUser(userPubkey, getSig, false)
-		if err != nil {
-			return nil, err
-		}
-		err = service.SetProxyPubkey(pubkey)
-		if err != nil {
-			return nil, err
+		lastErr = service.SubscribeSrcUser(hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey)), getSig, false)
+		if lastErr != nil {
+			return nil, lastErr
 		}
 
-		_, err = service.CreateMailbox(pubkey)
-		if err != nil {
-			return nil, err
+		lastErr = service.SetProxyPubkey(pubkey)
+		if lastErr != nil {
+			return nil, lastErr
 		}
 
-		user = &MsgUser{
-			service: service,
+		_, lastErr = service.CreateMailbox(pubkey)
+		if lastErr != nil {
+			return nil, lastErr
 		}
-		m.userList[pubkey] = user
+		user.service = service
+		m.userList.Store(pubkey, user)
 	}
+
+	user.lastAccessTime = time.Now()
 	return user.service, nil
 }
 
@@ -148,16 +171,4 @@ func (m *MsgService) readMailbox(userPubkey string, duration time.Duration) ([]d
 		return nil, err
 	}
 	return service.RequestReadMailbox(duration)
-}
-
-func getEcdsaPrivKey(privkeyHex string) ([]byte, *ecdsa.PrivateKey, error) {
-	privkeyData, err := hex.DecodeString(privkeyHex)
-	if err != nil {
-		return privkeyData, nil, err
-	}
-	privkey, err := eth_crypto.ToECDSA(privkeyData)
-	if err != nil {
-		return privkeyData, nil, err
-	}
-	return privkeyData, privkey, nil
 }

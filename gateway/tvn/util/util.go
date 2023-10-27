@@ -1,6 +1,7 @@
 package util
 
 import (
+	"crypto/ecdsa"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
@@ -88,4 +89,16 @@ func GenEcdsaKey() (privkey string, pubkey string, err error) {
 	}
 
 	return hex.EncodeToString(eth_crypto.FromECDSA(privk)), hex.EncodeToString(eth_crypto.FromECDSAPub(&privk.PublicKey)), nil
+}
+
+func GetEcdsaPrivKey(privkeyHex string) ([]byte, *ecdsa.PrivateKey, error) {
+	privkeyData, err := hex.DecodeString(privkeyHex)
+	if err != nil {
+		return privkeyData, nil, err
+	}
+	privkey, err := eth_crypto.ToECDSA(privkeyData)
+	if err != nil {
+		return privkeyData, nil, err
+	}
+	return privkeyData, privkey, nil
 }

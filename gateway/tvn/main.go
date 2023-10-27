@@ -2,9 +2,12 @@ package main
 
 import (
 	"context"
-	"crypto/ecdsa"
 	"encoding/hex"
 	"flag"
+	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	ipfsLog "github.com/ipfs/go-log/v2"
@@ -51,6 +54,7 @@ var isTest bool
 func parseCmdParams() string {
 	path := flag.String("path", defaultPath, "Path to configuration file and data file to use.")
 	test := flag.Bool("test", false, "Test mode.")
+
 	flag.Parse()
 	if *test {
 		isTest = true
@@ -60,7 +64,7 @@ func parseCmdParams() string {
 }
 
 func main() {
-
+	go handleInterrupt()
 	privkey := "78c8cc427bc0474d77ef61f53cb4ee455e59492b38b0ef7e506c87a695012a18"
 
 	ctx := context.Background()
@@ -114,9 +118,9 @@ func main() {
 	}
 
 	// privkey = "78c8cc427bc0474d77ef61f53cb4ee455e59492b38b0ef7e506c87a695012a18"
-	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(privkey)
+	userPrivkeyData, userPrivkey, err := util.GetEcdsaPrivKey(privkey)
 	if err != nil {
-		logger.Fatalf("tvn->main: getEcdsaPrivKey: error: %+v", err)
+		logger.Fatalf("tvn->main: GetEcdsaPrivKey: error: %+v", err)
 	}
 
 	proxyPrivkeyHex := hex.EncodeToString(userPrivkeyData)
@@ -145,14 +149,14 @@ func main() {
 	<-ctx.Done()
 }
 
-func getEcdsaPrivKey(privkeyHex string) ([]byte, *ecdsa.PrivateKey, error) {
-	privkeyData, err := hex.DecodeString(privkeyHex)
-	if err != nil {
-		return privkeyData, nil, err
-	}
-	privkey, err := eth_crypto.ToECDSA(privkeyData)
-	if err != nil {
-		return privkeyData, nil, err
-	}
-	return privkeyData, privkey, nil
+func handleInterrupt() {
+	// 创建一个channel来接收操作系统的信号
+	sig := make(chan os.Signal, 1)
+	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
+
+	// 阻塞等待信号
+	<-sig
+
+	fmt.Print("Program has been interrupted")
+	os.Exit(-1)
 }
