@@ -10,6 +10,7 @@ import (
 	"github.com/ipfs/go-cid"
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
+	shell "github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 )
@@ -19,6 +20,7 @@ const (
 )
 
 var logger = ipfsLog.Logger(logName)
+var ipfsShell *ipfs.IpfsShellProxy
 
 type ipfsAddResp struct {
 	PubKey string
@@ -29,6 +31,15 @@ type ipfsAddResp struct {
 
 type Size interface {
 	Size() int64
+}
+
+func InitIpfsShell(url string) error {
+	var err error
+	ipfsShell, err = shell.CreateIpfsShellProxy(url)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func RegistHandler(h webserver.WebServerHandle) {
@@ -83,7 +94,7 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 			size := sizeInterface.Size()
 			content := make([]byte, size)
 			file.Read(content)
-			resp.Cid, err = ipfs.GetIpfsShellProxy().Add(bytes.NewReader(content))
+			resp.Cid, err = ipfsShell.Add(bytes.NewReader(content))
 			if err != nil {
 				setErrResp(-1, err.Error())
 				return
@@ -145,7 +156,12 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		reader, err := ipfs.GetIpfsShellProxy().Cat(cidStr)
+		isPin := ipfsShell.IsPin(cidStr)
+		if !isPin {
+			setErrResp(-1, "cid is not pin")
+			return
+		}
+		reader, err := ipfsShell.Cat(cidStr)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return

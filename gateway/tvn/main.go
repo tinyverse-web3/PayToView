@@ -11,7 +11,6 @@ import (
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	ipfsLog "github.com/ipfs/go-log/v2"
-	shell "github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
@@ -96,9 +95,9 @@ func main() {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
 	}
 
-	_, err = shell.CreateIpfsShellProxy("/ip4/103.103.245.177/tcp/5001")
+	err = ipfs.InitIpfsShell("/ip4/103.103.245.177/tcp/5001")
 	if err != nil {
-		logger.Fatalf("tvn->main: CreateIpfsShellProxy: %+v", err)
+		logger.Fatalf("tvn->main: InitIpfsShell: %+v", err)
 	}
 
 	node, err := tvnode.NewTvNode(ctx, rootPath, cfg)
@@ -117,7 +116,6 @@ func main() {
 		logger.Fatalf("tvn->main: genEcdsaKey: error: %+v", err)
 	}
 
-	// privkey = "78c8cc427bc0474d77ef61f53cb4ee455e59492b38b0ef7e506c87a695012a18"
 	userPrivkeyData, userPrivkey, err := util.GetEcdsaPrivKey(privkey)
 	if err != nil {
 		logger.Fatalf("tvn->main: GetEcdsaPrivKey: error: %+v", err)
@@ -152,11 +150,9 @@ func main() {
 }
 
 func handleInterrupt() {
-	// 创建一个channel来接收操作系统的信号
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
 
-	// 阻塞等待信号
 	<-sig
 
 	fmt.Print("Program has been interrupted")
