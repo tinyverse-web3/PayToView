@@ -10,7 +10,6 @@ import (
 	"github.com/ipfs/go-cid"
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
-	shell "github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 )
@@ -35,7 +34,7 @@ type Size interface {
 
 func InitIpfsShell(url string) error {
 	var err error
-	ipfsShell, err = shell.CreateIpfsShellProxy(url)
+	ipfsShell, err = ipfs.CreateIpfsShellProxy(url)
 	if err != nil {
 		return err
 	}
