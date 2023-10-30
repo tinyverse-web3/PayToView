@@ -82,6 +82,8 @@ func main() {
 	cfg.Identity.PrivKey = privkey
 	cfg.SetMdns(false)
 
+	ipfsShellUrl := "/ip4/103.103.245.177/tcp/5001"
+	ipfsShellUrl = "/ip4/127.0.0.1/tcp/5001"
 	if isTest {
 		cfg.SetLocalNet(true)
 		cfg.SetDhtProtocolPrefix("/tvnode_test")
@@ -90,6 +92,7 @@ func main() {
 		cfg.ClearBootstrapPeers()
 		cfg.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
 		cfg.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
+		ipfsShellUrl = "/ip4/39.108.147.241/tcp/5001"
 	}
 
 	err = initLog()
@@ -97,7 +100,7 @@ func main() {
 		logger.Fatalf("tvn->main: initLog: %+v", err)
 	}
 
-	err = ipfs.InitIpfsShell("/ip4/103.103.245.177/tcp/5001")
+	err = ipfs.InitIpfsShell(ipfsShellUrl)
 	if err != nil {
 		logger.Fatalf("tvn->main: InitIpfsShell: %+v", err)
 	}
