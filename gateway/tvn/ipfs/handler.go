@@ -116,7 +116,7 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
+	if r.Method == http.MethodGet {
 		w.WriteHeader(http.StatusOK)
 
 		setErrResp := func(code int, result string) {
