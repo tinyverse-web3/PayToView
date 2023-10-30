@@ -184,8 +184,7 @@ func (m *MsgService) readMailbox(userPubkey string, duration time.Duration) ([]d
 	return service.RequestReadMailbox(duration)
 }
 
-func (m *MsgService) TickerCleanRestResource() {
-	defaultTimeout := 5 * time.Minute
+func (m *MsgService) TickerCleanRestResource(defaultTimeout time.Duration) {
 	ticker := time.NewTicker(defaultTimeout)
 	for {
 		select {

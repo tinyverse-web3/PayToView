@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	ipfsLog "github.com/ipfs/go-log/v2"
@@ -145,7 +146,7 @@ func main() {
 	ipfs.RegistHandler(svr)
 	dkvs.RegistHandler(svr, node.GetDkvsService())
 
-	go msgInstance.TickerCleanRestResource()
+	go msgInstance.TickerCleanRestResource(5 * time.Minute)
 	<-ctx.Done()
 }
 
