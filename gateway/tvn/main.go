@@ -58,7 +58,7 @@ var rootPath *string
 
 func parseCmdParams() {
 	rootPath = flag.String("path", defaultPath, "Path to configuration file and data file to use.")
-	env = flag.String("env", defaultEnv, "Path to configuration file and data file to use.")
+	env = flag.String("env", defaultEnv, "prod or test-localnet or test-internet")
 
 	flag.Parse()
 
