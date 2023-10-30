@@ -143,8 +143,8 @@ func main() {
 
 	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
 
-	const certPath = "./cert.pem"
-	const privPath = "./priv.key"
+	certPath := rootPath + "cert.pem"
+	privPath := rootPath + "priv.key"
 	var svr webserver.WebServerHandle
 	if true {
 		httpSvr := webserver.NewWebServer()
