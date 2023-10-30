@@ -50,6 +50,7 @@ const (
 	productEnv      = "product"
 	localnetTestEnv = "test-localnet"
 	internetTestEnv = "test-internet"
+	defaultEnv      = localnetTestEnv
 )
 
 var env *string
@@ -57,7 +58,7 @@ var rootPath *string
 
 func parseCmdParams() {
 	rootPath = flag.String("path", defaultPath, "Path to configuration file and data file to use.")
-	env = flag.String("env", productEnv, "Path to configuration file and data file to use.")
+	env = flag.String("env", defaultEnv, "Path to configuration file and data file to use.")
 
 	flag.Parse()
 
