@@ -48,8 +48,8 @@ func initLog() (err error) {
 const (
 	defaultPath     = "."
 	productEnv      = "product"
-	localnetTestEnv = "local"
-	internetTestEnv = "internet"
+	localnetTestEnv = "test-localnet"
+	internetTestEnv = "test-internet"
 )
 
 var env *string
