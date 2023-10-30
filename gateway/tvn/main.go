@@ -86,6 +86,7 @@ func main() {
 		cfg.SetLocalNet(true)
 		cfg.SetDhtProtocolPrefix("/tvnode_test")
 		cfg.InitMode(config.LightMode)
+		// cfg.DMsg.Pubsub.TraceFile = "pubsub-trace.json"
 		cfg.ClearBootstrapPeers()
 		cfg.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
 		cfg.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
