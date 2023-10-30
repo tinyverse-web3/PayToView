@@ -46,59 +46,70 @@ func initLog() (err error) {
 }
 
 const (
-	defaultPath = "."
+	defaultPath     = "."
+	productEnv      = "product"
+	localnetTestEnv = "local"
+	internetTestEnv = "internet"
 )
 
-var isTest bool
+var env *string
+var rootPath *string
 
-func parseCmdParams() string {
-	path := flag.String("path", defaultPath, "Path to configuration file and data file to use.")
-	test := flag.Bool("test", false, "Test mode.")
+func parseCmdParams() {
+	rootPath = flag.String("path", defaultPath, "Path to configuration file and data file to use.")
+	env = flag.String("env", productEnv, "Path to configuration file and data file to use.")
 
 	flag.Parse()
-	if *test {
-		isTest = true
-	}
 
-	return *path
 }
 
 func main() {
 	go handleInterrupt()
-	privkey := "78c8cc427bc0474d77ef61f53cb4ee455e59492b38b0ef7e506c87a695012a18"
+
+	err := initLog()
+	if err != nil {
+		logger.Fatalf("tvn->main: initLog: %+v", err)
+	}
 
 	ctx := context.Background()
-	rootPath := parseCmdParams()
-	rootPath, err := util.GetRootPath(rootPath)
+	parseCmdParams()
+	rootPath, err := util.GetRootPath(*rootPath)
 	if err != nil {
 		logger.Fatalf("tvn->main: GetRootPath: %+v", err)
 	}
 
-	cfg := config.NewDefaultTvbaseConfig()
+	privkey := ""
 	privkey, _, err = util.GenEd25519Key()
 	if err != nil {
 		logger.Fatalf("tvn->main: genEd25519Key: %+v", err)
 	}
+
+	cfg := config.NewDefaultTvbaseConfig()
 	cfg.Identity.PrivKey = privkey
 	cfg.SetMdns(false)
 
 	ipfsShellUrl := "/ip4/103.103.245.177/tcp/5001"
-	ipfsShellUrl = "/ip4/127.0.0.1/tcp/5001"
-	if isTest {
+
+	if *env == localnetTestEnv {
 		cfg.SetLocalNet(true)
 		cfg.SetDhtProtocolPrefix("/tvnode_test")
-		cfg.InitMode(config.LightMode)
 		// cfg.DMsg.Pubsub.TraceFile = "pubsub-trace.json"
 		cfg.ClearBootstrapPeers()
 		cfg.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
 		cfg.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
+		ipfsShellUrl = "/ip4/103.103.245.177/tcp/5001"
+	}
+	if *env == internetTestEnv {
+		cfg.SetLocalNet(true)
+		cfg.SetDhtProtocolPrefix("/tvnode_test")
+		// cfg.DMsg.Pubsub.TraceFile = "pubsub-trace.json"
+		cfg.ClearBootstrapPeers()
+		cfg.AddBootstrapPeer("/ip4/39.108.147.241/tcp/9000/p2p/12D3KooWJ9BvdU8q6gcEDpDUF42qV3PLaAd8vgh7HGveuktFMHoq")
+		cfg.AddBootstrapPeer("/ip4/39.108.96.46/tcp/9000/p2p/12D3KooWDzny9ZpW44Eb2YL5uQQ1CCcgQSQcc851oiB6XyXHG7TM")
 		ipfsShellUrl = "/ip4/39.108.147.241/tcp/5001"
 	}
 
-	err = initLog()
-	if err != nil {
-		logger.Fatalf("tvn->main: initLog: %+v", err)
-	}
+	cfg.InitMode(config.LightMode)
 
 	err = ipfs.InitIpfsShell(ipfsShellUrl)
 	if err != nil {
