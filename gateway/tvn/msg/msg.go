@@ -76,74 +76,82 @@ func (m *MsgService) getService(pubkey string) (*client.DmsgService, error) {
 			mu:      &sync.Mutex{},
 		}
 	}
+	m.userList.Store(pubkey, user)
 	m.mu.Unlock()
 
 	user.mu.Lock()
 	defer user.mu.Unlock()
+
 	if user.service == nil {
-		var lastErr error
-		var service *client.DmsgService
-
-		service, lastErr = client.CreateService(m.tvbase)
-		if lastErr != nil {
-			return nil, lastErr
+		var err error
+		user.service, err = m.createService(user, pubkey)
+		if err != nil {
+			return nil, err
 		}
-
-		lastErr = service.Start()
-		if lastErr != nil {
-			return nil, lastErr
-		}
-
-		defer func() {
-			if lastErr != nil {
-				err := service.Stop()
-				if err != nil {
-					logger.Errorf("MsgService->getService: Stop error: %v", err)
-				}
-			}
-		}()
-
-		var privkey string
-		privkey, _, lastErr = util.GenEcdsaKey()
-		if lastErr != nil {
-			logger.Error("MsgService->getService: genEcdsaKey: error: %+v", lastErr)
-			return nil, lastErr
-		}
-
-		var userPrivkey *ecdsa.PrivateKey
-		_, userPrivkey, lastErr = util.GetEcdsaPrivKey(privkey)
-		if lastErr != nil {
-			logger.Error("MsgService->getService: GetEcdsaPrivKey: error: %+v", lastErr)
-			return nil, lastErr
-		}
-
-		getSig := func(protoData []byte) ([]byte, error) {
-			sig, err := crypto.SignDataByEcdsa(userPrivkey, protoData)
-			if err != nil {
-				logger.Errorf("MsgService->getService: SignDataByEcdsa error: %v", err)
-			}
-			return sig, nil
-		}
-
-		lastErr = service.SubscribeSrcUser(hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey)), getSig, false)
-		if lastErr != nil {
-			return nil, lastErr
-		}
-
-		lastErr = service.SetProxyPubkey(pubkey)
-		if lastErr != nil {
-			return nil, lastErr
-		}
-
-		_, lastErr = service.CreateMailbox(pubkey)
-		if lastErr != nil {
-			return nil, lastErr
-		}
-		user.service = service
-		m.userList.Store(pubkey, user)
 	}
 
 	user.lastAccessTime = time.Now()
+	return user.service, nil
+}
+
+func (m *MsgService) createService(user *MsgUser, pubkey string) (*client.DmsgService, error) {
+	service, lastErr := client.CreateService(m.tvbase)
+	if lastErr != nil {
+		return nil, lastErr
+	}
+
+	lastErr = service.Start()
+	if lastErr != nil {
+		return nil, lastErr
+	}
+
+	defer func() {
+		if lastErr != nil {
+			err := service.Stop()
+			if err != nil {
+				logger.Errorf("MsgService->getService: Stop error: %v", err)
+			}
+		}
+	}()
+
+	var privkey string
+	privkey, _, lastErr = util.GenEcdsaKey()
+	if lastErr != nil {
+		logger.Error("MsgService->getService: genEcdsaKey: error: %+v", lastErr)
+		return nil, lastErr
+	}
+
+	var userPrivkey *ecdsa.PrivateKey
+	_, userPrivkey, lastErr = util.GetEcdsaPrivKey(privkey)
+	if lastErr != nil {
+		logger.Error("MsgService->getService: GetEcdsaPrivKey: error: %+v", lastErr)
+		return nil, lastErr
+	}
+
+	getSig := func(protoData []byte) ([]byte, error) {
+		sig, err := crypto.SignDataByEcdsa(userPrivkey, protoData)
+		if err != nil {
+			logger.Errorf("MsgService->getService: SignDataByEcdsa error: %v", err)
+		}
+		return sig, nil
+	}
+
+	lastErr = service.SubscribeSrcUser(hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey)), getSig, false)
+	if lastErr != nil {
+		return nil, lastErr
+	}
+
+	lastErr = service.SetProxyPubkey(pubkey)
+	if lastErr != nil {
+		return nil, lastErr
+	}
+
+	_, lastErr = service.CreateMailbox(pubkey)
+	if lastErr != nil {
+		return nil, lastErr
+	}
+	user.service = service
+
 	return user.service, nil
 }
 
@@ -154,7 +162,7 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 	}
 
 	if !service.IsExistDestUser(destPubkey) {
-		err = service.SubscribeDestUser(destPubkey, true) // false: private user key,  true: public user key
+		err = service.SubscribeDestUser(destPubkey, false)
 		if err != nil {
 			logger.Errorf("msg->getService: SubscribeSrcUser failed: %v", err)
 			return err
@@ -164,7 +172,7 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 	if err != nil {
 		return err
 	}
-	logger.Debugf("msg->sendMsg: sendMsgReq: %s", sendMsgReq)
+	logger.Debugf("msg->getService: SendMsg: %s", sendMsgReq)
 	return nil
 }
 
