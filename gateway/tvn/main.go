@@ -47,7 +47,7 @@ func initLog() (err error) {
 
 const (
 	defaultPath     = "."
-	productEnv      = "product"
+	productEnv      = "prod"
 	localnetTestEnv = "test-localnet"
 	internetTestEnv = "test-internet"
 	defaultEnv      = localnetTestEnv
