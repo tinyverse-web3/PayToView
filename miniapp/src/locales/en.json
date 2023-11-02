@@ -8,10 +8,10 @@
     "pay": "pay",
     "forward": "Forward",
     "release": "Publish",
-    "change": "Change",
+    "change": "Modify",
     "upload": {
       "title": "Upload",
-      "description": "Upload a file to the server"
+      "description": "Upload a file to IPFS"
     },
     "empty": {
       "title": "Empty",
@@ -23,8 +23,8 @@
     "detail": {
       "preview_mode": "Preview Mode",
       "password_mode": "Encrypted Password",
-      "blur_show": "Blur Show",
-      "divide_ratio": "Divide Ratio",
+      "blur_show": "Blur",
+      "divide_ratio": "Share Ratio",
       "network": "Network",
       "app": "App",
       "sender": "Owner",
