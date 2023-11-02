@@ -139,13 +139,23 @@ class PayToView {
   }
   async addFileToIPFS({
     file,
+    fileName,
+    password,
   }: {
     file: File;
     fileName: string;
     password?: string;
   }) {
-    const result = await dauth.account.uploadAlbum({
-      file,
+    const formData = new FormData();
+    formData.append('File', file);
+    formData.append('FileName', fileName);
+    if (password) {
+      formData.append('Password', password);
+    }
+    const result = await this.dauthRequest.invoke({
+      name: `paytoview/addData`,
+      method: 'post',
+      formData: formData,
     });
     return result;
   }

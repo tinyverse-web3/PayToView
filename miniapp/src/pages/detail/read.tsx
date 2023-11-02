@@ -17,6 +17,7 @@ export default function DetailRead() {
   const contractName = searchParams.get('contract');
   const nav = useNavigate();
   const { t } = useTranslation();
+  const [paid, setPaid] = useState(false);
   const [detail, setDetail] = useState<any>({});
   const type = 'image';
   const webApp = useWebApp();
@@ -28,17 +29,16 @@ export default function DetailRead() {
     const result = await paytoview.payToView({
       ContractName: contractName,
     });
-    console.log(result);
-    // setPaidList([
-    //   {
-    //     type: 'image',
-    //     title: 'PayToView First Image',
-    //     image:
-    //       'https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png',
-    //   },
-    // ]);
-    webApp?.close();
+    if (result.code === '000000') {
+      setPaid(true);
+    } 
+    // webApp?.close();
   };
+  const getData = async () => {
+    if (!contractName) return;
+    const result = await paytoview.getViewPassword({ ContractName: contractName });
+    console.log(result);
+  }
   const getContractDetail = async () => {
     if (!contractName) return;
     const result = await paytoview.getViewContractContent({
@@ -46,6 +46,7 @@ export default function DetailRead() {
     });
     if (result.code === '000000') {
       setDetail(result.data);
+      setPaid(result.data.isPaid);
     }
   };
   const toForward = () => {
@@ -59,6 +60,11 @@ export default function DetailRead() {
       getContractDetail();
     }
   }, [contractName]);
+  useEffect(() => {
+    if (contractName && paid) {
+      getData();
+    }
+  }, [contractName, paid]);
   return (
     <div className='min-h-ful p-4'>
       <BackButton onClick={toIndex} />
