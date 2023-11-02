@@ -15,9 +15,9 @@ import (
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/tvnode"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
-	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
 	"github.com/tinyverse-web3/tvbase/common/config"
 )
 
