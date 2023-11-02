@@ -53,7 +53,7 @@ export default function DetailAdd() {
   };
   const getCommisionContrcat = async () => {
     const commissionResult = await paytoview.getCommissionList();
-    if (commissionResult.code !== '000000' && commissionResult.data.length) {
+    if (commissionResult.code !== '000000' && commissionResult.data?.length) {
       return commissionResult.data[0];
     } else {
       const deplyCommissionResult = await paytoview.deployCommission({
@@ -103,7 +103,7 @@ export default function DetailAdd() {
       );
       const previewCid = ipfsResult.data;
     }
-    
+
     // let previewFile;
     // if (type === 'image') {
     //   console.log(data.image)

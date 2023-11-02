@@ -41968,8 +41968,9 @@ function DetailAdd() {
     set("forwarderPercent", v2.forwarder);
   };
   const getCommisionContrcat = async () => {
+    var _a4;
     const commissionResult = await paytoview.getCommissionList();
-    if (commissionResult.code !== "000000" && commissionResult.data.length) {
+    if (commissionResult.code !== "000000" && ((_a4 = commissionResult.data) == null ? void 0 : _a4.length)) {
       return commissionResult.data[0];
     } else {
       const deplyCommissionResult = await paytoview.deployCommission({
