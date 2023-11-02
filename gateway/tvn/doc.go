@@ -44,17 +44,14 @@ package main
 // - result string
 
 // cat download cid content for file
-// path: /ipfs/cat
-// method: post
+// path: /ipfs/cat/cid={cid}&&pubkey={pubkey}
+// method: get
 // params:
 // - pubkey string
 // - cid string
 // return:
-// - code int
-//  - 0: succ
-//  - -1 failure
-// - result string
-// Content []byte
+// succ: file content
+// err: 404
 
 // cat download cid content for file
 // path:  http://103.103.245.177:8080/ipfs/{cid}

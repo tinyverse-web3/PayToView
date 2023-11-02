@@ -3,10 +3,12 @@ package msg
 import (
 	"crypto/ecdsa"
 	"encoding/hex"
+	"sync"
 	"time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	"github.com/tinyverse-web3/mtv_go_utils/crypto"
+	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 	"github.com/tinyverse-web3/tvbase/dmsg"
 	"github.com/tinyverse-web3/tvbase/dmsg/client"
@@ -14,14 +16,16 @@ import (
 )
 
 type MsgUser struct {
-	service *client.DmsgService
+	service        *client.DmsgService
+	mu             *sync.Mutex
+	lastAccessTime time.Time
 }
 
 type MsgService struct {
-	tvbase   *tvbase.TvBase
-	privkey  *ecdsa.PrivateKey
-	userList map[string]*MsgUser
-
+	tvbase    *tvbase.TvBase
+	privkey   *ecdsa.PrivateKey
+	mu        sync.Mutex
+	userList  sync.Map
 	svrPubkey string
 	getSig    func(protoData []byte) ([]byte, error)
 }
@@ -37,9 +41,8 @@ func GetInstance(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 
 func newMsgService(base *tvbase.TvBase, privkey *ecdsa.PrivateKey) *MsgService {
 	ret := &MsgService{
-		tvbase:   base,
-		privkey:  privkey,
-		userList: make(map[string]*MsgUser),
+		tvbase:  base,
+		privkey: privkey,
 	}
 
 	// set proxy pubkey
@@ -64,37 +67,92 @@ func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
 }
 
 func (m *MsgService) getService(pubkey string) (*client.DmsgService, error) {
-	// service := m.tvbase.GetClientDmsgService()
-	service, err := client.CreateService(m.tvbase)
-	if err != nil {
-		return nil, err
+	m.mu.Lock()
+	data, _ := m.userList.Load(pubkey)
+	user, _ := data.(*MsgUser)
+	if user == nil {
+		user = &MsgUser{
+			service: nil,
+			mu:      &sync.Mutex{},
+		}
 	}
-	err = service.Start()
-	if err != nil {
-		return nil, err
-	}
-	err = service.SubscribeSrcUser(m.svrPubkey, m.getSig, false)
-	if err != nil {
-		logger.Panicf("msg->newMsgService: SubscribeSrcUser error: %+v", err)
+	m.userList.Store(pubkey, user)
+	m.mu.Unlock()
+
+	user.mu.Lock()
+	defer user.mu.Unlock()
+
+	if user.service == nil {
+		var err error
+		user.service, err = m.createService(user, pubkey)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	if m.userList[pubkey] != nil {
-		service = m.userList[pubkey].service
-	} else {
-		m.userList[pubkey] = &MsgUser{
-			service: service,
-		}
-		err = service.SetProxyPubkey(pubkey)
-		if err != nil {
-			return service, err
-		}
+	user.lastAccessTime = time.Now()
+	return user.service, nil
+}
 
-		_, err = service.CreateMailbox(pubkey)
-		if err != nil {
-			return service, err
-		}
+func (m *MsgService) createService(user *MsgUser, pubkey string) (*client.DmsgService, error) {
+	service, lastErr := client.CreateService(m.tvbase)
+	if lastErr != nil {
+		return nil, lastErr
 	}
-	return service, nil
+
+	lastErr = service.Start()
+	if lastErr != nil {
+		return nil, lastErr
+	}
+
+	defer func() {
+		if lastErr != nil {
+			err := service.Stop()
+			if err != nil {
+				logger.Errorf("MsgService->getService: Stop error: %v", err)
+			}
+		}
+	}()
+
+	var privkey string
+	privkey, _, lastErr = util.GenEcdsaKey()
+	if lastErr != nil {
+		logger.Error("MsgService->getService: genEcdsaKey: error: %+v", lastErr)
+		return nil, lastErr
+	}
+
+	var userPrivkey *ecdsa.PrivateKey
+	_, userPrivkey, lastErr = util.GetEcdsaPrivKey(privkey)
+	if lastErr != nil {
+		logger.Error("MsgService->getService: GetEcdsaPrivKey: error: %+v", lastErr)
+		return nil, lastErr
+	}
+
+	getSig := func(protoData []byte) ([]byte, error) {
+		sig, err := crypto.SignDataByEcdsa(userPrivkey, protoData)
+		if err != nil {
+			logger.Errorf("MsgService->getService: SignDataByEcdsa error: %v", err)
+		}
+		return sig, nil
+	}
+
+	lastErr = service.SubscribeSrcUser(hex.EncodeToString(eth_crypto.FromECDSAPub(&userPrivkey.PublicKey)), getSig, false)
+	if lastErr != nil {
+		return nil, lastErr
+	}
+
+	lastErr = service.SetProxyPubkey(pubkey)
+	if lastErr != nil {
+		return nil, lastErr
+	}
+
+	_, lastErr = service.CreateMailbox(pubkey)
+	if lastErr != nil {
+		return nil, lastErr
+	}
+	user.service = service
+
+	return user.service, nil
 }
 
 func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byte) error {
@@ -102,11 +160,19 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 	if err != nil {
 		return err
 	}
+
+	if !service.IsExistDestUser(destPubkey) {
+		err = service.SubscribeDestUser(destPubkey, false)
+		if err != nil {
+			logger.Errorf("msg->getService: SubscribeSrcUser failed: %v", err)
+			return err
+		}
+	}
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
 	if err != nil {
 		return err
 	}
-	logger.Debugf("msg->sendMsg: sendMsgReq: %s", sendMsgReq)
+	logger.Debugf("msg->getService: SendMsg: %s", sendMsgReq)
 	return nil
 }
 
@@ -116,4 +182,33 @@ func (m *MsgService) readMailbox(userPubkey string, duration time.Duration) ([]d
 		return nil, err
 	}
 	return service.RequestReadMailbox(duration)
+}
+
+func (m *MsgService) TickerCleanRestResource(defaultTimeout time.Duration) {
+	ticker := time.NewTicker(defaultTimeout)
+	for {
+		select {
+		case <-ticker.C:
+			func() {
+				m.mu.Lock()
+				defer m.mu.Unlock()
+				m.userList.Range(func(key, value any) bool {
+					user := value.(*MsgUser)
+					user.mu.Lock()
+					if time.Since(user.lastAccessTime) > defaultTimeout {
+						if user.service != nil {
+							user.service.Stop()
+							user.service = nil
+						}
+						m.userList.Delete(key)
+					}
+					user.mu.Unlock()
+					return true
+				})
+			}()
+		case <-m.tvbase.GetCtx().Done():
+			ticker.Stop()
+
+		}
+	}
 }

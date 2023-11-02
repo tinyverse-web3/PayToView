@@ -2,13 +2,16 @@ package main
 
 import (
 	"context"
-	"crypto/ecdsa"
 	"encoding/hex"
 	"flag"
+	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	ipfsLog "github.com/ipfs/go-log/v2"
-	shell "github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/msg"
@@ -16,7 +19,6 @@ import (
 	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
 	"github.com/tinyverse-web3/paytoview/gateway/tvnode"
 	"github.com/tinyverse-web3/tvbase/common/config"
-	tvbaseConfig "github.com/tinyverse-web3/tvbase/common/config"
 )
 
 const (
@@ -44,55 +46,75 @@ func initLog() (err error) {
 }
 
 const (
-	defaultPath = "."
+	defaultPath     = "."
+	productEnv      = "prod"
+	localnetTestEnv = "test-localnet"
+	internetTestEnv = "test-internet"
+	defaultEnv      = localnetTestEnv
 )
 
-var isTest bool
+var env *string
+var rootPath *string
 
-func parseCmdParams() string {
-	path := flag.String("path", defaultPath, "Path to configuration file and data file to use.")
-	test := flag.Bool("test", false, "Test mode.")
+func parseCmdParams() {
+	rootPath = flag.String("path", defaultPath, "Path to configuration file and data file to use.")
+	env = flag.String("env", defaultEnv, "prod or test-localnet or test-internet")
+
 	flag.Parse()
-	if *test {
-		isTest = true
-	}
 
-	return *path
 }
 
 func main() {
+	go handleInterrupt()
+
+	err := initLog()
+	if err != nil {
+		logger.Fatalf("tvn->main: initLog: %+v", err)
+	}
+
 	ctx := context.Background()
-	rootPath := parseCmdParams()
-	rootPath, err := util.GetRootPath(rootPath)
+	parseCmdParams()
+	rootPath, err := util.GetRootPath(*rootPath)
 	if err != nil {
 		logger.Fatalf("tvn->main: GetRootPath: %+v", err)
 	}
 
-	cfg := config.NewDefaultTvbaseConfig()
-	privkey, _, err := util.GenEd25519Key()
+	privkey := ""
+	privkey, _, err = util.GenEd25519Key()
 	if err != nil {
 		logger.Fatalf("tvn->main: genEd25519Key: %+v", err)
 	}
+
+	cfg := config.NewDefaultTvbaseConfig()
 	cfg.Identity.PrivKey = privkey
 	cfg.SetMdns(false)
 
-	if isTest {
+	ipfsShellUrl := "/ip4/103.103.245.177/tcp/5001"
+
+	if *env == localnetTestEnv {
 		cfg.SetLocalNet(true)
 		cfg.SetDhtProtocolPrefix("/tvnode_test")
-		cfg.InitMode(tvbaseConfig.LightMode)
+		// cfg.DMsg.Pubsub.TraceFile = "pubsub-trace.json"
 		cfg.ClearBootstrapPeers()
 		cfg.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
 		cfg.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
+		ipfsShellUrl = "/ip4/103.103.245.177/tcp/5001"
+	}
+	if *env == internetTestEnv {
+		cfg.SetLocalNet(true)
+		cfg.SetDhtProtocolPrefix("/tvnode_test")
+		// cfg.DMsg.Pubsub.TraceFile = "pubsub-trace.json"
+		cfg.ClearBootstrapPeers()
+		cfg.AddBootstrapPeer("/ip4/39.108.147.241/tcp/9000/p2p/12D3KooWJ9BvdU8q6gcEDpDUF42qV3PLaAd8vgh7HGveuktFMHoq")
+		cfg.AddBootstrapPeer("/ip4/39.108.96.46/tcp/9000/p2p/12D3KooWDzny9ZpW44Eb2YL5uQQ1CCcgQSQcc851oiB6XyXHG7TM")
+		ipfsShellUrl = "/ip4/39.108.147.241/tcp/5001"
 	}
 
-	err = initLog()
-	if err != nil {
-		logger.Fatalf("tvn->main: initLog: %+v", err)
-	}
+	cfg.InitMode(config.LightMode)
 
-	_, err = shell.CreateIpfsShellProxy("/ip4/127.0.0.1/tcp/5001")
+	err = ipfs.InitIpfsShell(ipfsShellUrl)
 	if err != nil {
-		logger.Fatalf("tvn->main: initLog: %+v", err)
+		logger.Fatalf("tvn->main: InitIpfsShell: %+v", err)
 	}
 
 	node, err := tvnode.NewTvNode(ctx, rootPath, cfg)
@@ -110,9 +132,10 @@ func main() {
 	if err != nil {
 		logger.Fatalf("tvn->main: genEcdsaKey: error: %+v", err)
 	}
-	userPrivkeyData, userPrivkey, err := getEcdsaPrivKey(privkey)
+
+	userPrivkeyData, userPrivkey, err := util.GetEcdsaPrivKey(privkey)
 	if err != nil {
-		logger.Fatalf("tvn->main: getEcdsaPrivKey: error: %+v", err)
+		logger.Fatalf("tvn->main: GetEcdsaPrivKey: error: %+v", err)
 	}
 
 	proxyPrivkeyHex := hex.EncodeToString(userPrivkeyData)
@@ -121,8 +144,8 @@ func main() {
 
 	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
 
-	const certPath = "./cert.pem"
-	const privPath = "./priv.key"
+	certPath := rootPath + "cert.pem"
+	privPath := rootPath + "priv.key"
 	var svr webserver.WebServerHandle
 	if true {
 		httpSvr := webserver.NewWebServer()
@@ -138,17 +161,17 @@ func main() {
 	msgInstance.RegistHandler(svr)
 	ipfs.RegistHandler(svr)
 	dkvs.RegistHandler(svr, node.GetDkvsService())
+
+	go msgInstance.TickerCleanRestResource(5 * time.Minute)
 	<-ctx.Done()
 }
 
-func getEcdsaPrivKey(privkeyHex string) ([]byte, *ecdsa.PrivateKey, error) {
-	privkeyData, err := hex.DecodeString(privkeyHex)
-	if err != nil {
-		return privkeyData, nil, err
-	}
-	privkey, err := eth_crypto.ToECDSA(privkeyData)
-	if err != nil {
-		return privkeyData, nil, err
-	}
-	return privkeyData, privkey, nil
+func handleInterrupt() {
+	sig := make(chan os.Signal, 1)
+	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
+
+	<-sig
+
+	fmt.Print("Program has been interrupted")
+	os.Exit(-1)
 }

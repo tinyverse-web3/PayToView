@@ -29,7 +29,7 @@
             "mode": "auto",
             "program": "${workspaceFolder}/gateway/tvn",
             "console": "integratedTerminal",
-            "args": ["-test"]
+            "args": ["-env", "test-localnet"]
         },
     ]
 }
