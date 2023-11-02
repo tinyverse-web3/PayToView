@@ -11,7 +11,7 @@ import (
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/crypto"
 	"github.com/tinyverse-web3/mtv_go_utils/key"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
+	"github.com/tinyverse-web3/paytoview/gateway/util"
 	"github.com/tinyverse-web3/tvbase/dmsg"
 )
 

@@ -10,8 +10,8 @@ import (
 	"github.com/ipfs/go-cid"
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/dkvs"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
+	"github.com/tinyverse-web3/paytoview/gateway/dkvs"
+	"github.com/tinyverse-web3/paytoview/gateway/webserver"
 )
 
 const (

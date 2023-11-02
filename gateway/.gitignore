@@ -6,8 +6,8 @@ dht_data
 msg_data
 unsynckv
 *.qlog
-tvn/tvn
-tvn/*.json
+tvn
+*.json
 *.log
 
 

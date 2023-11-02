@@ -9,8 +9,8 @@ import (
 	"strconv"
 
 	ipfsLog "github.com/ipfs/go-log/v2"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/util"
-	"github.com/tinyverse-web3/paytoview/gateway/tvn/webserver"
+	"github.com/tinyverse-web3/paytoview/gateway/util"
+	"github.com/tinyverse-web3/paytoview/gateway/webserver"
 	"github.com/tinyverse-web3/tvbase/common"
 	dkvspb "github.com/tinyverse-web3/tvbase/dkvs/pb"
 )
