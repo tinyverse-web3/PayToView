@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/apiserver/bot/example/tutorial",
+            "program": "${workspaceFolder}/bot/example/tutorial",
             "console": "integratedTerminal",
             "args": []
         },
@@ -18,18 +18,23 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/gateway/tvn",
+            "program": "${workspaceFolder}/tvn",
             "console": "integratedTerminal",
-            "args": ["-init"]
+            "args": [
+                "-init"
+            ]
         },
         {
             "name": "tvn-run-test",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/gateway/tvn",
+            "program": "${workspaceFolder}/tvn",
             "console": "integratedTerminal",
-            "args": ["-env", "test-localnet"]
+            "args": [
+                "-env",
+                "test-localnet"
+            ]
         },
     ]
 }
