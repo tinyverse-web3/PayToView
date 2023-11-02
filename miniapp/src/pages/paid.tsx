@@ -1,0 +1,57 @@
+import {
+  SimpleGrid,
+  IconButton,
+  Tabs,
+  TabList,
+  Tab,
+  ButtonGroup,
+} from '@chakra-ui/react';
+import { useEffect, useMemo, useState } from 'react';
+import { ListItem } from '@/components/ListItem';
+import { Empty } from '@/components/Empty';
+import { useTitle } from 'react-use';
+import { useNavigate } from 'react-router-dom';
+import { BackButton } from '@vkruglikov/react-telegram-web-app';
+import { flattenListData } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
+import { useListStore } from '@/store';
+import paytoview from '@/lib/paytoview';
+import { ROUTE_PATH } from '@/router';
+export default function Index() {
+  useTitle('Forwarded');
+  const { t } = useTranslation();
+  const nav = useNavigate();
+  const { paidList, setPaidList } = useListStore((state) => state);
+
+  const getList = async () => {
+    const result = await paytoview.getPaiedList();
+    if (result.code === '000000') {
+      const list = flattenListData(result.data).map((v) => ({
+        ...v,
+      }));
+      console.log(list);
+      setPaidList(list);
+    }
+  };
+  const toDetail = (item) => {
+    nav(ROUTE_PATH.DETAIL_READ + '/?contract=' + item.ContractName);
+  };
+  useEffect(() => {
+    getList();
+  }, []);
+  return (
+    <div className='h-full overflow-hidden'>
+      <BackButton onClick={() => nav(-1)} />
+      <div className='h-full overflow-y-auto'>
+        <div className='p-4'>
+          {paidList.length === 0 && <Empty />}
+          <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
+            {paidList.map((v, i) => (
+              <ListItem item={v} key={i} onClick={() => toDetail(v)} />
+            ))}
+          </SimpleGrid>
+        </div>
+      </div>
+    </div>
+  );
+}

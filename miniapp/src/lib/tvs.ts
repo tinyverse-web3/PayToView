@@ -1,12 +1,15 @@
+import { file2array } from '@/lib/utils';
+import i18n from '@/locales';
 export class Tvs {
   async createAccount(params) {
+    console.log('createAccount params: ', params);
     try {
       const result = await window.createAccount(JSON.stringify(params));
       const data = JSON.parse(result);
       console.log('createAccount data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
   // 部署代理人合约
@@ -17,7 +20,7 @@ export class Tvs {
       console.log('deployCommission data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
   // 部署付费阅读合约
@@ -28,7 +31,7 @@ export class Tvs {
       console.log('deployPayToView data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
   // 付费
@@ -39,7 +42,27 @@ export class Tvs {
       console.log('payToView data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
+    }
+  }
+  async forwardAPayView(params) {
+    try {
+      const result = await window.forwardAPayView(JSON.stringify(params));
+      const data = JSON.parse(result);
+      console.log('forwardAPayView data: ', data);
+      return data;
+    } catch (error) {
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
+    }
+  }
+  async getViewContractContent(params) {
+    try {
+      const result = await window.getViewContractContent(JSON.stringify(params));
+      const data = JSON.parse(result);
+      console.log('forwardAPayView data: ', data);
+      return data;
+    } catch (error) {
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
   // 获取阅读凭证
@@ -50,7 +73,7 @@ export class Tvs {
       console.log('applyViewProof data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
   // 获取阅读密码
@@ -61,7 +84,7 @@ export class Tvs {
       console.log('getViewPassword data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
   // 获取代理人合约列表
@@ -72,7 +95,7 @@ export class Tvs {
       console.log('getCommissionList data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
   // 获取付费阅读合约列表
@@ -83,7 +106,7 @@ export class Tvs {
       console.log('getPayToViewList data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
   // 获取付费列表
@@ -94,27 +117,21 @@ export class Tvs {
       console.log('getPaiedList data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
-  async sendToGpt(params) {
+  async addFileToIPFS(params, file: File) {
     try {
-      const result = await window.sendToGpt(JSON.stringify(params));
-      const data = JSON.parse(result);
-      console.log('sendToGpt data: ', data);
-      return data;
-    } catch (error) {
-      return { code: 1, msg: error };
-    }
-  }
-  async addFileToIPFS(params, content) {
-    try {
-      const result = await window.addFileToIPFS(JSON.stringify(params), content);
+      const content = await file2array(file);
+      const result = await window.addFileToIPFS(
+        JSON.stringify(params),
+        content,
+      );
       const data = JSON.parse(result);
       console.log('addFileToIPFS data: ', data);
       return data;
     } catch (error) {
-      return { code: 1, msg: error };
+      return { data: { code: '500000', msg: i18n.t('common.request_error') } };
     }
   }
 }

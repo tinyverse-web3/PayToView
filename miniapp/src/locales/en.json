@@ -16,17 +16,18 @@
     "empty": {
       "title": "Empty",
       "description": "Empty"
-      
-    }
+    },
+    "request_error": "Request failed"
   },
   "pages": {
     "detail": {
       "preview_mode": "Preview Mode",
+      "password_mode": "Encrypted Password",
       "blur_show": "Blur Show",
       "divide_ratio": "Divide Ratio",
       "network": "Network",
       "app": "App",
-      "sender": "Sender",
+      "sender": "Owner",
       "forwarder": "Forwarder",
       "contract_name": "Contract Name",
       "paied": "Paied"

@@ -16,11 +16,13 @@
     "empty": {
       "title": "暂无数据",
       "description": "Empty"
-    }
+    },
+    "request_error": "请求失败"
   },
   "pages": {
     "detail": {
       "preview_mode": "预览方式",
+      "password_mode": "加密密码",
       "blur_show": "模糊显示",
       "divide_ratio": "分成比例",
       "network": "网络",

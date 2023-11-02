@@ -4,6 +4,11 @@ import Index from '@/pages';
 import DetailAdd from '@/pages/detail/add';
 import DetailEdit from '@/pages/detail/edit';
 import DetailRead from '@/pages/detail/read';
+import DetailForward from '@/pages/detail/forward';
+import Published from '@/pages/published';
+import Paid from '@/pages/paid';
+import Forwarded from '@/pages/forwarded';
+import Earn from '@/pages/earn';
 
 const resolveHashPath = (path: string) => {
   return `/#${path}`;
@@ -11,9 +16,14 @@ const resolveHashPath = (path: string) => {
 
 export const ROUTE_PATH = {
   INDEX: '/',
-  DETAIL_ADD: '/add',
-  DETAIL_EDIT: '/edit',
-  DETAIL_READ: '/read',
+  DETAIL_ADD: '/detail/add',
+  DETAIL_EDIT: '/detail/edit',
+  DETAIL_READ: '/detail/read',
+  DETAIL_FORWARD: '/detail/forward',
+  PUBLISHED: '/published',
+  PAID: '/paid',
+  FORWARDED: '/forwarded',
+  EARN: '/earn',
 };
 const hashPath: any = {};
 Object.keys(ROUTE_PATH).forEach((k: any) => {
@@ -43,6 +53,26 @@ export const routes: RouteObject[] = [
       {
         path: ROUTE_PATH.DETAIL_READ,
         element: <DetailRead />,
+      },
+      {
+        path: ROUTE_PATH.DETAIL_FORWARD,
+        element: <DetailForward />,
+      },
+      {
+        path: ROUTE_PATH.PUBLISHED,
+        element: <Published />,
+      },
+      {
+        path: ROUTE_PATH.PAID,
+        element: <Paid />,
+      },
+      {
+        path: ROUTE_PATH.FORWARDED,
+        element: <Forwarded />,
+      },
+      {
+        path: ROUTE_PATH.EARN,
+        element: <Earn />,
       },
     ],
   },

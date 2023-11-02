@@ -1,13 +1,23 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
+export interface ListItemProps {
+  ContractName: string;
+  Name: string;
+  CommissionContractName: string;
+  Cid: string;
+  ContentType: 'text' | 'image' | 'video' | 'audio' | 'file';
+  CidForpreview: string;
+  Ipfs?: string;
+  Ritio: any;
+}
 interface ListState {
-  list: any[];
-  paiedList: any[];
-  forwardList: any[];
-  setList: (l: any[]) => void;
-  setPaiedList: (l: any[]) => void;
-  setForwardList: (l: any[]) => void;
+  publishedList: ListItemProps[];
+  paidList: ListItemProps[];
+  forwardList: ListItemProps[];
+  setPublishedList: (l: ListItemProps[]) => void;
+  setPaidList: (l: ListItemProps[]) => void;
+  setForwardList: (l: ListItemProps[]) => void;
   add: (d: any) => void;
   reset: () => void;
 }
@@ -16,17 +26,17 @@ export const useListStore = create<ListState>()(
   devtools(
     persist(
       (set) => ({
-        list: [],
-        paiedList: [],
+        publishedList: [],
+        paidList: [],
         forwardList: [],
-        setList: (list) => {
+        setPublishedList: (list) => {
           set({
-            list,
+            publishedList: list,
           });
         },
-        setPaiedList: (list) => {
+        setPaidList: (list) => {
           set({
-            paiedList: list,
+            paidList: list,
           });
         },
         setForwardList: (list) => {
@@ -36,12 +46,14 @@ export const useListStore = create<ListState>()(
         },
         add: (d: any) => {
           set((state) => ({
-            list: [...state.list, d],
+            publishedList: [...state.publishedList, d],
           }));
         },
         reset: () => {
           set({
-            list: [],
+            publishedList: [],
+            paidList: [],
+            forwardList: [],
           });
         },
       }),
