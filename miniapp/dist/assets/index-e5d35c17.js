@@ -44029,6 +44029,7 @@ function Index$3() {
     getList();
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "published.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
       publishedList.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Empty, {}),

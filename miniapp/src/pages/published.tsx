@@ -1,4 +1,4 @@
-import { SimpleGrid} from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import { ListItem } from '@/components/ListItem';
 import { Empty } from '@/components/Empty';
@@ -25,9 +25,8 @@ export default function Index() {
     if (result.code === '000000') {
       const list = flattenListData(result.data).map((v) => ({
         ...v,
-        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${
-          accountInfo.publicKey
-        }&cid=${v.Cid}`,
+        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${accountInfo.publicKey
+          }&cid=${v.Cid}`,
       }));
       console.log(list);
       setPublishedList(list);
@@ -41,6 +40,7 @@ export default function Index() {
   }, []);
   return (
     <div className='h-full overflow-hidden'>
+      <div>published.tsx</div>
       <BackButton onClick={() => nav(-1)} />
 
       <div className='h-full overflow-y-auto'>
@@ -48,7 +48,7 @@ export default function Index() {
           {publishedList.length === 0 && <Empty />}
           <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
             {publishedList.map((v, i) => (
-              <ListItem item={v} key={i} onClick={() => toDetail(v)}/>
+              <ListItem item={v} key={i} onClick={() => toDetail(v)} />
             ))}
           </SimpleGrid>
         </div>
