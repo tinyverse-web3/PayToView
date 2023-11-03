@@ -21,7 +21,6 @@ export default function Index() {
   const getList = async () => {
     const result = await paytoview.getMyForwardPayToViewContractList();
     console.log(result);
-    accountInfo.publicKey = '08011220d39326ee3e7c95397776e12015a0ffe52e7439726c6aef1b6c7caa85cec57488'
     if (result.code === '000000') {
       const list = flattenListData(result.data).map((v) => ({
         ...v,

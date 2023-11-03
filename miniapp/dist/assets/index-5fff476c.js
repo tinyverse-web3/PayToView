@@ -42592,7 +42592,6 @@ var Q$1 = function(e2) {
 };
 const useIpfsSrc = (cid) => {
   const { accountInfo } = useAccountStore((state2) => state2);
-  accountInfo.publicKey = "08011220d39326ee3e7c95397776e12015a0ffe52e7439726c6aef1b6c7caa85cec57488";
   const src = reactExports.useMemo(
     () => `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${cid}`,
     [cid, accountInfo.publicKey]
@@ -43947,7 +43946,6 @@ function DetailEdit() {
 }
 const IpfsImage = ({ cid, ...rest }) => {
   const { accountInfo } = useAccountStore((state2) => state2);
-  accountInfo.publicKey = "08011220d39326ee3e7c95397776e12015a0ffe52e7439726c6aef1b6c7caa85cec57488";
   console.log("IpfsImage->accountInfo:", accountInfo);
   console.log("IpfsImage->cid:", cid);
   const src = reactExports.useMemo(
@@ -44035,7 +44033,6 @@ function Index$3() {
   const getList = async () => {
     const result = await paytoview.getPayToViewList();
     if (result.code === "000000") {
-      accountInfo.publicKey = "08011220d39326ee3e7c95397776e12015a0ffe52e7439726c6aef1b6c7caa85cec57488";
       const list2 = flattenListData(result.data).map((v2) => ({
         ...v2,
         Ipfs: `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${v2.Cid}`
@@ -44098,7 +44095,6 @@ function Index$1() {
   const getList = async () => {
     const result = await paytoview.getMyForwardPayToViewContractList();
     console.log(result);
-    accountInfo.publicKey = "08011220d39326ee3e7c95397776e12015a0ffe52e7439726c6aef1b6c7caa85cec57488";
     if (result.code === "000000") {
       const list2 = flattenListData(result.data).map((v2) => ({
         ...v2,
