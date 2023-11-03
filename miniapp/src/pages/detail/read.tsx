@@ -61,6 +61,7 @@ export default function DetailRead() {
   }, [contractName]);
   return (
     <div className='min-h-ful p-4'>
+      <div>read.tsx</div>
       <BackButton onClick={toIndex} />
       <div className='mb-4'>
         <PhotoProvider>

@@ -12,6 +12,7 @@ export default function DetailEdit() {
   const type = 'image';
   return (
     <div className='min-h-ful p-4'>
+      <div>edit.tsx</div>
       <BackButton onClick={() => nav(-1)} />
       <div className='mb-4'>
         {type !== 'image' ? (
@@ -49,7 +50,7 @@ export default function DetailEdit() {
           <PayLimit type={type} />
         </div>
         <Button colorScheme='messenger' size='lg' className='w-full'>
-        {t('common.change')}
+          {t('common.change')}
         </Button>
       </div>
     </div>

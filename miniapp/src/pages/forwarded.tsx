@@ -24,9 +24,8 @@ export default function Index() {
     if (result.code === '000000') {
       const list = flattenListData(result.data).map((v) => ({
         ...v,
-        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${
-          accountInfo.publicKey
-        }&cid=${v.Cid}`,
+        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${accountInfo.publicKey
+          }&cid=${v.Cid}`,
       }));
       console.log(list);
       setForwardList(list);
@@ -38,13 +37,14 @@ export default function Index() {
   }, []);
   return (
     <div className='h-full overflow-hidden'>
+      <div>forwarded.tsx</div>
       <BackButton onClick={() => nav(-1)} />
       <div className='h-full overflow-y-auto'>
         <div className='p-4'>
           {forwardList.length === 0 && <Empty />}
           <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
             {forwardList.map((v, i) => (
-              <ListItem item={v} key={i} isForward={false}/>
+              <ListItem item={v} key={i} isForward={false} />
             ))}
           </SimpleGrid>
         </div>

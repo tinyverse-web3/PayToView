@@ -58,6 +58,7 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
   );
   return (
     <div>
+      <div>ContentUpload.tsx</div>
       <FormControl className='mb-4'>
         <Input
           type='text'

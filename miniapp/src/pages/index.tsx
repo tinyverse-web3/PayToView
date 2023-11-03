@@ -48,9 +48,10 @@ export default function Index() {
     location.reload();
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   return (
     <div className='h-full overflow-hidden flex flex-col'>
+      <div>index.tsx</div>
       <div className='overflow-y-auto flex-1'>
         <div className='p-4'>
           <div className='bg-gray-100 p-4 mb-4 rounded-2xl'>

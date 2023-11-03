@@ -41,6 +41,7 @@ export default function Index() {
   }, []);
   return (
     <div className='h-full overflow-hidden'>
+      <div>paid.tsx</div>
       <BackButton onClick={() => nav(-1)} />
       <div className='h-full overflow-y-auto'>
         <div className='p-4'>

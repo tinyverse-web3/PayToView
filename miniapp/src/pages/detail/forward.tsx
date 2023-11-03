@@ -62,6 +62,7 @@ export default function DetailEdit() {
   }, [contractName]);
   return (
     <div className='min-h-ful p-4'>
+      <div>forward.tsx</div>
       <BackButton onClick={() => nav(-1)} />
       <FormControl className='mb-4'>
         <Input

@@ -151,6 +151,7 @@ export default function DetailAdd() {
   };
   return (
     <div className='min-h-ful py-4'>
+      <div>add.tsx</div>
       <BackButton onClick={() => nav(-1)} />
       {/* <Tabs
         variant='soft-rounded'

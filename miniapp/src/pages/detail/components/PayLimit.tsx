@@ -33,6 +33,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
   }, [data]);
   return (
     <div>
+      <div>PayLimit.tsx</div>
       <FormControl className='mb-4'>
         <FormLabel>{t('pages.detail.divide_ratio')}</FormLabel>
         <NumberInput

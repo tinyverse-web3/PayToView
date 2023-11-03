@@ -41414,6 +41414,7 @@ function Index$4() {
   reactExports.useEffect(() => {
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden flex flex-col", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "index.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "overflow-y-auto flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-100 p-4 mb-4 rounded-2xl", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex mb-6 items-center", children: [
@@ -41635,6 +41636,7 @@ const ContentUpload = ({ onChange, type }) => {
     [data]
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "ContentUpload.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(FormControl, { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
       {
@@ -41701,6 +41703,7 @@ const PayLimit = ({ onChange }) => {
     onChange == null ? void 0 : onChange(data);
   }, [data]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "PayLimit.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(FormControl, { className: "mb-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { children: t2("pages.detail.divide_ratio") }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -42043,6 +42046,7 @@ function DetailAdd() {
     setLoading(false);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful py-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "add.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-4 px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ContentUpload, { type, onChange: contentChange }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4", children: [
@@ -42067,6 +42071,7 @@ function DetailEdit$1() {
   const nav = useNavigate();
   const type = "image";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "edit.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardBody, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-md font-bold mb-2", children: "Title" }),
@@ -42634,6 +42639,7 @@ function DetailRead() {
     }
   }, [contractName]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "read.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: toIndex }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(J$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-48 h-48", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Q$1, { src, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { src, height: "100%", fit: "cover" }) }) }) }) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4", children: [
@@ -43890,6 +43896,7 @@ function DetailEdit() {
     }
   }, [contractName]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "forward.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(FormControl, { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
@@ -44069,6 +44076,7 @@ function Index$2() {
     getList();
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "paid.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
       paidList.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Empty, {}),
@@ -44098,6 +44106,7 @@ function Index$1() {
     getList();
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "forwarded.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
       forwardList.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Empty, {}),
@@ -44110,13 +44119,16 @@ function Index() {
   useTranslation();
   reactExports.useState(0);
   useNavigate();
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-100 p-2 rounded-xl", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "分享收益" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-end items-end", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-xl font-bold leading-none", children: "50" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs leading-none ", children: "TVS" })
-    ] })
-  ] }) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "earn.tsx" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-100 p-2 rounded-xl", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "分享收益" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-end items-end", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-xl font-bold leading-none", children: "50" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs leading-none ", children: "TVS" })
+      ] })
+    ] }) })
+  ] });
 }
 const ROUTE_PATH = {
   INDEX: "/",
