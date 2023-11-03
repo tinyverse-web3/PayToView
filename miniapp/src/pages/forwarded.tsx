@@ -25,8 +25,7 @@ export default function Index() {
     if (result.code === '000000') {
       const list = flattenListData(result.data).map((v) => ({
         ...v,
-        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${accountInfo.publicKey
-          }&cid=${v.Cid}`,
+        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/${v.Cid}`,
       }));
       console.log(list);
       setForwardList(list);

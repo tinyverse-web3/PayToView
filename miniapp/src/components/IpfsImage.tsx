@@ -11,8 +11,7 @@ export const IpfsImage = ({ cid, ...rest }: Props) => {
   console.log('IpfsImage->cid:', cid);
   const src = useMemo(
     () =>
-      `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${accountInfo.publicKey
-      }&cid=${cid}`,
+      `${import.meta.env.VITE_IPFS_GATEWAY_URL}/${cid}`,
     [cid, accountInfo.publicKey],
   );
   return <Image src={src} {...rest} />;
