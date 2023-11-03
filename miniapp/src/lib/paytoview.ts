@@ -137,16 +137,8 @@ class PayToView {
     });
     return data;
   }
-  async addFileToIPFS({
-    file,
-  }: {
-    file: File;
-    fileName: string;
-    password?: string;
-  }) {
-    const result = await dauth.account.uploadAlbum({
-      file,
-    });
+  async addFileToIPFS(param: { file: File; fileName: string; password?: string }) {
+    const result = await dauth.account.payToViewUpload(param);
     return result;
   }
 }

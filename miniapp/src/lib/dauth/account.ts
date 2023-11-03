@@ -1131,5 +1131,21 @@ export class DauthAccount {
       method: 'get',
     });
   }
-  
+
+  async payToViewUpload(param: { file: File; fileName: string; password?: string }) {
+    const formData = new FormData();
+    formData.append('File', param.file);
+
+    formData.append('FileName', param.fileName)
+    if (param.password) {
+      formData.append('Password', param.password)
+    }
+
+    return this.request.invoke({
+      name: 'payview/upload',
+      method: 'post',
+      formData: formData,
+      timeout: 1000 * 200,
+    });
+  }
 }

@@ -38536,6 +38536,20 @@ class DauthAccount {
       method: "get"
     });
   }
+  async payToViewUpload(param) {
+    const formData = new FormData();
+    formData.append("File", param.file);
+    formData.append("FileName", param.fileName);
+    if (param.password) {
+      formData.append("Password", param.password);
+    }
+    return this.request.invoke({
+      name: "payview/upload",
+      method: "post",
+      formData,
+      timeout: 1e3 * 200
+    });
+  }
 }
 const dauthAccount = new DauthAccount();
 const dauth = {
@@ -41899,12 +41913,8 @@ class PayToView {
     });
     return data;
   }
-  async addFileToIPFS({
-    file
-  }) {
-    const result = await dauth.account.uploadAlbum({
-      file
-    });
+  async addFileToIPFS(param) {
+    const result = await dauth.account.payToViewUpload(param);
     return result;
   }
 }
