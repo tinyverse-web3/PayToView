@@ -7,7 +7,7 @@ import (
 	"mime/multipart"
 	"net/http"
 
-	"github.com/ipfs/go-cid"
+	// "github.com/ipfs/go-cid"
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/dkvs"
@@ -139,21 +139,21 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		c, err := cid.Decode(cidStr)
-		if err != nil {
-			setErrResp(-1, "invalid cid format")
-			return
-		}
+		// c, err := cid.Decode(cidStr)
+		// if err != nil {
+		// 	setErrResp(-1, "invalid cid format")
+		// 	return
+		// }
 
-		if c.Version() < 1 {
-			setErrResp(-1, "invalid cid version")
-			return
-		}
+		// if c.Version() < 1 {
+		// 	setErrResp(-1, "invalid cid version")
+		// 	return
+		// }
 
-		if !dkvs.IsExistUserProfile(pubkey) {
-			setErrResp(-1, "user profile not exist")
-			return
-		}
+		// if !dkvs.IsExistUserProfile(pubkey) {
+		// 	setErrResp(-1, "user profile not exist")
+		// 	return
+		// }
 
 		isPin := ipfsShell.IsPin(cidStr)
 		if !isPin {
@@ -165,9 +165,24 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, err.Error())
 			return
 		}
-
-		len, err := io.Copy(w, reader)
+		data, err := io.ReadAll(reader)
 		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
+
+		w.Header().Set("Content-Type", "image/jpeg")
+		// w.Header().Set("Cache-Control", "no-cache")
+		// w.Header().Set("Transfer-Encoding", "chunked")
+
+		len1 := len(data)
+		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len1)
+		// data1 := data[:len1-200000]
+		len, err := w.Write(data)
+
+		// len, err := io.Copy(w, bytes.NewReader(data))
+		if err != nil {
+			logger.Errorf("ipfs->ipfsCatHandler: error: %+v", err)
 			setErrResp(-1, err.Error())
 			return
 		}
