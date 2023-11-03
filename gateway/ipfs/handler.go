@@ -165,22 +165,22 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, err.Error())
 			return
 		}
-		data, err := io.ReadAll(reader)
-		if err != nil {
-			setErrResp(-1, err.Error())
-			return
-		}
+		// data, err := io.ReadAll(reader)
+		// if err != nil {
+		// 	setErrResp(-1, err.Error())
+		// 	return
+		// }
 
-		w.Header().Set("Content-Type", "image/jpeg")
+		// w.Header().Set("Content-Type", "image/jpeg")
 		// w.Header().Set("Cache-Control", "no-cache")
 		// w.Header().Set("Transfer-Encoding", "chunked")
 
-		len1 := len(data)
-		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len1)
-		// data1 := data[:len1-200000]
-		len, err := w.Write(data)
+		// len1 := len(data)
+		// logger.Debugf("ipfs->ipfsCatHandler: len: %d", len1)
+		// // data1 := data[:len1-200000]
+		// len, err := w.Write(data)
 
-		// len, err := io.Copy(w, bytes.NewReader(data))
+		len, err := io.Copy(w, reader)
 		if err != nil {
 			logger.Errorf("ipfs->ipfsCatHandler: error: %+v", err)
 			setErrResp(-1, err.Error())
