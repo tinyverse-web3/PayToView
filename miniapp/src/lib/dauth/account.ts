@@ -1142,7 +1142,7 @@ export class DauthAccount {
     }
 
     return this.request.invoke({
-      name: 'payview/upload',
+      name: 'paytoview/upload',
       method: 'post',
       formData: formData,
       timeout: 1000 * 200,
