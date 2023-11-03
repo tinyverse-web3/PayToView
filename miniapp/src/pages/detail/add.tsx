@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMap } from 'react-use';
 import { generatePassword } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import { ROUTE_PATH } from '@/router';
 
 export default function DetailAdd() {
   useTitle('PayToView');
@@ -147,6 +148,7 @@ export default function DetailAdd() {
       Password: data.password,
     });
     setLoading(false);
+    nav(ROUTE_PATH.PUBLISHED);
     // nav(-1);
   };
   return (

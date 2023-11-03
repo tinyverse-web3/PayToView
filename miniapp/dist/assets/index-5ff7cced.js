@@ -42044,6 +42044,7 @@ function DetailAdd() {
       Password: data.password
     });
     setLoading(false);
+    nav(ROUTE_PATH.PUBLISHED);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful py-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "add.tsx" }),
