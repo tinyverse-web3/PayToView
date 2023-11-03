@@ -37378,7 +37378,7 @@ const axios$1 = axios;
 let Request$1 = class Request2 {
   constructor() {
     __publicField(this, "baseUrl", "");
-    const { VITE_SDK_HOST, VITE_SDK_LOCAL_HOST } = { "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false };
+    const { VITE_SDK_HOST, VITE_SDK_LOCAL_HOST } = { "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241:8080/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false };
     this.baseUrl = window.JsBridge ? VITE_SDK_LOCAL_HOST : VITE_SDK_HOST;
   }
   /**
@@ -38572,7 +38572,7 @@ const createStoreImpl = (createState2) => {
     return () => listeners.delete(listener);
   };
   const destroy = () => {
-    if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
+    if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241:8080/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
       console.warn(
         "[DEPRECATED] The `destroy` method will be unsupported in a future version. Instead use unsubscribe function returned by subscribe. Everything will be garbage-collected if store is garbage-collected."
       );
@@ -38703,7 +38703,7 @@ const useSyncExternalStoreExports = /* @__PURE__ */ getDefaultExportFromCjs(with
 const { useSyncExternalStoreWithSelector } = useSyncExternalStoreExports;
 let didWarnAboutEqualityFn = false;
 function useStore(api, selector = api.getState, equalityFn) {
-  if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && equalityFn && !didWarnAboutEqualityFn) {
+  if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241:8080/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && equalityFn && !didWarnAboutEqualityFn) {
     console.warn(
       "[DEPRECATED] Use `createWithEqualityFn` instead of `create` or use `useStoreWithEqualityFn` instead of `useStore`. They can be imported from 'zustand/traditional'. https://github.com/pmndrs/zustand/discussions/1937"
     );
@@ -38720,7 +38720,7 @@ function useStore(api, selector = api.getState, equalityFn) {
   return slice2;
 }
 const createImpl = (createState2) => {
-  if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && typeof createState2 !== "function") {
+  if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241:8080/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && typeof createState2 !== "function") {
     console.warn(
       "[DEPRECATED] Passing a vanilla store will be unsupported in a future version. Instead use `import { useStore } from 'zustand'`."
     );
@@ -38762,11 +38762,11 @@ const devtoolsImpl = (fn, devtoolsOptions = {}) => (set, get2, api) => {
   const { enabled, anonymousActionType, store, ...options } = devtoolsOptions;
   let extensionConnector;
   try {
-    extensionConnector = (enabled != null ? enabled : ({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") && window.__REDUX_DEVTOOLS_EXTENSION__;
+    extensionConnector = (enabled != null ? enabled : ({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241:8080/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") && window.__REDUX_DEVTOOLS_EXTENSION__;
   } catch (e2) {
   }
   if (!extensionConnector) {
-    if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && enabled) {
+    if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241:8080/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && enabled) {
       console.warn(
         "[zustand devtools middleware] Please install/enable Redux devtools extension"
       );
@@ -38820,7 +38820,7 @@ const devtoolsImpl = (fn, devtoolsOptions = {}) => (set, get2, api) => {
     let didWarnAboutReservedActionType = false;
     const originalDispatch = api.dispatch;
     api.dispatch = (...a2) => {
-      if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && a2[0].type === "__setState" && !didWarnAboutReservedActionType) {
+      if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241:8080/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && a2[0].type === "__setState" && !didWarnAboutReservedActionType) {
         console.warn(
           '[zustand devtools middleware] "__setState" action type is reserved to set state from the devtools. Avoid using it.'
         );
@@ -39264,7 +39264,7 @@ const newImpl = (config2, baseOptions) => (set, get2, api) => {
 };
 const persistImpl = (config2, baseOptions) => {
   if ("getStorage" in baseOptions || "serialize" in baseOptions || "deserialize" in baseOptions) {
-    if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
+    if (({ "VITE_IPFS_GATEWAY_URL": "http://39.108.147.241:8080/ipfs", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
       console.warn(
         "[DEPRECATED] `getStorage`, `serialize` and `deserialize` options are deprecated. Use `storage` option instead."
       );
@@ -42594,7 +42594,7 @@ const useIpfsSrc = (cid) => {
   const { accountInfo } = useAccountStore((state2) => state2);
   accountInfo.publicKey = "08011220d39326ee3e7c95397776e12015a0ffe52e7439726c6aef1b6c7caa85cec57488";
   const src = reactExports.useMemo(
-    () => `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${cid}`,
+    () => `${"http://39.108.147.241:8080/ipfs"}/${cid}`,
     [cid, accountInfo.publicKey]
   );
   return src;
@@ -43951,7 +43951,7 @@ const IpfsImage = ({ cid, ...rest }) => {
   console.log("IpfsImage->accountInfo:", accountInfo);
   console.log("IpfsImage->cid:", cid);
   const src = reactExports.useMemo(
-    () => `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${cid}`,
+    () => `${"http://39.108.147.241:8080/ipfs"}/${cid}`,
     [cid, accountInfo.publicKey]
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { src, ...rest });
@@ -44038,7 +44038,7 @@ function Index$3() {
       accountInfo.publicKey = "08011220d39326ee3e7c95397776e12015a0ffe52e7439726c6aef1b6c7caa85cec57488";
       const list2 = flattenListData(result.data).map((v2) => ({
         ...v2,
-        Ipfs: `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${v2.Cid}`
+        Ipfs: `${"http://39.108.147.241:8080/ipfs"}/${v2.Cid}`
       }));
       console.log("published.tsx->getList, list:", list2);
       setPublishedList(list2);
@@ -44102,7 +44102,7 @@ function Index$1() {
     if (result.code === "000000") {
       const list2 = flattenListData(result.data).map((v2) => ({
         ...v2,
-        Ipfs: `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${v2.Cid}`
+        Ipfs: `${"http://39.108.147.241:8080/ipfs"}/${v2.Cid}`
       }));
       console.log(list2);
       setForwardList(list2);
