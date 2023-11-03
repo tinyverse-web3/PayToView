@@ -28,7 +28,7 @@ export default function Index() {
         Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${accountInfo.publicKey
           }&cid=${v.Cid}`,
       }));
-      console.log(list);
+      console.log('published.tsx->getList, list:', list);
       setPublishedList(list);
     }
   };
