@@ -126,12 +126,12 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 
 		logger.Debugf("ipfs->ipfsCatHandler: reqParams: %+v", r.URL.Query())
 
-		pubkey := r.URL.Query().Get("pubkey")
+		// pubkey := r.URL.Query().Get("pubkey")
 
-		if pubkey == "" {
-			setErrResp(-1, "invalid param pubkey")
-			return
-		}
+		// if pubkey == "" {
+		// 	setErrResp(-1, "invalid param pubkey")
+		// 	return
+		// }
 
 		cidStr := r.URL.Query().Get("cid")
 		if cidStr == "" {
