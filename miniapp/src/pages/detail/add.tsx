@@ -92,7 +92,7 @@ export default function DetailAdd() {
           password: password,
         },
       );
-      const contentCid = ipfsResult.data;
+      contentCid = ipfsResult.data;
     }
     let previewCid;
     if (data.previewImage) {
@@ -102,7 +102,7 @@ export default function DetailAdd() {
           file: data.previewImage,
         },
       );
-      const previewCid = ipfsResult.data;
+      previewCid = ipfsResult.data;
     }
 
     // let previewFile;
