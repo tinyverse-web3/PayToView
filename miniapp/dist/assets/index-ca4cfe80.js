@@ -44035,7 +44035,7 @@ function Index$3() {
     if (result.code === "000000") {
       const list2 = flattenListData(result.data).map((v2) => ({
         ...v2,
-        Ipfs: `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${v2.Cid}`
+        Ipfs: `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${v2.CidForpreview}`
       }));
       console.log("published.tsx->getList, list:", list2);
       setPublishedList(list2);
