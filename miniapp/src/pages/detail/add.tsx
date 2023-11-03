@@ -74,6 +74,7 @@ export default function DetailAdd() {
     const commissionContract = await getCommisionContrcat();
     if (!commissionContract) {
       setLoading(false);
+      console.log('no tvs, need buy tvs')
       return;
     }
     // if (type === 'text') {
