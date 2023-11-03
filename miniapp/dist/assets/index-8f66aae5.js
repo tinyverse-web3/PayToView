@@ -43946,7 +43946,8 @@ function DetailEdit() {
 }
 const IpfsImage = ({ cid, ...rest }) => {
   const { accountInfo } = useAccountStore((state2) => state2);
-  console.log(accountInfo);
+  console.log("IpfsImage->accountInfo", accountInfo);
+  console.log("IpfsImage->cid", cid);
   const src = reactExports.useMemo(
     () => `${"http://192.168.1.102/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${cid}`,
     [cid, accountInfo.publicKey]

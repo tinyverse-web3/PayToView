@@ -6,11 +6,11 @@ interface Props {
 }
 export const IpfsImage = ({ cid, ...rest }: Props) => {
   const { accountInfo } = useAccountStore((state) => state);
-  console.log(accountInfo);
+  console.log('IpfsImage->accountInfo', accountInfo);
+  console.log('IpfsImage->cid', cid);
   const src = useMemo(
     () =>
-      `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${
-        accountInfo.publicKey
+      `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${accountInfo.publicKey
       }&cid=${cid}`,
     [cid, accountInfo.publicKey],
   );
