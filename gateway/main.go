@@ -98,7 +98,7 @@ func main() {
 		cfg.ClearBootstrapPeers()
 		cfg.AddBootstrapPeer("/ip4/192.168.1.102/tcp/9000/p2p/12D3KooWGUjKn8SHYjdGsnzjFDT3G33svXCbLYXebsT9vsK8dyHu")
 		cfg.AddBootstrapPeer("/ip4/192.168.1.109/tcp/9000/p2p/12D3KooWGhqQa67QMRFAisZSZ1snfCnpFtWtr4rXTZ2iPBfVu1RR")
-		ipfsShellUrl = "/ip4/103.103.245.177/tcp/5001"
+		ipfsShellUrl = "/ip4/39.108.147.241/tcp/5001"
 	}
 	if *env == internetTestEnv {
 		cfg.SetLocalNet(true)
@@ -153,10 +153,10 @@ func main() {
 		go httpSvr.Listen("0.0.0.0:80")
 		go httpSvr.ListenTLS("0.0.0.0:443", certPath, privPath)
 	} else {
-		httpSvr := webserver.NewQuicWebServer()
-		svr = httpSvr
-		go httpSvr.ListenUdpTLS("0.0.0.0:4430", certPath, privPath)
-		go httpSvr.ListenTcpTLS("0.0.0.0:443", certPath, privPath)
+		// httpSvr := webserver.NewQuicWebServer()
+		// svr = httpSvr
+		// go httpSvr.ListenUdpTLS("0.0.0.0:4430", certPath, privPath)
+		// go httpSvr.ListenTcpTLS("0.0.0.0:443", certPath, privPath)
 	}
 	msgInstance.RegistHandler(svr)
 	ipfs.RegistHandler(svr)
