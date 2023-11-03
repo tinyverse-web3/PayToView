@@ -42013,7 +42013,7 @@ function DetailAdd() {
           password
         }
       );
-      ipfsResult.data;
+      contentCid = ipfsResult.data;
     }
     let previewCid;
     if (data.previewImage) {
@@ -42023,7 +42023,7 @@ function DetailAdd() {
           file: data.previewImage
         }
       );
-      ipfsResult.data;
+      previewCid = ipfsResult.data;
     }
     await paytoview.deployPayToView({
       Name: data.title + "_" + v4(),
