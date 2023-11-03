@@ -23,6 +23,7 @@ export default function Index() {
   const getList = async () => {
     const result = await paytoview.getPayToViewList();
     if (result.code === '000000') {
+      accountInfo.publicKey = '08011220d39326ee3e7c95397776e12015a0ffe52e7439726c6aef1b6c7caa85cec57488'
       const list = flattenListData(result.data).map((v) => ({
         ...v,
         Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${accountInfo.publicKey
