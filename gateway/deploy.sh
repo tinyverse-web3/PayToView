@@ -17,5 +17,5 @@ echo "terminate tvnode process"
 ssh "$user@$ip" 'killall tvn'
 
 echo "copy tvnode to $user@$ip"
-scp ./tvn "$user@$ip:/root/tvn"
+scp ./gateway "$user@$ip:/root/tvn/tvn"
 
