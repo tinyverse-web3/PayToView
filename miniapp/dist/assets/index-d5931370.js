@@ -38544,7 +38544,7 @@ class DauthAccount {
       formData.append("Password", param.password);
     }
     return this.request.invoke({
-      name: "payview/upload",
+      name: "paytoview/upload",
       method: "post",
       formData,
       timeout: 1e3 * 200
