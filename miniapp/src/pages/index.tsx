@@ -241,7 +241,7 @@ export default function Index() {
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d701..fd05</Heading>
+                    <Heading size='sm'>ID：/tx/d701..fd05</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -250,7 +250,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-base'>
-                          0 TVS
+                         0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -263,20 +263,20 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
                         <div className='text-xm'>
-                          080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
+                        080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-              </div>
+             </div>
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d79b...abef</Heading>
+                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -285,7 +285,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          0 TVS
+                         0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -298,20 +298,20 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
                         <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-              </div>
+             </div>
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d79b...abef</Heading>
+                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -320,7 +320,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          0 TVS
+                         0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -333,20 +333,20 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
                         <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-              </div>
+             </div>
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d79b...abef</Heading>
+                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -355,7 +355,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          60 TVS
+                         60 TVS
                         </div>
                       </Box>
                       <Box>
@@ -368,16 +368,16 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
                         <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-              </div>
+             </div>
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
@@ -390,7 +390,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          80 TVS
+                         80 TVS
                         </div>
                       </Box>
                       <Box>
@@ -403,36 +403,19 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
                         <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-              </div>
-              {/* </UnorderedList> */}
-            </div>
+             </div>
           </div>
         </div>
-        {/* <div className='h-16 flex justify-center items-center'>
-        <ButtonGroup size='sm' variant='outline' isAttached>
-          <IconButton
-            isRound={true}
-            variant='solid'
-            colorScheme='teal'
-            aria-label='Done'
-            onClick={toAdd}
-            icon={<Icon icon='material-symbols:add' className='text-2xl' />}
-          />
-          <Button onClick={toPublished}>Published</Button>
-          <Button onClick={toPaid}>Paid</Button>
-          <Button onClick={toForwarded}>Forwarded</Button>
-        </ButtonGroup>
-      </div> */}
       </div>
-    </LayoutThird>
+    </div>
   );
 }
