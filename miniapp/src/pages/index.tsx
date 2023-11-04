@@ -112,7 +112,7 @@ export default function Index() {
               <SimpleGrid columns={2} columnGap='20px'>
                 <div
                   className='text-center bg-gray-200 p-2 rounded-xl'>
-                  <div className='mb-2 text-xs'>主账号地址</div>
+                  <div className='mb-2 text-xs'>{t('pages.index.address')}</div>
                   <div className='flex items-end justify-center'>
                     <span className='mr-2 text-xm font-bold leading-none'>
                       0801e*****a1b4
@@ -123,7 +123,7 @@ export default function Index() {
                 <div
                   className='text-center bg-gray-200 p-2 rounded-xl'
                   onClick={toEarn}>
-                  <div className='mb-2 text-xs'>24小时内收入</div>
+                  <div className='mb-2 text-xs'>{t('pages.index.profit')}</div>
                   <div className='flex items-end justify-center'>
                     <span className='mr-2 text-xm font-bold leading-none'>
                       50
@@ -142,7 +142,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/publish.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>发布</span>
+                  <span className='text-xs text-blue-500'>{t('pages.publish.title')}</span>
                 </div>
                 <div
                   className='text-center'
@@ -151,7 +151,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/earning.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>收益</span>
+                  <span className='text-xs text-blue-500'>{t('pages.earning.title')}</span>
                 </div>
                 <div
                   className='text-center'
@@ -160,7 +160,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/published.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>已发布</span>
+                  <span className='text-xs text-blue-500'>{t('pages.published.title')}</span>
                 </div>
                 <div
                   className='text-center'
@@ -169,7 +169,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/paid.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>已支付</span>
+                  <span className='text-xs text-blue-500'>{t('pages.paid.title')}</span>
                 </div>
                 <div
                   className='text-center'
@@ -178,7 +178,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/forwarded.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>已转发</span>
+                  <span className='text-xs text-blue-500'>{t('pages.forwarded.title')}</span>
                 </div>
               </SimpleGrid>
             </div>
