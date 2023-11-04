@@ -74,7 +74,7 @@ export default function Index() {
   };
 
   const [searchTerm, setSearchTerm] = useState('');
-
+  
   const handleKeyPress = (event) => {
     // 在按下 Enter 键时，执行搜索
     if (event.key === 'Enter') {
@@ -82,7 +82,7 @@ export default function Index() {
     }
   }
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   return (
     <div className='h-full overflow-hidden flex flex-col'>
       <div className='overflow-y-auto flex-1'>
@@ -107,13 +107,13 @@ export default function Index() {
             </div>
           </div>
           <div className=' bg-gray-100 p-4 mb-4 rounded-2xl'>
-            <SimpleGrid columns={2} columnGap='20px'>
+             <SimpleGrid columns={2} columnGap='20px'>
               <div
                 className='text-center bg-gray-200 p-2 rounded-xl'>
                 <div className='mb-2 text-xs'>主账号地址</div>
                 <div className='flex items-end justify-center'>
                   <span className='mr-2 text-xm font-bold leading-none'>
-                    0801e*****a1b4
+                  0801e*****a1b4
                   </span>
                   {/* <span className='text-xs leading-none '>TVS</span> */}
                 </div>
@@ -132,52 +132,52 @@ export default function Index() {
             </SimpleGrid>
           </div>
           <div className='mt-4 mb-4 m-2'>
-            <SimpleGrid columns={5} columnGap='25px'>
-              <div
+             <SimpleGrid columns={5} columnGap='25px'>
+             <div
                 className='text-center'
                 onClick={toAdd}>
-                <img
-                  className={`h-12 w-12`}
-                  src={`/images/publish.png`}>
-                </img>
-                <span className='text-xs text-blue-500'>Publish</span>
-              </div>
-              <div
+              <img
+                className={`h-12 w-12`}
+                src={`/images/publish.png`}>
+              </img>
+              <span className='text-xs text-blue-500'>发布</span>
+            </div>
+            <div
                 className='text-center'
                 onClick={toEarn}>
-                <img
-                  className={`h-12 w-12`}
-                  src={`/images/earning.png`}>
-                </img>
-                <span className='text-xs text-blue-500'>Earning</span>
-              </div>
-              <div
+              <img
+                className={`h-12 w-12`}
+                src={`/images/earning.png`}>
+              </img>
+              <span className='text-xs text-blue-500'>收益</span>
+            </div>
+            <div
                 className='text-center'
                 onClick={toPublished}>
-                <img
-                  className={`h-12 w-12`}
-                  src={`/images/published.png`}>
-                </img>
-                <span className='text-xs text-blue-500'>Pub.</span>
-              </div>
-              <div
+              <img
+                className={`h-12 w-12`}
+                src={`/images/published.png`}>
+              </img>
+              <span className='text-xs text-blue-500'>已发布</span>
+            </div>
+            <div
                 className='text-center'
                 onClick={toPaid}>
-                <img
-                  className={`h-12 w-12`}
-                  src={`/images/paid.png`}>
-                </img>
-                <span className='text-xs text-blue-500'>Paid</span>
-              </div>
-              <div
+              <img
+                className={`h-12 w-12`}
+                src={`/images/paid.png`}>
+              </img>
+              <span className='text-xs text-blue-500'>已支付</span>
+            </div>
+            <div
                 className='text-center'
                 onClick={toForwarded}>
-                <img
-                  className={`h-12 w-12`}
-                  src={`/images/forwarded.png`}>
-                </img>
-                <span className='text-xs text-blue-500'>Fwd.</span>
-              </div>
+              <img
+                className={`h-12 w-12`}
+                src={`/images/forwarded.png`}>
+              </img>
+              <span className='text-xs text-blue-500'>已转发</span>
+            </div>
             </SimpleGrid>
           </div>
           <div className='mt-m-2'>
@@ -197,7 +197,7 @@ export default function Index() {
           </div>
           <div className='mt-4 mb-4' style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span className='text-xm ml-2'>交易记录</span>
-            <span className='text-xm mr-2'>more</span>
+            <span className='text-xm mr-2'>更多 ></span>
           </div>
           <div style={{ height: '400px', overflowY: 'auto' }} className='text-xs'>
             <UnorderedList>
@@ -213,7 +213,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          10 TVS
+                         10 TVS
                         </div>
                       </Box>
                       <Box>
@@ -226,10 +226,10 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
-                        <div className='text-xm font-black'>
-                          080112202eb5947819be566f30c0faa3df0d272a47c0ae441d42e217bbcfd05932845adc
+                        <div className='text-xm'>
+                        080112202eb5947819be566f30c0faa3df0d272a47c0ae441d42e217bbcfd05932845adc
                         </div>
                       </Box>
                     </Stack>
@@ -248,7 +248,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-base'>
-                          0 TVS
+                         0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -261,10 +261,10 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
-                        <div className='text-xm font-black'>
-                          080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
+                        <div className='text-xm'>
+                        080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
                         </div>
                       </Box>
                     </Stack>
@@ -283,7 +283,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          0 TVS
+                         0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -296,10 +296,10 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
-                        <div className='text-xm font-black'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                        <div className='text-xm'>
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
@@ -318,7 +318,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          0 TVS
+                         0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -331,10 +331,10 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
-                        <div className='text-xm font-black'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                        <div className='text-xm'>
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
@@ -353,7 +353,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          60 TVS
+                         60 TVS
                         </div>
                       </Box>
                       <Box>
@@ -366,10 +366,10 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
-                        <div className='text-xm font-black'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                        <div className='text-xm'>
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
@@ -388,7 +388,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                          80 TVS
+                         80 TVS
                         </div>
                       </Box>
                       <Box>
@@ -401,10 +401,10 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                          交易方:
+                        交易方:
                         </Heading>
-                        <div className='text-xm font-black'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                        <div className='text-xm'>
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
