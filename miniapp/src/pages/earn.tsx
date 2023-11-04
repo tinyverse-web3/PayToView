@@ -26,7 +26,7 @@ export default function Index() {
   return (
     <LayoutThird title={t('pages.earning.title')}>
       <div className='h-full overflow-hidden'>
-        <div>earn.tsx</div>
+        {/* <div>earn.tsx</div> */}
         <div className='p-4'>
           <div className='bg-gray-100 p-2 rounded-xl'>
             <div>分享收益</div>

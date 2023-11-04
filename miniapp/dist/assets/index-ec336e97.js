@@ -81,7 +81,7 @@ var react_production_min = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var l$4 = Symbol.for("react.element"), n$6 = Symbol.for("react.portal"), p$8 = Symbol.for("react.fragment"), q$5 = Symbol.for("react.strict_mode"), r$4 = Symbol.for("react.profiler"), t$5 = Symbol.for("react.provider"), u$4 = Symbol.for("react.context"), v$5 = Symbol.for("react.forward_ref"), w$5 = Symbol.for("react.suspense"), x$2 = Symbol.for("react.memo"), y$3 = Symbol.for("react.lazy"), z$3 = Symbol.iterator;
+var l$5 = Symbol.for("react.element"), n$6 = Symbol.for("react.portal"), p$9 = Symbol.for("react.fragment"), q$6 = Symbol.for("react.strict_mode"), r$4 = Symbol.for("react.profiler"), t$5 = Symbol.for("react.provider"), u$5 = Symbol.for("react.context"), v$5 = Symbol.for("react.forward_ref"), w$6 = Symbol.for("react.suspense"), x$2 = Symbol.for("react.memo"), y$4 = Symbol.for("react.lazy"), z$3 = Symbol.iterator;
 function A$4(a2) {
   if (null === a2 || "object" !== typeof a2)
     return null;
@@ -139,13 +139,13 @@ function M$3(a2, b2, e2) {
   if (a2 && a2.defaultProps)
     for (d2 in g2 = a2.defaultProps, g2)
       void 0 === c2[d2] && (c2[d2] = g2[d2]);
-  return { $$typeof: l$4, type: a2, key: k2, ref: h2, props: c2, _owner: K$2.current };
+  return { $$typeof: l$5, type: a2, key: k2, ref: h2, props: c2, _owner: K$2.current };
 }
 function N$2(a2, b2) {
-  return { $$typeof: l$4, type: a2.type, key: b2, ref: a2.ref, props: a2.props, _owner: a2._owner };
+  return { $$typeof: l$5, type: a2.type, key: b2, ref: a2.ref, props: a2.props, _owner: a2._owner };
 }
-function O$4(a2) {
-  return "object" === typeof a2 && null !== a2 && a2.$$typeof === l$4;
+function O$5(a2) {
+  return "object" === typeof a2 && null !== a2 && a2.$$typeof === l$5;
 }
 function escape$3(a2) {
   var b2 = { "=": "=0", ":": "=2" };
@@ -157,7 +157,7 @@ var P$3 = /\/+/g;
 function Q$3(a2, b2) {
   return "object" === typeof a2 && null !== a2 && null != a2.key ? escape$3("" + a2.key) : b2.toString(36);
 }
-function R$2(a2, b2, e2, d2, c2) {
+function R$3(a2, b2, e2, d2, c2) {
   var k2 = typeof a2;
   if ("undefined" === k2 || "boolean" === k2)
     a2 = null;
@@ -172,26 +172,26 @@ function R$2(a2, b2, e2, d2, c2) {
         break;
       case "object":
         switch (a2.$$typeof) {
-          case l$4:
+          case l$5:
           case n$6:
             h2 = true;
         }
     }
   if (h2)
-    return h2 = a2, c2 = c2(h2), a2 = "" === d2 ? "." + Q$3(h2, 0) : d2, I$3(c2) ? (e2 = "", null != a2 && (e2 = a2.replace(P$3, "$&/") + "/"), R$2(c2, b2, e2, "", function(a3) {
+    return h2 = a2, c2 = c2(h2), a2 = "" === d2 ? "." + Q$3(h2, 0) : d2, I$3(c2) ? (e2 = "", null != a2 && (e2 = a2.replace(P$3, "$&/") + "/"), R$3(c2, b2, e2, "", function(a3) {
       return a3;
-    })) : null != c2 && (O$4(c2) && (c2 = N$2(c2, e2 + (!c2.key || h2 && h2.key === c2.key ? "" : ("" + c2.key).replace(P$3, "$&/") + "/") + a2)), b2.push(c2)), 1;
+    })) : null != c2 && (O$5(c2) && (c2 = N$2(c2, e2 + (!c2.key || h2 && h2.key === c2.key ? "" : ("" + c2.key).replace(P$3, "$&/") + "/") + a2)), b2.push(c2)), 1;
   h2 = 0;
   d2 = "" === d2 ? "." : d2 + ":";
   if (I$3(a2))
     for (var g2 = 0; g2 < a2.length; g2++) {
       k2 = a2[g2];
       var f2 = d2 + Q$3(k2, g2);
-      h2 += R$2(k2, b2, e2, f2, c2);
+      h2 += R$3(k2, b2, e2, f2, c2);
     }
   else if (f2 = A$4(a2), "function" === typeof f2)
     for (a2 = f2.call(a2), g2 = 0; !(k2 = a2.next()).done; )
-      k2 = k2.value, f2 = d2 + Q$3(k2, g2++), h2 += R$2(k2, b2, e2, f2, c2);
+      k2 = k2.value, f2 = d2 + Q$3(k2, g2++), h2 += R$3(k2, b2, e2, f2, c2);
   else if ("object" === k2)
     throw b2 = String(a2), Error("Objects are not valid as a React child (found: " + ("[object Object]" === b2 ? "object with keys {" + Object.keys(a2).join(", ") + "}" : b2) + "). If you meant to render a collection of children, use an array instead.");
   return h2;
@@ -200,7 +200,7 @@ function S$4(a2, b2, e2) {
   if (null == a2)
     return a2;
   var d2 = [], c2 = 0;
-  R$2(a2, d2, "", "", function(a3) {
+  R$3(a2, d2, "", "", function(a3) {
     return b2.call(e2, a3, c2++);
   });
   return d2;
@@ -238,16 +238,16 @@ react_production_min.Children = { map: S$4, forEach: function(a2, b2, e2) {
     return a3;
   }) || [];
 }, only: function(a2) {
-  if (!O$4(a2))
+  if (!O$5(a2))
     throw Error("React.Children.only expected to receive a single React element child.");
   return a2;
 } };
 react_production_min.Component = E$3;
-react_production_min.Fragment = p$8;
+react_production_min.Fragment = p$9;
 react_production_min.Profiler = r$4;
 react_production_min.PureComponent = G$3;
-react_production_min.StrictMode = q$5;
-react_production_min.Suspense = w$5;
+react_production_min.StrictMode = q$6;
+react_production_min.Suspense = w$6;
 react_production_min.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = W$3;
 react_production_min.cloneElement = function(a2, b2, e2) {
   if (null === a2 || void 0 === a2)
@@ -270,10 +270,10 @@ react_production_min.cloneElement = function(a2, b2, e2) {
       g2[m2] = arguments[m2 + 2];
     d2.children = g2;
   }
-  return { $$typeof: l$4, type: a2.type, key: c2, ref: k2, props: d2, _owner: h2 };
+  return { $$typeof: l$5, type: a2.type, key: c2, ref: k2, props: d2, _owner: h2 };
 };
 react_production_min.createContext = function(a2) {
-  a2 = { $$typeof: u$4, _currentValue: a2, _currentValue2: a2, _threadCount: 0, Provider: null, Consumer: null, _defaultValue: null, _globalName: null };
+  a2 = { $$typeof: u$5, _currentValue: a2, _currentValue2: a2, _threadCount: 0, Provider: null, Consumer: null, _defaultValue: null, _globalName: null };
   a2.Provider = { $$typeof: t$5, _context: a2 };
   return a2.Consumer = a2;
 };
@@ -289,9 +289,9 @@ react_production_min.createRef = function() {
 react_production_min.forwardRef = function(a2) {
   return { $$typeof: v$5, render: a2 };
 };
-react_production_min.isValidElement = O$4;
+react_production_min.isValidElement = O$5;
 react_production_min.lazy = function(a2) {
-  return { $$typeof: y$3, _payload: { _status: -1, _result: a2 }, _init: T$3 };
+  return { $$typeof: y$4, _payload: { _status: -1, _result: a2 }, _init: T$3 };
 };
 react_production_min.memo = function(a2, b2) {
   return { $$typeof: x$2, type: a2, compare: void 0 === b2 ? null : b2 };
@@ -371,22 +371,22 @@ const React$1 = /* @__PURE__ */ _mergeNamespaces({
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var f$4 = reactExports, k$3 = Symbol.for("react.element"), l$3 = Symbol.for("react.fragment"), m$6 = Object.prototype.hasOwnProperty, n$5 = f$4.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, p$7 = { key: true, ref: true, __self: true, __source: true };
-function q$4(c2, a2, g2) {
+var f$4 = reactExports, k$4 = Symbol.for("react.element"), l$4 = Symbol.for("react.fragment"), m$6 = Object.prototype.hasOwnProperty, n$5 = f$4.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, p$8 = { key: true, ref: true, __self: true, __source: true };
+function q$5(c2, a2, g2) {
   var b2, d2 = {}, e2 = null, h2 = null;
   void 0 !== g2 && (e2 = "" + g2);
   void 0 !== a2.key && (e2 = "" + a2.key);
   void 0 !== a2.ref && (h2 = a2.ref);
   for (b2 in a2)
-    m$6.call(a2, b2) && !p$7.hasOwnProperty(b2) && (d2[b2] = a2[b2]);
+    m$6.call(a2, b2) && !p$8.hasOwnProperty(b2) && (d2[b2] = a2[b2]);
   if (c2 && c2.defaultProps)
     for (b2 in a2 = c2.defaultProps, a2)
       void 0 === d2[b2] && (d2[b2] = a2[b2]);
-  return { $$typeof: k$3, type: c2, key: e2, ref: h2, props: d2, _owner: n$5.current };
+  return { $$typeof: k$4, type: c2, key: e2, ref: h2, props: d2, _owner: n$5.current };
 }
-reactJsxRuntime_production_min.Fragment = l$3;
-reactJsxRuntime_production_min.jsx = q$4;
-reactJsxRuntime_production_min.jsxs = q$4;
+reactJsxRuntime_production_min.Fragment = l$4;
+reactJsxRuntime_production_min.jsx = q$5;
+reactJsxRuntime_production_min.jsxs = q$5;
 {
   jsxRuntime.exports = reactJsxRuntime_production_min;
 }
@@ -666,7 +666,7 @@ var schedulerExports = scheduler.exports;
  * LICENSE file in the root directory of this source tree.
  */
 var aa = reactExports, ca = schedulerExports;
-function p$6(a2) {
+function p$7(a2) {
   for (var b2 = "https://reactjs.org/docs/error-decoder.html?invariant=" + a2, c2 = 1; c2 < arguments.length; c2++)
     b2 += "&args[]=" + encodeURIComponent(arguments[c2]);
   return "Minified React error #" + a2 + "; visit " + b2 + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
@@ -1130,7 +1130,7 @@ function fb(a2, b2, c2, d2) {
 }
 function gb(a2, b2) {
   if (null != b2.dangerouslySetInnerHTML)
-    throw Error(p$6(91));
+    throw Error(p$7(91));
   return A$3({}, b2, { value: void 0, defaultValue: void 0, children: "" + a2._wrapperState.initialValue });
 }
 function hb(a2, b2) {
@@ -1140,10 +1140,10 @@ function hb(a2, b2) {
     b2 = b2.defaultValue;
     if (null != c2) {
       if (null != b2)
-        throw Error(p$6(92));
+        throw Error(p$7(92));
       if (eb(c2)) {
         if (1 < c2.length)
-          throw Error(p$6(93));
+          throw Error(p$7(93));
         c2 = c2[0];
       }
       b2 = c2;
@@ -1270,15 +1270,15 @@ var tb = A$3({ menuitem: true }, { area: true, base: true, br: true, col: true, 
 function ub(a2, b2) {
   if (b2) {
     if (tb[a2] && (null != b2.children || null != b2.dangerouslySetInnerHTML))
-      throw Error(p$6(137, a2));
+      throw Error(p$7(137, a2));
     if (null != b2.dangerouslySetInnerHTML) {
       if (null != b2.children)
-        throw Error(p$6(60));
+        throw Error(p$7(60));
       if ("object" !== typeof b2.dangerouslySetInnerHTML || !("__html" in b2.dangerouslySetInnerHTML))
-        throw Error(p$6(61));
+        throw Error(p$7(61));
     }
     if (null != b2.style && "object" !== typeof b2.style)
-      throw Error(p$6(62));
+      throw Error(p$7(62));
   }
 }
 function vb(a2, b2) {
@@ -1308,7 +1308,7 @@ var yb = null, zb = null, Ab = null;
 function Bb(a2) {
   if (a2 = Cb(a2)) {
     if ("function" !== typeof yb)
-      throw Error(p$6(280));
+      throw Error(p$7(280));
     var b2 = a2.stateNode;
     b2 && (b2 = Db(b2), yb(a2.stateNode, a2.type, b2));
   }
@@ -1373,7 +1373,7 @@ function Kb(a2, b2) {
   if (a2)
     return null;
   if (c2 && "function" !== typeof c2)
-    throw Error(p$6(231, b2, typeof c2));
+    throw Error(p$7(231, b2, typeof c2));
   return c2;
 }
 var Lb = false;
@@ -1413,7 +1413,7 @@ function Ub(a2, b2, c2, d2, e2, f2, g2, h2, k2) {
       Ob = false;
       Pb = null;
     } else
-      throw Error(p$6(198));
+      throw Error(p$7(198));
     Qb || (Qb = true, Rb = l2);
   }
 }
@@ -1441,14 +1441,14 @@ function Wb(a2) {
 }
 function Xb(a2) {
   if (Vb(a2) !== a2)
-    throw Error(p$6(188));
+    throw Error(p$7(188));
 }
 function Yb(a2) {
   var b2 = a2.alternate;
   if (!b2) {
     b2 = Vb(a2);
     if (null === b2)
-      throw Error(p$6(188));
+      throw Error(p$7(188));
     return b2 !== a2 ? null : a2;
   }
   for (var c2 = a2, d2 = b2; ; ) {
@@ -1472,7 +1472,7 @@ function Yb(a2) {
           return Xb(e2), b2;
         f2 = f2.sibling;
       }
-      throw Error(p$6(188));
+      throw Error(p$7(188));
     }
     if (c2.return !== d2.return)
       c2 = e2, d2 = f2;
@@ -1509,14 +1509,14 @@ function Yb(a2) {
           h2 = h2.sibling;
         }
         if (!g2)
-          throw Error(p$6(189));
+          throw Error(p$7(189));
       }
     }
     if (c2.alternate !== d2)
-      throw Error(p$6(190));
+      throw Error(p$7(190));
   }
   if (3 !== c2.tag)
-    throw Error(p$6(188));
+    throw Error(p$7(188));
   return c2.stateNode.current === c2 ? a2 : b2;
 }
 function Zb(a2) {
@@ -2144,7 +2144,7 @@ var Qd = A$3({}, ud, { key: function(a2) {
   deltaMode: 0
 }), Zd = rd(Yd), $d = [9, 13, 27, 32], ae = ia && "CompositionEvent" in window, be$1 = null;
 ia && "documentMode" in document && (be$1 = document.documentMode);
-var ce = ia && "TextEvent" in window && !be$1, de$1 = ia && (!ae || be$1 && 8 < be$1 && 11 >= be$1), ee$1 = String.fromCharCode(32), fe$1 = false;
+var ce = ia && "TextEvent" in window && !be$1, de$1 = ia && (!ae || be$1 && 8 < be$1 && 11 >= be$1), ee$1 = String.fromCharCode(32), fe$2 = false;
 function ge$1(a2, b2) {
   switch (a2) {
     case "keyup":
@@ -2171,10 +2171,10 @@ function je(a2, b2) {
     case "keypress":
       if (32 !== b2.which)
         return null;
-      fe$1 = true;
+      fe$2 = true;
       return ee$1;
     case "textInput":
-      return a2 = b2.data, a2 === ee$1 && fe$1 ? null : a2;
+      return a2 = b2.data, a2 === ee$1 && fe$2 ? null : a2;
     default:
       return null;
   }
@@ -2210,8 +2210,8 @@ function ne$1(a2, b2, c2, d2) {
   0 < b2.length && (c2 = new td("onChange", "change", null, c2, d2), a2.push({ event: c2, listeners: b2 }));
 }
 var pe$1 = null, qe = null;
-function re$1(a2) {
-  se$1(a2, 0);
+function re$2(a2) {
+  se$2(a2, 0);
 }
 function te(a2) {
   var b2 = ue$1(a2);
@@ -2244,7 +2244,7 @@ function Be(a2) {
   if ("value" === a2.propertyName && te(qe)) {
     var b2 = [];
     ne$1(b2, qe, a2, xb(a2));
-    Jb(re$1, b2);
+    Jb(re$2, b2);
   }
 }
 function Ce(a2, b2, c2) {
@@ -2416,7 +2416,7 @@ function nf(a2, b2, c2) {
   Ub(d2, b2, void 0, a2);
   a2.currentTarget = null;
 }
-function se$1(a2, b2) {
+function se$2(a2, b2) {
   b2 = 0 !== (b2 & 4);
   for (var c2 = 0; c2 < a2.length; c2++) {
     var d2 = a2[c2], e2 = d2.event;
@@ -2743,7 +2743,7 @@ function hd(a2, b2, c2, d2, e2) {
       if ($a = ce ? je(a2, c2) : ke(a2, c2))
         d3 = oe$1(d3, "onBeforeInput"), 0 < d3.length && (e3 = new Ld("onBeforeInput", "beforeinput", null, c2, e3), g3.push({ event: e3, listeners: d3 }), e3.data = $a);
     }
-    se$1(g3, b2);
+    se$2(g3, b2);
   });
 }
 function tf(a2, b2, c2) {
@@ -2782,7 +2782,7 @@ function zf(a2) {
 function Af(a2, b2, c2) {
   b2 = zf(b2);
   if (zf(a2) !== b2 && c2)
-    throw Error(p$6(425));
+    throw Error(p$7(425));
 }
 function Bf() {
 }
@@ -2876,7 +2876,7 @@ function Cb(a2) {
 function ue$1(a2) {
   if (5 === a2.tag || 6 === a2.tag)
     return a2.stateNode;
-  throw Error(p$6(33));
+  throw Error(p$7(33));
 }
 function Db(a2) {
   return a2[Pf] || null;
@@ -2917,7 +2917,7 @@ function $f() {
 }
 function ag(a2, b2, c2) {
   if (H$1.current !== Vf)
-    throw Error(p$6(168));
+    throw Error(p$7(168));
   G$2(H$1, b2);
   G$2(Wf, c2);
 }
@@ -2929,7 +2929,7 @@ function bg(a2, b2, c2) {
   d2 = d2.getChildContext();
   for (var e2 in d2)
     if (!(e2 in b2))
-      throw Error(p$6(108, Ra(a2) || "Unknown", e2));
+      throw Error(p$7(108, Ra(a2) || "Unknown", e2));
   return A$3({}, c2, d2);
 }
 function cg(a2) {
@@ -2942,7 +2942,7 @@ function cg(a2) {
 function dg(a2, b2, c2) {
   var d2 = a2.stateNode;
   if (!d2)
-    throw Error(p$6(169));
+    throw Error(p$7(169));
   c2 ? (a2 = bg(a2, b2, Xf), d2.__reactInternalMemoizedMergedChildContext = a2, E$2(Wf), E$2(H$1), G$2(H$1, a2)) : E$2(Wf);
   G$2(Wf, c2);
 }
@@ -3046,14 +3046,14 @@ function Eg(a2) {
       var c2 = b2;
       if (!Cg(a2, b2)) {
         if (Dg(a2))
-          throw Error(p$6(418));
+          throw Error(p$7(418));
         b2 = Lf(c2.nextSibling);
         var d2 = xg;
         b2 && Cg(a2, b2) ? Ag(d2, c2) : (a2.flags = a2.flags & -4097 | 2, I$2 = false, xg = a2);
       }
     } else {
       if (Dg(a2))
-        throw Error(p$6(418));
+        throw Error(p$7(418));
       a2.flags = a2.flags & -4097 | 2;
       I$2 = false;
       xg = a2;
@@ -3074,7 +3074,7 @@ function Gg(a2) {
   (b2 = 3 !== a2.tag) && !(b2 = 5 !== a2.tag) && (b2 = a2.type, b2 = "head" !== b2 && "body" !== b2 && !Ef(a2.type, a2.memoizedProps));
   if (b2 && (b2 = yg)) {
     if (Dg(a2))
-      throw Hg(), Error(p$6(418));
+      throw Hg(), Error(p$7(418));
     for (; b2; )
       Ag(a2, b2), b2 = Lf(b2.nextSibling);
   }
@@ -3083,7 +3083,7 @@ function Gg(a2) {
     a2 = a2.memoizedState;
     a2 = null !== a2 ? a2.dehydrated : null;
     if (!a2)
-      throw Error(p$6(317));
+      throw Error(p$7(317));
     a: {
       a2 = a2.nextSibling;
       for (b2 = 0; a2; ) {
@@ -3157,7 +3157,7 @@ function Vg(a2) {
   if (Pg !== a2)
     if (a2 = { context: a2, memoizedValue: b2, next: null }, null === Og) {
       if (null === Ng)
-        throw Error(p$6(308));
+        throw Error(p$7(308));
       Og = a2;
       Ng.dependencies = { lanes: 0, firstContext: a2 };
     } else
@@ -3334,7 +3334,7 @@ function ih(a2, b2, c2) {
         d2.callback = null;
         d2 = c2;
         if ("function" !== typeof e2)
-          throw Error(p$6(191, e2));
+          throw Error(p$7(191, e2));
         e2.call(d2);
       }
     }
@@ -3415,11 +3415,11 @@ function sh(a2, b2, c2) {
       c2 = c2._owner;
       if (c2) {
         if (1 !== c2.tag)
-          throw Error(p$6(309));
+          throw Error(p$7(309));
         var d2 = c2.stateNode;
       }
       if (!d2)
-        throw Error(p$6(147, a2));
+        throw Error(p$7(147, a2));
       var e2 = d2, f2 = "" + a2;
       if (null !== b2 && null !== b2.ref && "function" === typeof b2.ref && b2.ref._stringRef === f2)
         return b2.ref;
@@ -3432,15 +3432,15 @@ function sh(a2, b2, c2) {
       return b2;
     }
     if ("string" !== typeof a2)
-      throw Error(p$6(284));
+      throw Error(p$7(284));
     if (!c2._owner)
-      throw Error(p$6(290, a2));
+      throw Error(p$7(290, a2));
   }
   return a2;
 }
 function th(a2, b2) {
   a2 = Object.prototype.toString.call(b2);
-  throw Error(p$6(31, "[object Object]" === a2 ? "object with keys {" + Object.keys(b2).join(", ") + "}" : a2));
+  throw Error(p$7(31, "[object Object]" === a2 ? "object with keys {" + Object.keys(b2).join(", ") + "}" : a2));
 }
 function uh(a2) {
   var b2 = a2._init;
@@ -3612,10 +3612,10 @@ function vh$1(a2) {
   function t2(e3, g3, h3, k3) {
     var l3 = Ka(h3);
     if ("function" !== typeof l3)
-      throw Error(p$6(150));
+      throw Error(p$7(150));
     h3 = l3.call(h3);
     if (null == h3)
-      throw Error(p$6(151));
+      throw Error(p$7(151));
     for (var u2 = l3 = null, m3 = g3, w2 = g3 = 0, x2 = null, n3 = h3.next(); null !== m3 && !n3.done; w2++, n3 = h3.next()) {
       m3.index > w2 ? (x2 = m3, m3 = null) : x2 = m3.sibling;
       var t3 = r2(e3, m3, n3.value, k3);
@@ -3721,7 +3721,7 @@ function vh$1(a2) {
 var Bh = vh$1(true), Ch = vh$1(false), Dh = {}, Eh = Uf(Dh), Fh = Uf(Dh), Gh = Uf(Dh);
 function Hh(a2) {
   if (a2 === Dh)
-    throw Error(p$6(174));
+    throw Error(p$7(174));
   return a2;
 }
 function Ih(a2, b2) {
@@ -3787,9 +3787,9 @@ function Oh() {
     Nh[a2]._workInProgressVersionPrimary = null;
   Nh.length = 0;
 }
-var Ph = ua.ReactCurrentDispatcher, Qh = ua.ReactCurrentBatchConfig, Rh = 0, N$1 = null, O$3 = null, P$2 = null, Sh = false, Th = false, Uh = 0, Vh = 0;
+var Ph = ua.ReactCurrentDispatcher, Qh = ua.ReactCurrentBatchConfig, Rh = 0, N$1 = null, O$4 = null, P$2 = null, Sh = false, Th = false, Uh = 0, Vh = 0;
 function Q$2() {
-  throw Error(p$6(321));
+  throw Error(p$7(321));
 }
 function Wh(a2, b2) {
   if (null === b2)
@@ -3813,21 +3813,21 @@ function Xh(a2, b2, c2, d2, e2, f2) {
       Th = false;
       Uh = 0;
       if (25 <= f2)
-        throw Error(p$6(301));
+        throw Error(p$7(301));
       f2 += 1;
-      P$2 = O$3 = null;
+      P$2 = O$4 = null;
       b2.updateQueue = null;
       Ph.current = $h;
       a2 = c2(d2, e2);
     } while (Th);
   }
   Ph.current = ai;
-  b2 = null !== O$3 && null !== O$3.next;
+  b2 = null !== O$4 && null !== O$4.next;
   Rh = 0;
-  P$2 = O$3 = N$1 = null;
+  P$2 = O$4 = N$1 = null;
   Sh = false;
   if (b2)
-    throw Error(p$6(300));
+    throw Error(p$7(300));
   return a2;
 }
 function bi() {
@@ -3841,19 +3841,19 @@ function ci() {
   return P$2;
 }
 function di() {
-  if (null === O$3) {
+  if (null === O$4) {
     var a2 = N$1.alternate;
     a2 = null !== a2 ? a2.memoizedState : null;
   } else
-    a2 = O$3.next;
+    a2 = O$4.next;
   var b2 = null === P$2 ? N$1.memoizedState : P$2.next;
   if (null !== b2)
-    P$2 = b2, O$3 = a2;
+    P$2 = b2, O$4 = a2;
   else {
     if (null === a2)
-      throw Error(p$6(310));
-    O$3 = a2;
-    a2 = { memoizedState: O$3.memoizedState, baseState: O$3.baseState, baseQueue: O$3.baseQueue, queue: O$3.queue, next: null };
+      throw Error(p$7(310));
+    O$4 = a2;
+    a2 = { memoizedState: O$4.memoizedState, baseState: O$4.baseState, baseQueue: O$4.baseQueue, queue: O$4.queue, next: null };
     null === P$2 ? N$1.memoizedState = P$2 = a2 : P$2 = P$2.next = a2;
   }
   return P$2;
@@ -3864,9 +3864,9 @@ function ei(a2, b2) {
 function fi(a2) {
   var b2 = di(), c2 = b2.queue;
   if (null === c2)
-    throw Error(p$6(311));
+    throw Error(p$7(311));
   c2.lastRenderedReducer = a2;
-  var d2 = O$3, e2 = d2.baseQueue, f2 = c2.pending;
+  var d2 = O$4, e2 = d2.baseQueue, f2 = c2.pending;
   if (null !== f2) {
     if (null !== e2) {
       var g2 = e2.next;
@@ -3918,7 +3918,7 @@ function fi(a2) {
 function gi(a2) {
   var b2 = di(), c2 = b2.queue;
   if (null === c2)
-    throw Error(p$6(311));
+    throw Error(p$7(311));
   c2.lastRenderedReducer = a2;
   var d2 = c2.dispatch, e2 = c2.pending, f2 = b2.memoizedState;
   if (null !== e2) {
@@ -3944,8 +3944,8 @@ function ii(a2, b2) {
   if (d2.getSnapshot !== b2 || f2 || null !== P$2 && P$2.memoizedState.tag & 1) {
     c2.flags |= 2048;
     li(9, mi.bind(null, c2, d2, e2, b2), void 0, null);
-    if (null === R$1)
-      throw Error(p$6(349));
+    if (null === R$2)
+      throw Error(p$7(349));
     0 !== (Rh & 30) || ni(c2, b2, e2);
   }
   return e2;
@@ -4007,8 +4007,8 @@ function ui(a2, b2, c2, d2) {
   var e2 = di();
   d2 = void 0 === d2 ? null : d2;
   var f2 = void 0;
-  if (null !== O$3) {
-    var g2 = O$3.memoizedState;
+  if (null !== O$4) {
+    var g2 = O$4.memoizedState;
     f2 = g2.destroy;
     if (null !== d2 && Wh(d2, g2.deps)) {
       e2.memoizedState = li(b2, c2, f2, d2);
@@ -4185,12 +4185,12 @@ var ai = { readContext: Vg, useCallback: Q$2, useContext: Q$2, useEffect: Q$2, u
   var d2 = N$1, e2 = ci();
   if (I$2) {
     if (void 0 === c2)
-      throw Error(p$6(407));
+      throw Error(p$7(407));
     c2 = c2();
   } else {
     c2 = b2();
-    if (null === R$1)
-      throw Error(p$6(349));
+    if (null === R$2)
+      throw Error(p$7(349));
     0 !== (Rh & 30) || ni(d2, b2, c2);
   }
   e2.memoizedState = c2;
@@ -4206,7 +4206,7 @@ var ai = { readContext: Vg, useCallback: Q$2, useContext: Q$2, useEffect: Q$2, u
   li(9, mi.bind(null, d2, f2, c2, b2), void 0, null);
   return c2;
 }, useId: function() {
-  var a2 = ci(), b2 = R$1.identifierPrefix;
+  var a2 = ci(), b2 = R$2.identifierPrefix;
   if (I$2) {
     var c2 = sg;
     var d2 = rg;
@@ -4235,7 +4235,7 @@ var ai = { readContext: Vg, useCallback: Q$2, useContext: Q$2, useEffect: Q$2, u
   useDebugValue: Ai,
   useDeferredValue: function(a2) {
     var b2 = di();
-    return Di(b2, O$3.memoizedState, a2);
+    return Di(b2, O$4.memoizedState, a2);
   },
   useTransition: function() {
     var a2 = fi(ei)[0], b2 = di().memoizedState;
@@ -4249,7 +4249,7 @@ var ai = { readContext: Vg, useCallback: Q$2, useContext: Q$2, useEffect: Q$2, u
   return gi(ei);
 }, useDebugValue: Ai, useDeferredValue: function(a2) {
   var b2 = di();
-  return null === O$3 ? b2.memoizedState = a2 : Di(b2, O$3.memoizedState, a2);
+  return null === O$4 ? b2.memoizedState = a2 : Di(b2, O$4.memoizedState, a2);
 }, useTransition: function() {
   var a2 = gi(ei)[0], b2 = di().memoizedState;
   return [a2, b2];
@@ -4569,7 +4569,7 @@ function tj(a2, b2, c2, d2) {
 function sj(a2, b2, c2, d2, e2, f2, g2) {
   if (c2) {
     if (b2.flags & 256)
-      return b2.flags &= -257, d2 = Li(Error(p$6(422))), tj(a2, b2, g2, d2);
+      return b2.flags &= -257, d2 = Li(Error(p$7(422))), tj(a2, b2, g2, d2);
     if (null !== b2.memoizedState)
       return b2.child = a2.child, b2.flags |= 128, null;
     f2 = d2.fallback;
@@ -4593,13 +4593,13 @@ function sj(a2, b2, c2, d2, e2, f2, g2) {
     if (d2)
       var h2 = d2.dgst;
     d2 = h2;
-    f2 = Error(p$6(419));
+    f2 = Error(p$7(419));
     d2 = Li(f2, d2, void 0);
     return tj(a2, b2, g2, d2);
   }
   h2 = 0 !== (g2 & a2.childLanes);
   if (Ug || h2) {
-    d2 = R$1;
+    d2 = R$2;
     if (null !== d2) {
       switch (g2 & -g2) {
         case 4:
@@ -4641,7 +4641,7 @@ function sj(a2, b2, c2, d2, e2, f2, g2) {
       0 !== e2 && e2 !== f2.retryLane && (f2.retryLane = e2, Zg(a2, e2), mh(d2, a2, e2, -1));
     }
     uj();
-    d2 = Li(Error(p$6(421)));
+    d2 = Li(Error(p$7(421)));
     return tj(a2, b2, g2, d2);
   }
   if ("$?" === e2.data)
@@ -4743,7 +4743,7 @@ function $i(a2, b2, c2) {
   if (0 === (c2 & b2.childLanes))
     return null;
   if (null !== a2 && b2.child !== a2.child)
-    throw Error(p$6(153));
+    throw Error(p$7(153));
   if (null !== b2.child) {
     a2 = b2.child;
     c2 = wh(a2, a2.pendingProps);
@@ -4959,7 +4959,7 @@ function Fj(a2, b2, c2) {
       else {
         if (!d2) {
           if (null === b2.stateNode)
-            throw Error(p$6(166));
+            throw Error(p$7(166));
           S$3(b2);
           return null;
         }
@@ -5165,7 +5165,7 @@ function Fj(a2, b2, c2) {
         Dj(a2, b2, a2.memoizedProps, d2);
       else {
         if ("string" !== typeof d2 && null === b2.stateNode)
-          throw Error(p$6(166));
+          throw Error(p$7(166));
         c2 = Hh(Gh.current);
         Hh(Eh.current);
         if (Gg(b2)) {
@@ -5197,11 +5197,11 @@ function Fj(a2, b2, c2) {
         else if (f2 = Gg(b2), null !== d2 && null !== d2.dehydrated) {
           if (null === a2) {
             if (!f2)
-              throw Error(p$6(318));
+              throw Error(p$7(318));
             f2 = b2.memoizedState;
             f2 = null !== f2 ? f2.dehydrated : null;
             if (!f2)
-              throw Error(p$6(317));
+              throw Error(p$7(317));
             f2[Of] = b2;
           } else
             Ig(), 0 === (b2.flags & 128) && (b2.memoizedState = null), b2.flags |= 4;
@@ -5276,7 +5276,7 @@ function Fj(a2, b2, c2) {
     case 25:
       return null;
   }
-  throw Error(p$6(156, b2.tag));
+  throw Error(p$7(156, b2.tag));
 }
 function Jj(a2, b2) {
   wg(b2);
@@ -5292,7 +5292,7 @@ function Jj(a2, b2) {
       a2 = b2.memoizedState;
       if (null !== a2 && null !== a2.dehydrated) {
         if (null === b2.alternate)
-          throw Error(p$6(340));
+          throw Error(p$7(340));
         Ig();
       }
       a2 = b2.flags;
@@ -5416,7 +5416,7 @@ function Pj(a2, b2) {
               case 17:
                 break;
               default:
-                throw Error(p$6(163));
+                throw Error(p$7(163));
             }
         } catch (F2) {
           W$2(b2, b2.return, F2);
@@ -5638,7 +5638,7 @@ function dk(a2, b2) {
             h2 = h2.return;
           }
         if (null === X$2)
-          throw Error(p$6(160));
+          throw Error(p$7(160));
         ak(f2, g2, e2);
         X$2 = null;
         Yj = false;
@@ -5733,7 +5733,7 @@ function ek(a2, b2) {
       fk(a2);
       if (d2 & 4) {
         if (null === a2.stateNode)
-          throw Error(p$6(162));
+          throw Error(p$7(162));
         e2 = a2.stateNode;
         f2 = a2.memoizedProps;
         try {
@@ -5871,7 +5871,7 @@ function fk(a2) {
           }
           c2 = c2.return;
         }
-        throw Error(p$6(160));
+        throw Error(p$7(160));
       }
       switch (d2.tag) {
         case 5:
@@ -5886,7 +5886,7 @@ function fk(a2) {
           Wj(a2, h2, g2);
           break;
         default:
-          throw Error(p$6(161));
+          throw Error(p$7(161));
       }
     } catch (k2) {
       W$2(a2, a2.return, k2);
@@ -6006,7 +6006,7 @@ function lk(a2) {
             case 25:
               break;
             default:
-              throw Error(p$6(163));
+              throw Error(p$7(163));
           }
         U$2 || b2.flags & 512 && Sj(b2);
       } catch (r2) {
@@ -6098,15 +6098,15 @@ function kk(a2) {
     V$2 = b2.return;
   }
 }
-var mk = Math.ceil, nk = ua.ReactCurrentDispatcher, ok = ua.ReactCurrentOwner, pk = ua.ReactCurrentBatchConfig, K$1 = 0, R$1 = null, Y$2 = null, Z$1 = 0, gj = 0, fj = Uf(0), T$2 = 0, qk = null, hh = 0, rk = 0, sk = 0, tk = null, uk = null, gk = 0, Hj = Infinity, vk = null, Pi = false, Qi = null, Si = null, wk = false, xk = null, yk = 0, zk = 0, Ak = null, Bk = -1, Ck = 0;
+var mk = Math.ceil, nk = ua.ReactCurrentDispatcher, ok = ua.ReactCurrentOwner, pk = ua.ReactCurrentBatchConfig, K$1 = 0, R$2 = null, Y$3 = null, Z$2 = 0, gj = 0, fj = Uf(0), T$2 = 0, qk = null, hh = 0, rk = 0, sk = 0, tk = null, uk = null, gk = 0, Hj = Infinity, vk = null, Pi = false, Qi = null, Si = null, wk = false, xk = null, yk = 0, zk = 0, Ak = null, Bk = -1, Ck = 0;
 function L$1() {
   return 0 !== (K$1 & 6) ? B$2() : -1 !== Bk ? Bk : Bk = B$2();
 }
 function lh(a2) {
   if (0 === (a2.mode & 1))
     return 1;
-  if (0 !== (K$1 & 2) && 0 !== Z$1)
-    return Z$1 & -Z$1;
+  if (0 !== (K$1 & 2) && 0 !== Z$2)
+    return Z$2 & -Z$2;
   if (null !== Kg.transition)
     return 0 === Ck && (Ck = yc()), Ck;
   a2 = C$1;
@@ -6118,15 +6118,15 @@ function lh(a2) {
 }
 function mh(a2, b2, c2, d2) {
   if (50 < zk)
-    throw zk = 0, Ak = null, Error(p$6(185));
+    throw zk = 0, Ak = null, Error(p$7(185));
   Ac(a2, c2, d2);
-  if (0 === (K$1 & 2) || a2 !== R$1)
-    a2 === R$1 && (0 === (K$1 & 2) && (rk |= c2), 4 === T$2 && Dk(a2, Z$1)), Ek(a2, d2), 1 === c2 && 0 === K$1 && 0 === (b2.mode & 1) && (Hj = B$2() + 500, fg && jg());
+  if (0 === (K$1 & 2) || a2 !== R$2)
+    a2 === R$2 && (0 === (K$1 & 2) && (rk |= c2), 4 === T$2 && Dk(a2, Z$2)), Ek(a2, d2), 1 === c2 && 0 === K$1 && 0 === (b2.mode & 1) && (Hj = B$2() + 500, fg && jg());
 }
 function Ek(a2, b2) {
   var c2 = a2.callbackNode;
   wc(a2, b2);
-  var d2 = uc(a2, a2 === R$1 ? Z$1 : 0);
+  var d2 = uc(a2, a2 === R$2 ? Z$2 : 0);
   if (0 === d2)
     null !== c2 && bc(c2), a2.callbackNode = null, a2.callbackPriority = 0;
   else if (b2 = d2 & -d2, a2.callbackPriority !== b2) {
@@ -6162,11 +6162,11 @@ function Hk(a2, b2) {
   Bk = -1;
   Ck = 0;
   if (0 !== (K$1 & 6))
-    throw Error(p$6(327));
+    throw Error(p$7(327));
   var c2 = a2.callbackNode;
   if (Ik() && a2.callbackNode !== c2)
     return null;
-  var d2 = uc(a2, a2 === R$1 ? Z$1 : 0);
+  var d2 = uc(a2, a2 === R$2 ? Z$2 : 0);
   if (0 === d2)
     return null;
   if (0 !== (d2 & 30) || 0 !== (d2 & a2.expiredLanes) || b2)
@@ -6176,7 +6176,7 @@ function Hk(a2, b2) {
     var e2 = K$1;
     K$1 |= 2;
     var f2 = Kk();
-    if (R$1 !== a2 || Z$1 !== b2)
+    if (R$2 !== a2 || Z$2 !== b2)
       vk = null, Hj = B$2() + 500, Lk(a2, b2);
     do
       try {
@@ -6189,7 +6189,7 @@ function Hk(a2, b2) {
     Qg();
     nk.current = f2;
     K$1 = e2;
-    null !== Y$2 ? b2 = 0 : (R$1 = null, Z$1 = 0, b2 = T$2);
+    null !== Y$3 ? b2 = 0 : (R$2 = null, Z$2 = 0, b2 = T$2);
   }
   if (0 !== b2) {
     2 === b2 && (e2 = xc(a2), 0 !== e2 && (d2 = e2, b2 = Ok(a2, e2)));
@@ -6206,7 +6206,7 @@ function Hk(a2, b2) {
       switch (b2) {
         case 0:
         case 1:
-          throw Error(p$6(345));
+          throw Error(p$7(345));
         case 2:
           Qk(a2, uk, vk);
           break;
@@ -6251,7 +6251,7 @@ function Hk(a2, b2) {
           Qk(a2, uk, vk);
           break;
         default:
-          throw Error(p$6(329));
+          throw Error(p$7(329));
       }
     }
   }
@@ -6314,7 +6314,7 @@ function Dk(a2, b2) {
 }
 function Fk(a2) {
   if (0 !== (K$1 & 6))
-    throw Error(p$6(327));
+    throw Error(p$7(327));
   Ik();
   var b2 = uc(a2, 0);
   if (0 === (b2 & 1))
@@ -6327,7 +6327,7 @@ function Fk(a2) {
   if (1 === c2)
     throw c2 = qk, Lk(a2, 0), Dk(a2, b2), Ek(a2, B$2()), c2;
   if (6 === c2)
-    throw Error(p$6(345));
+    throw Error(p$7(345));
   a2.finishedWork = a2.current.alternate;
   a2.finishedLanes = b2;
   Qk(a2, uk, vk);
@@ -6364,8 +6364,8 @@ function Lk(a2, b2) {
   a2.finishedLanes = 0;
   var c2 = a2.timeoutHandle;
   -1 !== c2 && (a2.timeoutHandle = -1, Gf(c2));
-  if (null !== Y$2)
-    for (c2 = Y$2.return; null !== c2; ) {
+  if (null !== Y$3)
+    for (c2 = Y$3.return; null !== c2; ) {
       var d2 = c2;
       wg(d2);
       switch (d2.tag) {
@@ -6400,9 +6400,9 @@ function Lk(a2, b2) {
       }
       c2 = c2.return;
     }
-  R$1 = a2;
-  Y$2 = a2 = wh(a2.current, null);
-  Z$1 = gj = b2;
+  R$2 = a2;
+  Y$3 = a2 = wh(a2.current, null);
+  Z$2 = gj = b2;
   T$2 = 0;
   qk = null;
   sk = rk = hh = 0;
@@ -6425,7 +6425,7 @@ function Lk(a2, b2) {
 }
 function Nk(a2, b2) {
   do {
-    var c2 = Y$2;
+    var c2 = Y$3;
     try {
       Qg();
       Ph.current = ai;
@@ -6438,19 +6438,19 @@ function Nk(a2, b2) {
         Sh = false;
       }
       Rh = 0;
-      P$2 = O$3 = N$1 = null;
+      P$2 = O$4 = N$1 = null;
       Th = false;
       Uh = 0;
       ok.current = null;
       if (null === c2 || null === c2.return) {
         T$2 = 1;
         qk = b2;
-        Y$2 = null;
+        Y$3 = null;
         break;
       }
       a: {
         var f2 = a2, g2 = c2.return, h2 = c2, k2 = b2;
-        b2 = Z$1;
+        b2 = Z$2;
         h2.flags |= 32768;
         if (null !== k2 && "object" === typeof k2 && "function" === typeof k2.then) {
           var l2 = k2, m2 = h2, q2 = m2.tag;
@@ -6479,7 +6479,7 @@ function Nk(a2, b2) {
               uj();
               break a;
             }
-            k2 = Error(p$6(426));
+            k2 = Error(p$7(426));
           }
         } else if (I$2 && h2.mode & 1) {
           var J2 = Vi(g2);
@@ -6521,7 +6521,7 @@ function Nk(a2, b2) {
       Tk(c2);
     } catch (na) {
       b2 = na;
-      Y$2 === c2 && null !== c2 && (Y$2 = c2 = c2.return);
+      Y$3 === c2 && null !== c2 && (Y$3 = c2 = c2.return);
       continue;
     }
     break;
@@ -6535,13 +6535,13 @@ function Kk() {
 function uj() {
   if (0 === T$2 || 3 === T$2 || 2 === T$2)
     T$2 = 4;
-  null === R$1 || 0 === (hh & 268435455) && 0 === (rk & 268435455) || Dk(R$1, Z$1);
+  null === R$2 || 0 === (hh & 268435455) && 0 === (rk & 268435455) || Dk(R$2, Z$2);
 }
 function Jk(a2, b2) {
   var c2 = K$1;
   K$1 |= 2;
   var d2 = Kk();
-  if (R$1 !== a2 || Z$1 !== b2)
+  if (R$2 !== a2 || Z$2 !== b2)
     vk = null, Lk(a2, b2);
   do
     try {
@@ -6554,24 +6554,24 @@ function Jk(a2, b2) {
   Qg();
   K$1 = c2;
   nk.current = d2;
-  if (null !== Y$2)
-    throw Error(p$6(261));
-  R$1 = null;
-  Z$1 = 0;
+  if (null !== Y$3)
+    throw Error(p$7(261));
+  R$2 = null;
+  Z$2 = 0;
   return T$2;
 }
 function Uk() {
-  for (; null !== Y$2; )
-    Vk(Y$2);
+  for (; null !== Y$3; )
+    Vk(Y$3);
 }
 function Mk() {
-  for (; null !== Y$2 && !cc(); )
-    Vk(Y$2);
+  for (; null !== Y$3 && !cc(); )
+    Vk(Y$3);
 }
 function Vk(a2) {
   var b2 = Wk(a2.alternate, a2, gj);
   a2.memoizedProps = a2.pendingProps;
-  null === b2 ? Tk(a2) : Y$2 = b2;
+  null === b2 ? Tk(a2) : Y$3 = b2;
   ok.current = null;
 }
 function Tk(a2) {
@@ -6581,30 +6581,30 @@ function Tk(a2) {
     a2 = b2.return;
     if (0 === (b2.flags & 32768)) {
       if (c2 = Fj(c2, b2, gj), null !== c2) {
-        Y$2 = c2;
+        Y$3 = c2;
         return;
       }
     } else {
       c2 = Jj(c2, b2);
       if (null !== c2) {
         c2.flags &= 32767;
-        Y$2 = c2;
+        Y$3 = c2;
         return;
       }
       if (null !== a2)
         a2.flags |= 32768, a2.subtreeFlags = 0, a2.deletions = null;
       else {
         T$2 = 6;
-        Y$2 = null;
+        Y$3 = null;
         return;
       }
     }
     b2 = b2.sibling;
     if (null !== b2) {
-      Y$2 = b2;
+      Y$3 = b2;
       return;
     }
-    Y$2 = b2 = a2;
+    Y$3 = b2 = a2;
   } while (null !== b2);
   0 === T$2 && (T$2 = 5);
 }
@@ -6622,7 +6622,7 @@ function Xk(a2, b2, c2, d2) {
     Ik();
   while (null !== xk);
   if (0 !== (K$1 & 6))
-    throw Error(p$6(327));
+    throw Error(p$7(327));
   c2 = a2.finishedWork;
   var e2 = a2.finishedLanes;
   if (null === c2)
@@ -6630,12 +6630,12 @@ function Xk(a2, b2, c2, d2) {
   a2.finishedWork = null;
   a2.finishedLanes = 0;
   if (c2 === a2.current)
-    throw Error(p$6(177));
+    throw Error(p$7(177));
   a2.callbackNode = null;
   a2.callbackPriority = 0;
   var f2 = c2.lanes | c2.childLanes;
   Bc(a2, f2);
-  a2 === R$1 && (Y$2 = R$1 = null, Z$1 = 0);
+  a2 === R$2 && (Y$3 = R$2 = null, Z$2 = 0);
   0 === (c2.subtreeFlags & 2064) && 0 === (c2.flags & 2064) || wk || (wk = true, Gk(hc, function() {
     Ik();
     return null;
@@ -6691,7 +6691,7 @@ function Ik() {
         xk = null;
         yk = 0;
         if (0 !== (K$1 & 6))
-          throw Error(p$6(331));
+          throw Error(p$7(331));
         var e2 = K$1;
         K$1 |= 4;
         for (V$2 = a2.current; null !== V$2; ) {
@@ -6851,7 +6851,7 @@ function Ui(a2, b2, c2) {
   null !== d2 && d2.delete(b2);
   b2 = L$1();
   a2.pingedLanes |= a2.suspendedLanes & c2;
-  R$1 === a2 && (Z$1 & c2) === c2 && (4 === T$2 || 3 === T$2 && (Z$1 & 130023424) === Z$1 && 500 > B$2() - gk ? Lk(a2, 0) : sk |= c2);
+  R$2 === a2 && (Z$2 & c2) === c2 && (4 === T$2 || 3 === T$2 && (Z$2 & 130023424) === Z$2 && 500 > B$2() - gk ? Lk(a2, 0) : sk |= c2);
   Ek(a2, b2);
 }
 function Zk(a2, b2) {
@@ -6877,7 +6877,7 @@ function ck(a2, b2) {
       d2 = a2.stateNode;
       break;
     default:
-      throw Error(p$6(314));
+      throw Error(p$7(314));
   }
   null !== d2 && d2.delete(b2);
   Zk(a2, c2);
@@ -6931,7 +6931,7 @@ Wk = function(a2, b2, c2) {
             b2 = aj(null, b2, d2, Lg(d2.type, a2), c2);
             break a;
         }
-        throw Error(p$6(
+        throw Error(p$7(
           306,
           d2,
           ""
@@ -6946,7 +6946,7 @@ Wk = function(a2, b2, c2) {
       a: {
         lj(b2);
         if (null === a2)
-          throw Error(p$6(387));
+          throw Error(p$7(387));
         d2 = b2.pendingProps;
         f2 = b2.memoizedState;
         e2 = f2.element;
@@ -6956,11 +6956,11 @@ Wk = function(a2, b2, c2) {
         d2 = g2.element;
         if (f2.isDehydrated)
           if (f2 = { element: d2, isDehydrated: false, cache: g2.cache, pendingSuspenseBoundaries: g2.pendingSuspenseBoundaries, transitions: g2.transitions }, b2.updateQueue.baseState = f2, b2.memoizedState = f2, b2.flags & 256) {
-            e2 = Ki(Error(p$6(423)), b2);
+            e2 = Ki(Error(p$7(423)), b2);
             b2 = mj(a2, b2, d2, c2, e2);
             break a;
           } else if (d2 !== e2) {
-            e2 = Ki(Error(p$6(424)), b2);
+            e2 = Ki(Error(p$7(424)), b2);
             b2 = mj(a2, b2, d2, c2, e2);
             break a;
           } else
@@ -7043,7 +7043,7 @@ Wk = function(a2, b2, c2) {
               else if (18 === f2.tag) {
                 g2 = f2.return;
                 if (null === g2)
-                  throw Error(p$6(341));
+                  throw Error(p$7(341));
                 g2.lanes |= c2;
                 h2 = g2.alternate;
                 null !== h2 && (h2.lanes |= c2);
@@ -7086,7 +7086,7 @@ Wk = function(a2, b2, c2) {
     case 22:
       return ej(a2, b2, c2);
   }
-  throw Error(p$6(156, b2.tag));
+  throw Error(p$7(156, b2.tag));
 };
 function Gk(a2, b2) {
   return ac(a2, b2);
@@ -7185,7 +7185,7 @@ function yh(a2, b2, c2, d2, e2, f2) {
                 d2 = null;
                 break a;
             }
-          throw Error(p$6(130, null == a2 ? a2 : typeof a2, ""));
+          throw Error(p$7(130, null == a2 ? a2 : typeof a2, ""));
       }
   b2 = Bg(g2, c2, b2, e2);
   b2.elementType = a2;
@@ -7251,7 +7251,7 @@ function el(a2) {
   a2 = a2._reactInternals;
   a: {
     if (Vb(a2) !== a2 || 1 !== a2.tag)
-      throw Error(p$6(170));
+      throw Error(p$7(170));
     var b2 = a2;
     do {
       switch (b2.tag) {
@@ -7266,7 +7266,7 @@ function el(a2) {
       }
       b2 = b2.return;
     } while (null !== b2);
-    throw Error(p$6(171));
+    throw Error(p$7(171));
   }
   if (1 === a2.tag) {
     var c2 = a2.type;
@@ -7335,7 +7335,7 @@ function ml(a2) {
 nl.prototype.render = ml.prototype.render = function(a2) {
   var b2 = this._internalRoot;
   if (null === b2)
-    throw Error(p$6(409));
+    throw Error(p$7(409));
   gl(a2, b2, null, null);
 };
 nl.prototype.unmount = ml.prototype.unmount = function() {
@@ -7484,7 +7484,7 @@ yb = function(a2, b2, c2) {
           if (d2 !== a2 && d2.form === a2.form) {
             var e2 = Db(d2);
             if (!e2)
-              throw Error(p$6(90));
+              throw Error(p$7(90));
             Wa(d2);
             bb(d2, e2);
           }
@@ -7517,12 +7517,12 @@ reactDom_production_min.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = tl;
 reactDom_production_min.createPortal = function(a2, b2) {
   var c2 = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : null;
   if (!ol(b2))
-    throw Error(p$6(200));
+    throw Error(p$7(200));
   return dl(a2, b2, null, c2);
 };
 reactDom_production_min.createRoot = function(a2, b2) {
   if (!ol(a2))
-    throw Error(p$6(299));
+    throw Error(p$7(299));
   var c2 = false, d2 = "", e2 = ll;
   null !== b2 && void 0 !== b2 && (true === b2.unstable_strictMode && (c2 = true), void 0 !== b2.identifierPrefix && (d2 = b2.identifierPrefix), void 0 !== b2.onRecoverableError && (e2 = b2.onRecoverableError));
   b2 = cl(a2, 1, false, null, null, c2, false, d2, e2);
@@ -7538,9 +7538,9 @@ reactDom_production_min.findDOMNode = function(a2) {
   var b2 = a2._reactInternals;
   if (void 0 === b2) {
     if ("function" === typeof a2.render)
-      throw Error(p$6(188));
+      throw Error(p$7(188));
     a2 = Object.keys(a2).join(",");
-    throw Error(p$6(268, a2));
+    throw Error(p$7(268, a2));
   }
   a2 = Zb(b2);
   a2 = null === a2 ? null : a2.stateNode;
@@ -7551,12 +7551,12 @@ reactDom_production_min.flushSync = function(a2) {
 };
 reactDom_production_min.hydrate = function(a2, b2, c2) {
   if (!pl(b2))
-    throw Error(p$6(200));
+    throw Error(p$7(200));
   return sl(null, a2, b2, true, c2);
 };
 reactDom_production_min.hydrateRoot = function(a2, b2, c2) {
   if (!ol(a2))
-    throw Error(p$6(405));
+    throw Error(p$7(405));
   var d2 = null != c2 && c2.hydratedSources || null, e2 = false, f2 = "", g2 = ll;
   null !== c2 && void 0 !== c2 && (true === c2.unstable_strictMode && (e2 = true), void 0 !== c2.identifierPrefix && (f2 = c2.identifierPrefix), void 0 !== c2.onRecoverableError && (g2 = c2.onRecoverableError));
   b2 = fl(b2, null, a2, 1, null != c2 ? c2 : null, e2, false, f2, g2);
@@ -7572,12 +7572,12 @@ reactDom_production_min.hydrateRoot = function(a2, b2, c2) {
 };
 reactDom_production_min.render = function(a2, b2, c2) {
   if (!pl(b2))
-    throw Error(p$6(200));
+    throw Error(p$7(200));
   return sl(null, a2, b2, false, c2);
 };
 reactDom_production_min.unmountComponentAtNode = function(a2) {
   if (!pl(a2))
-    throw Error(p$6(40));
+    throw Error(p$7(40));
   return a2._reactRootContainer ? (Sk(function() {
     sl(null, null, a2, false, function() {
       a2._reactRootContainer = null;
@@ -7588,9 +7588,9 @@ reactDom_production_min.unmountComponentAtNode = function(a2) {
 reactDom_production_min.unstable_batchedUpdates = Rk;
 reactDom_production_min.unstable_renderSubtreeIntoContainer = function(a2, b2, c2, d2) {
   if (!pl(c2))
-    throw Error(p$6(200));
+    throw Error(p$7(200));
   if (null == a2 || void 0 === a2._reactInternals)
-    throw Error(p$6(38));
+    throw Error(p$7(38));
   return sl(a2, b2, c2, false, d2);
 };
 reactDom_production_min.version = "18.2.0-next-9e3b772b8-20220608";
@@ -10803,7 +10803,9 @@ const common$1 = {
   request_error: "Request failed"
 };
 const pages$1 = {
-  detail: {
+  publish: {
+    title: "publish",
+    icon_title: "publish",
     preview_mode: "Preview Mode",
     password_mode: "Encrypted Password",
     blur_show: "Blur",
@@ -10815,7 +10817,34 @@ const pages$1 = {
     contract_name: "Contract Name",
     paied: "Paied"
   },
+  earning: {
+    title: "earning",
+    icon_title: "earning"
+  },
+  published: {
+    title: "published list",
+    icon_title: "published"
+  },
+  paid: {
+    title: "paid list",
+    icon_title: "paid"
+  },
+  forwarded: {
+    title: "forwarded list",
+    icon_title: "forwarded"
+  },
+  forward: {
+    title: "forward"
+  },
+  detail: {
+    title: "detail"
+  },
   index: {
+    title: "PayToView",
+    address: "Main account address",
+    transaction_record: "transaction record",
+    more: "more",
+    profit: "24小时收益",
     tab_1: "Published",
     tab_2: "Paid",
     tab_3: "Forwarded"
@@ -10847,7 +10876,9 @@ const common = {
   request_error: "请求失败"
 };
 const pages = {
-  detail: {
+  publish: {
+    title: "发布付费阅读内容",
+    icon_title: "发布",
     preview_mode: "预览方式",
     password_mode: "加密密码",
     blur_show: "模糊",
@@ -10859,7 +10890,37 @@ const pages = {
     contract_name: "合约名称",
     paied: "已经支付"
   },
+  earning: {
+    title: "收益",
+    icon_title: "收益"
+  },
+  published: {
+    title: "已发布的列表",
+    icon_title: "已发布"
+  },
+  paid: {
+    title: "已付费的列表",
+    icon_title: "已支付"
+  },
+  forwarded: {
+    title: "已转发的列表",
+    icon_title: "已转发"
+  },
+  forward: {
+    title: "阅读转发"
+  },
+  detail: {
+    title: "合约详情"
+  },
   index: {
+    title: "付费阅读",
+    address: "主账号地址",
+    transaction_record: "交易记录",
+    more: "更多",
+    income: "收入",
+    outcome: "支出",
+    trader: "交易方",
+    profit: "24小时收益",
     tab_1: "上传的",
     tab_2: "支付的",
     tab_3: "转发的"
@@ -11650,23 +11711,23 @@ var reactIs_production_min = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var b$2 = "function" === typeof Symbol && Symbol.for, c$2 = b$2 ? Symbol.for("react.element") : 60103, d$2 = b$2 ? Symbol.for("react.portal") : 60106, e$2 = b$2 ? Symbol.for("react.fragment") : 60107, f$3 = b$2 ? Symbol.for("react.strict_mode") : 60108, g$2 = b$2 ? Symbol.for("react.profiler") : 60114, h$6 = b$2 ? Symbol.for("react.provider") : 60109, k$2 = b$2 ? Symbol.for("react.context") : 60110, l$2 = b$2 ? Symbol.for("react.async_mode") : 60111, m$4 = b$2 ? Symbol.for("react.concurrent_mode") : 60111, n$4 = b$2 ? Symbol.for("react.forward_ref") : 60112, p$5 = b$2 ? Symbol.for("react.suspense") : 60113, q$3 = b$2 ? Symbol.for("react.suspense_list") : 60120, r$3 = b$2 ? Symbol.for("react.memo") : 60115, t$4 = b$2 ? Symbol.for("react.lazy") : 60116, v$3 = b$2 ? Symbol.for("react.block") : 60121, w$4 = b$2 ? Symbol.for("react.fundamental") : 60117, x$1 = b$2 ? Symbol.for("react.responder") : 60118, y$2 = b$2 ? Symbol.for("react.scope") : 60119;
+var b$2 = "function" === typeof Symbol && Symbol.for, c$2 = b$2 ? Symbol.for("react.element") : 60103, d$2 = b$2 ? Symbol.for("react.portal") : 60106, e$2 = b$2 ? Symbol.for("react.fragment") : 60107, f$3 = b$2 ? Symbol.for("react.strict_mode") : 60108, g$3 = b$2 ? Symbol.for("react.profiler") : 60114, h$6 = b$2 ? Symbol.for("react.provider") : 60109, k$3 = b$2 ? Symbol.for("react.context") : 60110, l$3 = b$2 ? Symbol.for("react.async_mode") : 60111, m$4 = b$2 ? Symbol.for("react.concurrent_mode") : 60111, n$4 = b$2 ? Symbol.for("react.forward_ref") : 60112, p$6 = b$2 ? Symbol.for("react.suspense") : 60113, q$4 = b$2 ? Symbol.for("react.suspense_list") : 60120, r$3 = b$2 ? Symbol.for("react.memo") : 60115, t$4 = b$2 ? Symbol.for("react.lazy") : 60116, v$3 = b$2 ? Symbol.for("react.block") : 60121, w$5 = b$2 ? Symbol.for("react.fundamental") : 60117, x$1 = b$2 ? Symbol.for("react.responder") : 60118, y$3 = b$2 ? Symbol.for("react.scope") : 60119;
 function z$1(a2) {
   if ("object" === typeof a2 && null !== a2) {
     var u2 = a2.$$typeof;
     switch (u2) {
       case c$2:
         switch (a2 = a2.type, a2) {
-          case l$2:
+          case l$3:
           case m$4:
           case e$2:
-          case g$2:
+          case g$3:
           case f$3:
-          case p$5:
+          case p$6:
             return a2;
           default:
             switch (a2 = a2 && a2.$$typeof, a2) {
-              case k$2:
+              case k$3:
               case n$4:
               case t$4:
               case r$3:
@@ -11684,9 +11745,9 @@ function z$1(a2) {
 function A$2(a2) {
   return z$1(a2) === m$4;
 }
-reactIs_production_min.AsyncMode = l$2;
+reactIs_production_min.AsyncMode = l$3;
 reactIs_production_min.ConcurrentMode = m$4;
-reactIs_production_min.ContextConsumer = k$2;
+reactIs_production_min.ContextConsumer = k$3;
 reactIs_production_min.ContextProvider = h$6;
 reactIs_production_min.Element = c$2;
 reactIs_production_min.ForwardRef = n$4;
@@ -11694,15 +11755,15 @@ reactIs_production_min.Fragment = e$2;
 reactIs_production_min.Lazy = t$4;
 reactIs_production_min.Memo = r$3;
 reactIs_production_min.Portal = d$2;
-reactIs_production_min.Profiler = g$2;
+reactIs_production_min.Profiler = g$3;
 reactIs_production_min.StrictMode = f$3;
-reactIs_production_min.Suspense = p$5;
+reactIs_production_min.Suspense = p$6;
 reactIs_production_min.isAsyncMode = function(a2) {
-  return A$2(a2) || z$1(a2) === l$2;
+  return A$2(a2) || z$1(a2) === l$3;
 };
 reactIs_production_min.isConcurrentMode = A$2;
 reactIs_production_min.isContextConsumer = function(a2) {
-  return z$1(a2) === k$2;
+  return z$1(a2) === k$3;
 };
 reactIs_production_min.isContextProvider = function(a2) {
   return z$1(a2) === h$6;
@@ -11726,16 +11787,16 @@ reactIs_production_min.isPortal = function(a2) {
   return z$1(a2) === d$2;
 };
 reactIs_production_min.isProfiler = function(a2) {
-  return z$1(a2) === g$2;
+  return z$1(a2) === g$3;
 };
 reactIs_production_min.isStrictMode = function(a2) {
   return z$1(a2) === f$3;
 };
 reactIs_production_min.isSuspense = function(a2) {
-  return z$1(a2) === p$5;
+  return z$1(a2) === p$6;
 };
 reactIs_production_min.isValidElementType = function(a2) {
-  return "string" === typeof a2 || "function" === typeof a2 || a2 === e$2 || a2 === m$4 || a2 === g$2 || a2 === f$3 || a2 === p$5 || a2 === q$3 || "object" === typeof a2 && null !== a2 && (a2.$$typeof === t$4 || a2.$$typeof === r$3 || a2.$$typeof === h$6 || a2.$$typeof === k$2 || a2.$$typeof === n$4 || a2.$$typeof === w$4 || a2.$$typeof === x$1 || a2.$$typeof === y$2 || a2.$$typeof === v$3);
+  return "string" === typeof a2 || "function" === typeof a2 || a2 === e$2 || a2 === m$4 || a2 === g$3 || a2 === f$3 || a2 === p$6 || a2 === q$4 || "object" === typeof a2 && null !== a2 && (a2.$$typeof === t$4 || a2.$$typeof === r$3 || a2.$$typeof === h$6 || a2.$$typeof === k$3 || a2.$$typeof === n$4 || a2.$$typeof === w$5 || a2.$$typeof === x$1 || a2.$$typeof === y$3 || a2.$$typeof === v$3);
 };
 reactIs_production_min.typeOf = z$1;
 {
@@ -13155,7 +13216,7 @@ lodash_mergewith.exports;
     return pattern.test(toSource(value));
   }
   function baseIsTypedArray(value) {
-    return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+    return isObjectLike(value) && isLength2(value.length) && !!typedArrayTags[baseGetTag(value)];
   }
   function baseKeysIn(object) {
     if (!isObject2(object)) {
@@ -13443,7 +13504,7 @@ lodash_mergewith.exports;
   };
   var isArray2 = Array.isArray;
   function isArrayLike(value) {
-    return value != null && isLength(value.length) && !isFunction2(value);
+    return value != null && isLength2(value.length) && !isFunction2(value);
   }
   function isArrayLikeObject(value) {
     return isObjectLike(value) && isArrayLike(value);
@@ -13456,7 +13517,7 @@ lodash_mergewith.exports;
     var tag = baseGetTag(value);
     return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
   }
-  function isLength(value) {
+  function isLength2(value) {
     return typeof value == "number" && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
   }
   function isObject2(value) {
@@ -19562,7 +19623,7 @@ function factory() {
   });
 }
 var chakra = factory();
-function forwardRef(component) {
+function forwardRef$1(component) {
   return reactExports.forwardRef(component);
 }
 function createContext(options = {}) {
@@ -26450,7 +26511,7 @@ var fallbackIcon = {
   ] }),
   viewBox: "0 0 24 24"
 };
-var Icon$1 = forwardRef((props, ref) => {
+var Icon$1 = forwardRef$1((props, ref) => {
   const {
     as: element,
     viewBox,
@@ -26495,7 +26556,7 @@ function createIcon(options) {
     defaultProps: defaultProps2 = {}
   } = options;
   const path2 = reactExports.Children.toArray(options.path);
-  const Comp = forwardRef((props, ref) => /* @__PURE__ */ jsxRuntimeExports.jsx(Icon$1, { ref, viewBox, ...defaultProps2, ...props, children: path2.length ? path2 : /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: pathDefinition }) }));
+  const Comp = forwardRef$1((props, ref) => /* @__PURE__ */ jsxRuntimeExports.jsx(Icon$1, { ref, viewBox, ...defaultProps2, ...props, children: path2.length ? path2 : /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: pathDefinition }) }));
   Comp.displayName = displayName;
   return Comp;
 }
@@ -26534,7 +26595,7 @@ var spin = keyframes$1({
     transform: "rotate(360deg)"
   }
 });
-var Spinner = forwardRef((props, ref) => {
+var Spinner$1 = forwardRef$1((props, ref) => {
   const styles2 = useStyleConfig("Spinner", props);
   const {
     label = "Loading...",
@@ -26567,7 +26628,7 @@ var Spinner = forwardRef((props, ref) => {
     }
   );
 });
-Spinner.displayName = "Spinner";
+Spinner$1.displayName = "Spinner";
 var [AlertProvider, useAlertContext] = createContext$1({
   name: "AlertContext",
   hookName: "useAlertContext",
@@ -26583,7 +26644,7 @@ var STATUSES = {
   warning: { icon: WarningIcon, colorScheme: "orange" },
   success: { icon: CheckIcon, colorScheme: "green" },
   error: { icon: WarningIcon, colorScheme: "red" },
-  loading: { icon: Spinner, colorScheme: "blue" }
+  loading: { icon: Spinner$1, colorScheme: "blue" }
 };
 function getStatusColorScheme(status) {
   return STATUSES[status].colorScheme;
@@ -26591,7 +26652,7 @@ function getStatusColorScheme(status) {
 function getStatusIcon(status) {
   return STATUSES[status].icon;
 }
-var AlertDescription = forwardRef(
+var AlertDescription = forwardRef$1(
   function AlertDescription2(props, ref) {
     const styles2 = useAlertStyles();
     const { status } = useAlertContext();
@@ -26630,7 +26691,7 @@ function AlertIcon(props) {
   );
 }
 AlertIcon.displayName = "AlertIcon";
-var AlertTitle = forwardRef(
+var AlertTitle = forwardRef$1(
   function AlertTitle2(props, ref) {
     const styles2 = useAlertStyles();
     const { status } = useAlertContext();
@@ -26647,7 +26708,7 @@ var AlertTitle = forwardRef(
   }
 );
 AlertTitle.displayName = "AlertTitle";
-var Alert = forwardRef(function Alert2(props, ref) {
+var Alert = forwardRef$1(function Alert2(props, ref) {
   var _a4;
   const { status = "info", addRole = true, ...rest } = omitThemingProps(props);
   const colorScheme = (_a4 = props.colorScheme) != null ? _a4 : getStatusColorScheme(status);
@@ -26682,7 +26743,7 @@ function CloseIcon(props) {
     }
   ) });
 }
-var CloseButton = forwardRef(
+var CloseButton = forwardRef$1(
   function CloseButton2(props, ref) {
     const styles2 = useStyleConfig("CloseButton", props);
     const { children, isDisabled: isDisabled2, __css, ...rest } = omitThemingProps(props);
@@ -27135,7 +27196,7 @@ var SlideFade = reactExports.forwardRef(
   }
 );
 SlideFade.displayName = "SlideFade";
-var NativeImage = forwardRef(function NativeImage2(props, ref) {
+var NativeImage = forwardRef$1(function NativeImage2(props, ref) {
   const { htmlWidth, htmlHeight, alt, ...rest } = props;
   return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: htmlWidth, height: htmlHeight, ref, alt, ...rest });
 });
@@ -27211,7 +27272,7 @@ function omit$1(object, keysToOmit = []) {
   }
   return clone;
 }
-var Image$1 = forwardRef(function Image2(props, ref) {
+var Image$1 = forwardRef$1(function Image2(props, ref) {
   const {
     fallbackSrc,
     fallback,
@@ -27314,7 +27375,7 @@ function ButtonSpinner(props) {
     label,
     placement,
     spacing: spacing2 = "0.5rem",
-    children = /* @__PURE__ */ jsxRuntimeExports.jsx(Spinner, { color: "currentColor", width: "1em", height: "1em" }),
+    children = /* @__PURE__ */ jsxRuntimeExports.jsx(Spinner$1, { color: "currentColor", width: "1em", height: "1em" }),
     className,
     __css,
     ...rest
@@ -27336,7 +27397,7 @@ function ButtonSpinner(props) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(chakra.div, { className: _className, ...rest, __css: spinnerStyles, children });
 }
 ButtonSpinner.displayName = "ButtonSpinner";
-var Button = forwardRef((props, ref) => {
+var Button = forwardRef$1((props, ref) => {
   const group = useButtonGroup();
   const styles2 = useStyleConfig("Button", { ...group, ...props });
   const {
@@ -27349,7 +27410,7 @@ var Button = forwardRef((props, ref) => {
     loadingText,
     iconSpacing: iconSpacing2 = "0.5rem",
     type,
-    spinner,
+    spinner: spinner2,
     spinnerPlacement = "start",
     className,
     as,
@@ -27393,7 +27454,7 @@ var Button = forwardRef((props, ref) => {
             label: loadingText,
             placement: "start",
             spacing: iconSpacing2,
-            children: spinner
+            children: spinner2
           }
         ),
         isLoading ? loadingText || /* @__PURE__ */ jsxRuntimeExports.jsx(chakra.span, { opacity: 0, children: /* @__PURE__ */ jsxRuntimeExports.jsx(ButtonContent, { ...contentProps }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ButtonContent, { ...contentProps }),
@@ -27404,7 +27465,7 @@ var Button = forwardRef((props, ref) => {
             label: loadingText,
             placement: "end",
             spacing: iconSpacing2,
-            children: spinner
+            children: spinner2
           }
         )
       ]
@@ -27420,7 +27481,7 @@ function ButtonContent(props) {
     rightIcon && /* @__PURE__ */ jsxRuntimeExports.jsx(ButtonIcon, { marginStart: iconSpacing2, children: rightIcon })
   ] });
 }
-var IconButton = forwardRef(
+var IconButton = forwardRef$1(
   (props, ref) => {
     const { icon, children, isRound, "aria-label": ariaLabel, ...rest } = props;
     const element = icon || children;
@@ -27443,7 +27504,7 @@ var IconButton = forwardRef(
 );
 IconButton.displayName = "IconButton";
 var [CardStylesProvider, useCardStyles] = createStylesContext("Card");
-var CardBody = forwardRef(function CardBody2(props, ref) {
+var CardBody = forwardRef$1(function CardBody2(props, ref) {
   const { className, ...rest } = props;
   const styles2 = useCardStyles();
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27456,7 +27517,7 @@ var CardBody = forwardRef(function CardBody2(props, ref) {
     }
   );
 });
-var CardHeader = forwardRef(
+var CardHeader = forwardRef$1(
   function CardHeader2(props, ref) {
     const { className, ...rest } = props;
     const styles2 = useCardStyles();
@@ -27471,7 +27532,7 @@ var CardHeader = forwardRef(
     );
   }
 );
-var Card = forwardRef(function Card2(props, ref) {
+var Card = forwardRef$1(function Card2(props, ref) {
   const {
     className,
     children,
@@ -27615,7 +27676,7 @@ function useFormControlProvider(props) {
     getRequiredIndicatorProps
   };
 }
-var FormControl = forwardRef(
+var FormControl = forwardRef$1(
   function FormControl2(props, ref) {
     const styles2 = useMultiStyleConfig("Form", props);
     const ownProps = omitThemingProps(props);
@@ -27636,7 +27697,7 @@ var FormControl = forwardRef(
   }
 );
 FormControl.displayName = "FormControl";
-var FormHelperText = forwardRef(
+var FormHelperText = forwardRef$1(
   function FormHelperText2(props, ref) {
     const field = useFormControlContext();
     const styles2 = useFormControlStyles();
@@ -27652,7 +27713,7 @@ var FormHelperText = forwardRef(
   }
 );
 FormHelperText.displayName = "FormHelperText";
-var FormLabel = forwardRef(function FormLabel2(passedProps, ref) {
+var FormLabel = forwardRef$1(function FormLabel2(passedProps, ref) {
   var _a4;
   const styles2 = useStyleConfig("FormLabel", passedProps);
   const props = omitThemingProps(passedProps);
@@ -27683,7 +27744,7 @@ var FormLabel = forwardRef(function FormLabel2(passedProps, ref) {
   );
 });
 FormLabel.displayName = "FormLabel";
-var RequiredIndicator = forwardRef(
+var RequiredIndicator = forwardRef$1(
   function RequiredIndicator2(props, ref) {
     const field = useFormControlContext();
     const styles2 = useFormControlStyles();
@@ -29209,7 +29270,7 @@ var [InputGroupStylesProvider, useInputGroupStyles] = createContext$1({
   name: `InputGroupStylesContext`,
   errorMessage: `useInputGroupStyles returned is 'undefined'. Seems you forgot to wrap the components in "<InputGroup />" `
 });
-var InputGroup = forwardRef(
+var InputGroup = forwardRef$1(
   function InputGroup2(props, ref) {
     const styles2 = useMultiStyleConfig("Input", props);
     const { children, className, ...rest } = omitThemingProps(props);
@@ -29285,7 +29346,7 @@ var StyledAddon = chakra("div", {
     whiteSpace: "nowrap"
   }
 });
-var InputAddon = forwardRef(
+var InputAddon = forwardRef$1(
   function InputAddon2(props, ref) {
     var _a4;
     const { placement = "left", ...rest } = props;
@@ -29305,7 +29366,7 @@ var InputAddon = forwardRef(
   }
 );
 InputAddon.displayName = "InputAddon";
-var InputLeftAddon = forwardRef(
+var InputLeftAddon = forwardRef$1(
   function InputLeftAddon2(props, ref) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       InputAddon,
@@ -29320,7 +29381,7 @@ var InputLeftAddon = forwardRef(
 );
 InputLeftAddon.displayName = "InputLeftAddon";
 InputLeftAddon.id = "InputLeftAddon";
-var InputRightAddon = forwardRef(
+var InputRightAddon = forwardRef$1(
   function InputRightAddon2(props, ref) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       InputAddon,
@@ -29345,7 +29406,7 @@ var StyledInputElement = chakra("div", {
     zIndex: 2
   }
 });
-var InputElement = forwardRef(function InputElement2(props, ref) {
+var InputElement = forwardRef$1(function InputElement2(props, ref) {
   var _a4, _b3;
   const { placement = "left", ...rest } = props;
   const styles2 = useInputGroupStyles();
@@ -29362,7 +29423,7 @@ var InputElement = forwardRef(function InputElement2(props, ref) {
 });
 InputElement.id = "InputElement";
 InputElement.displayName = "InputElement";
-var InputLeftElement = forwardRef(
+var InputLeftElement = forwardRef$1(
   function InputLeftElement2(props, ref) {
     const { className, ...rest } = props;
     const _className = cx("chakra-input__left-element", className);
@@ -29379,7 +29440,7 @@ var InputLeftElement = forwardRef(
 );
 InputLeftElement.id = "InputLeftElement";
 InputLeftElement.displayName = "InputLeftElement";
-var InputRightElement = forwardRef(
+var InputRightElement = forwardRef$1(
   function InputRightElement2(props, ref) {
     const { className, ...rest } = props;
     const _className = cx("chakra-input__right-element", className);
@@ -29396,7 +29457,7 @@ var InputRightElement = forwardRef(
 );
 InputRightElement.id = "InputRightElement";
 InputRightElement.displayName = "InputRightElement";
-var Input = forwardRef(function Input2(props, ref) {
+var Input = forwardRef$1(function Input2(props, ref) {
   const { htmlSize, ...rest } = props;
   const styles2 = useMultiStyleConfig("Input", rest);
   const ownProps = omitThemingProps(rest);
@@ -29415,57 +29476,7 @@ var Input = forwardRef(function Input2(props, ref) {
 });
 Input.displayName = "Input";
 Input.id = "Input";
-var [ListStylesProvider, useListStyles] = createContext$1({
-  name: `ListStylesContext`,
-  errorMessage: `useListStyles returned is 'undefined'. Seems you forgot to wrap the components in "<List />" `
-});
-var List = forwardRef(function List2(props, ref) {
-  const styles2 = useMultiStyleConfig("List", props);
-  const {
-    children,
-    styleType = "none",
-    stylePosition,
-    spacing: spacing2,
-    ...rest
-  } = omitThemingProps(props);
-  const validChildren = getValidChildren(children);
-  const selector = "& > *:not(style) ~ *:not(style)";
-  const spacingStyle = spacing2 ? { [selector]: { mt: spacing2 } } : {};
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(ListStylesProvider, { value: styles2, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-    chakra.ul,
-    {
-      ref,
-      listStyleType: styleType,
-      listStylePosition: stylePosition,
-      role: "list",
-      __css: { ...styles2.container, ...spacingStyle },
-      ...rest,
-      children: validChildren
-    }
-  ) });
-});
-List.displayName = "List";
-var OrderedList = forwardRef((props, ref) => {
-  const { as, ...rest } = props;
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(List, { ref, as: "ol", styleType: "decimal", marginStart: "1em", ...rest });
-});
-OrderedList.displayName = "OrderedList";
-var UnorderedList = forwardRef(function UnorderedList2(props, ref) {
-  const { as, ...rest } = props;
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(List, { ref, as: "ul", styleType: "initial", marginStart: "1em", ...rest });
-});
-UnorderedList.displayName = "UnorderedList";
-var ListItem$1 = forwardRef(function ListItem2(props, ref) {
-  const styles2 = useListStyles();
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(chakra.li, { ref, ...props, __css: styles2.item });
-});
-ListItem$1.displayName = "ListItem";
-var ListIcon = forwardRef(function ListIcon2(props, ref) {
-  const styles2 = useListStyles();
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Icon$1, { ref, role: "presentation", ...props, __css: styles2.icon });
-});
-ListIcon.displayName = "ListIcon";
-var Grid = forwardRef(function Grid2(props, ref) {
+var Grid = forwardRef$1(function Grid2(props, ref) {
   const {
     templateAreas,
     gap,
@@ -29512,7 +29523,7 @@ function mapResponsive(prop, mapper) {
   }
   return null;
 }
-var SimpleGrid = forwardRef(
+var SimpleGrid = forwardRef$1(
   function SimpleGrid2(props, ref) {
     const { columns, spacingX, spacingY, spacing: spacing2, minChildWidth, ...rest } = props;
     const theme2 = useTheme();
@@ -29611,7 +29622,7 @@ function getDividerStyles(options) {
     )
   };
 }
-var Stack = forwardRef((props, ref) => {
+var Stack = forwardRef$1((props, ref) => {
   const {
     isInline,
     direction: directionProp,
@@ -29679,9 +29690,9 @@ var Stack = forwardRef((props, ref) => {
   );
 });
 Stack.displayName = "Stack";
-var HStack = forwardRef((props, ref) => /* @__PURE__ */ jsxRuntimeExports.jsx(Stack, { align: "center", ...props, direction: "row", ref }));
+var HStack = forwardRef$1((props, ref) => /* @__PURE__ */ jsxRuntimeExports.jsx(Stack, { align: "center", ...props, direction: "row", ref }));
 HStack.displayName = "HStack";
-var Heading = forwardRef(function Heading2(props, ref) {
+var Heading = forwardRef$1(function Heading2(props, ref) {
   const styles2 = useStyleConfig("Heading", props);
   const { className, ...rest } = omitThemingProps(props);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -29697,7 +29708,7 @@ var Heading = forwardRef(function Heading2(props, ref) {
 Heading.displayName = "Heading";
 var Box = chakra("div");
 Box.displayName = "Box";
-var Square = forwardRef(function Square2(props, ref) {
+var Square = forwardRef$1(function Square2(props, ref) {
   const { size: size2, centerContent = true, ...rest } = props;
   const styles2 = centerContent ? { display: "flex", alignItems: "center", justifyContent: "center" } : {};
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -29715,7 +29726,7 @@ var Square = forwardRef(function Square2(props, ref) {
   );
 });
 Square.displayName = "Square";
-var Circle = forwardRef(function Circle2(props, ref) {
+var Circle = forwardRef$1(function Circle2(props, ref) {
   const { size: size2, ...rest } = props;
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Square, { size: size2, ref, borderRadius: "9999px", ...rest });
 });
@@ -30559,7 +30570,7 @@ function ModalFocusScope(props) {
     }
   );
 }
-var ModalContent = forwardRef(
+var ModalContent = forwardRef$1(
   (props, ref) => {
     const {
       className,
@@ -30614,7 +30625,7 @@ var ModalContent = forwardRef(
   }
 );
 ModalContent.displayName = "ModalContent";
-var ModalHeader = forwardRef(
+var ModalHeader = forwardRef$1(
   (props, ref) => {
     const { className, ...rest } = props;
     const { headerId, setHeaderMounted } = useModalContext();
@@ -30641,7 +30652,7 @@ var ModalHeader = forwardRef(
   }
 );
 ModalHeader.displayName = "ModalHeader";
-var ModalBody = forwardRef((props, ref) => {
+var ModalBody = forwardRef$1((props, ref) => {
   const { className, ...rest } = props;
   const { bodyId, setBodyMounted } = useModalContext();
   reactExports.useEffect(() => {
@@ -30662,7 +30673,7 @@ var ModalBody = forwardRef((props, ref) => {
   );
 });
 ModalBody.displayName = "ModalBody";
-var ModalCloseButton = forwardRef(
+var ModalCloseButton = forwardRef$1(
   (props, ref) => {
     const { onClick, className, ...rest } = props;
     const { onClose } = useModalContext();
@@ -30733,7 +30744,7 @@ function useInterval(callback, delay2) {
 }
 var CONTINUOUS_CHANGE_INTERVAL = 50;
 var CONTINUOUS_CHANGE_DELAY = 300;
-function useSpinner(increment, decrement) {
+function useSpinner$1(increment, decrement) {
   const [isSpinning, setIsSpinning] = reactExports.useState(false);
   const [action, setAction] = reactExports.useState(null);
   const [runOnce, setRunOnce] = reactExports.useState(true);
@@ -30893,18 +30904,18 @@ function useNumberInput(props = {}) {
     },
     [decrementFn, isInteractive, stepProp]
   );
-  const spinner = useSpinner(increment, decrement);
+  const spinner2 = useSpinner$1(increment, decrement);
   useAttributeObserver(
     incrementButtonRef,
     "disabled",
-    spinner.stop,
-    spinner.isSpinning
+    spinner2.stop,
+    spinner2.isSpinning
   );
   useAttributeObserver(
     decrementButtonRef,
     "disabled",
-    spinner.stop,
-    spinner.isSpinning
+    spinner2.stop,
+    spinner2.isSpinning
   );
   const onChange = reactExports.useCallback(
     (event) => {
@@ -31005,18 +31016,18 @@ function useNumberInput(props = {}) {
   const spinUp = reactExports.useCallback(
     (event) => {
       event.preventDefault();
-      spinner.up();
+      spinner2.up();
       focusInput();
     },
-    [focusInput, spinner]
+    [focusInput, spinner2]
   );
   const spinDown = reactExports.useCallback(
     (event) => {
       event.preventDefault();
-      spinner.down();
+      spinner2.down();
       focusInput();
     },
-    [focusInput, spinner]
+    [focusInput, spinner2]
   );
   useEventListener(
     () => inputRef.current,
@@ -31051,13 +31062,13 @@ function useNumberInput(props = {}) {
             return;
           spinUp(event);
         }),
-        onPointerLeave: callAllHandlers(props2.onPointerLeave, spinner.stop),
-        onPointerUp: callAllHandlers(props2.onPointerUp, spinner.stop),
+        onPointerLeave: callAllHandlers(props2.onPointerLeave, spinner2.stop),
+        onPointerUp: callAllHandlers(props2.onPointerUp, spinner2.stop),
         disabled,
         "aria-disabled": ariaAttr(disabled)
       };
     },
-    [counter2.isAtMax, keepWithinRange, spinUp, spinner.stop, isDisabled2]
+    [counter2.isAtMax, keepWithinRange, spinUp, spinner2.stop, isDisabled2]
   );
   const getDecrementButtonProps = reactExports.useCallback(
     (props2 = {}, ref = null) => {
@@ -31072,13 +31083,13 @@ function useNumberInput(props = {}) {
             return;
           spinDown(event);
         }),
-        onPointerLeave: callAllHandlers(props2.onPointerLeave, spinner.stop),
-        onPointerUp: callAllHandlers(props2.onPointerUp, spinner.stop),
+        onPointerLeave: callAllHandlers(props2.onPointerLeave, spinner2.stop),
+        onPointerUp: callAllHandlers(props2.onPointerUp, spinner2.stop),
         disabled,
         "aria-disabled": ariaAttr(disabled)
       };
     },
-    [counter2.isAtMin, keepWithinRange, spinDown, spinner.stop, isDisabled2]
+    [counter2.isAtMin, keepWithinRange, spinDown, spinner2.stop, isDisabled2]
   );
   const getInputProps = reactExports.useCallback(
     (props2 = {}, ref = null) => {
@@ -31164,7 +31175,7 @@ var [NumberInputProvider, useNumberInputContext] = createContext$1({
   name: "NumberInputContext",
   errorMessage: "useNumberInputContext: `context` is undefined. Seems you forgot to wrap number-input's components within <NumberInput />"
 });
-var NumberInput = forwardRef(
+var NumberInput = forwardRef$1(
   function NumberInput2(props, ref) {
     const styles2 = useMultiStyleConfig("NumberInput", props);
     const ownProps = omitThemingProps(props);
@@ -31187,7 +31198,7 @@ var NumberInput = forwardRef(
   }
 );
 NumberInput.displayName = "NumberInput";
-var NumberInputStepper = forwardRef(
+var NumberInputStepper = forwardRef$1(
   function NumberInputStepper2(props, ref) {
     const styles2 = useNumberInputStyles();
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -31212,7 +31223,7 @@ var NumberInputStepper = forwardRef(
   }
 );
 NumberInputStepper.displayName = "NumberInputStepper";
-var NumberInputField = forwardRef(
+var NumberInputField = forwardRef$1(
   function NumberInputField2(props, ref) {
     const { getInputProps } = useNumberInputContext();
     const input = getInputProps(props, ref);
@@ -31244,7 +31255,7 @@ var StyledStepper = chakra("div", {
     lineHeight: "normal"
   }
 });
-var NumberDecrementStepper = forwardRef(function NumberDecrementStepper2(props, ref) {
+var NumberDecrementStepper = forwardRef$1(function NumberDecrementStepper2(props, ref) {
   var _a4;
   const styles2 = useNumberInputStyles();
   const { getDecrementButtonProps } = useNumberInputContext();
@@ -31252,7 +31263,7 @@ var NumberDecrementStepper = forwardRef(function NumberDecrementStepper2(props, 
   return /* @__PURE__ */ jsxRuntimeExports.jsx(StyledStepper, { ...decrement, __css: styles2.stepper, children: (_a4 = props.children) != null ? _a4 : /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleDownIcon, {}) });
 });
 NumberDecrementStepper.displayName = "NumberDecrementStepper";
-var NumberIncrementStepper = forwardRef(function NumberIncrementStepper2(props, ref) {
+var NumberIncrementStepper = forwardRef$1(function NumberIncrementStepper2(props, ref) {
   var _a4;
   const { getIncrementButtonProps } = useNumberInputContext();
   const increment = getIncrementButtonProps(props, ref);
@@ -31270,7 +31281,7 @@ function omit(object, keysToOmit = []) {
   return clone;
 }
 var omitted = ["h", "minH", "height", "minHeight"];
-var Textarea = forwardRef((props, ref) => {
+var Textarea = forwardRef$1((props, ref) => {
   const styles2 = useStyleConfig("Textarea", props);
   const { className, rows, ...rest } = omitThemingProps(props);
   const textareaProps = useFormControl(rest);
@@ -34759,8 +34770,8 @@ function useSearchParams(defaultInit) {
   return [searchParams, setSearchParams];
 }
 var s$1;
-const a$1 = "undefined" != typeof window && null != (s$1 = window) && null != (s$1 = s$1.Telegram) && s$1.WebApp ? window.Telegram.WebApp : null, c$1 = reactExports.createContext(a$1), d$1 = { smoothButtonsTransition: false, smoothButtonsTransitionMs: 10 }, m$3 = reactExports.createContext(d$1), v$2 = () => ({ MainButton: { current: null }, BackButton: { current: null } }), h$5 = reactExports.createContext({ MainButton: { current: null }, BackButton: { current: null } }), p$4 = () => {
-}, w$3 = ({ id: n2, show: e2 = p$4, hide: l2 = p$4, currentShowedIdRef: r2 }) => {
+const a$2 = "undefined" != typeof window && null != (s$1 = window) && null != (s$1 = s$1.Telegram) && s$1.WebApp ? window.Telegram.WebApp : null, c$1 = reactExports.createContext(a$2), d$1 = { smoothButtonsTransition: false, smoothButtonsTransitionMs: 10 }, m$3 = reactExports.createContext(d$1), v$2 = () => ({ MainButton: { current: null }, BackButton: { current: null } }), h$5 = reactExports.createContext({ MainButton: { current: null }, BackButton: { current: null } }), p$5 = () => {
+}, w$4 = ({ id: n2, show: e2 = p$5, hide: l2 = p$5, currentShowedIdRef: r2 }) => {
   const { smoothButtonsTransition: u2, smoothButtonsTransitionMs: i2 } = reactExports.useContext(m$3);
   reactExports.useEffect(() => (e2(), r2.current = n2, () => {
     u2 ? (r2.current = null, setTimeout(() => {
@@ -34774,7 +34785,7 @@ const a$1 = "undefined" != typeof window && null != (s$1 = window) && null != (s
       return i2.onClick(n2), () => {
         i2.offClick(n2);
       };
-  }, [n2, i2]), w$3({ show: null == i2 ? void 0 : i2.show, hide: null == i2 ? void 0 : i2.hide, currentShowedIdRef: e2.BackButton, id: r2 }), null;
+  }, [n2, i2]), w$4({ show: null == i2 ? void 0 : i2.show, hide: null == i2 ? void 0 : i2.hide, currentShowedIdRef: e2.BackButton, id: r2 }), null;
 }, E$1 = () => {
   var n2;
   const e2 = null == (n2 = f$2()) ? void 0 : n2.CloudStorage, t2 = reactExports.useCallback((n3) => new Promise((t3, o3) => {
@@ -34814,18 +34825,18 @@ function S$2() {
     return n2;
   }, S$2.apply(this, arguments);
 }
-const y$1 = ({ children: e2, options: t2 }) => {
+const y$2 = ({ children: e2, options: t2 }) => {
   const l2 = reactExports.useMemo(() => S$2({}, d$1, t2), [t2]), r2 = reactExports.useMemo(v$2, []);
   return reactExports.useEffect(() => {
     if (null == t2 || !t2.smoothButtonsTransition)
       return;
     const n2 = () => {
       var n3, e3;
-      null == a$1 || null == (n3 = a$1.MainButton) || n3.hide(), null == a$1 || null == (e3 = a$1.BackButton) || e3.hide();
+      null == a$2 || null == (n3 = a$2.MainButton) || n3.hide(), null == a$2 || null == (e3 = a$2.BackButton) || e3.hide();
     };
     return window.addEventListener("beforeunload", n2), () => window.removeEventListener("beforeunload", n2);
-  }, [null == t2 ? void 0 : t2.smoothButtonsTransition]), React.createElement(h$5.Provider, { value: r2 }, React.createElement(c$1.Provider, { value: a$1 }, React.createElement(m$3.Provider, { value: l2 }, e2)));
-}, O$2 = () => f$2();
+  }, [null == t2 ? void 0 : t2.smoothButtonsTransition]), React.createElement(h$5.Provider, { value: r2 }, React.createElement(c$1.Provider, { value: a$2 }, React.createElement(m$3.Provider, { value: l2 }, e2)));
+}, O$3 = () => f$2();
 function bind(fn, thisArg) {
   return function wrap2() {
     return fn.apply(thisArg, arguments);
@@ -34859,7 +34870,7 @@ function isArrayBufferView(val) {
 }
 const isString = typeOfTest("string");
 const isFunction = typeOfTest("function");
-const isNumber = typeOfTest("number");
+const isNumber$1 = typeOfTest("number");
 const isObject = (thing) => thing !== null && typeof thing === "object";
 const isBoolean = (thing) => thing === true || thing === false;
 const isPlainObject = (val) => {
@@ -35004,7 +35015,7 @@ const toArray = (thing) => {
   if (isArray(thing))
     return thing;
   let i2 = thing.length;
-  if (!isNumber(i2))
+  if (!isNumber$1(i2))
     return null;
   const arr2 = new Array(i2);
   while (i2-- > 0) {
@@ -35043,7 +35054,7 @@ const toCamelCase = (str) => {
     }
   );
 };
-const hasOwnProperty = (({ hasOwnProperty: hasOwnProperty2 }) => (obj, prop) => hasOwnProperty2.call(obj, prop))(Object.prototype);
+const hasOwnProperty$1 = (({ hasOwnProperty: hasOwnProperty2 }) => (obj, prop) => hasOwnProperty2.call(obj, prop))(Object.prototype);
 const isRegExp = kindOfTest("RegExp");
 const reduceDescriptors = (obj, reducer) => {
   const descriptors2 = Object.getOwnPropertyDescriptors(obj);
@@ -35141,7 +35152,7 @@ const utils = {
   isFormData,
   isArrayBufferView,
   isString,
-  isNumber,
+  isNumber: isNumber$1,
   isBoolean,
   isObject,
   isPlainObject,
@@ -35169,8 +35180,8 @@ const utils = {
   forEachEntry,
   matchAll,
   isHTMLForm,
-  hasOwnProperty,
-  hasOwnProp: hasOwnProperty,
+  hasOwnProperty: hasOwnProperty$1,
+  hasOwnProp: hasOwnProperty$1,
   // an alias to avoid ESLint no-prototype-builtins detection
   reduceDescriptors,
   freezeMethods,
@@ -38066,9 +38077,9 @@ var e$1 = reactExports;
 function h$4(a2, b2) {
   return a2 === b2 && (0 !== a2 || 1 / a2 === 1 / b2) || a2 !== a2 && b2 !== b2;
 }
-var k$1 = "function" === typeof Object.is ? Object.is : h$4, l$1 = e$1.useState, m$2 = e$1.useEffect, n$3 = e$1.useLayoutEffect, p$3 = e$1.useDebugValue;
-function q$2(a2, b2) {
-  var d2 = b2(), f2 = l$1({ inst: { value: d2, getSnapshot: b2 } }), c2 = f2[0].inst, g2 = f2[1];
+var k$2 = "function" === typeof Object.is ? Object.is : h$4, l$2 = e$1.useState, m$2 = e$1.useEffect, n$3 = e$1.useLayoutEffect, p$4 = e$1.useDebugValue;
+function q$3(a2, b2) {
+  var d2 = b2(), f2 = l$2({ inst: { value: d2, getSnapshot: b2 } }), c2 = f2[0].inst, g2 = f2[1];
   n$3(function() {
     c2.value = d2;
     c2.getSnapshot = b2;
@@ -38080,7 +38091,7 @@ function q$2(a2, b2) {
       r$1(c2) && g2({ inst: c2 });
     });
   }, [a2]);
-  p$3(d2);
+  p$4(d2);
   return d2;
 }
 function r$1(a2) {
@@ -38088,7 +38099,7 @@ function r$1(a2) {
   a2 = a2.value;
   try {
     var d2 = b2();
-    return !k$1(a2, d2);
+    return !k$2(a2, d2);
   } catch (f2) {
     return true;
   }
@@ -38096,8 +38107,8 @@ function r$1(a2) {
 function t$2(a2, b2) {
   return b2();
 }
-var u$3 = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? t$2 : q$2;
-useSyncExternalStoreShim_production_min.useSyncExternalStore = void 0 !== e$1.useSyncExternalStore ? e$1.useSyncExternalStore : u$3;
+var u$4 = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? t$2 : q$3;
+useSyncExternalStoreShim_production_min.useSyncExternalStore = void 0 !== e$1.useSyncExternalStore ? e$1.useSyncExternalStore : u$4;
 {
   shim.exports = useSyncExternalStoreShim_production_min;
 }
@@ -38112,10 +38123,10 @@ var shimExports = shim.exports;
  * LICENSE file in the root directory of this source tree.
  */
 var h$3 = reactExports, n$2 = shimExports;
-function p$2(a2, b2) {
+function p$3(a2, b2) {
   return a2 === b2 && (0 !== a2 || 1 / a2 === 1 / b2) || a2 !== a2 && b2 !== b2;
 }
-var q$1 = "function" === typeof Object.is ? Object.is : p$2, r = n$2.useSyncExternalStore, t$1 = h$3.useRef, u$2 = h$3.useEffect, v$1 = h$3.useMemo, w$2 = h$3.useDebugValue;
+var q$2 = "function" === typeof Object.is ? Object.is : p$3, r = n$2.useSyncExternalStore, t$1 = h$3.useRef, u$3 = h$3.useEffect, v$1 = h$3.useMemo, w$3 = h$3.useDebugValue;
 withSelector_production_min.useSyncExternalStoreWithSelector = function(a2, b2, e2, l2, g2) {
   var c2 = t$1(null);
   if (null === c2.current) {
@@ -38137,7 +38148,7 @@ withSelector_production_min.useSyncExternalStoreWithSelector = function(a2, b2, 
         return k2 = a4;
       }
       b3 = k2;
-      if (q$1(d3, a4))
+      if (q$2(d3, a4))
         return b3;
       var e3 = l2(a4);
       if (void 0 !== g2 && g2(b3, e3))
@@ -38153,11 +38164,11 @@ withSelector_production_min.useSyncExternalStoreWithSelector = function(a2, b2, 
     }];
   }, [b2, e2, l2, g2]);
   var d2 = r(a2, c2[0], c2[1]);
-  u$2(function() {
+  u$3(function() {
     f2.hasValue = true;
     f2.value = d2;
   }, [d2]);
-  w$2(d2);
+  w$3(d2);
   return d2;
 };
 {
@@ -38932,7 +38943,7 @@ function Root() {
   const { getLocalAccountInfo } = useAccountStore((state2) => state2);
   const [searchParams] = useSearchParams();
   const user = searchParams.get("user");
-  const webApp = O$2();
+  const webApp = O$3();
   E$1();
   const getUserId = async () => {
     var _a4, _b3;
@@ -38975,7 +38986,7 @@ function Root() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full", children: loading ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-screen h-screen flex justify-center items-center", children: [
     " ",
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Spinner, { color: "blue.500", size: "lg" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Spinner$1, { color: "blue.500", size: "lg" }),
       createStatus && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm text-blue-700 mt-2", children: "账号创建中" })
     ] })
   ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) });
@@ -39083,329 +39094,6 @@ function useTitle(title, options) {
 }
 const useTitle$1 = typeof document !== "undefined" ? useTitle : function(_title) {
 };
-function Index$4() {
-  useTitle$1("PayToView");
-  useTranslation();
-  const nav = useNavigate();
-  const { accountInfo, balance } = useAccountStore((state2) => state2);
-  const toAdd = () => {
-    nav(ROUTE_PATH.DETAIL_ADD);
-  };
-  const toPublished = () => {
-    nav(ROUTE_PATH.PUBLISHED);
-  };
-  const toPaid = () => {
-    nav(ROUTE_PATH.PAID);
-  };
-  const toForwarded = () => {
-    nav(ROUTE_PATH.FORWARDED);
-  };
-  const toEarn = () => {
-    nav(ROUTE_PATH.EARN);
-  };
-  const [searchTerm, setSearchTerm] = reactExports.useState("");
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      nav(ROUTE_PATH.DETAIL_READ + "/?contract=" + searchTerm);
-    }
-  };
-  reactExports.useEffect(() => {
-  }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-hidden flex flex-col", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "overflow-y-auto flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-100 p-4 mb-4 rounded-2xl", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex mb-6 items-center", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Image$1,
-          {
-            src: "/logo.png",
-            className: "w-6 h-6 bg-gray-200 rounded-full mr-6"
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "break-all", children: accountInfo.publicKey })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-end ", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-4xl font-bold leading-none", children: "1000" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm leading-none mb-1", children: "TVS" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 leading-none mb-1", children: "Tinyverse" })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: " bg-gray-100 p-4 mb-4 rounded-2xl", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SimpleGrid, { columns: 2, columnGap: "20px", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "div",
-        {
-          className: "text-center bg-gray-200 p-2 rounded-xl",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-2 text-xs", children: "主账号地址" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-end justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-xm font-bold leading-none", children: "0801e*****a1b4" }) })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "div",
-        {
-          className: "text-center bg-gray-200 p-2 rounded-xl",
-          onClick: toEarn,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-2 text-xs", children: "24小时内收入" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end justify-center", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-xm font-bold leading-none", children: "50" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs leading-none", children: "TVS" })
-            ] })
-          ]
-        }
-      )
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4 mb-4 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SimpleGrid, { columns: 5, columnGap: "25px", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "div",
-        {
-          className: "text-center",
-          onClick: toAdd,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "img",
-              {
-                className: `h-12 w-12`,
-                src: `/images/publish.png`
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: "Publish" })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "div",
-        {
-          className: "text-center",
-          onClick: toEarn,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "img",
-              {
-                className: `h-12 w-12`,
-                src: `/images/earning.png`
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: "Earning" })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "div",
-        {
-          className: "text-center",
-          onClick: toPublished,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "img",
-              {
-                className: `h-12 w-12`,
-                src: `/images/published.png`
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: "Pub." })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "div",
-        {
-          className: "text-center",
-          onClick: toPaid,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "img",
-              {
-                className: `h-12 w-12`,
-                src: `/images/paid.png`
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: "Paid" })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "div",
-        {
-          className: "text-center",
-          onClick: toForwarded,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "img",
-              {
-                className: `h-12 w-12`,
-                src: `/images/forwarded.png`
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: "Fwd." })
-          ]
-        }
-      )
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(InputGroup, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Input,
-        {
-          type: "text",
-          placeholder: "Search...",
-          value: searchTerm,
-          onChange: (e2) => setSearchTerm(e2.target.value),
-          onKeyPress: handleKeyPress
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(InputRightElement, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search2Icon, { color: "gray.400" }) })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4 mb-4", style: { display: "flex", justifyContent: "space-between" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xm ml-2", children: "交易记录" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xm mr-2", children: "more" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { height: "400px", overflowY: "auto" }, className: "text-xs", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(UnorderedList, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem$1, { className: "m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "/tx/d79b...3abe" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "10 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm font-black", children: "080112202eb5947819be566f30c0faa3df0d272a47c0ae441d42e217bbcfd05932845adc" })
-          ] })
-        ] }) })
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem$1, { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "/tx/d701..fd05" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-base", children: "0 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "-105 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm font-black", children: "080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b" })
-          ] })
-        ] }) })
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem$1, { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "/tx/d79b...abef" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "-3 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm font-black", children: "08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9" })
-          ] })
-        ] }) })
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem$1, { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "/tx/d79b...abef" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-base", children: "-58 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm font-black", children: "08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9" })
-          ] })
-        ] }) })
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem$1, { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "/tx/d79b...abef" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "60 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm font-black", children: "08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9" })
-          ] })
-        ] }) })
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem$1, { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "/tx/d79b...abef" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "80 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm font-black", children: "08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9" })
-          ] })
-        ] }) })
-      ] }) })
-    ] }) })
-  ] }) }) });
-}
-let getRandomValues;
-const rnds8 = new Uint8Array(16);
-function rng() {
-  if (!getRandomValues) {
-    getRandomValues = typeof crypto !== "undefined" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto);
-    if (!getRandomValues) {
-      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
-    }
-  }
-  return getRandomValues(rnds8);
-}
-const byteToHex = [];
-for (let i2 = 0; i2 < 256; ++i2) {
-  byteToHex.push((i2 + 256).toString(16).slice(1));
-}
-function unsafeStringify(arr2, offset = 0) {
-  return byteToHex[arr2[offset + 0]] + byteToHex[arr2[offset + 1]] + byteToHex[arr2[offset + 2]] + byteToHex[arr2[offset + 3]] + "-" + byteToHex[arr2[offset + 4]] + byteToHex[arr2[offset + 5]] + "-" + byteToHex[arr2[offset + 6]] + byteToHex[arr2[offset + 7]] + "-" + byteToHex[arr2[offset + 8]] + byteToHex[arr2[offset + 9]] + "-" + byteToHex[arr2[offset + 10]] + byteToHex[arr2[offset + 11]] + byteToHex[arr2[offset + 12]] + byteToHex[arr2[offset + 13]] + byteToHex[arr2[offset + 14]] + byteToHex[arr2[offset + 15]];
-}
-const randomUUID = typeof crypto !== "undefined" && crypto.randomUUID && crypto.randomUUID.bind(crypto);
-const native = {
-  randomUUID
-};
-function v4(options, buf, offset) {
-  if (native.randomUUID && !buf && !options) {
-    return native.randomUUID();
-  }
-  options = options || {};
-  const rnds = options.random || (options.rng || rng)();
-  rnds[6] = rnds[6] & 15 | 64;
-  rnds[8] = rnds[8] & 63 | 128;
-  if (buf) {
-    offset = offset || 0;
-    for (let i2 = 0; i2 < 16; ++i2) {
-      buf[offset + i2] = rnds[i2];
-    }
-    return buf;
-  }
-  return unsafeStringify(rnds);
-}
 const matchIconName = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const stringToIcon = (value, validate, allowSimpleName, provider = "") => {
   const colonSeparated = value.split(":");
@@ -41183,6 +40871,5336 @@ React.forwardRef(function InlineIcon(props, ref) {
   };
   return React.createElement(IconComponent, newProps);
 });
+function forwardRef(component) {
+  return reactExports.forwardRef(component);
+}
+var mapPropsVariants = (props, variantKeys, removeVariantProps = true) => {
+  if (!variantKeys) {
+    return [props, {}];
+  }
+  const picked = variantKeys.reduce((acc, key) => {
+    if (key in props) {
+      return { ...acc, [key]: props[key] };
+    } else {
+      return acc;
+    }
+  }, {});
+  if (removeVariantProps) {
+    const omitted2 = Object.keys(props).filter((key) => !variantKeys.includes(key)).reduce((acc, key) => ({ ...acc, [key]: props[key] }), {});
+    return [omitted2, picked];
+  } else {
+    return [props, picked];
+  }
+};
+var spacingScaleKeys = [
+  "0",
+  "xs",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "2xl",
+  "3xl",
+  "4xl",
+  "5xl",
+  "6xl",
+  "7xl",
+  "8xl",
+  "9xl",
+  "1",
+  "2",
+  "3",
+  "3.5",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+  "15",
+  "16",
+  "17",
+  "18",
+  "20",
+  "24",
+  "28",
+  "32",
+  "36",
+  "40",
+  "44",
+  "48",
+  "52",
+  "56",
+  "60",
+  "64",
+  "72",
+  "80",
+  "96"
+];
+var mappedSpacingScaleKeys = spacingScaleKeys.map((key) => `unit-${key}`);
+var a$1 = (t2) => typeof t2 == "boolean" ? `${t2}` : t2 === 0 ? "0" : t2, l$1 = (t2) => !t2 || typeof t2 != "object" || Object.keys(t2).length === 0, u$2 = (t2, e2) => JSON.stringify(t2) === JSON.stringify(e2);
+function i$1(t2, e2) {
+  t2.forEach(function(n2) {
+    Array.isArray(n2) ? i$1(n2, e2) : e2.push(n2);
+  });
+}
+function y$1(t2) {
+  let e2 = [];
+  return i$1(t2, e2), e2;
+}
+var g$2 = (...t2) => y$1(t2).filter(Boolean), p$2 = (t2, e2) => {
+  let n2 = {}, c2 = Object.keys(t2), f2 = Object.keys(e2);
+  for (let o2 of c2)
+    if (f2.includes(o2)) {
+      let s2 = t2[o2], r2 = e2[o2];
+      typeof s2 == "object" && typeof r2 == "object" ? n2[o2] = p$2(s2, r2) : n2[o2] = r2 + " " + s2;
+    } else
+      n2[o2] = t2[o2];
+  for (let o2 of f2)
+    c2.includes(o2) || (n2[o2] = e2[o2]);
+  return n2;
+}, k$1 = (t2) => !t2 || typeof t2 != "string" ? t2 : t2.replace(/\s+/g, " ").trim();
+function twJoin() {
+  var index2 = 0;
+  var argument;
+  var resolvedValue;
+  var string = "";
+  while (index2 < arguments.length) {
+    if (argument = arguments[index2++]) {
+      if (resolvedValue = toValue(argument)) {
+        string && (string += " ");
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+}
+function toValue(mix2) {
+  if (typeof mix2 === "string") {
+    return mix2;
+  }
+  var resolvedValue;
+  var string = "";
+  for (var k2 = 0; k2 < mix2.length; k2++) {
+    if (mix2[k2]) {
+      if (resolvedValue = toValue(mix2[k2])) {
+        string && (string += " ");
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+}
+var CLASS_PART_SEPARATOR = "-";
+function createClassUtils(config2) {
+  var classMap = createClassMap(config2);
+  var conflictingClassGroups = config2.conflictingClassGroups, _config$conflictingCl = config2.conflictingClassGroupModifiers, conflictingClassGroupModifiers = _config$conflictingCl === void 0 ? {} : _config$conflictingCl;
+  function getClassGroupId(className) {
+    var classParts = className.split(CLASS_PART_SEPARATOR);
+    if (classParts[0] === "" && classParts.length !== 1) {
+      classParts.shift();
+    }
+    return getGroupRecursive(classParts, classMap) || getGroupIdForArbitraryProperty(className);
+  }
+  function getConflictingClassGroupIds(classGroupId, hasPostfixModifier) {
+    var conflicts = conflictingClassGroups[classGroupId] || [];
+    if (hasPostfixModifier && conflictingClassGroupModifiers[classGroupId]) {
+      return [].concat(conflicts, conflictingClassGroupModifiers[classGroupId]);
+    }
+    return conflicts;
+  }
+  return {
+    getClassGroupId,
+    getConflictingClassGroupIds
+  };
+}
+function getGroupRecursive(classParts, classPartObject) {
+  var _a4;
+  if (classParts.length === 0) {
+    return classPartObject.classGroupId;
+  }
+  var currentClassPart = classParts[0];
+  var nextClassPartObject = classPartObject.nextPart.get(currentClassPart);
+  var classGroupFromNextClassPart = nextClassPartObject ? getGroupRecursive(classParts.slice(1), nextClassPartObject) : void 0;
+  if (classGroupFromNextClassPart) {
+    return classGroupFromNextClassPart;
+  }
+  if (classPartObject.validators.length === 0) {
+    return void 0;
+  }
+  var classRest = classParts.join(CLASS_PART_SEPARATOR);
+  return (_a4 = classPartObject.validators.find(function(_ref2) {
+    var validator2 = _ref2.validator;
+    return validator2(classRest);
+  })) == null ? void 0 : _a4.classGroupId;
+}
+var arbitraryPropertyRegex = /^\[(.+)\]$/;
+function getGroupIdForArbitraryProperty(className) {
+  if (arbitraryPropertyRegex.test(className)) {
+    var arbitraryPropertyClassName = arbitraryPropertyRegex.exec(className)[1];
+    var property = arbitraryPropertyClassName == null ? void 0 : arbitraryPropertyClassName.substring(0, arbitraryPropertyClassName.indexOf(":"));
+    if (property) {
+      return "arbitrary.." + property;
+    }
+  }
+}
+function createClassMap(config2) {
+  var theme2 = config2.theme, prefix2 = config2.prefix;
+  var classMap = {
+    nextPart: /* @__PURE__ */ new Map(),
+    validators: []
+  };
+  var prefixedClassGroupEntries = getPrefixedClassGroupEntries(Object.entries(config2.classGroups), prefix2);
+  prefixedClassGroupEntries.forEach(function(_ref2) {
+    var classGroupId = _ref2[0], classGroup = _ref2[1];
+    processClassesRecursively(classGroup, classMap, classGroupId, theme2);
+  });
+  return classMap;
+}
+function processClassesRecursively(classGroup, classPartObject, classGroupId, theme2) {
+  classGroup.forEach(function(classDefinition) {
+    if (typeof classDefinition === "string") {
+      var classPartObjectToEdit = classDefinition === "" ? classPartObject : getPart(classPartObject, classDefinition);
+      classPartObjectToEdit.classGroupId = classGroupId;
+      return;
+    }
+    if (typeof classDefinition === "function") {
+      if (isThemeGetter(classDefinition)) {
+        processClassesRecursively(classDefinition(theme2), classPartObject, classGroupId, theme2);
+        return;
+      }
+      classPartObject.validators.push({
+        validator: classDefinition,
+        classGroupId
+      });
+      return;
+    }
+    Object.entries(classDefinition).forEach(function(_ref3) {
+      var key = _ref3[0], classGroup2 = _ref3[1];
+      processClassesRecursively(classGroup2, getPart(classPartObject, key), classGroupId, theme2);
+    });
+  });
+}
+function getPart(classPartObject, path2) {
+  var currentClassPartObject = classPartObject;
+  path2.split(CLASS_PART_SEPARATOR).forEach(function(pathPart) {
+    if (!currentClassPartObject.nextPart.has(pathPart)) {
+      currentClassPartObject.nextPart.set(pathPart, {
+        nextPart: /* @__PURE__ */ new Map(),
+        validators: []
+      });
+    }
+    currentClassPartObject = currentClassPartObject.nextPart.get(pathPart);
+  });
+  return currentClassPartObject;
+}
+function isThemeGetter(func) {
+  return func.isThemeGetter;
+}
+function getPrefixedClassGroupEntries(classGroupEntries, prefix2) {
+  if (!prefix2) {
+    return classGroupEntries;
+  }
+  return classGroupEntries.map(function(_ref4) {
+    var classGroupId = _ref4[0], classGroup = _ref4[1];
+    var prefixedClassGroup = classGroup.map(function(classDefinition) {
+      if (typeof classDefinition === "string") {
+        return prefix2 + classDefinition;
+      }
+      if (typeof classDefinition === "object") {
+        return Object.fromEntries(Object.entries(classDefinition).map(function(_ref5) {
+          var key = _ref5[0], value = _ref5[1];
+          return [prefix2 + key, value];
+        }));
+      }
+      return classDefinition;
+    });
+    return [classGroupId, prefixedClassGroup];
+  });
+}
+function createLruCache(maxCacheSize) {
+  if (maxCacheSize < 1) {
+    return {
+      get: function get2() {
+        return void 0;
+      },
+      set: function set() {
+      }
+    };
+  }
+  var cacheSize = 0;
+  var cache = /* @__PURE__ */ new Map();
+  var previousCache = /* @__PURE__ */ new Map();
+  function update(key, value) {
+    cache.set(key, value);
+    cacheSize++;
+    if (cacheSize > maxCacheSize) {
+      cacheSize = 0;
+      previousCache = cache;
+      cache = /* @__PURE__ */ new Map();
+    }
+  }
+  return {
+    get: function get2(key) {
+      var value = cache.get(key);
+      if (value !== void 0) {
+        return value;
+      }
+      if ((value = previousCache.get(key)) !== void 0) {
+        update(key, value);
+        return value;
+      }
+    },
+    set: function set(key, value) {
+      if (cache.has(key)) {
+        cache.set(key, value);
+      } else {
+        update(key, value);
+      }
+    }
+  };
+}
+var IMPORTANT_MODIFIER = "!";
+function createSplitModifiers(config2) {
+  var separator2 = config2.separator || ":";
+  var isSeparatorSingleCharacter = separator2.length === 1;
+  var firstSeparatorCharacter = separator2[0];
+  var separatorLength = separator2.length;
+  return function splitModifiers(className) {
+    var modifiers = [];
+    var bracketDepth = 0;
+    var modifierStart = 0;
+    var postfixModifierPosition;
+    for (var index2 = 0; index2 < className.length; index2++) {
+      var currentCharacter = className[index2];
+      if (bracketDepth === 0) {
+        if (currentCharacter === firstSeparatorCharacter && (isSeparatorSingleCharacter || className.slice(index2, index2 + separatorLength) === separator2)) {
+          modifiers.push(className.slice(modifierStart, index2));
+          modifierStart = index2 + separatorLength;
+          continue;
+        }
+        if (currentCharacter === "/") {
+          postfixModifierPosition = index2;
+          continue;
+        }
+      }
+      if (currentCharacter === "[") {
+        bracketDepth++;
+      } else if (currentCharacter === "]") {
+        bracketDepth--;
+      }
+    }
+    var baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.substring(modifierStart);
+    var hasImportantModifier = baseClassNameWithImportantModifier.startsWith(IMPORTANT_MODIFIER);
+    var baseClassName = hasImportantModifier ? baseClassNameWithImportantModifier.substring(1) : baseClassNameWithImportantModifier;
+    var maybePostfixModifierPosition = postfixModifierPosition && postfixModifierPosition > modifierStart ? postfixModifierPosition - modifierStart : void 0;
+    return {
+      modifiers,
+      hasImportantModifier,
+      baseClassName,
+      maybePostfixModifierPosition
+    };
+  };
+}
+function sortModifiers(modifiers) {
+  if (modifiers.length <= 1) {
+    return modifiers;
+  }
+  var sortedModifiers = [];
+  var unsortedModifiers = [];
+  modifiers.forEach(function(modifier) {
+    var isArbitraryVariant = modifier[0] === "[";
+    if (isArbitraryVariant) {
+      sortedModifiers.push.apply(sortedModifiers, unsortedModifiers.sort().concat([modifier]));
+      unsortedModifiers = [];
+    } else {
+      unsortedModifiers.push(modifier);
+    }
+  });
+  sortedModifiers.push.apply(sortedModifiers, unsortedModifiers.sort());
+  return sortedModifiers;
+}
+function createConfigUtils(config2) {
+  return {
+    cache: createLruCache(config2.cacheSize),
+    splitModifiers: createSplitModifiers(config2),
+    ...createClassUtils(config2)
+  };
+}
+var SPLIT_CLASSES_REGEX = /\s+/;
+function mergeClassList(classList, configUtils) {
+  var splitModifiers = configUtils.splitModifiers, getClassGroupId = configUtils.getClassGroupId, getConflictingClassGroupIds = configUtils.getConflictingClassGroupIds;
+  var classGroupsInConflict = /* @__PURE__ */ new Set();
+  return classList.trim().split(SPLIT_CLASSES_REGEX).map(function(originalClassName) {
+    var _splitModifiers = splitModifiers(originalClassName), modifiers = _splitModifiers.modifiers, hasImportantModifier = _splitModifiers.hasImportantModifier, baseClassName = _splitModifiers.baseClassName, maybePostfixModifierPosition = _splitModifiers.maybePostfixModifierPosition;
+    var classGroupId = getClassGroupId(maybePostfixModifierPosition ? baseClassName.substring(0, maybePostfixModifierPosition) : baseClassName);
+    var hasPostfixModifier = Boolean(maybePostfixModifierPosition);
+    if (!classGroupId) {
+      if (!maybePostfixModifierPosition) {
+        return {
+          isTailwindClass: false,
+          originalClassName
+        };
+      }
+      classGroupId = getClassGroupId(baseClassName);
+      if (!classGroupId) {
+        return {
+          isTailwindClass: false,
+          originalClassName
+        };
+      }
+      hasPostfixModifier = false;
+    }
+    var variantModifier = sortModifiers(modifiers).join(":");
+    var modifierId = hasImportantModifier ? variantModifier + IMPORTANT_MODIFIER : variantModifier;
+    return {
+      isTailwindClass: true,
+      modifierId,
+      classGroupId,
+      originalClassName,
+      hasPostfixModifier
+    };
+  }).reverse().filter(function(parsed) {
+    if (!parsed.isTailwindClass) {
+      return true;
+    }
+    var modifierId = parsed.modifierId, classGroupId = parsed.classGroupId, hasPostfixModifier = parsed.hasPostfixModifier;
+    var classId = modifierId + classGroupId;
+    if (classGroupsInConflict.has(classId)) {
+      return false;
+    }
+    classGroupsInConflict.add(classId);
+    getConflictingClassGroupIds(classGroupId, hasPostfixModifier).forEach(function(group) {
+      return classGroupsInConflict.add(modifierId + group);
+    });
+    return true;
+  }).reverse().map(function(parsed) {
+    return parsed.originalClassName;
+  }).join(" ");
+}
+function createTailwindMerge() {
+  for (var _len = arguments.length, createConfig = new Array(_len), _key = 0; _key < _len; _key++) {
+    createConfig[_key] = arguments[_key];
+  }
+  var configUtils;
+  var cacheGet;
+  var cacheSet;
+  var functionToCall = initTailwindMerge;
+  function initTailwindMerge(classList) {
+    var firstCreateConfig = createConfig[0], restCreateConfig = createConfig.slice(1);
+    var config2 = restCreateConfig.reduce(function(previousConfig, createConfigCurrent) {
+      return createConfigCurrent(previousConfig);
+    }, firstCreateConfig());
+    configUtils = createConfigUtils(config2);
+    cacheGet = configUtils.cache.get;
+    cacheSet = configUtils.cache.set;
+    functionToCall = tailwindMerge;
+    return tailwindMerge(classList);
+  }
+  function tailwindMerge(classList) {
+    var cachedResult = cacheGet(classList);
+    if (cachedResult) {
+      return cachedResult;
+    }
+    var result = mergeClassList(classList, configUtils);
+    cacheSet(classList, result);
+    return result;
+  }
+  return function callTailwindMerge() {
+    return functionToCall(twJoin.apply(null, arguments));
+  };
+}
+function fromTheme(key) {
+  var themeGetter = function themeGetter2(theme2) {
+    return theme2[key] || [];
+  };
+  themeGetter.isThemeGetter = true;
+  return themeGetter;
+}
+var arbitraryValueRegex = /^\[(?:([a-z-]+):)?(.+)\]$/i;
+var fractionRegex = /^\d+\/\d+$/;
+var stringLengths = /* @__PURE__ */ new Set(["px", "full", "screen"]);
+var tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
+var lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
+var shadowRegex = /^-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
+function isLength(value) {
+  return isNumber(value) || stringLengths.has(value) || fractionRegex.test(value) || isArbitraryLength(value);
+}
+function isArbitraryLength(value) {
+  return getIsArbitraryValue(value, "length", isLengthOnly);
+}
+function isArbitrarySize(value) {
+  return getIsArbitraryValue(value, "size", isNever);
+}
+function isArbitraryPosition(value) {
+  return getIsArbitraryValue(value, "position", isNever);
+}
+function isArbitraryUrl(value) {
+  return getIsArbitraryValue(value, "url", isUrl);
+}
+function isArbitraryNumber(value) {
+  return getIsArbitraryValue(value, "number", isNumber);
+}
+function isNumber(value) {
+  return !Number.isNaN(Number(value));
+}
+function isPercent(value) {
+  return value.endsWith("%") && isNumber(value.slice(0, -1));
+}
+function isInteger(value) {
+  return isIntegerOnly(value) || getIsArbitraryValue(value, "number", isIntegerOnly);
+}
+function isArbitraryValue(value) {
+  return arbitraryValueRegex.test(value);
+}
+function isAny() {
+  return true;
+}
+function isTshirtSize(value) {
+  return tshirtUnitRegex.test(value);
+}
+function isArbitraryShadow(value) {
+  return getIsArbitraryValue(value, "", isShadow);
+}
+function getIsArbitraryValue(value, label, testValue) {
+  var result = arbitraryValueRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return result[1] === label;
+    }
+    return testValue(result[2]);
+  }
+  return false;
+}
+function isLengthOnly(value) {
+  return lengthUnitRegex.test(value);
+}
+function isNever() {
+  return false;
+}
+function isUrl(value) {
+  return value.startsWith("url(");
+}
+function isIntegerOnly(value) {
+  return Number.isInteger(Number(value));
+}
+function isShadow(value) {
+  return shadowRegex.test(value);
+}
+function getDefaultConfig() {
+  var colors2 = fromTheme("colors");
+  var spacing2 = fromTheme("spacing");
+  var blur2 = fromTheme("blur");
+  var brightness = fromTheme("brightness");
+  var borderColor = fromTheme("borderColor");
+  var borderRadius = fromTheme("borderRadius");
+  var borderSpacing = fromTheme("borderSpacing");
+  var borderWidth = fromTheme("borderWidth");
+  var contrast = fromTheme("contrast");
+  var grayscale = fromTheme("grayscale");
+  var hueRotate = fromTheme("hueRotate");
+  var invert = fromTheme("invert");
+  var gap = fromTheme("gap");
+  var gradientColorStops = fromTheme("gradientColorStops");
+  var gradientColorStopPositions = fromTheme("gradientColorStopPositions");
+  var inset = fromTheme("inset");
+  var margin = fromTheme("margin");
+  var opacity = fromTheme("opacity");
+  var padding = fromTheme("padding");
+  var saturate = fromTheme("saturate");
+  var scale2 = fromTheme("scale");
+  var sepia = fromTheme("sepia");
+  var skew = fromTheme("skew");
+  var space2 = fromTheme("space");
+  var translate = fromTheme("translate");
+  var getOverscroll = function getOverscroll2() {
+    return ["auto", "contain", "none"];
+  };
+  var getOverflow = function getOverflow2() {
+    return ["auto", "hidden", "clip", "visible", "scroll"];
+  };
+  var getSpacingWithAutoAndArbitrary = function getSpacingWithAutoAndArbitrary2() {
+    return ["auto", isArbitraryValue, spacing2];
+  };
+  var getSpacingWithArbitrary = function getSpacingWithArbitrary2() {
+    return [isArbitraryValue, spacing2];
+  };
+  var getLengthWithEmpty = function getLengthWithEmpty2() {
+    return ["", isLength];
+  };
+  var getNumberWithAutoAndArbitrary = function getNumberWithAutoAndArbitrary2() {
+    return ["auto", isNumber, isArbitraryValue];
+  };
+  var getPositions = function getPositions2() {
+    return ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"];
+  };
+  var getLineStyles = function getLineStyles2() {
+    return ["solid", "dashed", "dotted", "double", "none"];
+  };
+  var getBlendModes = function getBlendModes2() {
+    return ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity", "plus-lighter"];
+  };
+  var getAlign = function getAlign2() {
+    return ["start", "end", "center", "between", "around", "evenly", "stretch"];
+  };
+  var getZeroAndEmpty = function getZeroAndEmpty2() {
+    return ["", "0", isArbitraryValue];
+  };
+  var getBreaks = function getBreaks2() {
+    return ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"];
+  };
+  var getNumber = function getNumber2() {
+    return [isNumber, isArbitraryNumber];
+  };
+  var getNumberAndArbitrary = function getNumberAndArbitrary2() {
+    return [isNumber, isArbitraryValue];
+  };
+  return {
+    cacheSize: 500,
+    theme: {
+      colors: [isAny],
+      spacing: [isLength],
+      blur: ["none", "", isTshirtSize, isArbitraryValue],
+      brightness: getNumber(),
+      borderColor: [colors2],
+      borderRadius: ["none", "", "full", isTshirtSize, isArbitraryValue],
+      borderSpacing: getSpacingWithArbitrary(),
+      borderWidth: getLengthWithEmpty(),
+      contrast: getNumber(),
+      grayscale: getZeroAndEmpty(),
+      hueRotate: getNumberAndArbitrary(),
+      invert: getZeroAndEmpty(),
+      gap: getSpacingWithArbitrary(),
+      gradientColorStops: [colors2],
+      gradientColorStopPositions: [isPercent, isArbitraryLength],
+      inset: getSpacingWithAutoAndArbitrary(),
+      margin: getSpacingWithAutoAndArbitrary(),
+      opacity: getNumber(),
+      padding: getSpacingWithArbitrary(),
+      saturate: getNumber(),
+      scale: getNumber(),
+      sepia: getZeroAndEmpty(),
+      skew: getNumberAndArbitrary(),
+      space: getSpacingWithArbitrary(),
+      translate: getSpacingWithArbitrary()
+    },
+    classGroups: {
+      // Layout
+      /**
+       * Aspect Ratio
+       * @see https://tailwindcss.com/docs/aspect-ratio
+       */
+      aspect: [{
+        aspect: ["auto", "square", "video", isArbitraryValue]
+      }],
+      /**
+       * Container
+       * @see https://tailwindcss.com/docs/container
+       */
+      container: ["container"],
+      /**
+       * Columns
+       * @see https://tailwindcss.com/docs/columns
+       */
+      columns: [{
+        columns: [isTshirtSize]
+      }],
+      /**
+       * Break After
+       * @see https://tailwindcss.com/docs/break-after
+       */
+      "break-after": [{
+        "break-after": getBreaks()
+      }],
+      /**
+       * Break Before
+       * @see https://tailwindcss.com/docs/break-before
+       */
+      "break-before": [{
+        "break-before": getBreaks()
+      }],
+      /**
+       * Break Inside
+       * @see https://tailwindcss.com/docs/break-inside
+       */
+      "break-inside": [{
+        "break-inside": ["auto", "avoid", "avoid-page", "avoid-column"]
+      }],
+      /**
+       * Box Decoration Break
+       * @see https://tailwindcss.com/docs/box-decoration-break
+       */
+      "box-decoration": [{
+        "box-decoration": ["slice", "clone"]
+      }],
+      /**
+       * Box Sizing
+       * @see https://tailwindcss.com/docs/box-sizing
+       */
+      box: [{
+        box: ["border", "content"]
+      }],
+      /**
+       * Display
+       * @see https://tailwindcss.com/docs/display
+       */
+      display: ["block", "inline-block", "inline", "flex", "inline-flex", "table", "inline-table", "table-caption", "table-cell", "table-column", "table-column-group", "table-footer-group", "table-header-group", "table-row-group", "table-row", "flow-root", "grid", "inline-grid", "contents", "list-item", "hidden"],
+      /**
+       * Floats
+       * @see https://tailwindcss.com/docs/float
+       */
+      "float": [{
+        "float": ["right", "left", "none"]
+      }],
+      /**
+       * Clear
+       * @see https://tailwindcss.com/docs/clear
+       */
+      clear: [{
+        clear: ["left", "right", "both", "none"]
+      }],
+      /**
+       * Isolation
+       * @see https://tailwindcss.com/docs/isolation
+       */
+      isolation: ["isolate", "isolation-auto"],
+      /**
+       * Object Fit
+       * @see https://tailwindcss.com/docs/object-fit
+       */
+      "object-fit": [{
+        object: ["contain", "cover", "fill", "none", "scale-down"]
+      }],
+      /**
+       * Object Position
+       * @see https://tailwindcss.com/docs/object-position
+       */
+      "object-position": [{
+        object: [].concat(getPositions(), [isArbitraryValue])
+      }],
+      /**
+       * Overflow
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      overflow: [{
+        overflow: getOverflow()
+      }],
+      /**
+       * Overflow X
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      "overflow-x": [{
+        "overflow-x": getOverflow()
+      }],
+      /**
+       * Overflow Y
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      "overflow-y": [{
+        "overflow-y": getOverflow()
+      }],
+      /**
+       * Overscroll Behavior
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      overscroll: [{
+        overscroll: getOverscroll()
+      }],
+      /**
+       * Overscroll Behavior X
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      "overscroll-x": [{
+        "overscroll-x": getOverscroll()
+      }],
+      /**
+       * Overscroll Behavior Y
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      "overscroll-y": [{
+        "overscroll-y": getOverscroll()
+      }],
+      /**
+       * Position
+       * @see https://tailwindcss.com/docs/position
+       */
+      position: ["static", "fixed", "absolute", "relative", "sticky"],
+      /**
+       * Top / Right / Bottom / Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      inset: [{
+        inset: [inset]
+      }],
+      /**
+       * Right / Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      "inset-x": [{
+        "inset-x": [inset]
+      }],
+      /**
+       * Top / Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      "inset-y": [{
+        "inset-y": [inset]
+      }],
+      /**
+       * Start
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      start: [{
+        start: [inset]
+      }],
+      /**
+       * End
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      end: [{
+        end: [inset]
+      }],
+      /**
+       * Top
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      top: [{
+        top: [inset]
+      }],
+      /**
+       * Right
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      right: [{
+        right: [inset]
+      }],
+      /**
+       * Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      bottom: [{
+        bottom: [inset]
+      }],
+      /**
+       * Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      left: [{
+        left: [inset]
+      }],
+      /**
+       * Visibility
+       * @see https://tailwindcss.com/docs/visibility
+       */
+      visibility: ["visible", "invisible", "collapse"],
+      /**
+       * Z-Index
+       * @see https://tailwindcss.com/docs/z-index
+       */
+      z: [{
+        z: ["auto", isInteger]
+      }],
+      // Flexbox and Grid
+      /**
+       * Flex Basis
+       * @see https://tailwindcss.com/docs/flex-basis
+       */
+      basis: [{
+        basis: getSpacingWithAutoAndArbitrary()
+      }],
+      /**
+       * Flex Direction
+       * @see https://tailwindcss.com/docs/flex-direction
+       */
+      "flex-direction": [{
+        flex: ["row", "row-reverse", "col", "col-reverse"]
+      }],
+      /**
+       * Flex Wrap
+       * @see https://tailwindcss.com/docs/flex-wrap
+       */
+      "flex-wrap": [{
+        flex: ["wrap", "wrap-reverse", "nowrap"]
+      }],
+      /**
+       * Flex
+       * @see https://tailwindcss.com/docs/flex
+       */
+      flex: [{
+        flex: ["1", "auto", "initial", "none", isArbitraryValue]
+      }],
+      /**
+       * Flex Grow
+       * @see https://tailwindcss.com/docs/flex-grow
+       */
+      grow: [{
+        grow: getZeroAndEmpty()
+      }],
+      /**
+       * Flex Shrink
+       * @see https://tailwindcss.com/docs/flex-shrink
+       */
+      shrink: [{
+        shrink: getZeroAndEmpty()
+      }],
+      /**
+       * Order
+       * @see https://tailwindcss.com/docs/order
+       */
+      order: [{
+        order: ["first", "last", "none", isInteger]
+      }],
+      /**
+       * Grid Template Columns
+       * @see https://tailwindcss.com/docs/grid-template-columns
+       */
+      "grid-cols": [{
+        "grid-cols": [isAny]
+      }],
+      /**
+       * Grid Column Start / End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      "col-start-end": [{
+        col: ["auto", {
+          span: ["full", isInteger]
+        }, isArbitraryValue]
+      }],
+      /**
+       * Grid Column Start
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      "col-start": [{
+        "col-start": getNumberWithAutoAndArbitrary()
+      }],
+      /**
+       * Grid Column End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      "col-end": [{
+        "col-end": getNumberWithAutoAndArbitrary()
+      }],
+      /**
+       * Grid Template Rows
+       * @see https://tailwindcss.com/docs/grid-template-rows
+       */
+      "grid-rows": [{
+        "grid-rows": [isAny]
+      }],
+      /**
+       * Grid Row Start / End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      "row-start-end": [{
+        row: ["auto", {
+          span: [isInteger]
+        }, isArbitraryValue]
+      }],
+      /**
+       * Grid Row Start
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      "row-start": [{
+        "row-start": getNumberWithAutoAndArbitrary()
+      }],
+      /**
+       * Grid Row End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      "row-end": [{
+        "row-end": getNumberWithAutoAndArbitrary()
+      }],
+      /**
+       * Grid Auto Flow
+       * @see https://tailwindcss.com/docs/grid-auto-flow
+       */
+      "grid-flow": [{
+        "grid-flow": ["row", "col", "dense", "row-dense", "col-dense"]
+      }],
+      /**
+       * Grid Auto Columns
+       * @see https://tailwindcss.com/docs/grid-auto-columns
+       */
+      "auto-cols": [{
+        "auto-cols": ["auto", "min", "max", "fr", isArbitraryValue]
+      }],
+      /**
+       * Grid Auto Rows
+       * @see https://tailwindcss.com/docs/grid-auto-rows
+       */
+      "auto-rows": [{
+        "auto-rows": ["auto", "min", "max", "fr", isArbitraryValue]
+      }],
+      /**
+       * Gap
+       * @see https://tailwindcss.com/docs/gap
+       */
+      gap: [{
+        gap: [gap]
+      }],
+      /**
+       * Gap X
+       * @see https://tailwindcss.com/docs/gap
+       */
+      "gap-x": [{
+        "gap-x": [gap]
+      }],
+      /**
+       * Gap Y
+       * @see https://tailwindcss.com/docs/gap
+       */
+      "gap-y": [{
+        "gap-y": [gap]
+      }],
+      /**
+       * Justify Content
+       * @see https://tailwindcss.com/docs/justify-content
+       */
+      "justify-content": [{
+        justify: ["normal"].concat(getAlign())
+      }],
+      /**
+       * Justify Items
+       * @see https://tailwindcss.com/docs/justify-items
+       */
+      "justify-items": [{
+        "justify-items": ["start", "end", "center", "stretch"]
+      }],
+      /**
+       * Justify Self
+       * @see https://tailwindcss.com/docs/justify-self
+       */
+      "justify-self": [{
+        "justify-self": ["auto", "start", "end", "center", "stretch"]
+      }],
+      /**
+       * Align Content
+       * @see https://tailwindcss.com/docs/align-content
+       */
+      "align-content": [{
+        content: ["normal"].concat(getAlign(), ["baseline"])
+      }],
+      /**
+       * Align Items
+       * @see https://tailwindcss.com/docs/align-items
+       */
+      "align-items": [{
+        items: ["start", "end", "center", "baseline", "stretch"]
+      }],
+      /**
+       * Align Self
+       * @see https://tailwindcss.com/docs/align-self
+       */
+      "align-self": [{
+        self: ["auto", "start", "end", "center", "stretch", "baseline"]
+      }],
+      /**
+       * Place Content
+       * @see https://tailwindcss.com/docs/place-content
+       */
+      "place-content": [{
+        "place-content": [].concat(getAlign(), ["baseline"])
+      }],
+      /**
+       * Place Items
+       * @see https://tailwindcss.com/docs/place-items
+       */
+      "place-items": [{
+        "place-items": ["start", "end", "center", "baseline", "stretch"]
+      }],
+      /**
+       * Place Self
+       * @see https://tailwindcss.com/docs/place-self
+       */
+      "place-self": [{
+        "place-self": ["auto", "start", "end", "center", "stretch"]
+      }],
+      // Spacing
+      /**
+       * Padding
+       * @see https://tailwindcss.com/docs/padding
+       */
+      p: [{
+        p: [padding]
+      }],
+      /**
+       * Padding X
+       * @see https://tailwindcss.com/docs/padding
+       */
+      px: [{
+        px: [padding]
+      }],
+      /**
+       * Padding Y
+       * @see https://tailwindcss.com/docs/padding
+       */
+      py: [{
+        py: [padding]
+      }],
+      /**
+       * Padding Start
+       * @see https://tailwindcss.com/docs/padding
+       */
+      ps: [{
+        ps: [padding]
+      }],
+      /**
+       * Padding End
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pe: [{
+        pe: [padding]
+      }],
+      /**
+       * Padding Top
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pt: [{
+        pt: [padding]
+      }],
+      /**
+       * Padding Right
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pr: [{
+        pr: [padding]
+      }],
+      /**
+       * Padding Bottom
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pb: [{
+        pb: [padding]
+      }],
+      /**
+       * Padding Left
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pl: [{
+        pl: [padding]
+      }],
+      /**
+       * Margin
+       * @see https://tailwindcss.com/docs/margin
+       */
+      m: [{
+        m: [margin]
+      }],
+      /**
+       * Margin X
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mx: [{
+        mx: [margin]
+      }],
+      /**
+       * Margin Y
+       * @see https://tailwindcss.com/docs/margin
+       */
+      my: [{
+        my: [margin]
+      }],
+      /**
+       * Margin Start
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ms: [{
+        ms: [margin]
+      }],
+      /**
+       * Margin End
+       * @see https://tailwindcss.com/docs/margin
+       */
+      me: [{
+        me: [margin]
+      }],
+      /**
+       * Margin Top
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mt: [{
+        mt: [margin]
+      }],
+      /**
+       * Margin Right
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mr: [{
+        mr: [margin]
+      }],
+      /**
+       * Margin Bottom
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mb: [{
+        mb: [margin]
+      }],
+      /**
+       * Margin Left
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ml: [{
+        ml: [margin]
+      }],
+      /**
+       * Space Between X
+       * @see https://tailwindcss.com/docs/space
+       */
+      "space-x": [{
+        "space-x": [space2]
+      }],
+      /**
+       * Space Between X Reverse
+       * @see https://tailwindcss.com/docs/space
+       */
+      "space-x-reverse": ["space-x-reverse"],
+      /**
+       * Space Between Y
+       * @see https://tailwindcss.com/docs/space
+       */
+      "space-y": [{
+        "space-y": [space2]
+      }],
+      /**
+       * Space Between Y Reverse
+       * @see https://tailwindcss.com/docs/space
+       */
+      "space-y-reverse": ["space-y-reverse"],
+      // Sizing
+      /**
+       * Width
+       * @see https://tailwindcss.com/docs/width
+       */
+      w: [{
+        w: ["auto", "min", "max", "fit", isArbitraryValue, spacing2]
+      }],
+      /**
+       * Min-Width
+       * @see https://tailwindcss.com/docs/min-width
+       */
+      "min-w": [{
+        "min-w": ["min", "max", "fit", isArbitraryValue, isLength]
+      }],
+      /**
+       * Max-Width
+       * @see https://tailwindcss.com/docs/max-width
+       */
+      "max-w": [{
+        "max-w": ["0", "none", "full", "min", "max", "fit", "prose", {
+          screen: [isTshirtSize]
+        }, isTshirtSize, isArbitraryValue]
+      }],
+      /**
+       * Height
+       * @see https://tailwindcss.com/docs/height
+       */
+      h: [{
+        h: [isArbitraryValue, spacing2, "auto", "min", "max", "fit"]
+      }],
+      /**
+       * Min-Height
+       * @see https://tailwindcss.com/docs/min-height
+       */
+      "min-h": [{
+        "min-h": ["min", "max", "fit", isArbitraryValue, isLength]
+      }],
+      /**
+       * Max-Height
+       * @see https://tailwindcss.com/docs/max-height
+       */
+      "max-h": [{
+        "max-h": [isArbitraryValue, spacing2, "min", "max", "fit"]
+      }],
+      // Typography
+      /**
+       * Font Size
+       * @see https://tailwindcss.com/docs/font-size
+       */
+      "font-size": [{
+        text: ["base", isTshirtSize, isArbitraryLength]
+      }],
+      /**
+       * Font Smoothing
+       * @see https://tailwindcss.com/docs/font-smoothing
+       */
+      "font-smoothing": ["antialiased", "subpixel-antialiased"],
+      /**
+       * Font Style
+       * @see https://tailwindcss.com/docs/font-style
+       */
+      "font-style": ["italic", "not-italic"],
+      /**
+       * Font Weight
+       * @see https://tailwindcss.com/docs/font-weight
+       */
+      "font-weight": [{
+        font: ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black", isArbitraryNumber]
+      }],
+      /**
+       * Font Family
+       * @see https://tailwindcss.com/docs/font-family
+       */
+      "font-family": [{
+        font: [isAny]
+      }],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      "fvn-normal": ["normal-nums"],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      "fvn-ordinal": ["ordinal"],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      "fvn-slashed-zero": ["slashed-zero"],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      "fvn-figure": ["lining-nums", "oldstyle-nums"],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      "fvn-spacing": ["proportional-nums", "tabular-nums"],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      "fvn-fraction": ["diagonal-fractions", "stacked-fractons"],
+      /**
+       * Letter Spacing
+       * @see https://tailwindcss.com/docs/letter-spacing
+       */
+      tracking: [{
+        tracking: ["tighter", "tight", "normal", "wide", "wider", "widest", isArbitraryValue]
+      }],
+      /**
+       * Line Clamp
+       * @see https://tailwindcss.com/docs/line-clamp
+       */
+      "line-clamp": [{
+        "line-clamp": ["none", isNumber, isArbitraryNumber]
+      }],
+      /**
+       * Line Height
+       * @see https://tailwindcss.com/docs/line-height
+       */
+      leading: [{
+        leading: ["none", "tight", "snug", "normal", "relaxed", "loose", isArbitraryValue, isLength]
+      }],
+      /**
+       * List Style Image
+       * @see https://tailwindcss.com/docs/list-style-image
+       */
+      "list-image": [{
+        "list-image": ["none", isArbitraryValue]
+      }],
+      /**
+       * List Style Type
+       * @see https://tailwindcss.com/docs/list-style-type
+       */
+      "list-style-type": [{
+        list: ["none", "disc", "decimal", isArbitraryValue]
+      }],
+      /**
+       * List Style Position
+       * @see https://tailwindcss.com/docs/list-style-position
+       */
+      "list-style-position": [{
+        list: ["inside", "outside"]
+      }],
+      /**
+       * Placeholder Color
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://tailwindcss.com/docs/placeholder-color
+       */
+      "placeholder-color": [{
+        placeholder: [colors2]
+      }],
+      /**
+       * Placeholder Opacity
+       * @see https://tailwindcss.com/docs/placeholder-opacity
+       */
+      "placeholder-opacity": [{
+        "placeholder-opacity": [opacity]
+      }],
+      /**
+       * Text Alignment
+       * @see https://tailwindcss.com/docs/text-align
+       */
+      "text-alignment": [{
+        text: ["left", "center", "right", "justify", "start", "end"]
+      }],
+      /**
+       * Text Color
+       * @see https://tailwindcss.com/docs/text-color
+       */
+      "text-color": [{
+        text: [colors2]
+      }],
+      /**
+       * Text Opacity
+       * @see https://tailwindcss.com/docs/text-opacity
+       */
+      "text-opacity": [{
+        "text-opacity": [opacity]
+      }],
+      /**
+       * Text Decoration
+       * @see https://tailwindcss.com/docs/text-decoration
+       */
+      "text-decoration": ["underline", "overline", "line-through", "no-underline"],
+      /**
+       * Text Decoration Style
+       * @see https://tailwindcss.com/docs/text-decoration-style
+       */
+      "text-decoration-style": [{
+        decoration: [].concat(getLineStyles(), ["wavy"])
+      }],
+      /**
+       * Text Decoration Thickness
+       * @see https://tailwindcss.com/docs/text-decoration-thickness
+       */
+      "text-decoration-thickness": [{
+        decoration: ["auto", "from-font", isLength]
+      }],
+      /**
+       * Text Underline Offset
+       * @see https://tailwindcss.com/docs/text-underline-offset
+       */
+      "underline-offset": [{
+        "underline-offset": ["auto", isArbitraryValue, isLength]
+      }],
+      /**
+       * Text Decoration Color
+       * @see https://tailwindcss.com/docs/text-decoration-color
+       */
+      "text-decoration-color": [{
+        decoration: [colors2]
+      }],
+      /**
+       * Text Transform
+       * @see https://tailwindcss.com/docs/text-transform
+       */
+      "text-transform": ["uppercase", "lowercase", "capitalize", "normal-case"],
+      /**
+       * Text Overflow
+       * @see https://tailwindcss.com/docs/text-overflow
+       */
+      "text-overflow": ["truncate", "text-ellipsis", "text-clip"],
+      /**
+       * Text Indent
+       * @see https://tailwindcss.com/docs/text-indent
+       */
+      indent: [{
+        indent: getSpacingWithArbitrary()
+      }],
+      /**
+       * Vertical Alignment
+       * @see https://tailwindcss.com/docs/vertical-align
+       */
+      "vertical-align": [{
+        align: ["baseline", "top", "middle", "bottom", "text-top", "text-bottom", "sub", "super", isArbitraryValue]
+      }],
+      /**
+       * Whitespace
+       * @see https://tailwindcss.com/docs/whitespace
+       */
+      whitespace: [{
+        whitespace: ["normal", "nowrap", "pre", "pre-line", "pre-wrap", "break-spaces"]
+      }],
+      /**
+       * Word Break
+       * @see https://tailwindcss.com/docs/word-break
+       */
+      "break": [{
+        "break": ["normal", "words", "all", "keep"]
+      }],
+      /**
+       * Hyphens
+       * @see https://tailwindcss.com/docs/hyphens
+       */
+      hyphens: [{
+        hyphens: ["none", "manual", "auto"]
+      }],
+      /**
+       * Content
+       * @see https://tailwindcss.com/docs/content
+       */
+      content: [{
+        content: ["none", isArbitraryValue]
+      }],
+      // Backgrounds
+      /**
+       * Background Attachment
+       * @see https://tailwindcss.com/docs/background-attachment
+       */
+      "bg-attachment": [{
+        bg: ["fixed", "local", "scroll"]
+      }],
+      /**
+       * Background Clip
+       * @see https://tailwindcss.com/docs/background-clip
+       */
+      "bg-clip": [{
+        "bg-clip": ["border", "padding", "content", "text"]
+      }],
+      /**
+       * Background Opacity
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://tailwindcss.com/docs/background-opacity
+       */
+      "bg-opacity": [{
+        "bg-opacity": [opacity]
+      }],
+      /**
+       * Background Origin
+       * @see https://tailwindcss.com/docs/background-origin
+       */
+      "bg-origin": [{
+        "bg-origin": ["border", "padding", "content"]
+      }],
+      /**
+       * Background Position
+       * @see https://tailwindcss.com/docs/background-position
+       */
+      "bg-position": [{
+        bg: [].concat(getPositions(), [isArbitraryPosition])
+      }],
+      /**
+       * Background Repeat
+       * @see https://tailwindcss.com/docs/background-repeat
+       */
+      "bg-repeat": [{
+        bg: ["no-repeat", {
+          repeat: ["", "x", "y", "round", "space"]
+        }]
+      }],
+      /**
+       * Background Size
+       * @see https://tailwindcss.com/docs/background-size
+       */
+      "bg-size": [{
+        bg: ["auto", "cover", "contain", isArbitrarySize]
+      }],
+      /**
+       * Background Image
+       * @see https://tailwindcss.com/docs/background-image
+       */
+      "bg-image": [{
+        bg: ["none", {
+          "gradient-to": ["t", "tr", "r", "br", "b", "bl", "l", "tl"]
+        }, isArbitraryUrl]
+      }],
+      /**
+       * Background Color
+       * @see https://tailwindcss.com/docs/background-color
+       */
+      "bg-color": [{
+        bg: [colors2]
+      }],
+      /**
+       * Gradient Color Stops From Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      "gradient-from-pos": [{
+        from: [gradientColorStopPositions]
+      }],
+      /**
+       * Gradient Color Stops Via Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      "gradient-via-pos": [{
+        via: [gradientColorStopPositions]
+      }],
+      /**
+       * Gradient Color Stops To Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      "gradient-to-pos": [{
+        to: [gradientColorStopPositions]
+      }],
+      /**
+       * Gradient Color Stops From
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      "gradient-from": [{
+        from: [gradientColorStops]
+      }],
+      /**
+       * Gradient Color Stops Via
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      "gradient-via": [{
+        via: [gradientColorStops]
+      }],
+      /**
+       * Gradient Color Stops To
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      "gradient-to": [{
+        to: [gradientColorStops]
+      }],
+      // Borders
+      /**
+       * Border Radius
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      rounded: [{
+        rounded: [borderRadius]
+      }],
+      /**
+       * Border Radius Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-s": [{
+        "rounded-s": [borderRadius]
+      }],
+      /**
+       * Border Radius End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-e": [{
+        "rounded-e": [borderRadius]
+      }],
+      /**
+       * Border Radius Top
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-t": [{
+        "rounded-t": [borderRadius]
+      }],
+      /**
+       * Border Radius Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-r": [{
+        "rounded-r": [borderRadius]
+      }],
+      /**
+       * Border Radius Bottom
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-b": [{
+        "rounded-b": [borderRadius]
+      }],
+      /**
+       * Border Radius Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-l": [{
+        "rounded-l": [borderRadius]
+      }],
+      /**
+       * Border Radius Start Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-ss": [{
+        "rounded-ss": [borderRadius]
+      }],
+      /**
+       * Border Radius Start End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-se": [{
+        "rounded-se": [borderRadius]
+      }],
+      /**
+       * Border Radius End End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-ee": [{
+        "rounded-ee": [borderRadius]
+      }],
+      /**
+       * Border Radius End Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-es": [{
+        "rounded-es": [borderRadius]
+      }],
+      /**
+       * Border Radius Top Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-tl": [{
+        "rounded-tl": [borderRadius]
+      }],
+      /**
+       * Border Radius Top Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-tr": [{
+        "rounded-tr": [borderRadius]
+      }],
+      /**
+       * Border Radius Bottom Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-br": [{
+        "rounded-br": [borderRadius]
+      }],
+      /**
+       * Border Radius Bottom Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      "rounded-bl": [{
+        "rounded-bl": [borderRadius]
+      }],
+      /**
+       * Border Width
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w": [{
+        border: [borderWidth]
+      }],
+      /**
+       * Border Width X
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w-x": [{
+        "border-x": [borderWidth]
+      }],
+      /**
+       * Border Width Y
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w-y": [{
+        "border-y": [borderWidth]
+      }],
+      /**
+       * Border Width Start
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w-s": [{
+        "border-s": [borderWidth]
+      }],
+      /**
+       * Border Width End
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w-e": [{
+        "border-e": [borderWidth]
+      }],
+      /**
+       * Border Width Top
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w-t": [{
+        "border-t": [borderWidth]
+      }],
+      /**
+       * Border Width Right
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w-r": [{
+        "border-r": [borderWidth]
+      }],
+      /**
+       * Border Width Bottom
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w-b": [{
+        "border-b": [borderWidth]
+      }],
+      /**
+       * Border Width Left
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      "border-w-l": [{
+        "border-l": [borderWidth]
+      }],
+      /**
+       * Border Opacity
+       * @see https://tailwindcss.com/docs/border-opacity
+       */
+      "border-opacity": [{
+        "border-opacity": [opacity]
+      }],
+      /**
+       * Border Style
+       * @see https://tailwindcss.com/docs/border-style
+       */
+      "border-style": [{
+        border: [].concat(getLineStyles(), ["hidden"])
+      }],
+      /**
+       * Divide Width X
+       * @see https://tailwindcss.com/docs/divide-width
+       */
+      "divide-x": [{
+        "divide-x": [borderWidth]
+      }],
+      /**
+       * Divide Width X Reverse
+       * @see https://tailwindcss.com/docs/divide-width
+       */
+      "divide-x-reverse": ["divide-x-reverse"],
+      /**
+       * Divide Width Y
+       * @see https://tailwindcss.com/docs/divide-width
+       */
+      "divide-y": [{
+        "divide-y": [borderWidth]
+      }],
+      /**
+       * Divide Width Y Reverse
+       * @see https://tailwindcss.com/docs/divide-width
+       */
+      "divide-y-reverse": ["divide-y-reverse"],
+      /**
+       * Divide Opacity
+       * @see https://tailwindcss.com/docs/divide-opacity
+       */
+      "divide-opacity": [{
+        "divide-opacity": [opacity]
+      }],
+      /**
+       * Divide Style
+       * @see https://tailwindcss.com/docs/divide-style
+       */
+      "divide-style": [{
+        divide: getLineStyles()
+      }],
+      /**
+       * Border Color
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      "border-color": [{
+        border: [borderColor]
+      }],
+      /**
+       * Border Color X
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      "border-color-x": [{
+        "border-x": [borderColor]
+      }],
+      /**
+       * Border Color Y
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      "border-color-y": [{
+        "border-y": [borderColor]
+      }],
+      /**
+       * Border Color Top
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      "border-color-t": [{
+        "border-t": [borderColor]
+      }],
+      /**
+       * Border Color Right
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      "border-color-r": [{
+        "border-r": [borderColor]
+      }],
+      /**
+       * Border Color Bottom
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      "border-color-b": [{
+        "border-b": [borderColor]
+      }],
+      /**
+       * Border Color Left
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      "border-color-l": [{
+        "border-l": [borderColor]
+      }],
+      /**
+       * Divide Color
+       * @see https://tailwindcss.com/docs/divide-color
+       */
+      "divide-color": [{
+        divide: [borderColor]
+      }],
+      /**
+       * Outline Style
+       * @see https://tailwindcss.com/docs/outline-style
+       */
+      "outline-style": [{
+        outline: [""].concat(getLineStyles())
+      }],
+      /**
+       * Outline Offset
+       * @see https://tailwindcss.com/docs/outline-offset
+       */
+      "outline-offset": [{
+        "outline-offset": [isArbitraryValue, isLength]
+      }],
+      /**
+       * Outline Width
+       * @see https://tailwindcss.com/docs/outline-width
+       */
+      "outline-w": [{
+        outline: [isLength]
+      }],
+      /**
+       * Outline Color
+       * @see https://tailwindcss.com/docs/outline-color
+       */
+      "outline-color": [{
+        outline: [colors2]
+      }],
+      /**
+       * Ring Width
+       * @see https://tailwindcss.com/docs/ring-width
+       */
+      "ring-w": [{
+        ring: getLengthWithEmpty()
+      }],
+      /**
+       * Ring Width Inset
+       * @see https://tailwindcss.com/docs/ring-width
+       */
+      "ring-w-inset": ["ring-inset"],
+      /**
+       * Ring Color
+       * @see https://tailwindcss.com/docs/ring-color
+       */
+      "ring-color": [{
+        ring: [colors2]
+      }],
+      /**
+       * Ring Opacity
+       * @see https://tailwindcss.com/docs/ring-opacity
+       */
+      "ring-opacity": [{
+        "ring-opacity": [opacity]
+      }],
+      /**
+       * Ring Offset Width
+       * @see https://tailwindcss.com/docs/ring-offset-width
+       */
+      "ring-offset-w": [{
+        "ring-offset": [isLength]
+      }],
+      /**
+       * Ring Offset Color
+       * @see https://tailwindcss.com/docs/ring-offset-color
+       */
+      "ring-offset-color": [{
+        "ring-offset": [colors2]
+      }],
+      // Effects
+      /**
+       * Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow
+       */
+      shadow: [{
+        shadow: ["", "inner", "none", isTshirtSize, isArbitraryShadow]
+      }],
+      /**
+       * Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow-color
+       */
+      "shadow-color": [{
+        shadow: [isAny]
+      }],
+      /**
+       * Opacity
+       * @see https://tailwindcss.com/docs/opacity
+       */
+      opacity: [{
+        opacity: [opacity]
+      }],
+      /**
+       * Mix Blend Mode
+       * @see https://tailwindcss.com/docs/mix-blend-mode
+       */
+      "mix-blend": [{
+        "mix-blend": getBlendModes()
+      }],
+      /**
+       * Background Blend Mode
+       * @see https://tailwindcss.com/docs/background-blend-mode
+       */
+      "bg-blend": [{
+        "bg-blend": getBlendModes()
+      }],
+      // Filters
+      /**
+       * Filter
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://tailwindcss.com/docs/filter
+       */
+      filter: [{
+        filter: ["", "none"]
+      }],
+      /**
+       * Blur
+       * @see https://tailwindcss.com/docs/blur
+       */
+      blur: [{
+        blur: [blur2]
+      }],
+      /**
+       * Brightness
+       * @see https://tailwindcss.com/docs/brightness
+       */
+      brightness: [{
+        brightness: [brightness]
+      }],
+      /**
+       * Contrast
+       * @see https://tailwindcss.com/docs/contrast
+       */
+      contrast: [{
+        contrast: [contrast]
+      }],
+      /**
+       * Drop Shadow
+       * @see https://tailwindcss.com/docs/drop-shadow
+       */
+      "drop-shadow": [{
+        "drop-shadow": ["", "none", isTshirtSize, isArbitraryValue]
+      }],
+      /**
+       * Grayscale
+       * @see https://tailwindcss.com/docs/grayscale
+       */
+      grayscale: [{
+        grayscale: [grayscale]
+      }],
+      /**
+       * Hue Rotate
+       * @see https://tailwindcss.com/docs/hue-rotate
+       */
+      "hue-rotate": [{
+        "hue-rotate": [hueRotate]
+      }],
+      /**
+       * Invert
+       * @see https://tailwindcss.com/docs/invert
+       */
+      invert: [{
+        invert: [invert]
+      }],
+      /**
+       * Saturate
+       * @see https://tailwindcss.com/docs/saturate
+       */
+      saturate: [{
+        saturate: [saturate]
+      }],
+      /**
+       * Sepia
+       * @see https://tailwindcss.com/docs/sepia
+       */
+      sepia: [{
+        sepia: [sepia]
+      }],
+      /**
+       * Backdrop Filter
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://tailwindcss.com/docs/backdrop-filter
+       */
+      "backdrop-filter": [{
+        "backdrop-filter": ["", "none"]
+      }],
+      /**
+       * Backdrop Blur
+       * @see https://tailwindcss.com/docs/backdrop-blur
+       */
+      "backdrop-blur": [{
+        "backdrop-blur": [blur2]
+      }],
+      /**
+       * Backdrop Brightness
+       * @see https://tailwindcss.com/docs/backdrop-brightness
+       */
+      "backdrop-brightness": [{
+        "backdrop-brightness": [brightness]
+      }],
+      /**
+       * Backdrop Contrast
+       * @see https://tailwindcss.com/docs/backdrop-contrast
+       */
+      "backdrop-contrast": [{
+        "backdrop-contrast": [contrast]
+      }],
+      /**
+       * Backdrop Grayscale
+       * @see https://tailwindcss.com/docs/backdrop-grayscale
+       */
+      "backdrop-grayscale": [{
+        "backdrop-grayscale": [grayscale]
+      }],
+      /**
+       * Backdrop Hue Rotate
+       * @see https://tailwindcss.com/docs/backdrop-hue-rotate
+       */
+      "backdrop-hue-rotate": [{
+        "backdrop-hue-rotate": [hueRotate]
+      }],
+      /**
+       * Backdrop Invert
+       * @see https://tailwindcss.com/docs/backdrop-invert
+       */
+      "backdrop-invert": [{
+        "backdrop-invert": [invert]
+      }],
+      /**
+       * Backdrop Opacity
+       * @see https://tailwindcss.com/docs/backdrop-opacity
+       */
+      "backdrop-opacity": [{
+        "backdrop-opacity": [opacity]
+      }],
+      /**
+       * Backdrop Saturate
+       * @see https://tailwindcss.com/docs/backdrop-saturate
+       */
+      "backdrop-saturate": [{
+        "backdrop-saturate": [saturate]
+      }],
+      /**
+       * Backdrop Sepia
+       * @see https://tailwindcss.com/docs/backdrop-sepia
+       */
+      "backdrop-sepia": [{
+        "backdrop-sepia": [sepia]
+      }],
+      // Tables
+      /**
+       * Border Collapse
+       * @see https://tailwindcss.com/docs/border-collapse
+       */
+      "border-collapse": [{
+        border: ["collapse", "separate"]
+      }],
+      /**
+       * Border Spacing
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      "border-spacing": [{
+        "border-spacing": [borderSpacing]
+      }],
+      /**
+       * Border Spacing X
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      "border-spacing-x": [{
+        "border-spacing-x": [borderSpacing]
+      }],
+      /**
+       * Border Spacing Y
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      "border-spacing-y": [{
+        "border-spacing-y": [borderSpacing]
+      }],
+      /**
+       * Table Layout
+       * @see https://tailwindcss.com/docs/table-layout
+       */
+      "table-layout": [{
+        table: ["auto", "fixed"]
+      }],
+      /**
+       * Caption Side
+       * @see https://tailwindcss.com/docs/caption-side
+       */
+      caption: [{
+        caption: ["top", "bottom"]
+      }],
+      // Transitions and Animation
+      /**
+       * Tranisition Property
+       * @see https://tailwindcss.com/docs/transition-property
+       */
+      transition: [{
+        transition: ["none", "all", "", "colors", "opacity", "shadow", "transform", isArbitraryValue]
+      }],
+      /**
+       * Transition Duration
+       * @see https://tailwindcss.com/docs/transition-duration
+       */
+      duration: [{
+        duration: getNumberAndArbitrary()
+      }],
+      /**
+       * Transition Timing Function
+       * @see https://tailwindcss.com/docs/transition-timing-function
+       */
+      ease: [{
+        ease: ["linear", "in", "out", "in-out", isArbitraryValue]
+      }],
+      /**
+       * Transition Delay
+       * @see https://tailwindcss.com/docs/transition-delay
+       */
+      delay: [{
+        delay: getNumberAndArbitrary()
+      }],
+      /**
+       * Animation
+       * @see https://tailwindcss.com/docs/animation
+       */
+      animate: [{
+        animate: ["none", "spin", "ping", "pulse", "bounce", isArbitraryValue]
+      }],
+      // Transforms
+      /**
+       * Transform
+       * @see https://tailwindcss.com/docs/transform
+       */
+      transform: [{
+        transform: ["", "gpu", "none"]
+      }],
+      /**
+       * Scale
+       * @see https://tailwindcss.com/docs/scale
+       */
+      scale: [{
+        scale: [scale2]
+      }],
+      /**
+       * Scale X
+       * @see https://tailwindcss.com/docs/scale
+       */
+      "scale-x": [{
+        "scale-x": [scale2]
+      }],
+      /**
+       * Scale Y
+       * @see https://tailwindcss.com/docs/scale
+       */
+      "scale-y": [{
+        "scale-y": [scale2]
+      }],
+      /**
+       * Rotate
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      rotate: [{
+        rotate: [isInteger, isArbitraryValue]
+      }],
+      /**
+       * Translate X
+       * @see https://tailwindcss.com/docs/translate
+       */
+      "translate-x": [{
+        "translate-x": [translate]
+      }],
+      /**
+       * Translate Y
+       * @see https://tailwindcss.com/docs/translate
+       */
+      "translate-y": [{
+        "translate-y": [translate]
+      }],
+      /**
+       * Skew X
+       * @see https://tailwindcss.com/docs/skew
+       */
+      "skew-x": [{
+        "skew-x": [skew]
+      }],
+      /**
+       * Skew Y
+       * @see https://tailwindcss.com/docs/skew
+       */
+      "skew-y": [{
+        "skew-y": [skew]
+      }],
+      /**
+       * Transform Origin
+       * @see https://tailwindcss.com/docs/transform-origin
+       */
+      "transform-origin": [{
+        origin: ["center", "top", "top-right", "right", "bottom-right", "bottom", "bottom-left", "left", "top-left", isArbitraryValue]
+      }],
+      // Interactivity
+      /**
+       * Accent Color
+       * @see https://tailwindcss.com/docs/accent-color
+       */
+      accent: [{
+        accent: ["auto", colors2]
+      }],
+      /**
+       * Appearance
+       * @see https://tailwindcss.com/docs/appearance
+       */
+      appearance: ["appearance-none"],
+      /**
+       * Cursor
+       * @see https://tailwindcss.com/docs/cursor
+       */
+      cursor: [{
+        cursor: ["auto", "default", "pointer", "wait", "text", "move", "help", "not-allowed", "none", "context-menu", "progress", "cell", "crosshair", "vertical-text", "alias", "copy", "no-drop", "grab", "grabbing", "all-scroll", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "zoom-in", "zoom-out", isArbitraryValue]
+      }],
+      /**
+       * Caret Color
+       * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
+       */
+      "caret-color": [{
+        caret: [colors2]
+      }],
+      /**
+       * Pointer Events
+       * @see https://tailwindcss.com/docs/pointer-events
+       */
+      "pointer-events": [{
+        "pointer-events": ["none", "auto"]
+      }],
+      /**
+       * Resize
+       * @see https://tailwindcss.com/docs/resize
+       */
+      resize: [{
+        resize: ["none", "y", "x", ""]
+      }],
+      /**
+       * Scroll Behavior
+       * @see https://tailwindcss.com/docs/scroll-behavior
+       */
+      "scroll-behavior": [{
+        scroll: ["auto", "smooth"]
+      }],
+      /**
+       * Scroll Margin
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-m": [{
+        "scroll-m": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Margin X
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-mx": [{
+        "scroll-mx": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Margin Y
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-my": [{
+        "scroll-my": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Margin Start
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-ms": [{
+        "scroll-ms": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Margin End
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-me": [{
+        "scroll-me": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Margin Top
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-mt": [{
+        "scroll-mt": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Margin Right
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-mr": [{
+        "scroll-mr": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Margin Bottom
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-mb": [{
+        "scroll-mb": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Margin Left
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      "scroll-ml": [{
+        "scroll-ml": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-p": [{
+        "scroll-p": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding X
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-px": [{
+        "scroll-px": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding Y
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-py": [{
+        "scroll-py": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding Start
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-ps": [{
+        "scroll-ps": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding End
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-pe": [{
+        "scroll-pe": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding Top
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-pt": [{
+        "scroll-pt": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding Right
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-pr": [{
+        "scroll-pr": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding Bottom
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-pb": [{
+        "scroll-pb": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Padding Left
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      "scroll-pl": [{
+        "scroll-pl": getSpacingWithArbitrary()
+      }],
+      /**
+       * Scroll Snap Align
+       * @see https://tailwindcss.com/docs/scroll-snap-align
+       */
+      "snap-align": [{
+        snap: ["start", "end", "center", "align-none"]
+      }],
+      /**
+       * Scroll Snap Stop
+       * @see https://tailwindcss.com/docs/scroll-snap-stop
+       */
+      "snap-stop": [{
+        snap: ["normal", "always"]
+      }],
+      /**
+       * Scroll Snap Type
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      "snap-type": [{
+        snap: ["none", "x", "y", "both"]
+      }],
+      /**
+       * Scroll Snap Type Strictness
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      "snap-strictness": [{
+        snap: ["mandatory", "proximity"]
+      }],
+      /**
+       * Touch Action
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      touch: [{
+        touch: ["auto", "none", "pinch-zoom", "manipulation", {
+          pan: ["x", "left", "right", "y", "up", "down"]
+        }]
+      }],
+      /**
+       * User Select
+       * @see https://tailwindcss.com/docs/user-select
+       */
+      select: [{
+        select: ["none", "text", "all", "auto"]
+      }],
+      /**
+       * Will Change
+       * @see https://tailwindcss.com/docs/will-change
+       */
+      "will-change": [{
+        "will-change": ["auto", "scroll", "contents", "transform", isArbitraryValue]
+      }],
+      // SVG
+      /**
+       * Fill
+       * @see https://tailwindcss.com/docs/fill
+       */
+      fill: [{
+        fill: [colors2, "none"]
+      }],
+      /**
+       * Stroke Width
+       * @see https://tailwindcss.com/docs/stroke-width
+       */
+      "stroke-w": [{
+        stroke: [isLength, isArbitraryNumber]
+      }],
+      /**
+       * Stroke
+       * @see https://tailwindcss.com/docs/stroke
+       */
+      stroke: [{
+        stroke: [colors2, "none"]
+      }],
+      // Accessibility
+      /**
+       * Screen Readers
+       * @see https://tailwindcss.com/docs/screen-readers
+       */
+      sr: ["sr-only", "not-sr-only"]
+    },
+    conflictingClassGroups: {
+      overflow: ["overflow-x", "overflow-y"],
+      overscroll: ["overscroll-x", "overscroll-y"],
+      inset: ["inset-x", "inset-y", "start", "end", "top", "right", "bottom", "left"],
+      "inset-x": ["right", "left"],
+      "inset-y": ["top", "bottom"],
+      flex: ["basis", "grow", "shrink"],
+      gap: ["gap-x", "gap-y"],
+      p: ["px", "py", "ps", "pe", "pt", "pr", "pb", "pl"],
+      px: ["pr", "pl"],
+      py: ["pt", "pb"],
+      m: ["mx", "my", "ms", "me", "mt", "mr", "mb", "ml"],
+      mx: ["mr", "ml"],
+      my: ["mt", "mb"],
+      "font-size": ["leading"],
+      "fvn-normal": ["fvn-ordinal", "fvn-slashed-zero", "fvn-figure", "fvn-spacing", "fvn-fraction"],
+      "fvn-ordinal": ["fvn-normal"],
+      "fvn-slashed-zero": ["fvn-normal"],
+      "fvn-figure": ["fvn-normal"],
+      "fvn-spacing": ["fvn-normal"],
+      "fvn-fraction": ["fvn-normal"],
+      rounded: ["rounded-s", "rounded-e", "rounded-t", "rounded-r", "rounded-b", "rounded-l", "rounded-ss", "rounded-se", "rounded-ee", "rounded-es", "rounded-tl", "rounded-tr", "rounded-br", "rounded-bl"],
+      "rounded-s": ["rounded-ss", "rounded-es"],
+      "rounded-e": ["rounded-se", "rounded-ee"],
+      "rounded-t": ["rounded-tl", "rounded-tr"],
+      "rounded-r": ["rounded-tr", "rounded-br"],
+      "rounded-b": ["rounded-br", "rounded-bl"],
+      "rounded-l": ["rounded-tl", "rounded-bl"],
+      "border-spacing": ["border-spacing-x", "border-spacing-y"],
+      "border-w": ["border-w-s", "border-w-e", "border-w-t", "border-w-r", "border-w-b", "border-w-l"],
+      "border-w-x": ["border-w-r", "border-w-l"],
+      "border-w-y": ["border-w-t", "border-w-b"],
+      "border-color": ["border-color-t", "border-color-r", "border-color-b", "border-color-l"],
+      "border-color-x": ["border-color-r", "border-color-l"],
+      "border-color-y": ["border-color-t", "border-color-b"],
+      "scroll-m": ["scroll-mx", "scroll-my", "scroll-ms", "scroll-me", "scroll-mt", "scroll-mr", "scroll-mb", "scroll-ml"],
+      "scroll-mx": ["scroll-mr", "scroll-ml"],
+      "scroll-my": ["scroll-mt", "scroll-mb"],
+      "scroll-p": ["scroll-px", "scroll-py", "scroll-ps", "scroll-pe", "scroll-pt", "scroll-pr", "scroll-pb", "scroll-pl"],
+      "scroll-px": ["scroll-pr", "scroll-pl"],
+      "scroll-py": ["scroll-pt", "scroll-pb"]
+    },
+    conflictingClassGroupModifiers: {
+      "font-size": ["leading"]
+    }
+  };
+}
+function mergeConfigs(baseConfig, configExtension) {
+  for (var key in configExtension) {
+    mergePropertyRecursively(baseConfig, key, configExtension[key]);
+  }
+  return baseConfig;
+}
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var overrideTypes = /* @__PURE__ */ new Set(["string", "number", "boolean"]);
+function mergePropertyRecursively(baseObject, mergeKey, mergeValue) {
+  if (!hasOwnProperty.call(baseObject, mergeKey) || overrideTypes.has(typeof mergeValue) || mergeValue === null) {
+    baseObject[mergeKey] = mergeValue;
+    return;
+  }
+  if (Array.isArray(mergeValue) && Array.isArray(baseObject[mergeKey])) {
+    baseObject[mergeKey] = baseObject[mergeKey].concat(mergeValue);
+    return;
+  }
+  if (typeof mergeValue === "object" && typeof baseObject[mergeKey] === "object") {
+    if (baseObject[mergeKey] === null) {
+      baseObject[mergeKey] = mergeValue;
+      return;
+    }
+    for (var nextKey in mergeValue) {
+      mergePropertyRecursively(baseObject[mergeKey], nextKey, mergeValue[nextKey]);
+    }
+  }
+}
+function extendTailwindMerge(configExtension) {
+  for (var _len = arguments.length, createConfig = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    createConfig[_key - 1] = arguments[_key];
+  }
+  return typeof configExtension === "function" ? createTailwindMerge.apply(void 0, [getDefaultConfig, configExtension].concat(createConfig)) : createTailwindMerge.apply(void 0, [function() {
+    return mergeConfigs(getDefaultConfig(), configExtension);
+  }].concat(createConfig));
+}
+var twMerge = /* @__PURE__ */ createTailwindMerge(getDefaultConfig);
+var re$1 = { twMerge: true, twMergeConfig: {}, responsiveVariants: false }, Z$1 = (s2) => s2 || void 0, j$2 = (...s2) => Z$1(y$1(s2).filter(Boolean).join(" ")), R$1 = null, O$2 = {}, q$1 = false, w$2 = (...s2) => (d2) => d2.twMerge ? ((!R$1 || q$1) && (q$1 = false, R$1 = l$1(O$2) ? twMerge : extendTailwindMerge(O$2)), Z$1(R$1(j$2(s2)))) : j$2(s2), Y$2 = (s2, d2) => {
+  for (let e2 in d2)
+    s2.hasOwnProperty(e2) ? s2[e2] = j$2(s2[e2], d2[e2]) : s2[e2] = d2[e2];
+  return s2;
+}, se$1 = (s2, d2) => {
+  let { extend: e2 = null, slots: N2 = {}, variants: F2 = {}, compoundVariants: C2 = [], compoundSlots: V2 = [], defaultVariants: U2 = {} } = s2, m2 = { ...re$1, ...d2 }, M2 = e2 != null && e2.base ? j$2(e2.base, s2 == null ? void 0 : s2.base) : s2 == null ? void 0 : s2.base, g$12 = e2 != null && e2.variants && !l$1(e2.variants) ? p$2(F2, e2.variants) : F2, A2 = e2 != null && e2.defaultVariants && !l$1(e2.defaultVariants) ? { ...e2.defaultVariants, ...U2 } : U2;
+  !l$1(m2.twMergeConfig) && !u$2(m2.twMergeConfig, O$2) && (q$1 = true, O$2 = m2.twMergeConfig);
+  let $2 = l$1(N2) ? {} : { base: s2 == null ? void 0 : s2.base, ...N2 }, h$12 = l$1(e2 == null ? void 0 : e2.slots) ? $2 : Y$2({ ...e2 == null ? void 0 : e2.slots }, l$1($2) ? { base: s2 == null ? void 0 : s2.base } : $2), v2 = (l2) => {
+    if (l$1(g$12) && l$1(N2) && l$1(e2 == null ? void 0 : e2.slots))
+      return w$2(M2, l2 == null ? void 0 : l2.class, l2 == null ? void 0 : l2.className)(m2);
+    if (C2 && !Array.isArray(C2))
+      throw new TypeError(`The "compoundVariants" prop must be an array. Received: ${typeof C2}`);
+    if (V2 && !Array.isArray(V2))
+      throw new TypeError(`The "compoundSlots" prop must be an array. Received: ${typeof V2}`);
+    let K2 = (t2, n2, a2 = [], i2) => {
+      let r2 = a2;
+      if (typeof n2 == "string")
+        r2 = r2.concat(k$1(n2).split(" ").map((c2) => `${t2}:${c2}`));
+      else if (Array.isArray(n2))
+        r2 = r2.concat(n2.reduce((c2, f2) => c2.concat(`${t2}:${f2}`), []));
+      else if (typeof n2 == "object" && typeof i2 == "string") {
+        for (let c2 in n2)
+          if (n2.hasOwnProperty(c2) && c2 === i2) {
+            let f2 = n2[c2];
+            if (f2 && typeof f2 == "string") {
+              let o2 = k$1(f2);
+              r2[i2] ? r2[i2] = r2[i2].concat(o2.split(" ").map((u2) => `${t2}:${u2}`)) : r2[i2] = o2.split(" ").map((u2) => `${t2}:${u2}`);
+            } else
+              Array.isArray(f2) && f2.length > 0 && (r2[i2] = f2.reduce((o2, u2) => o2.concat(`${t2}:${u2}`), []));
+          }
+      }
+      return r2;
+    }, W2 = (t2, n2 = g$12, a$1$1 = null, i2 = null) => {
+      var I2;
+      let r2 = n2[t2];
+      if (!r2 || l$1(r2))
+        return null;
+      let c2 = (I2 = i2 == null ? void 0 : i2[t2]) != null ? I2 : l2 == null ? void 0 : l2[t2];
+      if (c2 === null)
+        return null;
+      let f2 = a$1(c2), o2 = Array.isArray(m2.responsiveVariants) && m2.responsiveVariants.length > 0 || m2.responsiveVariants === true, u2 = A2 == null ? void 0 : A2[t2], b$12 = [];
+      if (typeof f2 == "object" && o2)
+        for (let [T2, J2] of Object.entries(f2)) {
+          let te2 = r2[J2];
+          if (T2 === "initial") {
+            u2 = J2;
+            continue;
+          }
+          Array.isArray(m2.responsiveVariants) && !m2.responsiveVariants.includes(T2) || (b$12 = K2(T2, te2, b$12, a$1$1));
+        }
+      let S2 = r2[f2] || r2[a$1(u2)];
+      return typeof b$12 == "object" && typeof a$1$1 == "string" && b$12[a$1$1] ? Y$2(b$12, S2) : b$12.length > 0 ? (b$12.push(S2), b$12) : S2;
+    }, x2 = () => g$12 ? Object.keys(g$12).map((t2) => W2(t2, g$12)) : null, P2 = (t2, n2) => {
+      if (!g$12 || typeof g$12 != "object")
+        return null;
+      let a2 = new Array();
+      for (let i2 in g$12) {
+        let r2 = W2(i2, g$12, t2, n2), c2 = t2 === "base" && typeof r2 == "string" ? r2 : r2 && r2[t2];
+        c2 && (a2[a2.length] = c2);
+      }
+      return a2;
+    }, z2 = {};
+    for (let t2 in l2)
+      l2[t2] !== void 0 && (z2[t2] = l2[t2]);
+    let D2 = (t2, n2) => {
+      var i2;
+      let a2 = typeof (l2 == null ? void 0 : l2[t2]) == "object" ? { [t2]: (i2 = l2[t2]) == null ? void 0 : i2.initial } : {};
+      return { ...A2, ...z2, ...a2, ...n2 };
+    }, G2 = (t2 = [], n2) => {
+      let a2 = [];
+      for (let { class: i2, className: r2, ...c2 } of t2) {
+        let f2 = true;
+        for (let [o2, u2] of Object.entries(c2)) {
+          let b2 = D2(o2, n2);
+          if (Array.isArray(u2)) {
+            if (!u2.includes(b2[o2])) {
+              f2 = false;
+              break;
+            }
+          } else if (b2[o2] !== u2) {
+            f2 = false;
+            break;
+          }
+        }
+        f2 && (i2 && a2.push(i2), r2 && a2.push(r2));
+      }
+      return a2;
+    }, H2 = (t2) => {
+      let n2 = G2(C2, t2), a2 = G2(e2 == null ? void 0 : e2.compoundVariants, t2);
+      return g$2(a2, n2);
+    }, p2 = (t2) => {
+      let n2 = H2(t2);
+      if (!Array.isArray(n2))
+        return n2;
+      let a2 = {};
+      for (let i2 of n2)
+        if (typeof i2 == "string" && (a2.base = w$2(a2.base, i2)(m2)), typeof i2 == "object")
+          for (let [r2, c2] of Object.entries(i2))
+            a2[r2] = w$2(a2[r2], c2)(m2);
+      return a2;
+    }, ee2 = (t2) => {
+      if (V2.length < 1)
+        return null;
+      let n2 = {};
+      for (let { slots: a2 = [], class: i2, className: r2, ...c2 } of V2) {
+        if (!l$1(c2)) {
+          let f2 = true;
+          for (let o2 of Object.keys(c2)) {
+            let u2 = D2(o2, t2)[o2];
+            if (u2 === void 0 || (Array.isArray(c2[o2]) ? !c2[o2].includes(u2) : c2[o2] !== u2)) {
+              f2 = false;
+              break;
+            }
+          }
+          if (!f2)
+            continue;
+        }
+        for (let f2 of a2)
+          n2[f2] = n2[f2] || [], n2[f2].push([i2, r2]);
+      }
+      return n2;
+    };
+    if (!l$1(N2) || !l$1(e2 == null ? void 0 : e2.slots)) {
+      let t2 = {};
+      if (typeof h$12 == "object" && !l$1(h$12))
+        for (let n2 of Object.keys(h$12))
+          t2[n2] = (a2) => {
+            var i2, r2;
+            return w$2(h$12[n2], P2(n2, a2), ((i2 = p2(a2)) != null ? i2 : [])[n2], ((r2 = ee2(a2)) != null ? r2 : [])[n2], a2 == null ? void 0 : a2.class, a2 == null ? void 0 : a2.className)(m2);
+          };
+      return t2;
+    }
+    return w$2(M2, x2(), H2(), l2 == null ? void 0 : l2.class, l2 == null ? void 0 : l2.className)(m2);
+  }, _2 = () => {
+    if (!(!g$12 || typeof g$12 != "object"))
+      return Object.keys(g$12);
+  };
+  return v2.variantKeys = _2(), v2.extend = e2, v2.base = M2, v2.slots = h$12, v2.variants = g$12, v2.defaultVariants = A2, v2.compoundSlots = V2, v2.compoundVariants = C2, v2;
+}, fe$1 = (s2) => (d2, e2) => se$1(d2, e2 ? p$2(s2, e2) : s2);
+var COMMON_UNITS = ["small", "medium", "large"];
+var tv = fe$1({
+  twMerge: true,
+  twMergeConfig: {
+    theme: {
+      opacity: ["disabled"],
+      spacing: ["divider", "unit", ...mappedSpacingScaleKeys],
+      borderWidth: COMMON_UNITS,
+      borderRadius: COMMON_UNITS
+    },
+    classGroups: {
+      shadow: [{ shadow: COMMON_UNITS }],
+      "font-size": [{ text: ["tiny", ...COMMON_UNITS] }],
+      "bg-image": ["bg-stripe-gradient"],
+      "min-w": [
+        {
+          "min-w": ["unit", ...mappedSpacingScaleKeys]
+        }
+      ],
+      "min-h": [
+        {
+          "min-h": ["unit", ...mappedSpacingScaleKeys]
+        }
+      ]
+    }
+  }
+});
+var spinner = tv({
+  slots: {
+    base: "relative inline-flex flex-col gap-2 items-center justify-center",
+    wrapper: "relative flex",
+    circle1: [
+      "absolute",
+      "w-full",
+      "h-full",
+      "rounded-full",
+      "animate-spinner-ease-spin",
+      "border-2",
+      "border-solid",
+      "border-t-transparent",
+      "border-l-transparent",
+      "border-r-transparent"
+    ],
+    circle2: [
+      "absolute",
+      "w-full",
+      "h-full",
+      "rounded-full",
+      "opacity-75",
+      "animate-spinner-linear-spin",
+      "border-2",
+      "border-dotted",
+      "border-t-transparent",
+      "border-l-transparent",
+      "border-r-transparent"
+    ],
+    label: "text-foreground dark:text-foreground-dark font-regular"
+  },
+  variants: {
+    size: {
+      sm: {
+        wrapper: "w-5 h-5",
+        circle1: "border-2",
+        circle2: "border-2",
+        label: "text-small"
+      },
+      md: {
+        wrapper: "w-8 h-8",
+        circle1: "border-3",
+        circle2: "border-3",
+        label: "text-medium"
+      },
+      lg: {
+        wrapper: "w-10 h-10",
+        circle1: "border-3",
+        circle2: "border-3",
+        label: "text-large"
+      }
+    },
+    color: {
+      current: {
+        circle1: "border-b-current",
+        circle2: "border-b-current"
+      },
+      white: {
+        circle1: "border-b-white",
+        circle2: "border-b-white"
+      },
+      default: {
+        circle1: "border-b-default",
+        circle2: "border-b-default"
+      },
+      primary: {
+        circle1: "border-b-primary",
+        circle2: "border-b-primary"
+      },
+      secondary: {
+        circle1: "border-b-secondary",
+        circle2: "border-b-secondary"
+      },
+      success: {
+        circle1: "border-b-success",
+        circle2: "border-b-success"
+      },
+      warning: {
+        circle1: "border-b-warning",
+        circle2: "border-b-warning"
+      },
+      danger: {
+        circle1: "border-b-danger",
+        circle2: "border-b-danger"
+      }
+    },
+    labelColor: {
+      foreground: {
+        label: "text-foreground"
+      },
+      primary: {
+        label: "text-primary"
+      },
+      secondary: {
+        label: "text-secondary"
+      },
+      success: {
+        label: "text-success"
+      },
+      warning: {
+        label: "text-warning"
+      },
+      danger: {
+        label: "text-danger"
+      }
+    }
+  },
+  defaultVariants: {
+    size: "md",
+    color: "primary",
+    labelColor: "foreground"
+  }
+});
+function toVal(mix2) {
+  var k2, y2, str = "";
+  if (typeof mix2 === "string" || typeof mix2 === "number") {
+    str += mix2;
+  } else if (typeof mix2 === "object") {
+    if (Array.isArray(mix2)) {
+      for (k2 = 0; k2 < mix2.length; k2++) {
+        if (mix2[k2]) {
+          if (y2 = toVal(mix2[k2])) {
+            str && (str += " ");
+            str += y2;
+          }
+        }
+      }
+    } else {
+      for (k2 in mix2) {
+        if (mix2[k2]) {
+          str && (str += " ");
+          str += k2;
+        }
+      }
+    }
+  }
+  return str;
+}
+function clsx(...args) {
+  var i2 = 0, tmp, x2, str = "";
+  while (i2 < args.length) {
+    if (tmp = args[i2++]) {
+      if (x2 = toVal(tmp)) {
+        str && (str += " ");
+        str += x2;
+      }
+    }
+  }
+  return str;
+}
+function useSpinner(originalProps) {
+  const [props, variantProps2] = mapPropsVariants(originalProps, spinner.variantKeys);
+  const { children, className, classNames: classNames2, label: labelProp, ...otherProps } = props;
+  const slots = reactExports.useMemo(() => spinner({ ...variantProps2 }), [...Object.values(variantProps2)]);
+  const baseStyles = clsx(classNames2 == null ? void 0 : classNames2.base, className);
+  const label = labelProp || children;
+  const ariaLabel = reactExports.useMemo(() => {
+    if (label && typeof label === "string") {
+      return label;
+    }
+    return !otherProps["aria-label"] ? "Loading" : "";
+  }, [children, label, otherProps["aria-label"]]);
+  const getSpinnerProps = reactExports.useCallback(
+    () => ({
+      "aria-label": ariaLabel,
+      className: slots.base({
+        class: baseStyles
+      }),
+      ...otherProps
+    }),
+    [ariaLabel, slots, baseStyles, otherProps]
+  );
+  return { label, slots, classNames: classNames2, getSpinnerProps };
+}
+var Spinner = forwardRef((props, ref) => {
+  const { slots, classNames: classNames2, label, getSpinnerProps } = useSpinner({ ...props });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref, ...getSpinnerProps(), children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: slots.wrapper({ class: classNames2 == null ? void 0 : classNames2.wrapper }), children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("i", { className: slots.circle1({ class: classNames2 == null ? void 0 : classNames2.circle1 }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("i", { className: slots.circle2({ class: classNames2 == null ? void 0 : classNames2.circle2 }) })
+    ] }),
+    label && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: slots.label(), children: label })
+  ] });
+});
+Spinner.displayName = "NextUI.Spinner";
+var spinner_default = Spinner;
+var hammer = { exports: {} };
+/*! Hammer.JS - v2.0.7 - 2016-04-22
+ * http://hammerjs.github.io/
+ *
+ * Copyright (c) 2016 Jorik Tangelder;
+ * Licensed under the MIT license */
+(function(module) {
+  (function(window2, document2, exportName, undefined$1) {
+    var VENDOR_PREFIXES = ["", "webkit", "Moz", "MS", "ms", "o"];
+    var TEST_ELEMENT = document2.createElement("div");
+    var TYPE_FUNCTION = "function";
+    var round = Math.round;
+    var abs2 = Math.abs;
+    var now = Date.now;
+    function setTimeoutContext(fn, timeout, context) {
+      return setTimeout(bindFn(fn, context), timeout);
+    }
+    function invokeArrayArg(arg, fn, context) {
+      if (Array.isArray(arg)) {
+        each2(arg, context[fn], context);
+        return true;
+      }
+      return false;
+    }
+    function each2(obj, iterator, context) {
+      var i2;
+      if (!obj) {
+        return;
+      }
+      if (obj.forEach) {
+        obj.forEach(iterator, context);
+      } else if (obj.length !== undefined$1) {
+        i2 = 0;
+        while (i2 < obj.length) {
+          iterator.call(context, obj[i2], i2, obj);
+          i2++;
+        }
+      } else {
+        for (i2 in obj) {
+          obj.hasOwnProperty(i2) && iterator.call(context, obj[i2], i2, obj);
+        }
+      }
+    }
+    function deprecate(method, name, message) {
+      var deprecationMessage = "DEPRECATED METHOD: " + name + "\n" + message + " AT \n";
+      return function() {
+        var e2 = new Error("get-stack-trace");
+        var stack = e2 && e2.stack ? e2.stack.replace(/^[^\(]+?[\n$]/gm, "").replace(/^\s+at\s+/gm, "").replace(/^Object.<anonymous>\s*\(/gm, "{anonymous}()@") : "Unknown Stack Trace";
+        var log = window2.console && (window2.console.warn || window2.console.log);
+        if (log) {
+          log.call(window2.console, deprecationMessage, stack);
+        }
+        return method.apply(this, arguments);
+      };
+    }
+    var assign2;
+    if (typeof Object.assign !== "function") {
+      assign2 = function assign3(target) {
+        if (target === undefined$1 || target === null) {
+          throw new TypeError("Cannot convert undefined or null to object");
+        }
+        var output = Object(target);
+        for (var index2 = 1; index2 < arguments.length; index2++) {
+          var source = arguments[index2];
+          if (source !== undefined$1 && source !== null) {
+            for (var nextKey in source) {
+              if (source.hasOwnProperty(nextKey)) {
+                output[nextKey] = source[nextKey];
+              }
+            }
+          }
+        }
+        return output;
+      };
+    } else {
+      assign2 = Object.assign;
+    }
+    var extend2 = deprecate(function extend3(dest, src, merge3) {
+      var keys2 = Object.keys(src);
+      var i2 = 0;
+      while (i2 < keys2.length) {
+        if (!merge3 || merge3 && dest[keys2[i2]] === undefined$1) {
+          dest[keys2[i2]] = src[keys2[i2]];
+        }
+        i2++;
+      }
+      return dest;
+    }, "extend", "Use `assign`.");
+    var merge2 = deprecate(function merge3(dest, src) {
+      return extend2(dest, src, true);
+    }, "merge", "Use `assign`.");
+    function inherit(child, base, properties) {
+      var baseP = base.prototype, childP;
+      childP = child.prototype = Object.create(baseP);
+      childP.constructor = child;
+      childP._super = baseP;
+      if (properties) {
+        assign2(childP, properties);
+      }
+    }
+    function bindFn(fn, context) {
+      return function boundFn() {
+        return fn.apply(context, arguments);
+      };
+    }
+    function boolOrFn(val, args) {
+      if (typeof val == TYPE_FUNCTION) {
+        return val.apply(args ? args[0] || undefined$1 : undefined$1, args);
+      }
+      return val;
+    }
+    function ifUndefined(val1, val2) {
+      return val1 === undefined$1 ? val2 : val1;
+    }
+    function addEventListeners(target, types2, handler) {
+      each2(splitStr(types2), function(type) {
+        target.addEventListener(type, handler, false);
+      });
+    }
+    function removeEventListeners(target, types2, handler) {
+      each2(splitStr(types2), function(type) {
+        target.removeEventListener(type, handler, false);
+      });
+    }
+    function hasParent(node2, parent) {
+      while (node2) {
+        if (node2 == parent) {
+          return true;
+        }
+        node2 = node2.parentNode;
+      }
+      return false;
+    }
+    function inStr(str, find) {
+      return str.indexOf(find) > -1;
+    }
+    function splitStr(str) {
+      return str.trim().split(/\s+/g);
+    }
+    function inArray(src, find, findByKey) {
+      if (src.indexOf && !findByKey) {
+        return src.indexOf(find);
+      } else {
+        var i2 = 0;
+        while (i2 < src.length) {
+          if (findByKey && src[i2][findByKey] == find || !findByKey && src[i2] === find) {
+            return i2;
+          }
+          i2++;
+        }
+        return -1;
+      }
+    }
+    function toArray2(obj) {
+      return Array.prototype.slice.call(obj, 0);
+    }
+    function uniqueArray(src, key, sort) {
+      var results = [];
+      var values = [];
+      var i2 = 0;
+      while (i2 < src.length) {
+        var val = key ? src[i2][key] : src[i2];
+        if (inArray(values, val) < 0) {
+          results.push(src[i2]);
+        }
+        values[i2] = val;
+        i2++;
+      }
+      if (sort) {
+        if (!key) {
+          results = results.sort();
+        } else {
+          results = results.sort(function sortUniqueArray(a2, b2) {
+            return a2[key] > b2[key];
+          });
+        }
+      }
+      return results;
+    }
+    function prefixed(obj, property) {
+      var prefix2, prop;
+      var camelProp = property[0].toUpperCase() + property.slice(1);
+      var i2 = 0;
+      while (i2 < VENDOR_PREFIXES.length) {
+        prefix2 = VENDOR_PREFIXES[i2];
+        prop = prefix2 ? prefix2 + camelProp : property;
+        if (prop in obj) {
+          return prop;
+        }
+        i2++;
+      }
+      return undefined$1;
+    }
+    var _uniqueId = 1;
+    function uniqueId() {
+      return _uniqueId++;
+    }
+    function getWindowForElement(element) {
+      var doc = element.ownerDocument || element;
+      return doc.defaultView || doc.parentWindow || window2;
+    }
+    var MOBILE_REGEX = /mobile|tablet|ip(ad|hone|od)|android/i;
+    var SUPPORT_TOUCH = "ontouchstart" in window2;
+    var SUPPORT_POINTER_EVENTS = prefixed(window2, "PointerEvent") !== undefined$1;
+    var SUPPORT_ONLY_TOUCH = SUPPORT_TOUCH && MOBILE_REGEX.test(navigator.userAgent);
+    var INPUT_TYPE_TOUCH = "touch";
+    var INPUT_TYPE_PEN = "pen";
+    var INPUT_TYPE_MOUSE = "mouse";
+    var INPUT_TYPE_KINECT = "kinect";
+    var COMPUTE_INTERVAL = 25;
+    var INPUT_START = 1;
+    var INPUT_MOVE = 2;
+    var INPUT_END = 4;
+    var INPUT_CANCEL = 8;
+    var DIRECTION_NONE = 1;
+    var DIRECTION_LEFT = 2;
+    var DIRECTION_RIGHT = 4;
+    var DIRECTION_UP = 8;
+    var DIRECTION_DOWN = 16;
+    var DIRECTION_HORIZONTAL = DIRECTION_LEFT | DIRECTION_RIGHT;
+    var DIRECTION_VERTICAL = DIRECTION_UP | DIRECTION_DOWN;
+    var DIRECTION_ALL = DIRECTION_HORIZONTAL | DIRECTION_VERTICAL;
+    var PROPS_XY = ["x", "y"];
+    var PROPS_CLIENT_XY = ["clientX", "clientY"];
+    function Input3(manager, callback) {
+      var self2 = this;
+      this.manager = manager;
+      this.callback = callback;
+      this.element = manager.element;
+      this.target = manager.options.inputTarget;
+      this.domHandler = function(ev) {
+        if (boolOrFn(manager.options.enable, [manager])) {
+          self2.handler(ev);
+        }
+      };
+      this.init();
+    }
+    Input3.prototype = {
+      /**
+       * should handle the inputEvent data and trigger the callback
+       * @virtual
+       */
+      handler: function() {
+      },
+      /**
+       * bind the events
+       */
+      init: function() {
+        this.evEl && addEventListeners(this.element, this.evEl, this.domHandler);
+        this.evTarget && addEventListeners(this.target, this.evTarget, this.domHandler);
+        this.evWin && addEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+      },
+      /**
+       * unbind the events
+       */
+      destroy: function() {
+        this.evEl && removeEventListeners(this.element, this.evEl, this.domHandler);
+        this.evTarget && removeEventListeners(this.target, this.evTarget, this.domHandler);
+        this.evWin && removeEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+      }
+    };
+    function createInputInstance(manager) {
+      var Type;
+      var inputClass = manager.options.inputClass;
+      if (inputClass) {
+        Type = inputClass;
+      } else if (SUPPORT_POINTER_EVENTS) {
+        Type = PointerEventInput;
+      } else if (SUPPORT_ONLY_TOUCH) {
+        Type = TouchInput;
+      } else if (!SUPPORT_TOUCH) {
+        Type = MouseInput;
+      } else {
+        Type = TouchMouseInput;
+      }
+      return new Type(manager, inputHandler);
+    }
+    function inputHandler(manager, eventType, input) {
+      var pointersLen = input.pointers.length;
+      var changedPointersLen = input.changedPointers.length;
+      var isFirst = eventType & INPUT_START && pointersLen - changedPointersLen === 0;
+      var isFinal = eventType & (INPUT_END | INPUT_CANCEL) && pointersLen - changedPointersLen === 0;
+      input.isFirst = !!isFirst;
+      input.isFinal = !!isFinal;
+      if (isFirst) {
+        manager.session = {};
+      }
+      input.eventType = eventType;
+      computeInputData(manager, input);
+      manager.emit("hammer.input", input);
+      manager.recognize(input);
+      manager.session.prevInput = input;
+    }
+    function computeInputData(manager, input) {
+      var session = manager.session;
+      var pointers = input.pointers;
+      var pointersLength = pointers.length;
+      if (!session.firstInput) {
+        session.firstInput = simpleCloneInputData(input);
+      }
+      if (pointersLength > 1 && !session.firstMultiple) {
+        session.firstMultiple = simpleCloneInputData(input);
+      } else if (pointersLength === 1) {
+        session.firstMultiple = false;
+      }
+      var firstInput = session.firstInput;
+      var firstMultiple = session.firstMultiple;
+      var offsetCenter = firstMultiple ? firstMultiple.center : firstInput.center;
+      var center = input.center = getCenter(pointers);
+      input.timeStamp = now();
+      input.deltaTime = input.timeStamp - firstInput.timeStamp;
+      input.angle = getAngle(offsetCenter, center);
+      input.distance = getDistance(offsetCenter, center);
+      computeDeltaXY(session, input);
+      input.offsetDirection = getDirection(input.deltaX, input.deltaY);
+      var overallVelocity = getVelocity2(input.deltaTime, input.deltaX, input.deltaY);
+      input.overallVelocityX = overallVelocity.x;
+      input.overallVelocityY = overallVelocity.y;
+      input.overallVelocity = abs2(overallVelocity.x) > abs2(overallVelocity.y) ? overallVelocity.x : overallVelocity.y;
+      input.scale = firstMultiple ? getScale(firstMultiple.pointers, pointers) : 1;
+      input.rotation = firstMultiple ? getRotation(firstMultiple.pointers, pointers) : 0;
+      input.maxPointers = !session.prevInput ? input.pointers.length : input.pointers.length > session.prevInput.maxPointers ? input.pointers.length : session.prevInput.maxPointers;
+      computeIntervalInputData(session, input);
+      var target = manager.element;
+      if (hasParent(input.srcEvent.target, target)) {
+        target = input.srcEvent.target;
+      }
+      input.target = target;
+    }
+    function computeDeltaXY(session, input) {
+      var center = input.center;
+      var offset = session.offsetDelta || {};
+      var prevDelta = session.prevDelta || {};
+      var prevInput = session.prevInput || {};
+      if (input.eventType === INPUT_START || prevInput.eventType === INPUT_END) {
+        prevDelta = session.prevDelta = {
+          x: prevInput.deltaX || 0,
+          y: prevInput.deltaY || 0
+        };
+        offset = session.offsetDelta = {
+          x: center.x,
+          y: center.y
+        };
+      }
+      input.deltaX = prevDelta.x + (center.x - offset.x);
+      input.deltaY = prevDelta.y + (center.y - offset.y);
+    }
+    function computeIntervalInputData(session, input) {
+      var last = session.lastInterval || input, deltaTime = input.timeStamp - last.timeStamp, velocity, velocityX, velocityY, direction2;
+      if (input.eventType != INPUT_CANCEL && (deltaTime > COMPUTE_INTERVAL || last.velocity === undefined$1)) {
+        var deltaX = input.deltaX - last.deltaX;
+        var deltaY = input.deltaY - last.deltaY;
+        var v2 = getVelocity2(deltaTime, deltaX, deltaY);
+        velocityX = v2.x;
+        velocityY = v2.y;
+        velocity = abs2(v2.x) > abs2(v2.y) ? v2.x : v2.y;
+        direction2 = getDirection(deltaX, deltaY);
+        session.lastInterval = input;
+      } else {
+        velocity = last.velocity;
+        velocityX = last.velocityX;
+        velocityY = last.velocityY;
+        direction2 = last.direction;
+      }
+      input.velocity = velocity;
+      input.velocityX = velocityX;
+      input.velocityY = velocityY;
+      input.direction = direction2;
+    }
+    function simpleCloneInputData(input) {
+      var pointers = [];
+      var i2 = 0;
+      while (i2 < input.pointers.length) {
+        pointers[i2] = {
+          clientX: round(input.pointers[i2].clientX),
+          clientY: round(input.pointers[i2].clientY)
+        };
+        i2++;
+      }
+      return {
+        timeStamp: now(),
+        pointers,
+        center: getCenter(pointers),
+        deltaX: input.deltaX,
+        deltaY: input.deltaY
+      };
+    }
+    function getCenter(pointers) {
+      var pointersLength = pointers.length;
+      if (pointersLength === 1) {
+        return {
+          x: round(pointers[0].clientX),
+          y: round(pointers[0].clientY)
+        };
+      }
+      var x2 = 0, y2 = 0, i2 = 0;
+      while (i2 < pointersLength) {
+        x2 += pointers[i2].clientX;
+        y2 += pointers[i2].clientY;
+        i2++;
+      }
+      return {
+        x: round(x2 / pointersLength),
+        y: round(y2 / pointersLength)
+      };
+    }
+    function getVelocity2(deltaTime, x2, y2) {
+      return {
+        x: x2 / deltaTime || 0,
+        y: y2 / deltaTime || 0
+      };
+    }
+    function getDirection(x2, y2) {
+      if (x2 === y2) {
+        return DIRECTION_NONE;
+      }
+      if (abs2(x2) >= abs2(y2)) {
+        return x2 < 0 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+      }
+      return y2 < 0 ? DIRECTION_UP : DIRECTION_DOWN;
+    }
+    function getDistance(p1, p2, props) {
+      if (!props) {
+        props = PROPS_XY;
+      }
+      var x2 = p2[props[0]] - p1[props[0]], y2 = p2[props[1]] - p1[props[1]];
+      return Math.sqrt(x2 * x2 + y2 * y2);
+    }
+    function getAngle(p1, p2, props) {
+      if (!props) {
+        props = PROPS_XY;
+      }
+      var x2 = p2[props[0]] - p1[props[0]], y2 = p2[props[1]] - p1[props[1]];
+      return Math.atan2(y2, x2) * 180 / Math.PI;
+    }
+    function getRotation(start, end) {
+      return getAngle(end[1], end[0], PROPS_CLIENT_XY) + getAngle(start[1], start[0], PROPS_CLIENT_XY);
+    }
+    function getScale(start, end) {
+      return getDistance(end[0], end[1], PROPS_CLIENT_XY) / getDistance(start[0], start[1], PROPS_CLIENT_XY);
+    }
+    var MOUSE_INPUT_MAP = {
+      mousedown: INPUT_START,
+      mousemove: INPUT_MOVE,
+      mouseup: INPUT_END
+    };
+    var MOUSE_ELEMENT_EVENTS = "mousedown";
+    var MOUSE_WINDOW_EVENTS = "mousemove mouseup";
+    function MouseInput() {
+      this.evEl = MOUSE_ELEMENT_EVENTS;
+      this.evWin = MOUSE_WINDOW_EVENTS;
+      this.pressed = false;
+      Input3.apply(this, arguments);
+    }
+    inherit(MouseInput, Input3, {
+      /**
+       * handle mouse events
+       * @param {Object} ev
+       */
+      handler: function MEhandler(ev) {
+        var eventType = MOUSE_INPUT_MAP[ev.type];
+        if (eventType & INPUT_START && ev.button === 0) {
+          this.pressed = true;
+        }
+        if (eventType & INPUT_MOVE && ev.which !== 1) {
+          eventType = INPUT_END;
+        }
+        if (!this.pressed) {
+          return;
+        }
+        if (eventType & INPUT_END) {
+          this.pressed = false;
+        }
+        this.callback(this.manager, eventType, {
+          pointers: [ev],
+          changedPointers: [ev],
+          pointerType: INPUT_TYPE_MOUSE,
+          srcEvent: ev
+        });
+      }
+    });
+    var POINTER_INPUT_MAP = {
+      pointerdown: INPUT_START,
+      pointermove: INPUT_MOVE,
+      pointerup: INPUT_END,
+      pointercancel: INPUT_CANCEL,
+      pointerout: INPUT_CANCEL
+    };
+    var IE10_POINTER_TYPE_ENUM = {
+      2: INPUT_TYPE_TOUCH,
+      3: INPUT_TYPE_PEN,
+      4: INPUT_TYPE_MOUSE,
+      5: INPUT_TYPE_KINECT
+      // see https://twitter.com/jacobrossi/status/480596438489890816
+    };
+    var POINTER_ELEMENT_EVENTS = "pointerdown";
+    var POINTER_WINDOW_EVENTS = "pointermove pointerup pointercancel";
+    if (window2.MSPointerEvent && !window2.PointerEvent) {
+      POINTER_ELEMENT_EVENTS = "MSPointerDown";
+      POINTER_WINDOW_EVENTS = "MSPointerMove MSPointerUp MSPointerCancel";
+    }
+    function PointerEventInput() {
+      this.evEl = POINTER_ELEMENT_EVENTS;
+      this.evWin = POINTER_WINDOW_EVENTS;
+      Input3.apply(this, arguments);
+      this.store = this.manager.session.pointerEvents = [];
+    }
+    inherit(PointerEventInput, Input3, {
+      /**
+       * handle mouse events
+       * @param {Object} ev
+       */
+      handler: function PEhandler(ev) {
+        var store = this.store;
+        var removePointer = false;
+        var eventTypeNormalized = ev.type.toLowerCase().replace("ms", "");
+        var eventType = POINTER_INPUT_MAP[eventTypeNormalized];
+        var pointerType = IE10_POINTER_TYPE_ENUM[ev.pointerType] || ev.pointerType;
+        var isTouch = pointerType == INPUT_TYPE_TOUCH;
+        var storeIndex = inArray(store, ev.pointerId, "pointerId");
+        if (eventType & INPUT_START && (ev.button === 0 || isTouch)) {
+          if (storeIndex < 0) {
+            store.push(ev);
+            storeIndex = store.length - 1;
+          }
+        } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+          removePointer = true;
+        }
+        if (storeIndex < 0) {
+          return;
+        }
+        store[storeIndex] = ev;
+        this.callback(this.manager, eventType, {
+          pointers: store,
+          changedPointers: [ev],
+          pointerType,
+          srcEvent: ev
+        });
+        if (removePointer) {
+          store.splice(storeIndex, 1);
+        }
+      }
+    });
+    var SINGLE_TOUCH_INPUT_MAP = {
+      touchstart: INPUT_START,
+      touchmove: INPUT_MOVE,
+      touchend: INPUT_END,
+      touchcancel: INPUT_CANCEL
+    };
+    var SINGLE_TOUCH_TARGET_EVENTS = "touchstart";
+    var SINGLE_TOUCH_WINDOW_EVENTS = "touchstart touchmove touchend touchcancel";
+    function SingleTouchInput() {
+      this.evTarget = SINGLE_TOUCH_TARGET_EVENTS;
+      this.evWin = SINGLE_TOUCH_WINDOW_EVENTS;
+      this.started = false;
+      Input3.apply(this, arguments);
+    }
+    inherit(SingleTouchInput, Input3, {
+      handler: function TEhandler(ev) {
+        var type = SINGLE_TOUCH_INPUT_MAP[ev.type];
+        if (type === INPUT_START) {
+          this.started = true;
+        }
+        if (!this.started) {
+          return;
+        }
+        var touches = normalizeSingleTouches.call(this, ev, type);
+        if (type & (INPUT_END | INPUT_CANCEL) && touches[0].length - touches[1].length === 0) {
+          this.started = false;
+        }
+        this.callback(this.manager, type, {
+          pointers: touches[0],
+          changedPointers: touches[1],
+          pointerType: INPUT_TYPE_TOUCH,
+          srcEvent: ev
+        });
+      }
+    });
+    function normalizeSingleTouches(ev, type) {
+      var all2 = toArray2(ev.touches);
+      var changed = toArray2(ev.changedTouches);
+      if (type & (INPUT_END | INPUT_CANCEL)) {
+        all2 = uniqueArray(all2.concat(changed), "identifier", true);
+      }
+      return [all2, changed];
+    }
+    var TOUCH_INPUT_MAP = {
+      touchstart: INPUT_START,
+      touchmove: INPUT_MOVE,
+      touchend: INPUT_END,
+      touchcancel: INPUT_CANCEL
+    };
+    var TOUCH_TARGET_EVENTS = "touchstart touchmove touchend touchcancel";
+    function TouchInput() {
+      this.evTarget = TOUCH_TARGET_EVENTS;
+      this.targetIds = {};
+      Input3.apply(this, arguments);
+    }
+    inherit(TouchInput, Input3, {
+      handler: function MTEhandler(ev) {
+        var type = TOUCH_INPUT_MAP[ev.type];
+        var touches = getTouches.call(this, ev, type);
+        if (!touches) {
+          return;
+        }
+        this.callback(this.manager, type, {
+          pointers: touches[0],
+          changedPointers: touches[1],
+          pointerType: INPUT_TYPE_TOUCH,
+          srcEvent: ev
+        });
+      }
+    });
+    function getTouches(ev, type) {
+      var allTouches = toArray2(ev.touches);
+      var targetIds = this.targetIds;
+      if (type & (INPUT_START | INPUT_MOVE) && allTouches.length === 1) {
+        targetIds[allTouches[0].identifier] = true;
+        return [allTouches, allTouches];
+      }
+      var i2, targetTouches, changedTouches = toArray2(ev.changedTouches), changedTargetTouches = [], target = this.target;
+      targetTouches = allTouches.filter(function(touch) {
+        return hasParent(touch.target, target);
+      });
+      if (type === INPUT_START) {
+        i2 = 0;
+        while (i2 < targetTouches.length) {
+          targetIds[targetTouches[i2].identifier] = true;
+          i2++;
+        }
+      }
+      i2 = 0;
+      while (i2 < changedTouches.length) {
+        if (targetIds[changedTouches[i2].identifier]) {
+          changedTargetTouches.push(changedTouches[i2]);
+        }
+        if (type & (INPUT_END | INPUT_CANCEL)) {
+          delete targetIds[changedTouches[i2].identifier];
+        }
+        i2++;
+      }
+      if (!changedTargetTouches.length) {
+        return;
+      }
+      return [
+        // merge targetTouches with changedTargetTouches so it contains ALL touches, including 'end' and 'cancel'
+        uniqueArray(targetTouches.concat(changedTargetTouches), "identifier", true),
+        changedTargetTouches
+      ];
+    }
+    var DEDUP_TIMEOUT = 2500;
+    var DEDUP_DISTANCE = 25;
+    function TouchMouseInput() {
+      Input3.apply(this, arguments);
+      var handler = bindFn(this.handler, this);
+      this.touch = new TouchInput(this.manager, handler);
+      this.mouse = new MouseInput(this.manager, handler);
+      this.primaryTouch = null;
+      this.lastTouches = [];
+    }
+    inherit(TouchMouseInput, Input3, {
+      /**
+       * handle mouse and touch events
+       * @param {Hammer} manager
+       * @param {String} inputEvent
+       * @param {Object} inputData
+       */
+      handler: function TMEhandler(manager, inputEvent, inputData) {
+        var isTouch = inputData.pointerType == INPUT_TYPE_TOUCH, isMouse = inputData.pointerType == INPUT_TYPE_MOUSE;
+        if (isMouse && inputData.sourceCapabilities && inputData.sourceCapabilities.firesTouchEvents) {
+          return;
+        }
+        if (isTouch) {
+          recordTouches.call(this, inputEvent, inputData);
+        } else if (isMouse && isSyntheticEvent.call(this, inputData)) {
+          return;
+        }
+        this.callback(manager, inputEvent, inputData);
+      },
+      /**
+       * remove the event listeners
+       */
+      destroy: function destroy() {
+        this.touch.destroy();
+        this.mouse.destroy();
+      }
+    });
+    function recordTouches(eventType, eventData) {
+      if (eventType & INPUT_START) {
+        this.primaryTouch = eventData.changedPointers[0].identifier;
+        setLastTouch.call(this, eventData);
+      } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+        setLastTouch.call(this, eventData);
+      }
+    }
+    function setLastTouch(eventData) {
+      var touch = eventData.changedPointers[0];
+      if (touch.identifier === this.primaryTouch) {
+        var lastTouch = { x: touch.clientX, y: touch.clientY };
+        this.lastTouches.push(lastTouch);
+        var lts = this.lastTouches;
+        var removeLastTouch = function() {
+          var i2 = lts.indexOf(lastTouch);
+          if (i2 > -1) {
+            lts.splice(i2, 1);
+          }
+        };
+        setTimeout(removeLastTouch, DEDUP_TIMEOUT);
+      }
+    }
+    function isSyntheticEvent(eventData) {
+      var x2 = eventData.srcEvent.clientX, y2 = eventData.srcEvent.clientY;
+      for (var i2 = 0; i2 < this.lastTouches.length; i2++) {
+        var t2 = this.lastTouches[i2];
+        var dx = Math.abs(x2 - t2.x), dy = Math.abs(y2 - t2.y);
+        if (dx <= DEDUP_DISTANCE && dy <= DEDUP_DISTANCE) {
+          return true;
+        }
+      }
+      return false;
+    }
+    var PREFIXED_TOUCH_ACTION = prefixed(TEST_ELEMENT.style, "touchAction");
+    var NATIVE_TOUCH_ACTION = PREFIXED_TOUCH_ACTION !== undefined$1;
+    var TOUCH_ACTION_COMPUTE = "compute";
+    var TOUCH_ACTION_AUTO = "auto";
+    var TOUCH_ACTION_MANIPULATION = "manipulation";
+    var TOUCH_ACTION_NONE = "none";
+    var TOUCH_ACTION_PAN_X = "pan-x";
+    var TOUCH_ACTION_PAN_Y = "pan-y";
+    var TOUCH_ACTION_MAP = getTouchActionProps();
+    function TouchAction(manager, value) {
+      this.manager = manager;
+      this.set(value);
+    }
+    TouchAction.prototype = {
+      /**
+       * set the touchAction value on the element or enable the polyfill
+       * @param {String} value
+       */
+      set: function(value) {
+        if (value == TOUCH_ACTION_COMPUTE) {
+          value = this.compute();
+        }
+        if (NATIVE_TOUCH_ACTION && this.manager.element.style && TOUCH_ACTION_MAP[value]) {
+          this.manager.element.style[PREFIXED_TOUCH_ACTION] = value;
+        }
+        this.actions = value.toLowerCase().trim();
+      },
+      /**
+       * just re-set the touchAction value
+       */
+      update: function() {
+        this.set(this.manager.options.touchAction);
+      },
+      /**
+       * compute the value for the touchAction property based on the recognizer's settings
+       * @returns {String} value
+       */
+      compute: function() {
+        var actions = [];
+        each2(this.manager.recognizers, function(recognizer) {
+          if (boolOrFn(recognizer.options.enable, [recognizer])) {
+            actions = actions.concat(recognizer.getTouchAction());
+          }
+        });
+        return cleanTouchActions(actions.join(" "));
+      },
+      /**
+       * this method is called on each input cycle and provides the preventing of the browser behavior
+       * @param {Object} input
+       */
+      preventDefaults: function(input) {
+        var srcEvent = input.srcEvent;
+        var direction2 = input.offsetDirection;
+        if (this.manager.session.prevented) {
+          srcEvent.preventDefault();
+          return;
+        }
+        var actions = this.actions;
+        var hasNone = inStr(actions, TOUCH_ACTION_NONE) && !TOUCH_ACTION_MAP[TOUCH_ACTION_NONE];
+        var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y) && !TOUCH_ACTION_MAP[TOUCH_ACTION_PAN_Y];
+        var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X) && !TOUCH_ACTION_MAP[TOUCH_ACTION_PAN_X];
+        if (hasNone) {
+          var isTapPointer = input.pointers.length === 1;
+          var isTapMovement = input.distance < 2;
+          var isTapTouchTime = input.deltaTime < 250;
+          if (isTapPointer && isTapMovement && isTapTouchTime) {
+            return;
+          }
+        }
+        if (hasPanX && hasPanY) {
+          return;
+        }
+        if (hasNone || hasPanY && direction2 & DIRECTION_HORIZONTAL || hasPanX && direction2 & DIRECTION_VERTICAL) {
+          return this.preventSrc(srcEvent);
+        }
+      },
+      /**
+       * call preventDefault to prevent the browser's default behavior (scrolling in most cases)
+       * @param {Object} srcEvent
+       */
+      preventSrc: function(srcEvent) {
+        this.manager.session.prevented = true;
+        srcEvent.preventDefault();
+      }
+    };
+    function cleanTouchActions(actions) {
+      if (inStr(actions, TOUCH_ACTION_NONE)) {
+        return TOUCH_ACTION_NONE;
+      }
+      var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X);
+      var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y);
+      if (hasPanX && hasPanY) {
+        return TOUCH_ACTION_NONE;
+      }
+      if (hasPanX || hasPanY) {
+        return hasPanX ? TOUCH_ACTION_PAN_X : TOUCH_ACTION_PAN_Y;
+      }
+      if (inStr(actions, TOUCH_ACTION_MANIPULATION)) {
+        return TOUCH_ACTION_MANIPULATION;
+      }
+      return TOUCH_ACTION_AUTO;
+    }
+    function getTouchActionProps() {
+      if (!NATIVE_TOUCH_ACTION) {
+        return false;
+      }
+      var touchMap = {};
+      var cssSupports = window2.CSS && window2.CSS.supports;
+      ["auto", "manipulation", "pan-y", "pan-x", "pan-x pan-y", "none"].forEach(function(val) {
+        touchMap[val] = cssSupports ? window2.CSS.supports("touch-action", val) : true;
+      });
+      return touchMap;
+    }
+    var STATE_POSSIBLE = 1;
+    var STATE_BEGAN = 2;
+    var STATE_CHANGED = 4;
+    var STATE_ENDED = 8;
+    var STATE_RECOGNIZED = STATE_ENDED;
+    var STATE_CANCELLED = 16;
+    var STATE_FAILED = 32;
+    function Recognizer(options) {
+      this.options = assign2({}, this.defaults, options || {});
+      this.id = uniqueId();
+      this.manager = null;
+      this.options.enable = ifUndefined(this.options.enable, true);
+      this.state = STATE_POSSIBLE;
+      this.simultaneous = {};
+      this.requireFail = [];
+    }
+    Recognizer.prototype = {
+      /**
+       * @virtual
+       * @type {Object}
+       */
+      defaults: {},
+      /**
+       * set options
+       * @param {Object} options
+       * @return {Recognizer}
+       */
+      set: function(options) {
+        assign2(this.options, options);
+        this.manager && this.manager.touchAction.update();
+        return this;
+      },
+      /**
+       * recognize simultaneous with an other recognizer.
+       * @param {Recognizer} otherRecognizer
+       * @returns {Recognizer} this
+       */
+      recognizeWith: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, "recognizeWith", this)) {
+          return this;
+        }
+        var simultaneous = this.simultaneous;
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        if (!simultaneous[otherRecognizer.id]) {
+          simultaneous[otherRecognizer.id] = otherRecognizer;
+          otherRecognizer.recognizeWith(this);
+        }
+        return this;
+      },
+      /**
+       * drop the simultaneous link. it doesnt remove the link on the other recognizer.
+       * @param {Recognizer} otherRecognizer
+       * @returns {Recognizer} this
+       */
+      dropRecognizeWith: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, "dropRecognizeWith", this)) {
+          return this;
+        }
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        delete this.simultaneous[otherRecognizer.id];
+        return this;
+      },
+      /**
+       * recognizer can only run when an other is failing
+       * @param {Recognizer} otherRecognizer
+       * @returns {Recognizer} this
+       */
+      requireFailure: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, "requireFailure", this)) {
+          return this;
+        }
+        var requireFail = this.requireFail;
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        if (inArray(requireFail, otherRecognizer) === -1) {
+          requireFail.push(otherRecognizer);
+          otherRecognizer.requireFailure(this);
+        }
+        return this;
+      },
+      /**
+       * drop the requireFailure link. it does not remove the link on the other recognizer.
+       * @param {Recognizer} otherRecognizer
+       * @returns {Recognizer} this
+       */
+      dropRequireFailure: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, "dropRequireFailure", this)) {
+          return this;
+        }
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        var index2 = inArray(this.requireFail, otherRecognizer);
+        if (index2 > -1) {
+          this.requireFail.splice(index2, 1);
+        }
+        return this;
+      },
+      /**
+       * has require failures boolean
+       * @returns {boolean}
+       */
+      hasRequireFailures: function() {
+        return this.requireFail.length > 0;
+      },
+      /**
+       * if the recognizer can recognize simultaneous with an other recognizer
+       * @param {Recognizer} otherRecognizer
+       * @returns {Boolean}
+       */
+      canRecognizeWith: function(otherRecognizer) {
+        return !!this.simultaneous[otherRecognizer.id];
+      },
+      /**
+       * You should use `tryEmit` instead of `emit` directly to check
+       * that all the needed recognizers has failed before emitting.
+       * @param {Object} input
+       */
+      emit: function(input) {
+        var self2 = this;
+        var state2 = this.state;
+        function emit(event) {
+          self2.manager.emit(event, input);
+        }
+        if (state2 < STATE_ENDED) {
+          emit(self2.options.event + stateStr(state2));
+        }
+        emit(self2.options.event);
+        if (input.additionalEvent) {
+          emit(input.additionalEvent);
+        }
+        if (state2 >= STATE_ENDED) {
+          emit(self2.options.event + stateStr(state2));
+        }
+      },
+      /**
+       * Check that all the require failure recognizers has failed,
+       * if true, it emits a gesture event,
+       * otherwise, setup the state to FAILED.
+       * @param {Object} input
+       */
+      tryEmit: function(input) {
+        if (this.canEmit()) {
+          return this.emit(input);
+        }
+        this.state = STATE_FAILED;
+      },
+      /**
+       * can we emit?
+       * @returns {boolean}
+       */
+      canEmit: function() {
+        var i2 = 0;
+        while (i2 < this.requireFail.length) {
+          if (!(this.requireFail[i2].state & (STATE_FAILED | STATE_POSSIBLE))) {
+            return false;
+          }
+          i2++;
+        }
+        return true;
+      },
+      /**
+       * update the recognizer
+       * @param {Object} inputData
+       */
+      recognize: function(inputData) {
+        var inputDataClone = assign2({}, inputData);
+        if (!boolOrFn(this.options.enable, [this, inputDataClone])) {
+          this.reset();
+          this.state = STATE_FAILED;
+          return;
+        }
+        if (this.state & (STATE_RECOGNIZED | STATE_CANCELLED | STATE_FAILED)) {
+          this.state = STATE_POSSIBLE;
+        }
+        this.state = this.process(inputDataClone);
+        if (this.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED | STATE_CANCELLED)) {
+          this.tryEmit(inputDataClone);
+        }
+      },
+      /**
+       * return the state of the recognizer
+       * the actual recognizing happens in this method
+       * @virtual
+       * @param {Object} inputData
+       * @returns {Const} STATE
+       */
+      process: function(inputData) {
+      },
+      // jshint ignore:line
+      /**
+       * return the preferred touch-action
+       * @virtual
+       * @returns {Array}
+       */
+      getTouchAction: function() {
+      },
+      /**
+       * called when the gesture isn't allowed to recognize
+       * like when another is being recognized or it is disabled
+       * @virtual
+       */
+      reset: function() {
+      }
+    };
+    function stateStr(state2) {
+      if (state2 & STATE_CANCELLED) {
+        return "cancel";
+      } else if (state2 & STATE_ENDED) {
+        return "end";
+      } else if (state2 & STATE_CHANGED) {
+        return "move";
+      } else if (state2 & STATE_BEGAN) {
+        return "start";
+      }
+      return "";
+    }
+    function directionStr(direction2) {
+      if (direction2 == DIRECTION_DOWN) {
+        return "down";
+      } else if (direction2 == DIRECTION_UP) {
+        return "up";
+      } else if (direction2 == DIRECTION_LEFT) {
+        return "left";
+      } else if (direction2 == DIRECTION_RIGHT) {
+        return "right";
+      }
+      return "";
+    }
+    function getRecognizerByNameIfManager(otherRecognizer, recognizer) {
+      var manager = recognizer.manager;
+      if (manager) {
+        return manager.get(otherRecognizer);
+      }
+      return otherRecognizer;
+    }
+    function AttrRecognizer() {
+      Recognizer.apply(this, arguments);
+    }
+    inherit(AttrRecognizer, Recognizer, {
+      /**
+       * @namespace
+       * @memberof AttrRecognizer
+       */
+      defaults: {
+        /**
+         * @type {Number}
+         * @default 1
+         */
+        pointers: 1
+      },
+      /**
+       * Used to check if it the recognizer receives valid input, like input.distance > 10.
+       * @memberof AttrRecognizer
+       * @param {Object} input
+       * @returns {Boolean} recognized
+       */
+      attrTest: function(input) {
+        var optionPointers = this.options.pointers;
+        return optionPointers === 0 || input.pointers.length === optionPointers;
+      },
+      /**
+       * Process the input and return the state for the recognizer
+       * @memberof AttrRecognizer
+       * @param {Object} input
+       * @returns {*} State
+       */
+      process: function(input) {
+        var state2 = this.state;
+        var eventType = input.eventType;
+        var isRecognized = state2 & (STATE_BEGAN | STATE_CHANGED);
+        var isValid = this.attrTest(input);
+        if (isRecognized && (eventType & INPUT_CANCEL || !isValid)) {
+          return state2 | STATE_CANCELLED;
+        } else if (isRecognized || isValid) {
+          if (eventType & INPUT_END) {
+            return state2 | STATE_ENDED;
+          } else if (!(state2 & STATE_BEGAN)) {
+            return STATE_BEGAN;
+          }
+          return state2 | STATE_CHANGED;
+        }
+        return STATE_FAILED;
+      }
+    });
+    function PanRecognizer() {
+      AttrRecognizer.apply(this, arguments);
+      this.pX = null;
+      this.pY = null;
+    }
+    inherit(PanRecognizer, AttrRecognizer, {
+      /**
+       * @namespace
+       * @memberof PanRecognizer
+       */
+      defaults: {
+        event: "pan",
+        threshold: 10,
+        pointers: 1,
+        direction: DIRECTION_ALL
+      },
+      getTouchAction: function() {
+        var direction2 = this.options.direction;
+        var actions = [];
+        if (direction2 & DIRECTION_HORIZONTAL) {
+          actions.push(TOUCH_ACTION_PAN_Y);
+        }
+        if (direction2 & DIRECTION_VERTICAL) {
+          actions.push(TOUCH_ACTION_PAN_X);
+        }
+        return actions;
+      },
+      directionTest: function(input) {
+        var options = this.options;
+        var hasMoved = true;
+        var distance2 = input.distance;
+        var direction2 = input.direction;
+        var x2 = input.deltaX;
+        var y2 = input.deltaY;
+        if (!(direction2 & options.direction)) {
+          if (options.direction & DIRECTION_HORIZONTAL) {
+            direction2 = x2 === 0 ? DIRECTION_NONE : x2 < 0 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+            hasMoved = x2 != this.pX;
+            distance2 = Math.abs(input.deltaX);
+          } else {
+            direction2 = y2 === 0 ? DIRECTION_NONE : y2 < 0 ? DIRECTION_UP : DIRECTION_DOWN;
+            hasMoved = y2 != this.pY;
+            distance2 = Math.abs(input.deltaY);
+          }
+        }
+        input.direction = direction2;
+        return hasMoved && distance2 > options.threshold && direction2 & options.direction;
+      },
+      attrTest: function(input) {
+        return AttrRecognizer.prototype.attrTest.call(this, input) && (this.state & STATE_BEGAN || !(this.state & STATE_BEGAN) && this.directionTest(input));
+      },
+      emit: function(input) {
+        this.pX = input.deltaX;
+        this.pY = input.deltaY;
+        var direction2 = directionStr(input.direction);
+        if (direction2) {
+          input.additionalEvent = this.options.event + direction2;
+        }
+        this._super.emit.call(this, input);
+      }
+    });
+    function PinchRecognizer() {
+      AttrRecognizer.apply(this, arguments);
+    }
+    inherit(PinchRecognizer, AttrRecognizer, {
+      /**
+       * @namespace
+       * @memberof PinchRecognizer
+       */
+      defaults: {
+        event: "pinch",
+        threshold: 0,
+        pointers: 2
+      },
+      getTouchAction: function() {
+        return [TOUCH_ACTION_NONE];
+      },
+      attrTest: function(input) {
+        return this._super.attrTest.call(this, input) && (Math.abs(input.scale - 1) > this.options.threshold || this.state & STATE_BEGAN);
+      },
+      emit: function(input) {
+        if (input.scale !== 1) {
+          var inOut = input.scale < 1 ? "in" : "out";
+          input.additionalEvent = this.options.event + inOut;
+        }
+        this._super.emit.call(this, input);
+      }
+    });
+    function PressRecognizer() {
+      Recognizer.apply(this, arguments);
+      this._timer = null;
+      this._input = null;
+    }
+    inherit(PressRecognizer, Recognizer, {
+      /**
+       * @namespace
+       * @memberof PressRecognizer
+       */
+      defaults: {
+        event: "press",
+        pointers: 1,
+        time: 251,
+        // minimal time of the pointer to be pressed
+        threshold: 9
+        // a minimal movement is ok, but keep it low
+      },
+      getTouchAction: function() {
+        return [TOUCH_ACTION_AUTO];
+      },
+      process: function(input) {
+        var options = this.options;
+        var validPointers = input.pointers.length === options.pointers;
+        var validMovement = input.distance < options.threshold;
+        var validTime = input.deltaTime > options.time;
+        this._input = input;
+        if (!validMovement || !validPointers || input.eventType & (INPUT_END | INPUT_CANCEL) && !validTime) {
+          this.reset();
+        } else if (input.eventType & INPUT_START) {
+          this.reset();
+          this._timer = setTimeoutContext(function() {
+            this.state = STATE_RECOGNIZED;
+            this.tryEmit();
+          }, options.time, this);
+        } else if (input.eventType & INPUT_END) {
+          return STATE_RECOGNIZED;
+        }
+        return STATE_FAILED;
+      },
+      reset: function() {
+        clearTimeout(this._timer);
+      },
+      emit: function(input) {
+        if (this.state !== STATE_RECOGNIZED) {
+          return;
+        }
+        if (input && input.eventType & INPUT_END) {
+          this.manager.emit(this.options.event + "up", input);
+        } else {
+          this._input.timeStamp = now();
+          this.manager.emit(this.options.event, this._input);
+        }
+      }
+    });
+    function RotateRecognizer() {
+      AttrRecognizer.apply(this, arguments);
+    }
+    inherit(RotateRecognizer, AttrRecognizer, {
+      /**
+       * @namespace
+       * @memberof RotateRecognizer
+       */
+      defaults: {
+        event: "rotate",
+        threshold: 0,
+        pointers: 2
+      },
+      getTouchAction: function() {
+        return [TOUCH_ACTION_NONE];
+      },
+      attrTest: function(input) {
+        return this._super.attrTest.call(this, input) && (Math.abs(input.rotation) > this.options.threshold || this.state & STATE_BEGAN);
+      }
+    });
+    function SwipeRecognizer() {
+      AttrRecognizer.apply(this, arguments);
+    }
+    inherit(SwipeRecognizer, AttrRecognizer, {
+      /**
+       * @namespace
+       * @memberof SwipeRecognizer
+       */
+      defaults: {
+        event: "swipe",
+        threshold: 10,
+        velocity: 0.3,
+        direction: DIRECTION_HORIZONTAL | DIRECTION_VERTICAL,
+        pointers: 1
+      },
+      getTouchAction: function() {
+        return PanRecognizer.prototype.getTouchAction.call(this);
+      },
+      attrTest: function(input) {
+        var direction2 = this.options.direction;
+        var velocity;
+        if (direction2 & (DIRECTION_HORIZONTAL | DIRECTION_VERTICAL)) {
+          velocity = input.overallVelocity;
+        } else if (direction2 & DIRECTION_HORIZONTAL) {
+          velocity = input.overallVelocityX;
+        } else if (direction2 & DIRECTION_VERTICAL) {
+          velocity = input.overallVelocityY;
+        }
+        return this._super.attrTest.call(this, input) && direction2 & input.offsetDirection && input.distance > this.options.threshold && input.maxPointers == this.options.pointers && abs2(velocity) > this.options.velocity && input.eventType & INPUT_END;
+      },
+      emit: function(input) {
+        var direction2 = directionStr(input.offsetDirection);
+        if (direction2) {
+          this.manager.emit(this.options.event + direction2, input);
+        }
+        this.manager.emit(this.options.event, input);
+      }
+    });
+    function TapRecognizer() {
+      Recognizer.apply(this, arguments);
+      this.pTime = false;
+      this.pCenter = false;
+      this._timer = null;
+      this._input = null;
+      this.count = 0;
+    }
+    inherit(TapRecognizer, Recognizer, {
+      /**
+       * @namespace
+       * @memberof PinchRecognizer
+       */
+      defaults: {
+        event: "tap",
+        pointers: 1,
+        taps: 1,
+        interval: 300,
+        // max time between the multi-tap taps
+        time: 250,
+        // max time of the pointer to be down (like finger on the screen)
+        threshold: 9,
+        // a minimal movement is ok, but keep it low
+        posThreshold: 10
+        // a multi-tap can be a bit off the initial position
+      },
+      getTouchAction: function() {
+        return [TOUCH_ACTION_MANIPULATION];
+      },
+      process: function(input) {
+        var options = this.options;
+        var validPointers = input.pointers.length === options.pointers;
+        var validMovement = input.distance < options.threshold;
+        var validTouchTime = input.deltaTime < options.time;
+        this.reset();
+        if (input.eventType & INPUT_START && this.count === 0) {
+          return this.failTimeout();
+        }
+        if (validMovement && validTouchTime && validPointers) {
+          if (input.eventType != INPUT_END) {
+            return this.failTimeout();
+          }
+          var validInterval = this.pTime ? input.timeStamp - this.pTime < options.interval : true;
+          var validMultiTap = !this.pCenter || getDistance(this.pCenter, input.center) < options.posThreshold;
+          this.pTime = input.timeStamp;
+          this.pCenter = input.center;
+          if (!validMultiTap || !validInterval) {
+            this.count = 1;
+          } else {
+            this.count += 1;
+          }
+          this._input = input;
+          var tapCount = this.count % options.taps;
+          if (tapCount === 0) {
+            if (!this.hasRequireFailures()) {
+              return STATE_RECOGNIZED;
+            } else {
+              this._timer = setTimeoutContext(function() {
+                this.state = STATE_RECOGNIZED;
+                this.tryEmit();
+              }, options.interval, this);
+              return STATE_BEGAN;
+            }
+          }
+        }
+        return STATE_FAILED;
+      },
+      failTimeout: function() {
+        this._timer = setTimeoutContext(function() {
+          this.state = STATE_FAILED;
+        }, this.options.interval, this);
+        return STATE_FAILED;
+      },
+      reset: function() {
+        clearTimeout(this._timer);
+      },
+      emit: function() {
+        if (this.state == STATE_RECOGNIZED) {
+          this._input.tapCount = this.count;
+          this.manager.emit(this.options.event, this._input);
+        }
+      }
+    });
+    function Hammer2(element, options) {
+      options = options || {};
+      options.recognizers = ifUndefined(options.recognizers, Hammer2.defaults.preset);
+      return new Manager(element, options);
+    }
+    Hammer2.VERSION = "2.0.7";
+    Hammer2.defaults = {
+      /**
+       * set if DOM events are being triggered.
+       * But this is slower and unused by simple implementations, so disabled by default.
+       * @type {Boolean}
+       * @default false
+       */
+      domEvents: false,
+      /**
+       * The value for the touchAction property/fallback.
+       * When set to `compute` it will magically set the correct value based on the added recognizers.
+       * @type {String}
+       * @default compute
+       */
+      touchAction: TOUCH_ACTION_COMPUTE,
+      /**
+       * @type {Boolean}
+       * @default true
+       */
+      enable: true,
+      /**
+       * EXPERIMENTAL FEATURE -- can be removed/changed
+       * Change the parent input target element.
+       * If Null, then it is being set the to main element.
+       * @type {Null|EventTarget}
+       * @default null
+       */
+      inputTarget: null,
+      /**
+       * force an input class
+       * @type {Null|Function}
+       * @default null
+       */
+      inputClass: null,
+      /**
+       * Default recognizer setup when calling `Hammer()`
+       * When creating a new Manager these will be skipped.
+       * @type {Array}
+       */
+      preset: [
+        // RecognizerClass, options, [recognizeWith, ...], [requireFailure, ...]
+        [RotateRecognizer, { enable: false }],
+        [PinchRecognizer, { enable: false }, ["rotate"]],
+        [SwipeRecognizer, { direction: DIRECTION_HORIZONTAL }],
+        [PanRecognizer, { direction: DIRECTION_HORIZONTAL }, ["swipe"]],
+        [TapRecognizer],
+        [TapRecognizer, { event: "doubletap", taps: 2 }, ["tap"]],
+        [PressRecognizer]
+      ],
+      /**
+       * Some CSS properties can be used to improve the working of Hammer.
+       * Add them to this method and they will be set when creating a new Manager.
+       * @namespace
+       */
+      cssProps: {
+        /**
+         * Disables text selection to improve the dragging gesture. Mainly for desktop browsers.
+         * @type {String}
+         * @default 'none'
+         */
+        userSelect: "none",
+        /**
+         * Disable the Windows Phone grippers when pressing an element.
+         * @type {String}
+         * @default 'none'
+         */
+        touchSelect: "none",
+        /**
+         * Disables the default callout shown when you touch and hold a touch target.
+         * On iOS, when you touch and hold a touch target such as a link, Safari displays
+         * a callout containing information about the link. This property allows you to disable that callout.
+         * @type {String}
+         * @default 'none'
+         */
+        touchCallout: "none",
+        /**
+         * Specifies whether zooming is enabled. Used by IE10>
+         * @type {String}
+         * @default 'none'
+         */
+        contentZooming: "none",
+        /**
+         * Specifies that an entire element should be draggable instead of its contents. Mainly for desktop browsers.
+         * @type {String}
+         * @default 'none'
+         */
+        userDrag: "none",
+        /**
+         * Overrides the highlight color shown when the user taps a link or a JavaScript
+         * clickable element in iOS. This property obeys the alpha value, if specified.
+         * @type {String}
+         * @default 'rgba(0,0,0,0)'
+         */
+        tapHighlightColor: "rgba(0,0,0,0)"
+      }
+    };
+    var STOP = 1;
+    var FORCED_STOP = 2;
+    function Manager(element, options) {
+      this.options = assign2({}, Hammer2.defaults, options || {});
+      this.options.inputTarget = this.options.inputTarget || element;
+      this.handlers = {};
+      this.session = {};
+      this.recognizers = [];
+      this.oldCssProps = {};
+      this.element = element;
+      this.input = createInputInstance(this);
+      this.touchAction = new TouchAction(this, this.options.touchAction);
+      toggleCssProps(this, true);
+      each2(this.options.recognizers, function(item) {
+        var recognizer = this.add(new item[0](item[1]));
+        item[2] && recognizer.recognizeWith(item[2]);
+        item[3] && recognizer.requireFailure(item[3]);
+      }, this);
+    }
+    Manager.prototype = {
+      /**
+       * set options
+       * @param {Object} options
+       * @returns {Manager}
+       */
+      set: function(options) {
+        assign2(this.options, options);
+        if (options.touchAction) {
+          this.touchAction.update();
+        }
+        if (options.inputTarget) {
+          this.input.destroy();
+          this.input.target = options.inputTarget;
+          this.input.init();
+        }
+        return this;
+      },
+      /**
+       * stop recognizing for this session.
+       * This session will be discarded, when a new [input]start event is fired.
+       * When forced, the recognizer cycle is stopped immediately.
+       * @param {Boolean} [force]
+       */
+      stop: function(force) {
+        this.session.stopped = force ? FORCED_STOP : STOP;
+      },
+      /**
+       * run the recognizers!
+       * called by the inputHandler function on every movement of the pointers (touches)
+       * it walks through all the recognizers and tries to detect the gesture that is being made
+       * @param {Object} inputData
+       */
+      recognize: function(inputData) {
+        var session = this.session;
+        if (session.stopped) {
+          return;
+        }
+        this.touchAction.preventDefaults(inputData);
+        var recognizer;
+        var recognizers = this.recognizers;
+        var curRecognizer = session.curRecognizer;
+        if (!curRecognizer || curRecognizer && curRecognizer.state & STATE_RECOGNIZED) {
+          curRecognizer = session.curRecognizer = null;
+        }
+        var i2 = 0;
+        while (i2 < recognizers.length) {
+          recognizer = recognizers[i2];
+          if (session.stopped !== FORCED_STOP && // 1
+          (!curRecognizer || recognizer == curRecognizer || // 2
+          recognizer.canRecognizeWith(curRecognizer))) {
+            recognizer.recognize(inputData);
+          } else {
+            recognizer.reset();
+          }
+          if (!curRecognizer && recognizer.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED)) {
+            curRecognizer = session.curRecognizer = recognizer;
+          }
+          i2++;
+        }
+      },
+      /**
+       * get a recognizer by its event name.
+       * @param {Recognizer|String} recognizer
+       * @returns {Recognizer|Null}
+       */
+      get: function(recognizer) {
+        if (recognizer instanceof Recognizer) {
+          return recognizer;
+        }
+        var recognizers = this.recognizers;
+        for (var i2 = 0; i2 < recognizers.length; i2++) {
+          if (recognizers[i2].options.event == recognizer) {
+            return recognizers[i2];
+          }
+        }
+        return null;
+      },
+      /**
+       * add a recognizer to the manager
+       * existing recognizers with the same event name will be removed
+       * @param {Recognizer} recognizer
+       * @returns {Recognizer|Manager}
+       */
+      add: function(recognizer) {
+        if (invokeArrayArg(recognizer, "add", this)) {
+          return this;
+        }
+        var existing = this.get(recognizer.options.event);
+        if (existing) {
+          this.remove(existing);
+        }
+        this.recognizers.push(recognizer);
+        recognizer.manager = this;
+        this.touchAction.update();
+        return recognizer;
+      },
+      /**
+       * remove a recognizer by name or instance
+       * @param {Recognizer|String} recognizer
+       * @returns {Manager}
+       */
+      remove: function(recognizer) {
+        if (invokeArrayArg(recognizer, "remove", this)) {
+          return this;
+        }
+        recognizer = this.get(recognizer);
+        if (recognizer) {
+          var recognizers = this.recognizers;
+          var index2 = inArray(recognizers, recognizer);
+          if (index2 !== -1) {
+            recognizers.splice(index2, 1);
+            this.touchAction.update();
+          }
+        }
+        return this;
+      },
+      /**
+       * bind event
+       * @param {String} events
+       * @param {Function} handler
+       * @returns {EventEmitter} this
+       */
+      on: function(events, handler) {
+        if (events === undefined$1) {
+          return;
+        }
+        if (handler === undefined$1) {
+          return;
+        }
+        var handlers = this.handlers;
+        each2(splitStr(events), function(event) {
+          handlers[event] = handlers[event] || [];
+          handlers[event].push(handler);
+        });
+        return this;
+      },
+      /**
+       * unbind event, leave emit blank to remove all handlers
+       * @param {String} events
+       * @param {Function} [handler]
+       * @returns {EventEmitter} this
+       */
+      off: function(events, handler) {
+        if (events === undefined$1) {
+          return;
+        }
+        var handlers = this.handlers;
+        each2(splitStr(events), function(event) {
+          if (!handler) {
+            delete handlers[event];
+          } else {
+            handlers[event] && handlers[event].splice(inArray(handlers[event], handler), 1);
+          }
+        });
+        return this;
+      },
+      /**
+       * emit event to the listeners
+       * @param {String} event
+       * @param {Object} data
+       */
+      emit: function(event, data) {
+        if (this.options.domEvents) {
+          triggerDomEvent(event, data);
+        }
+        var handlers = this.handlers[event] && this.handlers[event].slice();
+        if (!handlers || !handlers.length) {
+          return;
+        }
+        data.type = event;
+        data.preventDefault = function() {
+          data.srcEvent.preventDefault();
+        };
+        var i2 = 0;
+        while (i2 < handlers.length) {
+          handlers[i2](data);
+          i2++;
+        }
+      },
+      /**
+       * destroy the manager and unbinds all events
+       * it doesn't unbind dom events, that is the user own responsibility
+       */
+      destroy: function() {
+        this.element && toggleCssProps(this, false);
+        this.handlers = {};
+        this.session = {};
+        this.input.destroy();
+        this.element = null;
+      }
+    };
+    function toggleCssProps(manager, add2) {
+      var element = manager.element;
+      if (!element.style) {
+        return;
+      }
+      var prop;
+      each2(manager.options.cssProps, function(value, name) {
+        prop = prefixed(element.style, name);
+        if (add2) {
+          manager.oldCssProps[prop] = element.style[prop];
+          element.style[prop] = value;
+        } else {
+          element.style[prop] = manager.oldCssProps[prop] || "";
+        }
+      });
+      if (!add2) {
+        manager.oldCssProps = {};
+      }
+    }
+    function triggerDomEvent(event, data) {
+      var gestureEvent = document2.createEvent("Event");
+      gestureEvent.initEvent(event, true, true);
+      gestureEvent.gesture = data;
+      data.target.dispatchEvent(gestureEvent);
+    }
+    assign2(Hammer2, {
+      INPUT_START,
+      INPUT_MOVE,
+      INPUT_END,
+      INPUT_CANCEL,
+      STATE_POSSIBLE,
+      STATE_BEGAN,
+      STATE_CHANGED,
+      STATE_ENDED,
+      STATE_RECOGNIZED,
+      STATE_CANCELLED,
+      STATE_FAILED,
+      DIRECTION_NONE,
+      DIRECTION_LEFT,
+      DIRECTION_RIGHT,
+      DIRECTION_UP,
+      DIRECTION_DOWN,
+      DIRECTION_HORIZONTAL,
+      DIRECTION_VERTICAL,
+      DIRECTION_ALL,
+      Manager,
+      Input: Input3,
+      TouchAction,
+      TouchInput,
+      MouseInput,
+      PointerEventInput,
+      TouchMouseInput,
+      SingleTouchInput,
+      Recognizer,
+      AttrRecognizer,
+      Tap: TapRecognizer,
+      Pan: PanRecognizer,
+      Swipe: SwipeRecognizer,
+      Pinch: PinchRecognizer,
+      Rotate: RotateRecognizer,
+      Press: PressRecognizer,
+      on: addEventListeners,
+      off: removeEventListeners,
+      each: each2,
+      merge: merge2,
+      extend: extend2,
+      assign: assign2,
+      inherit,
+      bindFn,
+      prefixed
+    });
+    var freeGlobal = typeof window2 !== "undefined" ? window2 : typeof self !== "undefined" ? self : {};
+    freeGlobal.Hammer = Hammer2;
+    if (typeof undefined$1 === "function" && undefined$1.amd) {
+      undefined$1(function() {
+        return Hammer2;
+      });
+    } else if (module.exports) {
+      module.exports = Hammer2;
+    } else {
+      window2[exportName] = Hammer2;
+    }
+  })(window, document, "Hammer");
+})(hammer);
+var hammerExports = hammer.exports;
+const Hammer = /* @__PURE__ */ getDefaultExportFromCjs(hammerExports);
+function webPullToRefresh() {
+  const defaults2 = {
+    contentEl: "content",
+    ptrEl: "ptr",
+    bodyEl: document.body,
+    distanceToRefresh: 70,
+    loadingFunction: false,
+    resistance: 2.5
+  };
+  let options = {};
+  const pan = {
+    enabled: false,
+    distance: 0,
+    startingPositionY: 0
+  };
+  let bodyClass = defaults2.bodyEl.classList;
+  const init = (params) => {
+    var _a4;
+    options = {
+      contentEl: params.contentEl ?? document.getElementById(defaults2.contentEl),
+      ptrEl: params.ptrEl || document.getElementById(defaults2.ptrEl),
+      bodyEl: params.bodyEl || defaults2.bodyEl,
+      distanceToRefresh: params.distanceToRefresh || defaults2.distanceToRefresh,
+      loadingFunction: params.loadingFunction || defaults2.loadingFunction,
+      resistance: params.resistance || defaults2.resistance,
+      hammerOptions: params.hammerOptions ?? {}
+    };
+    if (!options.contentEl || !options.ptrEl) {
+      return false;
+    }
+    bodyClass = (_a4 = options.bodyEl) == null ? void 0 : _a4.classList;
+    const h2 = new Hammer(options.contentEl, options.hammerOptions);
+    h2.get("pan").set({ direction: Hammer.DIRECTION_VERTICAL });
+    h2.on("panstart", _panStart);
+    h2.on("pandown", _panDown);
+    h2.on("panup", _panUp);
+    h2.on("panend", _panEnd);
+  };
+  const _panStart = () => {
+    pan.startingPositionY = options.bodyEl.scrollTop;
+    if (pan.startingPositionY === 0) {
+      pan.enabled = true;
+    }
+  };
+  const _panDown = (e2) => {
+    if (!pan.enabled) {
+      return;
+    }
+    e2.preventDefault();
+    pan.distance = e2.distance / options.resistance;
+    _setContentPan();
+    _setBodyClass();
+  };
+  const _panUp = (e2) => {
+    if (!pan.enabled || pan.distance === 0) {
+      return;
+    }
+    e2.preventDefault();
+    if (pan.distance < e2.distance / options.resistance) {
+      pan.distance = 0;
+    } else {
+      pan.distance = e2.distance / options.resistance;
+    }
+    _setContentPan();
+    _setBodyClass();
+  };
+  const _setContentPan = () => {
+    if (options.contentEl) {
+      options.contentEl.style.transform = `translate3d( 0, ${pan.distance}px, 0 )`;
+    }
+    options.ptrEl.style.transform = `translate3d( 0, ${pan.distance - options.ptrEl.offsetHeight}px, 0 )`;
+  };
+  const _setBodyClass = () => {
+    if (pan.distance > options.distanceToRefresh) {
+      bodyClass.add("ptr-refresh");
+    } else {
+      bodyClass.remove("ptr-refresh");
+    }
+  };
+  const _panEnd = (e2) => {
+    if (!pan.enabled) {
+      return;
+    }
+    e2.preventDefault();
+    if (options.contentEl) {
+      options.contentEl.style.transform = "";
+    }
+    options.ptrEl.style.transform = "";
+    if (options.bodyEl.classList.contains("ptr-refresh")) {
+      _doLoading();
+    } else {
+      _doReset();
+    }
+    pan.distance = 0;
+    pan.enabled = false;
+  };
+  const _doLoading = () => {
+    bodyClass.add("ptr-loading");
+    if (!options.loadingFunction) {
+      return _doReset();
+    }
+    const loadingPromise = options.loadingFunction();
+    setTimeout(() => {
+      loadingPromise.then(_doReset);
+    }, 1e3);
+  };
+  const _doReset = () => {
+    bodyClass.remove("ptr-loading");
+    bodyClass.remove("ptr-refresh");
+    bodyClass.add("ptr-reset");
+    const bodyClassRemove = () => {
+      bodyClass.remove("ptr-reset");
+      options.bodyEl.removeEventListener("transitionend", bodyClassRemove, false);
+    };
+    options.bodyEl.addEventListener("transitionend", bodyClassRemove, false);
+  };
+  return {
+    init
+  };
+}
+function ReactPullToRefresh(props) {
+  const { onRefresh, disabled, distanceToRefresh, resistance, hammerOptions, children, icon, loading, ...rest } = props;
+  async function handleRefresh() {
+    await onRefresh();
+  }
+  const hasBeenInit = reactExports.useRef(null);
+  const refreshRef = reactExports.useRef(null);
+  const ptrRef = reactExports.useRef(null);
+  const bodyRef = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    if (!disabled) {
+      if (hasBeenInit.current)
+        return;
+      webPullToRefresh().init({
+        contentEl: refreshRef.current,
+        ptrEl: ptrRef.current,
+        bodyEl: document.body,
+        distanceToRefresh,
+        loadingFunction: handleRefresh,
+        resistance,
+        hammerOptions
+      });
+      hasBeenInit.current = true;
+    }
+  }, [disabled]);
+  if (disabled) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", {
+      ...rest,
+      children
+    });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", {
+    ref: bodyRef,
+    ...rest,
+    children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", {
+        className: "ptr-element",
+        ref: ptrRef,
+        children: [
+          icon ?? /* @__PURE__ */ jsxRuntimeExports.jsx("span", {
+            className: "genericon genericon-next"
+          }),
+          loading ?? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", {
+            className: "loading",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", {
+                className: "loading-ptr-1"
+              }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", {
+                className: "loading-ptr-2"
+              }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", {
+                className: "loading-ptr-3"
+              })
+            ]
+          })
+        ]
+      }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", {
+        className: "refresh-view",
+        ref: refreshRef,
+        children
+      })
+    ]
+  });
+}
+var ReactPullToRefresh_default = ReactPullToRefresh;
+var src_default = ReactPullToRefresh_default;
+const RefreshLoad = ({
+  onLoad,
+  onRefresh,
+  className,
+  children,
+  ...refresh
+}) => {
+  const containerRef = reactExports.useRef();
+  const [loadLoading, setLoadLoading] = reactExports.useState(false);
+  reactExports.useState(0);
+  const refreshHandler = async () => {
+    console.log(onRefresh);
+    await (onRefresh == null ? void 0 : onRefresh());
+  };
+  const loadHandler = async () => {
+    if (loadLoading)
+      return;
+    setLoadLoading(true);
+    try {
+      console.log("load");
+      await (onLoad == null ? void 0 : onLoad());
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadLoading(false);
+    }
+  };
+  const onScroll = async () => {
+    const { scrollTop, scrollHeight, offsetHeight } = containerRef.current;
+    if (scrollTop >= scrollHeight - offsetHeight - 30) {
+      await loadHandler();
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "div",
+    {
+      className: "h-full overflow-y-auto",
+      onScroll,
+      ref: containerRef,
+      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        src_default,
+        {
+          ...refresh,
+          onRefresh: refreshHandler,
+          className: "h-full",
+          children: [
+            children,
+            loadLoading && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex h-12 justify-center items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(spinner_default, {}) })
+          ]
+        }
+      )
+    }
+  );
+};
+function Page({
+  children,
+  path: path2,
+  title,
+  onRefresh,
+  onLoad,
+  refreshable = false,
+  rightContent
+}) {
+  const nav = useNavigate();
+  const goBack = () => {
+    nav(path2 || -1);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "h-full relative", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "h-12 absolute top-0 left-0 w-full border-b border-b-solid border-b-gray-200 px-2 flex justify-between items-center z-[99999] bg-white", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-10 min-w-[2.5rem]", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-3 text-5", onClick: goBack, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { icon: "mdi:arrow-left", className: " w-6 h-6 z-2" }) }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "overflow-hidden flex-1 flex justify-center items-center font-600 ", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "truncate w-2/3 text-center", children: title }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-10 text-base min-w-[2.5rem]", children: rightContent && rightContent })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "pt-12 h-full overflow-y-auto relative", children: refreshable ? /* @__PURE__ */ jsxRuntimeExports.jsx(RefreshLoad, { onLoad, onRefresh, children }) : children })
+  ] });
+}
+function Index$4() {
+  useTitle$1("PayToView");
+  const { t: t2 } = useTranslation();
+  const nav = useNavigate();
+  const { accountInfo, balance } = useAccountStore((state2) => state2);
+  const toAdd = () => {
+    nav(ROUTE_PATH.DETAIL_ADD);
+  };
+  const toPublished = () => {
+    nav(ROUTE_PATH.PUBLISHED);
+  };
+  const toPaid = () => {
+    nav(ROUTE_PATH.PAID);
+  };
+  const toForwarded = () => {
+    nav(ROUTE_PATH.FORWARDED);
+  };
+  const toEarn = () => {
+    nav(ROUTE_PATH.EARN);
+  };
+  const [searchTerm, setSearchTerm] = reactExports.useState("");
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      nav(ROUTE_PATH.DETAIL_READ + "/?contract=" + searchTerm);
+    }
+  };
+  reactExports.useEffect(() => {
+  }, []);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.index.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-hidden flex flex-col", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "overflow-y-auto flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-100 p-4 mb-4 rounded-2xl", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex mb-6 items-center", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Image$1,
+          {
+            src: "/logo.png",
+            className: "w-6 h-6 bg-gray-200 rounded-full mr-6"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "break-all", children: accountInfo.publicKey })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-end ", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-4xl font-bold leading-none", children: "1000" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm leading-none mb-1", children: "TVS" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 leading-none mb-1", children: "Tinyverse" })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: " bg-gray-100 p-4 mb-4 rounded-2xl", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SimpleGrid, { columns: 2, columnGap: "20px", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "text-center bg-gray-200 p-2 rounded-xl",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-2 text-xs", children: t2("pages.index.address") }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-end justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-xm font-bold leading-none", children: "0801e*****a1b4" }) })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "text-center bg-gray-200 p-2 rounded-xl",
+          onClick: toEarn,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-2 text-xs", children: t2("pages.index.profit") }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end justify-center", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-xm font-bold leading-none", children: "50" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs leading-none", children: "TVS" })
+            ] })
+          ]
+        }
+      )
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4 mb-4 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SimpleGrid, { columns: 5, columnGap: "25px", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "text-center",
+          onClick: toAdd,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                className: `h-12 w-12`,
+                src: `/images/publish.png`
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: t2("pages.publish.icon_title") })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "text-center",
+          onClick: toEarn,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                className: `h-12 w-12`,
+                src: `/images/earning.png`
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: t2("pages.earning.icon_title") })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "text-center",
+          onClick: toPublished,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                className: `h-12 w-12`,
+                src: `/images/published.png`
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: t2("pages.published.icon_title") })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "text-center",
+          onClick: toPaid,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                className: `h-12 w-12`,
+                src: `/images/paid.png`
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: t2("pages.paid.icon_title") })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "text-center",
+          onClick: toForwarded,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                className: `h-12 w-12`,
+                src: `/images/forwarded.png`
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-blue-500", children: t2("pages.forwarded.icon_title") })
+          ]
+        }
+      )
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(InputGroup, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Input,
+        {
+          type: "text",
+          placeholder: "Search...",
+          value: searchTerm,
+          onChange: (e2) => setSearchTerm(e2.target.value),
+          onKeyPress: handleKeyPress
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(InputRightElement, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search2Icon, { color: "gray.400" }) })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4 mb-4", style: { display: "flex", justifyContent: "space-between" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xm ml-2", children: t2("pages.index.transaction_record") }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xm mr-2", children: t2("pages.index.more") })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { height: "400px", overflowY: "auto" }, className: "text-xs", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { variant: "filled", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "ID：/tx/d79b...3abe" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "10 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "080112202eb5947819be566f30c0faa3df0d272a47c0ae441d42e217bbcfd05932845adc" })
+          ] })
+        ] }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { variant: "filled", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "ID：/tx/d701..fd05" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-base", children: "0 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "-105 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b" })
+          ] })
+        ] }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { variant: "filled", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "ID：/tx/d79b...abef" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "-3 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9" })
+          ] })
+        ] }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { variant: "filled", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "ID：/tx/d79b...abef" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-base", children: "-58 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9" })
+          ] })
+        ] }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { variant: "filled", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "ID：/tx/d79b...abef" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "60 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9" })
+          ] })
+        ] }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-6 m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { variant: "filled", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "sm", children: "/tx/d79b...abef" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardBody, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Stack, { divider: /* @__PURE__ */ jsxRuntimeExports.jsx(StackDivider, {}), spacing: "2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "收入:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "80 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "支出:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "0 TVS" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Box, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { size: "xm", textTransform: "uppercase", children: "交易方:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xm", children: "08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9" })
+          ] })
+        ] }) })
+      ] }) })
+    ] })
+  ] }) }) }) });
+}
+let getRandomValues;
+const rnds8 = new Uint8Array(16);
+function rng() {
+  if (!getRandomValues) {
+    getRandomValues = typeof crypto !== "undefined" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto);
+    if (!getRandomValues) {
+      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+    }
+  }
+  return getRandomValues(rnds8);
+}
+const byteToHex = [];
+for (let i2 = 0; i2 < 256; ++i2) {
+  byteToHex.push((i2 + 256).toString(16).slice(1));
+}
+function unsafeStringify(arr2, offset = 0) {
+  return byteToHex[arr2[offset + 0]] + byteToHex[arr2[offset + 1]] + byteToHex[arr2[offset + 2]] + byteToHex[arr2[offset + 3]] + "-" + byteToHex[arr2[offset + 4]] + byteToHex[arr2[offset + 5]] + "-" + byteToHex[arr2[offset + 6]] + byteToHex[arr2[offset + 7]] + "-" + byteToHex[arr2[offset + 8]] + byteToHex[arr2[offset + 9]] + "-" + byteToHex[arr2[offset + 10]] + byteToHex[arr2[offset + 11]] + byteToHex[arr2[offset + 12]] + byteToHex[arr2[offset + 13]] + byteToHex[arr2[offset + 14]] + byteToHex[arr2[offset + 15]];
+}
+const randomUUID = typeof crypto !== "undefined" && crypto.randomUUID && crypto.randomUUID.bind(crypto);
+const native = {
+  randomUUID
+};
+function v4(options, buf, offset) {
+  if (native.randomUUID && !buf && !options) {
+    return native.randomUUID();
+  }
+  options = options || {};
+  const rnds = options.random || (options.rng || rng)();
+  rnds[6] = rnds[6] & 15 | 64;
+  rnds[8] = rnds[8] & 63 | 128;
+  if (buf) {
+    offset = offset || 0;
+    for (let i2 = 0; i2 < 16; ++i2) {
+      buf[offset + i2] = rnds[i2];
+    }
+    return buf;
+  }
+  return unsafeStringify(rnds);
+}
 const Upload = ({ onChange }) => {
   const { t: t2 } = useTranslation();
   const [previewSrc, setPreviewSrc] = reactExports.useState("");
@@ -41285,7 +46303,6 @@ const ContentUpload = ({ onChange, type }) => {
     [data]
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "ContentUpload.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(FormControl, { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
       {
@@ -41317,7 +46334,7 @@ const ContentUpload = ({ onChange, type }) => {
       }
     ) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(FormControl, { className: "mb-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { children: t2("pages.detail.preview_mode") }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { children: t2("pages.publish.preview_mode") }),
       type === "text" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(InputGroup, { size: "md", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           NumberInput,
@@ -41332,7 +46349,7 @@ const ContentUpload = ({ onChange, type }) => {
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(InputRightAddon, { children: "%" })
       ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-2", children: t2("pages.detail.blur_show") }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-2", children: t2("pages.publish.blur_show") }),
         data.image && /* @__PURE__ */ jsxRuntimeExports.jsx(BlurImage, { file: data.image, onChange: blurChange })
       ] })
     ] })
@@ -41352,9 +46369,8 @@ const PayLimit = ({ onChange }) => {
     onChange == null ? void 0 : onChange(data);
   }, [data]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "PayLimit.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(FormControl, { className: "mb-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { children: t2("pages.detail.divide_ratio") }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { children: t2("pages.publish.divide_ratio") }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         NumberInput,
         {
@@ -41369,10 +46385,10 @@ const PayLimit = ({ onChange }) => {
       )
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(FormControl, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { children: t2("pages.detail.divide_ratio") }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { children: t2("pages.publish.divide_ratio") }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(SimpleGrid, { columns: 4, spacing: "10px", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-1 text-center", children: t2("pages.detail.network") }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-1 text-center", children: t2("pages.publish.network") }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             NumberInput,
             {
@@ -41387,7 +46403,7 @@ const PayLimit = ({ onChange }) => {
           )
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-1 text-center", children: t2("pages.detail.app") }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-1 text-center", children: t2("pages.publish.app") }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             NumberInput,
             {
@@ -41402,7 +46418,7 @@ const PayLimit = ({ onChange }) => {
           )
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-1 text-center", children: t2("pages.detail.forwarder") }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-1 text-center", children: t2("pages.publish.forwarder") }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             NumberInput,
             {
@@ -41418,7 +46434,7 @@ const PayLimit = ({ onChange }) => {
           )
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-1 text-center", children: t2("pages.detail.sender") }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm mb-1 text-center", children: t2("pages.publish.sender") }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             NumberInput,
             {
@@ -41675,7 +46691,12 @@ function DetailAdd() {
       );
       previewCid = ipfsResult.data;
     }
-    await paytoview.deployPayToView({
+    if (contentCid === void 0 || previewCid === void 0) {
+      setLoading(false);
+      console.error("cid is error");
+      return;
+    }
+    const result = await paytoview.deployPayToView({
       Name: data.title + "_" + v4(),
       CommissionName: commissionContract,
       Content: {
@@ -41693,11 +46714,16 @@ function DetailAdd() {
       Fee: data.fee,
       Password: data.password
     });
+    console.log("add.tsx->addHandler: result:", result);
+    if (result.code !== "000000") {
+      setLoading(false);
+      console.error("deployPayToView is error");
+      return;
+    }
     setLoading(false);
     nav(ROUTE_PATH.PUBLISHED);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful py-4", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "add.tsx" }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.publish.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful py-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-4 px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ContentUpload, { type, onChange: contentChange }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4", children: [
@@ -41714,7 +46740,7 @@ function DetailAdd() {
         }
       )
     ] })
-  ] });
+  ] }) });
 }
 function DetailEdit$1() {
   useTitle$1("PayToView");
@@ -41722,14 +46748,13 @@ function DetailEdit$1() {
   const nav = useNavigate();
   const type = "image";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "edit.tsx" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardBody, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-md font-bold mb-2", children: "Title" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero placeat, quos iusto accusamus ex et at doloribus ut quisquam iste? Similique cum culpa quod aperiam delectus porro enim rem accusamus." })
     ] }) }) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "font-bold mb-2", children: t2("pages.detail.contract_name") }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "font-bold mb-2", children: t2("pages.publish.contract_name") }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm", children: "PayToView" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "", children: [
@@ -42240,23 +47265,15 @@ var Q$1 = function(e2) {
     x2.update({ key: C2, src: o2, originRef: b2, render: E2.render, overlay: u2, width: v2, height: h2 });
   }, [o2]), y2 ? reactExports.Children.only(reactExports.cloneElement(y2, f$1({}, k2, { ref: b2 }))) : null;
 };
-const useIpfsSrc = (cid) => {
-  const { accountInfo } = useAccountStore((state2) => state2);
-  const src = reactExports.useMemo(
-    () => `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${cid}`,
-    [cid, accountInfo.publicKey]
-  );
-  return src;
-};
 function DetailRead() {
-  var _a4, _b3, _c2, _d2, _e2;
+  var _a4, _b3;
   useTitle$1("PayToView");
   const [searchParams] = useSearchParams();
   const contractName = searchParams.get("contract");
   const nav = useNavigate();
   const { t: t2 } = useTranslation();
   const [detail, setDetail] = reactExports.useState({});
-  const webApp = O$2();
+  const webApp = O$3();
   const toIndex = () => {
     nav(ROUTE_PATH.INDEX, { replace: true });
   };
@@ -42268,6 +47285,9 @@ function DetailRead() {
     });
     console.log(result);
     webApp == null ? void 0 : webApp.close();
+    if (result.code === "000000") {
+      nav(ROUTE_PATH.PAID);
+    }
   };
   const getContractDetail = async () => {
     if (!contractName)
@@ -42283,19 +47303,22 @@ function DetailRead() {
     nav(ROUTE_PATH.DETAIL_FORWARD + "/?contract=" + contractName);
   };
   const readStatus = reactExports.useMemo(() => detail.isPaid, [detail.isPaid]);
-  const src = useIpfsSrc((_c2 = (_b3 = (_a4 = detail.contractInfo) == null ? void 0 : _a4.ContractInfo) == null ? void 0 : _b3.Content) == null ? void 0 : _c2.Cid);
+  var previewSrc = "https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA";
+  var contentSrc = previewSrc;
   reactExports.useEffect(() => {
     if (contractName) {
       getContractDetail();
     }
+    if (detail.isPaid) {
+      contentSrc = "https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ";
+    }
   }, [contractName]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "read.tsx" }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.detail.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: toIndex }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(J$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-48 h-48", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Q$1, { src, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { src, height: "100%", fit: "cover" }) }) }) }) }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(J$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-48 h-48", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Q$1, { src: contentSrc, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { src: previewSrc, height: "100%", fit: "cover" }) }) }) }) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "font-bold mb-2", children: t2("pages.detail.contract_name") }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm", children: (_e2 = (_d2 = detail.contractInfo) == null ? void 0 : _d2.ContractInfo) == null ? void 0 : _e2.Name })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "font-bold mb-2", children: t2("pages.publish.contract_name") }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm", children: (_b3 = (_a4 = detail.contractInfo) == null ? void 0 : _a4.ContractInfo) == null ? void 0 : _b3.Name })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(HStack, { spacing: "20px", children: [
       !readStatus && /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -42305,7 +47328,7 @@ function DetailRead() {
           size: "lg",
           className: "flex-1",
           onClick: toPay,
-          children: readStatus ? t2("pages.detail.paied") : t2("common.pay")
+          children: readStatus ? t2("pages.publish.paied") : t2("common.pay")
         }
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -42319,7 +47342,7 @@ function DetailRead() {
         }
       )
     ] })
-  ] });
+  ] }) });
 }
 var __defProp2 = Object.defineProperty;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
@@ -43522,7 +48545,7 @@ function DetailEdit() {
       const result = await paytoview.getViewContractContent({
         ContractName: contractName
       });
-      console.log(result);
+      console.log("getContractDetail: result:", result);
     }
   };
   const forwardHandler = async () => {
@@ -43541,13 +48564,13 @@ function DetailEdit() {
   const qrCodeurl = reactExports.useMemo(() => {
     return `type=url&value=${location.origin}/#/detail/read?contract=${contractName}`;
   }, [contractName]);
+  const src = "https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA";
   reactExports.useEffect(() => {
     if (contractName) {
       getContractDetail();
     }
   }, [contractName]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "forward.tsx" }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.forward.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(FormControl, { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
@@ -43562,13 +48585,13 @@ function DetailEdit() {
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-48 h-48", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Image$1,
       {
-        src: "https://via.placeholder.com/300",
+        src,
         height: "100%",
         fit: "cover"
       }
     ) }) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "font-bold mb-2", children: t2("pages.detail.contract_name") }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "font-bold mb-2", children: t2("pages.publish.contract_name") }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm", children: "PayToView" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "", children: [
@@ -43584,7 +48607,10 @@ function DetailEdit() {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Modal, { isOpen, size: "full", onClose: () => setIsOpen(false), children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalContent, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Modal, { isOpen, size: "full", onClose: () => {
+      setIsOpen(false);
+      nav(ROUTE_PATH.FORWARDED);
+    }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ModalContent, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ModalHeader, { className: "text-center", children: "分享二维码" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(ModalCloseButton, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(ModalBody, { className: "flex justify-center items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
@@ -43592,14 +48618,14 @@ function DetailEdit() {
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-2 text-center", children: "下载二维码分享" })
       ] }) })
     ] }) })
-  ] });
+  ] }) });
 }
 const IpfsImage = ({ cid, ...rest }) => {
   const { accountInfo } = useAccountStore((state2) => state2);
   console.log("IpfsImage->accountInfo:", accountInfo);
   console.log("IpfsImage->cid:", cid);
   const src = reactExports.useMemo(
-    () => `${"http://39.108.147.241/ipfs"}/cat?pubkey=${accountInfo.publicKey}&cid=${cid}`,
+    () => `https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`,
     [cid, accountInfo.publicKey]
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Image$1, { src, ...rest });
@@ -43607,7 +48633,7 @@ const IpfsImage = ({ cid, ...rest }) => {
 const ListItem = ({ item, onClick, isForward = true }) => {
   console.log(item);
   useNavigate();
-  const webApp = O$2();
+  const webApp = O$3();
   const [isOpen, setIsOpen] = reactExports.useState(false);
   const shareHandler = () => {
     console.log("share");
@@ -43676,7 +48702,7 @@ const Empty = ({ text, className }) => {
 };
 function Index$3() {
   useTitle$1("Forwarded");
-  useTranslation();
+  const { t: t2 } = useTranslation();
   const nav = useNavigate();
   const { publishedList, setPublishedList } = useListStore((state2) => state2);
   useAccountStore((state2) => state2);
@@ -43685,8 +48711,8 @@ function Index$3() {
     if (result.code === "000000") {
       const list2 = flattenListData(result.data).map((v2) => ({
         ...v2,
-        Ipfs: `http://39.108.147.241:8080/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`
-        // Ipfs: `${"http://39.108.147.241/ipfs"}/cat?cid=${v.CidForpreview}`,
+        // Ipfs: `https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`,
+        Ipfs: `${"http://39.108.147.241/ipfs"}/cat?cid=${v2.CidForpreview}`
       }));
       console.log("published.tsx->getList, list:", list2);
       setPublishedList(list2);
@@ -43698,18 +48724,17 @@ function Index$3() {
   reactExports.useEffect(() => {
     getList();
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "published.tsx" }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.published.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
       publishedList.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Empty, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SimpleGrid, { columns: 2, spacingX: "10px", spacingY: "10px", children: publishedList.map((v2, i2) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { item: v2, onClick: () => toDetail(v2) }, i2)) })
     ] }) })
-  ] });
+  ] }) });
 }
 function Index$2() {
   useTitle$1("Forwarded");
-  useTranslation();
+  const { t: t2 } = useTranslation();
   const nav = useNavigate();
   const { paidList, setPaidList } = useListStore((state2) => state2);
   const getList = async () => {
@@ -43728,18 +48753,17 @@ function Index$2() {
   reactExports.useEffect(() => {
     getList();
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "paid.tsx" }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.paid.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
       paidList.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Empty, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SimpleGrid, { columns: 2, spacingX: "10px", spacingY: "10px", children: paidList.map((v2, i2) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { item: v2, onClick: () => toDetail(v2) }, i2)) })
     ] }) })
-  ] });
+  ] }) });
 }
 function Index$1() {
   useTitle$1("Forwarded");
-  useTranslation();
+  const { t: t2 } = useTranslation();
   const nav = useNavigate();
   const { forwardList, setForwardList } = useListStore((state2) => state2);
   const { accountInfo } = useAccountStore((state2) => state2);
@@ -43758,30 +48782,26 @@ function Index$1() {
   reactExports.useEffect(() => {
     getList();
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "forwarded.tsx" }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.forwarded.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(B$1, { onClick: () => nav(-1) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4", children: [
       forwardList.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Empty, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(SimpleGrid, { columns: 2, spacingX: "10px", spacingY: "10px", children: forwardList.map((v2, i2) => /* @__PURE__ */ jsxRuntimeExports.jsx(ListItem, { item: v2, isForward: false }, i2)) })
     ] }) })
-  ] });
+  ] }) });
 }
 function Index() {
   useTitle$1("PayToView");
-  useTranslation();
+  const { t: t2 } = useTranslation();
   reactExports.useState(0);
   useNavigate();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full overflow-hidden", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "earn.tsx" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-100 p-2 rounded-xl", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "分享收益" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-end items-end", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-xl font-bold leading-none", children: "50" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs leading-none ", children: "TVS" })
-      ] })
-    ] }) })
-  ] });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.earning.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-100 p-2 rounded-xl", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "分享收益" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-end items-end", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mr-2 text-xl font-bold leading-none", children: "50" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs leading-none ", children: "TVS" })
+    ] })
+  ] }) }) }) });
 }
 const ROUTE_PATH = {
   INDEX: "/",
@@ -43846,7 +48866,7 @@ function App() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "h-full", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Ie, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      y$1,
+      y$2,
       {
         options: {
           smoothButtonsTransition: true

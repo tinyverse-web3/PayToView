@@ -167,7 +167,7 @@ export default function DetailAdd() {
   return (
     <LayoutThird title={t('pages.publish.title')}>
       <div className='min-h-ful py-4'>
-        <div>add.tsx</div>
+        {/* <div>add.tsx</div> */}
 
         <BackButton onClick={() => nav(-1)} />
         {/* <Tabs

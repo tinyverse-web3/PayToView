@@ -44,7 +44,7 @@ export default function Index() {
   return (
     <LayoutThird title={t('pages.paid.title')}>
       <div className='h-full overflow-hidden'>
-        <div>已付费的列表-paid.tsx</div>
+        {/* <div>paid.tsx</div> */}
         <BackButton onClick={() => nav(-1)} />
         <div className='h-full overflow-y-auto'>
           <div className='p-4'>

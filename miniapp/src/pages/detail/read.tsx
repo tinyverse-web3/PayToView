@@ -59,23 +59,27 @@ export default function DetailRead() {
   const readStatus = useMemo(() => detail.isPaid, [detail.isPaid]);
 
   // const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
-  const src = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
+  var previewSrc = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
+  var contentSrc = previewSrc;
   useEffect(() => {
     if (contractName) {
       getContractDetail();
+    }
+    if (detail.isPaid) {
+      contentSrc = 'https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ'
     }
   }, [contractName]);
   return (
     <LayoutThird title={t('pages.detail.title')}>
       <div className='min-h-ful p-4'>
-        <div>read.tsx</div>
+        {/* <div>read.tsx</div> */}
         <BackButton onClick={toIndex} />
         <div className='mb-4'>
           <PhotoProvider>
             <div className='flex justify-center items-center'>
               <div className='w-48 h-48'>
-                <PhotoView src={src}>
-                  <Image src={src} height='100%' fit='cover' />
+                <PhotoView src={contentSrc}>
+                  <Image src={previewSrc} height='100%' fit='cover' />
                 </PhotoView>
               </div>
             </div>

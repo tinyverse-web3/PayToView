@@ -142,7 +142,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/publish.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>{t('pages.publish.title')}</span>
+                  <span className='text-xs text-blue-500'>{t('pages.publish.icon_title')}</span>
                 </div>
                 <div
                   className='text-center'
@@ -151,7 +151,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/earning.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>{t('pages.earning.title')}</span>
+                  <span className='text-xs text-blue-500'>{t('pages.earning.icon_title')}</span>
                 </div>
                 <div
                   className='text-center'
@@ -160,7 +160,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/published.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>{t('pages.published.title')}</span>
+                  <span className='text-xs text-blue-500'>{t('pages.published.icon_title')}</span>
                 </div>
                 <div
                   className='text-center'
@@ -169,7 +169,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/paid.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>{t('pages.paid.title')}</span>
+                  <span className='text-xs text-blue-500'>{t('pages.paid.icon_title')}</span>
                 </div>
                 <div
                   className='text-center'
@@ -178,7 +178,7 @@ export default function Index() {
                     className={`h-12 w-12`}
                     src={`/images/forwarded.png`}>
                   </img>
-                  <span className='text-xs text-blue-500'>{t('pages.forwarded.title')}</span>
+                  <span className='text-xs text-blue-500'>{t('pages.forwarded.icon_title')}</span>
                 </div>
               </SimpleGrid>
             </div>
@@ -198,8 +198,8 @@ export default function Index() {
               </InputGroup>
             </div>
             <div className='mt-4 mb-4' style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span className='text-xm ml-2'>交易记录</span>
-              <span className='text-xm mr-2'>更多</span>
+              <span className='text-xm ml-2'>{t('pages.index.transaction_record')}</span>
+              <span className='text-xm mr-2'>{t('pages.index.more')}</span>
             </div>
             <div style={{ height: '400px', overflowY: 'auto' }} className='text-xs'>
 
@@ -250,7 +250,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-base'>
-                         0 TVS
+                          0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -263,16 +263,16 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                        交易方:
+                          交易方:
                         </Heading>
                         <div className='text-xm'>
-                        080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
+                          080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-             </div>
+              </div>
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
@@ -285,7 +285,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                         0 TVS
+                          0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -298,16 +298,16 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                        交易方:
+                          交易方:
                         </Heading>
                         <div className='text-xm'>
-                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-             </div>
+              </div>
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
@@ -320,7 +320,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                         0 TVS
+                          0 TVS
                         </div>
                       </Box>
                       <Box>
@@ -333,16 +333,16 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                        交易方:
+                          交易方:
                         </Heading>
                         <div className='text-xm'>
-                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-             </div>
+              </div>
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
@@ -355,7 +355,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                         60 TVS
+                          60 TVS
                         </div>
                       </Box>
                       <Box>
@@ -368,16 +368,16 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                        交易方:
+                          交易方:
                         </Heading>
                         <div className='text-xm'>
-                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-             </div>
+              </div>
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
@@ -390,7 +390,7 @@ export default function Index() {
                           收入:
                         </Heading>
                         <div className='text-xm'>
-                         80 TVS
+                          80 TVS
                         </div>
                       </Box>
                       <Box>
@@ -403,20 +403,20 @@ export default function Index() {
                       </Box>
                       <Box>
                         <Heading size='xm' textTransform='uppercase'>
-                        交易方:
+                          交易方:
                         </Heading>
                         <div className='text-xm'>
-                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
                         </div>
                       </Box>
                     </Stack>
                   </CardBody>
                 </Card>
-             </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </LayoutThird>
   );
 }

@@ -59,6 +59,8 @@
     "index": {
       "title": "PayToView",
       "address": "Main account address",
+      "transaction_record": "transaction record",
+      "more": "more",
       "profit": "24小时收益",
       "tab_1": "Published",
       "tab_2": "Paid",

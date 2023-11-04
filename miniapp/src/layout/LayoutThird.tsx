@@ -10,10 +10,6 @@ export default function Page({
   onRefresh,
   onLoad,
   refreshable = false,
-  showBack = true,
-  className = '',
-  showLogo = true,
-  loading = false,
   rightContent,
 }: any) {
   const nav = useNavigate();

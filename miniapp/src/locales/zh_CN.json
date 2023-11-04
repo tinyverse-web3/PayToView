@@ -59,6 +59,11 @@
     "index": {
       "title": "付费阅读",
       "address": "主账号地址",
+      "transaction_record": "交易记录",
+      "more": "更多",
+      "income": "收入",
+      "outcome": "支出",
+      "trader": "交易方",
       "profit": "24小时收益",
       "tab_1": "上传的",
       "tab_2": "支付的",

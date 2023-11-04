@@ -38,7 +38,7 @@ export default function DetailEdit() {
         ContractName: contractName,
       });
 
-      console.log(result);
+      console.log('getContractDetail: result:', result);
     }
   };
   const forwardHandler = async () => {
@@ -57,6 +57,7 @@ export default function DetailEdit() {
   const qrCodeurl = useMemo(() => {
     return `type=url&value=${location.origin}/#/detail/read?contract=${contractName}`;
   }, [contractName]);
+  const src = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
   useEffect(() => {
     if (contractName) {
       getContractDetail();
@@ -65,7 +66,7 @@ export default function DetailEdit() {
   return (
     <LayoutThird title={t('pages.forward.title')}>
       <div className='min-h-ful p-4'>
-        <div>forward.tsx</div>
+        {/* <div>forward.tsx</div> */}
         <BackButton onClick={() => nav(-1)} />
         <FormControl className='mb-4'>
           <Input
@@ -80,7 +81,7 @@ export default function DetailEdit() {
           <div className='flex justify-center items-center'>
             <div className='w-48 h-48'>
               <Image
-                src='https://via.placeholder.com/300'
+                src={src}
                 height='100%'
                 fit='cover'
               />
