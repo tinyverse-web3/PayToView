@@ -35,7 +35,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
     <div>
       <div>PayLimit.tsx</div>
       <FormControl className='mb-4'>
-        <FormLabel>{t('pages.detail.divide_ratio')}</FormLabel>
+        <FormLabel>{t('pages.publish.divide_ratio')}</FormLabel>
         <NumberInput
           isReadOnly
           width='100%'
@@ -47,11 +47,11 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
         </NumberInput>
       </FormControl>
       <FormControl>
-        <FormLabel>{t('pages.detail.divide_ratio')}</FormLabel>
+        <FormLabel>{t('pages.publish.divide_ratio')}</FormLabel>
         <SimpleGrid columns={4} spacing='10px'>
           <div>
             <div className='text-sm mb-1 text-center'>
-              {t('pages.detail.network')}
+              {t('pages.publish.network')}
             </div>
             <NumberInput
               isReadOnly
@@ -65,7 +65,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
           </div>
           <div>
             <div className='text-sm mb-1 text-center'>
-              {t('pages.detail.app')}
+              {t('pages.publish.app')}
             </div>
             <NumberInput
               isReadOnly
@@ -79,7 +79,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
           </div>
           <div>
             <div className='text-sm mb-1 text-center'>
-              {t('pages.detail.forwarder')}
+              {t('pages.publish.forwarder')}
             </div>
             <NumberInput
               min={15}
@@ -94,7 +94,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
           </div>
           <div>
             <div className='text-sm mb-1 text-center'>
-              {t('pages.detail.sender')}
+              {t('pages.publish.sender')}
             </div>
             <NumberInput
               min={0}

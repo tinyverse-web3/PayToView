@@ -12,6 +12,8 @@ import { useListStore } from '@/store';
 import paytoview from '@/lib/paytoview';
 import { flattenListData } from '@/lib/utils';
 import { useAccountStore } from '@/store';
+import LayoutThird from '@/layout/LayoutThird';
+
 export default function Index() {
   useTitle('Forwarded');
   const { t } = useTranslation();
@@ -35,19 +37,21 @@ export default function Index() {
     getList();
   }, []);
   return (
-    <div className='h-full overflow-hidden'>
-      <div>forwarded.tsx</div>
-      <BackButton onClick={() => nav(-1)} />
-      <div className='h-full overflow-y-auto'>
-        <div className='p-4'>
-          {forwardList.length === 0 && <Empty />}
-          <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
-            {forwardList.map((v, i) => (
-              <ListItem item={v} key={i} isForward={false} />
-            ))}
-          </SimpleGrid>
+    <LayoutThird title={t('pages.forwarded.title')}>
+      <div className='h-full overflow-hidden'>
+        <div>forwarded.tsx</div>
+        <BackButton onClick={() => nav(-1)} />
+        <div className='h-full overflow-y-auto'>
+          <div className='p-4'>
+            {forwardList.length === 0 && <Empty />}
+            <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
+              {forwardList.map((v, i) => (
+                <ListItem item={v} key={i} isForward={false} />
+              ))}
+            </SimpleGrid>
+          </div>
         </div>
       </div>
-    </div>
+    </LayoutThird>
   );
 }

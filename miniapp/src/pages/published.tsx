@@ -11,6 +11,7 @@ import { flattenListData } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { useListStore, useAccountStore } from '@/store';
 import paytoview from '@/lib/paytoview';
+import LayoutThird from '@/layout/LayoutThird';
 
 export default function Index() {
   useTitle('Forwarded');
@@ -25,8 +26,8 @@ export default function Index() {
     if (result.code === '000000') {
       const list = flattenListData(result.data).map((v) => ({
         ...v,
-        Ipfs: `http://39.108.147.241:8080/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`,
-        // Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?cid=${v.CidForpreview}`,
+        // Ipfs: `http://39.108.147.241:8080/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`,
+        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?cid=${v.CidForpreview}`,
       }));
       console.log('published.tsx->getList, list:', list);
       setPublishedList(list);
@@ -39,20 +40,22 @@ export default function Index() {
     getList();
   }, []);
   return (
-    <div className='h-full overflow-hidden'>
-      <div>published.tsx</div>
-      <BackButton onClick={() => nav(-1)} />
+    <LayoutThird title={t('pages.published.title')}>
+      <div className='h-full overflow-hidden'>
+        <div>published.tsx</div>
+        <BackButton onClick={() => nav(-1)} />
 
-      <div className='h-full overflow-y-auto'>
-        <div className='p-4'>
-          {publishedList.length === 0 && <Empty />}
-          <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
-            {publishedList.map((v, i) => (
-              <ListItem item={v} key={i} onClick={() => toDetail(v)} />
-            ))}
-          </SimpleGrid>
+        <div className='h-full overflow-y-auto'>
+          <div className='p-4'>
+            {publishedList.length === 0 && <Empty />}
+            <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
+              {publishedList.map((v, i) => (
+                <ListItem item={v} key={i} onClick={() => toDetail(v)} />
+              ))}
+            </SimpleGrid>
+          </div>
         </div>
       </div>
-    </div>
+    </LayoutThird>
   );
 }

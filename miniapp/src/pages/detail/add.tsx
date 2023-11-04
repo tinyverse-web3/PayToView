@@ -12,6 +12,7 @@ import { useMap } from 'react-use';
 import { generatePassword } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { ROUTE_PATH } from '@/router';
+import LayoutThird from '@/layout/LayoutThird';
 
 export default function DetailAdd() {
   useTitle('PayToView');
@@ -130,6 +131,11 @@ export default function DetailAdd() {
     // // const contentCid = '123'
     // // const previewCid = '123'
     // console.log(contentCid, previewCid);
+    if (contentCid === undefined || previewCid === undefined) {
+      setLoading(false);
+      console.error('cid is error')
+      return;
+    }
     const result = await paytoview.deployPayToView({
       Name: data.title + '_' + uuidv4(),
       CommissionName: commissionContract,
@@ -148,15 +154,23 @@ export default function DetailAdd() {
       Fee: data.fee,
       Password: data.password,
     });
+    console.log('add.tsx->addHandler: result:', result)
+    if (result.code !== '000000') {
+      setLoading(false);
+      console.error('deployPayToView is error')
+      return;
+    }
     setLoading(false);
     nav(ROUTE_PATH.PUBLISHED);
     // nav(-1);
   };
   return (
-    <div className='min-h-ful py-4'>
-      <div>add.tsx</div>
-      <BackButton onClick={() => nav(-1)} />
-      {/* <Tabs
+    <LayoutThird title={t('pages.publish.title')}>
+      <div className='min-h-ful py-4'>
+        <div>add.tsx</div>
+
+        <BackButton onClick={() => nav(-1)} />
+        {/* <Tabs
         variant='soft-rounded'
         align='center'
         className='mb-4'
@@ -167,22 +181,23 @@ export default function DetailAdd() {
           <Tab>{t('common.text')}</Tab>
         </TabList>
       </Tabs> */}
-      <div className='mb-4 px-4'>
-        <ContentUpload type={type} onChange={contentChange} />
-      </div>
-      <div className='px-4'>
-        <div className='mb-4'>
-          <PayLimit type={type} onChange={payChange} />
+        <div className='mb-4 px-4'>
+          <ContentUpload type={type} onChange={contentChange} />
         </div>
-        <Button
-          colorScheme='messenger'
-          size='lg'
-          isLoading={loading}
-          className='w-full'
-          onClick={addHandler}>
-          {t('common.release')}
-        </Button>
+        <div className='px-4'>
+          <div className='mb-4'>
+            <PayLimit type={type} onChange={payChange} />
+          </div>
+          <Button
+            colorScheme='messenger'
+            size='lg'
+            isLoading={loading}
+            className='w-full'
+            onClick={addHandler}>
+            {t('common.release')}
+          </Button>
+        </div>
       </div>
-    </div>
+    </LayoutThird>
   );
 }

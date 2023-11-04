@@ -11,6 +11,8 @@ import { useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { IpfsImage } from '@/components/IpfsImage';
 import { useIpfsSrc } from '@/lib/hooks';
+import LayoutThird from '@/layout/LayoutThird';
+
 export default function DetailRead() {
   useTitle('PayToView');
   const [searchParams] = useSearchParams();
@@ -38,6 +40,9 @@ export default function DetailRead() {
     //   },
     // ]);
     webApp?.close();
+    if (result.code === '000000') {
+      nav(ROUTE_PATH.PAID);
+    }
   };
   const getContractDetail = async () => {
     if (!contractName) return;
@@ -53,50 +58,53 @@ export default function DetailRead() {
   }
   const readStatus = useMemo(() => detail.isPaid, [detail.isPaid]);
 
-  const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
+  // const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
+  const src = 'https://gateway.pinata.cloud/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
   useEffect(() => {
     if (contractName) {
       getContractDetail();
     }
   }, [contractName]);
   return (
-    <div className='min-h-ful p-4'>
-      <div>read.tsx</div>
-      <BackButton onClick={toIndex} />
-      <div className='mb-4'>
-        <PhotoProvider>
-          <div className='flex justify-center items-center'>
-            <div className='w-48 h-48'>
-              <PhotoView src={src}>
-                <Image src={src} height='100%' fit='cover' />
-              </PhotoView>
+    <LayoutThird title={t('pages.detail.title')}>
+      <div className='min-h-ful p-4'>
+        <div>read.tsx</div>
+        <BackButton onClick={toIndex} />
+        <div className='mb-4'>
+          <PhotoProvider>
+            <div className='flex justify-center items-center'>
+              <div className='w-48 h-48'>
+                <PhotoView src={src}>
+                  <Image src={src} height='100%' fit='cover' />
+                </PhotoView>
+              </div>
             </div>
-          </div>
-        </PhotoProvider>
-      </div>
-      <div className='mb-4'>
-        <div className='font-bold mb-2'>{t('pages.detail.contract_name')}</div>
-        <div className='text-sm'>{detail.contractInfo?.ContractInfo?.Name}</div>
-      </div>
-      <HStack spacing='20px'>
-        {!readStatus && (
+          </PhotoProvider>
+        </div>
+        <div className='mb-4'>
+          <div className='font-bold mb-2'>{t('pages.publish.contract_name')}</div>
+          <div className='text-sm'>{detail.contractInfo?.ContractInfo?.Name}</div>
+        </div>
+        <HStack spacing='20px'>
+          {!readStatus && (
+            <Button
+              colorScheme='messenger'
+              size='lg'
+              className='flex-1'
+              onClick={toPay}>
+              {readStatus ? t('pages.publish.paied') : t('common.pay')}
+            </Button>
+          )}
+
           <Button
             colorScheme='messenger'
             size='lg'
             className='flex-1'
-            onClick={toPay}>
-            {readStatus ? t('pages.detail.paied') : t('common.pay')}
+            onClick={toForward}>
+            {t('common.forward')}
           </Button>
-        )}
-
-        <Button
-          colorScheme='messenger'
-          size='lg'
-          className='flex-1'
-          onClick={toForward}>
-          {t('common.forward')}
-        </Button>
-      </HStack>
-    </div>
+        </HStack>
+      </div>
+    </LayoutThird>
   );
 }

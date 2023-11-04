@@ -91,7 +91,7 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
         </FormControl>
       )}
       <FormControl className='mb-4'>
-        <FormLabel>{t('pages.detail.preview_mode')}</FormLabel>
+        <FormLabel>{t('pages.publish.preview_mode')}</FormLabel>
         {type === 'text' ? (
           <InputGroup size='md'>
             <NumberInput
@@ -106,7 +106,7 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
           </InputGroup>
         ) : (
           <div>
-            <div className='text-sm mb-2'>{t('pages.detail.blur_show')}</div>
+            <div className='text-sm mb-2'>{t('pages.publish.blur_show')}</div>
             {data.image && (
               <BlurImage file={data.image} onChange={blurChange} />
             )}
@@ -114,7 +114,7 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
         )}
       </FormControl>
       {/* <FormControl className='mb-4'>
-        <FormLabel>{t('pages.detail.password_mode')}</FormLabel>
+        <FormLabel>{t('pages.publish.password_mode')}</FormLabel>
         <Input
           type='text'
           rounded='md'

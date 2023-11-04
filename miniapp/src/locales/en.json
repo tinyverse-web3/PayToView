@@ -20,7 +20,9 @@
     "request_error": "Request failed"
   },
   "pages": {
-    "detail": {
+    "publish": {
+      "title": "publish",
+      "icon_title": "publish",
       "preview_mode": "Preview Mode",
       "password_mode": "Encrypted Password",
       "blur_show": "Blur",
@@ -32,7 +34,32 @@
       "contract_name": "Contract Name",
       "paied": "Paied"
     },
+    "earning": {
+      "title": "earning",
+      "icon_title": "earning"
+    },
+    "published": {
+      "title": "published list",
+      "icon_title": "published"
+    },
+    "paid": {
+      "title": "paid list",
+      "icon_title": "paid"
+    },
+    "forwarded": {
+      "title": "forwarded list",
+      "icon_title": "forwarded"
+    },
+    "forward": {
+      "title": "forward"
+    },
+    "detail": {
+      "title": "detail"
+    },
     "index": {
+      "title": "PayToView",
+      "address": "Main account address",
+      "profit": "24小时收益",
       "tab_1": "Published",
       "tab_2": "Paid",
       "tab_3": "Forwarded"

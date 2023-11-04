@@ -17,6 +17,8 @@ import { useTranslation } from 'react-i18next';
 import { useListStore } from '@/store';
 import paytoview from '@/lib/paytoview';
 import { ROUTE_PATH } from '@/router';
+import LayoutThird from '@/layout/LayoutThird';
+
 export default function Index() {
   useTitle('Forwarded');
   const { t } = useTranslation();
@@ -40,19 +42,21 @@ export default function Index() {
     getList();
   }, []);
   return (
-    <div className='h-full overflow-hidden'>
-      <div>paid.tsx</div>
-      <BackButton onClick={() => nav(-1)} />
-      <div className='h-full overflow-y-auto'>
-        <div className='p-4'>
-          {paidList.length === 0 && <Empty />}
-          <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
-            {paidList.map((v, i) => (
-              <ListItem item={v} key={i} onClick={() => toDetail(v)} />
-            ))}
-          </SimpleGrid>
+    <LayoutThird title={t('pages.paid.title')}>
+      <div className='h-full overflow-hidden'>
+        <div>已付费的列表-paid.tsx</div>
+        <BackButton onClick={() => nav(-1)} />
+        <div className='h-full overflow-y-auto'>
+          <div className='p-4'>
+            {paidList.length === 0 && <Empty />}
+            <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
+              {paidList.map((v, i) => (
+                <ListItem item={v} key={i} onClick={() => toDetail(v)} />
+              ))}
+            </SimpleGrid>
+          </div>
         </div>
       </div>
-    </div>
+    </LayoutThird>
   );
 }

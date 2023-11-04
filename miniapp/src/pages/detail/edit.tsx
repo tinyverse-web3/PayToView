@@ -42,7 +42,7 @@ export default function DetailEdit() {
         )}
       </div>
       <div className='mb-4'>
-        <div className='font-bold mb-2'>{t('pages.detail.contract_name')}</div>
+        <div className='font-bold mb-2'>{t('pages.publish.contract_name')}</div>
         <div className='text-sm'>PayToView</div>
       </div>
       <div className=''>
