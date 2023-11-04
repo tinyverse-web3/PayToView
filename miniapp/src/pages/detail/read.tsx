@@ -59,7 +59,7 @@ export default function DetailRead() {
   const readStatus = useMemo(() => detail.isPaid, [detail.isPaid]);
 
   // const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
-  const src = 'https://gateway.pinata.cloud/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
+  const src = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
   useEffect(() => {
     if (contractName) {
       getContractDetail();

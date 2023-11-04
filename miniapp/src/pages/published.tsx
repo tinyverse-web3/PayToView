@@ -26,7 +26,7 @@ export default function Index() {
     if (result.code === '000000') {
       const list = flattenListData(result.data).map((v) => ({
         ...v,
-        // Ipfs: `http://39.108.147.241:8080/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`,
+        // Ipfs: `https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`,
         Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?cid=${v.CidForpreview}`,
       }));
       console.log('published.tsx->getList, list:', list);
