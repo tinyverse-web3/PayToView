@@ -197,7 +197,7 @@ export default function Index() {
           </div>
           <div className='mt-4 mb-4' style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span className='text-xm ml-2'>交易记录</span>
-            <span className='text-xm mr-2'>更多 ></span>
+            <span className='text-xm mr-2'>更多 &gt;</span>
           </div>
           <div style={{ height: '400px', overflowY: 'auto' }} className='text-xs'>
            
@@ -239,7 +239,7 @@ export default function Index() {
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d701..fd05</Heading>
+                    <Heading size='sm'>ID：/tx/d701..fd05</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -274,7 +274,7 @@ export default function Index() {
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d79b...abef</Heading>
+                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -309,7 +309,7 @@ export default function Index() {
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d79b...abef</Heading>
+                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -344,7 +344,7 @@ export default function Index() {
               <div className='mt-6 m-2'>
                 <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d79b...abef</Heading>
+                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -411,25 +411,9 @@ export default function Index() {
                   </CardBody>
                 </Card>
              </div>
-            {/* </UnorderedList> */}
           </div>
         </div>
       </div>
-      {/* <div className='h-16 flex justify-center items-center'>
-        <ButtonGroup size='sm' variant='outline' isAttached>
-          <IconButton
-            isRound={true}
-            variant='solid'
-            colorScheme='teal'
-            aria-label='Done'
-            onClick={toAdd}
-            icon={<Icon icon='material-symbols:add' className='text-2xl' />}
-          />
-          <Button onClick={toPublished}>Published</Button>
-          <Button onClick={toPaid}>Paid</Button>
-          <Button onClick={toForwarded}>Forwarded</Button>
-        </ButtonGroup>
-      </div> */}
     </div>
   );
 }
