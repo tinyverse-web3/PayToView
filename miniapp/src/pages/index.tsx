@@ -200,11 +200,11 @@ export default function Index() {
             <span className='text-xm mr-2'>更多 ></span>
           </div>
           <div style={{ height: '400px', overflowY: 'auto' }} className='text-xs'>
-            <UnorderedList>
-              <Litem className='m-2'>
-                <Card>
+           
+              <div className='m-2'>
+                <Card variant={'filled'}>
                   <CardHeader>
-                    <Heading size='sm'>/tx/d79b...3abe</Heading>
+                    <Heading size='sm'>ID：/tx/d79b...3abe</Heading>
                   </CardHeader>
                   <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
@@ -235,9 +235,9 @@ export default function Index() {
                     </Stack>
                   </CardBody>
                 </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
+              </div>
+              <div className='mt-6 m-2'>
+                <Card variant={'filled'}>
                   <CardHeader>
                     <Heading size='sm'>/tx/d701..fd05</Heading>
                   </CardHeader>
@@ -270,9 +270,9 @@ export default function Index() {
                     </Stack>
                   </CardBody>
                 </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
+             </div>
+              <div className='mt-6 m-2'>
+                <Card variant={'filled'}>
                   <CardHeader>
                     <Heading size='sm'>/tx/d79b...abef</Heading>
                   </CardHeader>
@@ -305,9 +305,9 @@ export default function Index() {
                     </Stack>
                   </CardBody>
                 </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
+             </div>
+              <div className='mt-6 m-2'>
+                <Card variant={'filled'}>
                   <CardHeader>
                     <Heading size='sm'>/tx/d79b...abef</Heading>
                   </CardHeader>
@@ -340,9 +340,9 @@ export default function Index() {
                     </Stack>
                   </CardBody>
                 </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
+             </div>
+              <div className='mt-6 m-2'>
+                <Card variant={'filled'}>
                   <CardHeader>
                     <Heading size='sm'>/tx/d79b...abef</Heading>
                   </CardHeader>
@@ -375,9 +375,9 @@ export default function Index() {
                     </Stack>
                   </CardBody>
                 </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
+             </div>
+              <div className='mt-6 m-2'>
+                <Card variant={'filled'}>
                   <CardHeader>
                     <Heading size='sm'>/tx/d79b...abef</Heading>
                   </CardHeader>
@@ -410,8 +410,8 @@ export default function Index() {
                     </Stack>
                   </CardBody>
                 </Card>
-              </Litem>
-            </UnorderedList>
+             </div>
+            {/* </UnorderedList> */}
           </div>
         </div>
       </div>
