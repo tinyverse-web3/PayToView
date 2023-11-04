@@ -55,6 +55,8 @@ export default function DetailRead() {
     }
     if (result.data.isPaid) {
       setContentSrc('https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ')
+    } else {
+      setContentSrc('https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA')
     }
   };
   const toForward = () => {
