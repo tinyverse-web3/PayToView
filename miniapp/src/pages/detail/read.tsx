@@ -20,6 +20,7 @@ export default function DetailRead() {
   const nav = useNavigate();
   const { t } = useTranslation();
   const [detail, setDetail] = useState<any>({});
+  const [contentSrc, setContentSrc] = useState<any>({});
   const type = 'image';
   const webApp = useWebApp();
   const toIndex = () => {
@@ -52,6 +53,9 @@ export default function DetailRead() {
     if (result.code === '000000') {
       setDetail(result.data);
     }
+    if (result.data.isPaid) {
+      setContentSrc('https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ')
+    }
   };
   const toForward = () => {
     nav(ROUTE_PATH.DETAIL_FORWARD + '/?contract=' + contractName);
@@ -60,14 +64,12 @@ export default function DetailRead() {
 
   // const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
   var previewSrc = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
-  var contentSrc = previewSrc;
+  // var contentSrc = previewSrc;
   useEffect(() => {
     if (contractName) {
       getContractDetail();
     }
-    if (detail.isPaid) {
-      contentSrc = 'https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ'
-    }
+
   }, [contractName]);
   return (
     <LayoutThird title={t('pages.detail.title')}>

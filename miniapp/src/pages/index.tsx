@@ -199,7 +199,7 @@ export default function Index() {
             </div>
             <div className='mt-4 mb-4' style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span className='text-xm ml-2'>{t('pages.index.transaction_record')}</span>
-              <span className='text-xm mr-2'>{t('pages.index.more')}</span>
+              <span className='text-xm mr-2'>{t('pages.index.more')} &gt;</span>
             </div>
             <div style={{ height: '400px', overflowY: 'auto' }} className='text-xs'>
 
