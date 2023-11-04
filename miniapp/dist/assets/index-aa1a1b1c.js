@@ -46054,7 +46054,10 @@ function Index$4() {
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4 mb-4", style: { display: "flex", justifyContent: "space-between" }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xm ml-2", children: t2("pages.index.transaction_record") }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xm mr-2", children: t2("pages.index.more") })
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xm mr-2", children: [
+        t2("pages.index.more"),
+        " >"
+      ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { height: "400px", overflowY: "auto" }, className: "text-xs", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "m-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { variant: "filled", children: [
@@ -47273,6 +47276,7 @@ function DetailRead() {
   const nav = useNavigate();
   const { t: t2 } = useTranslation();
   const [detail, setDetail] = reactExports.useState({});
+  const [contentSrc, setContentSrc] = reactExports.useState({});
   const webApp = O$3();
   const toIndex = () => {
     nav(ROUTE_PATH.INDEX, { replace: true });
@@ -47298,19 +47302,18 @@ function DetailRead() {
     if (result.code === "000000") {
       setDetail(result.data);
     }
+    if (result.data.isPaid) {
+      setContentSrc("https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ");
+    }
   };
   const toForward = () => {
     nav(ROUTE_PATH.DETAIL_FORWARD + "/?contract=" + contractName);
   };
   const readStatus = reactExports.useMemo(() => detail.isPaid, [detail.isPaid]);
   var previewSrc = "https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA";
-  var contentSrc = previewSrc;
   reactExports.useEffect(() => {
     if (contractName) {
       getContractDetail();
-    }
-    if (detail.isPaid) {
-      contentSrc = "https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ";
     }
   }, [contractName]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Page, { title: t2("pages.detail.title"), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-ful p-4", children: [
