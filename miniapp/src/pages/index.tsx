@@ -197,224 +197,239 @@ export default function Index() {
           </div>
           <div className='mt-4 mb-4' style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span className='text-xm ml-2'>交易记录</span>
-            <span className='text-xm mr-2'>更多 &gt;</span>
+            <span className='text-xm mr-2'>更多</span>
           </div>
           <div style={{ height: '400px', overflowY: 'auto' }} className='text-xs'>
-            <UnorderedList>
-              <Litem className='m-2'>
-                <Card>
-                  <CardHeader>
-                    <Heading size='sm'>/tx/d79b...3abe</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          10 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          080112202eb5947819be566f30c0faa3df0d272a47c0ae441d42e217bbcfd05932845adc
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d701..fd05</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-base'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          -105 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          -3 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-base'>
-                          -58 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          60 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </Litem>
-              <Litem className='mt-6 m-2'>
-                <Card>
-                  <CardHeader>
-                    <Heading size='sm'>/tx/d79b...abef</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          80 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </div>
-              {/* </UnorderedList> */}
+
+            <div className='m-2'>
+              <Card variant={'filled'}>
+                <CardHeader>
+                  <Heading size='sm'>ID：/tx/d79b...3abe</Heading>
+                </CardHeader>
+                <CardBody>
+                  <Stack divider={<StackDivider />} spacing='2'>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        收入:
+                      </Heading>
+                      <div className='text-xm'>
+                        10 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        支出:
+                      </Heading>
+                      <div className='text-xm'>
+                        0 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        交易方:
+                      </Heading>
+                      <div className='text-xm'>
+                        080112202eb5947819be566f30c0faa3df0d272a47c0ae441d42e217bbcfd05932845adc
+                      </div>
+                    </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
+            </div>
+            <div className='mt-6 m-2'>
+              <Card variant={'filled'}>
+                <CardHeader>
+                  <Heading size='sm'>/tx/d701..fd05</Heading>
+                </CardHeader>
+                <CardBody>
+                  <Stack divider={<StackDivider />} spacing='2'>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        收入:
+                      </Heading>
+                      <div className='text-base'>
+                        0 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        支出:
+                      </Heading>
+                      <div className='text-xm'>
+                        -105 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        交易方:
+                      </Heading>
+                      <div className='text-xm'>
+                        080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
+                      </div>
+                    </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
+            </div>
+            <div className='mt-6 m-2'>
+              <Card variant={'filled'}>
+                <CardHeader>
+                  <Heading size='sm'>/tx/d79b...abef</Heading>
+                </CardHeader>
+                <CardBody>
+                  <Stack divider={<StackDivider />} spacing='2'>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        收入:
+                      </Heading>
+                      <div className='text-xm'>
+                        0 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        支出:
+                      </Heading>
+                      <div className='text-xm'>
+                        -3 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        交易方:
+                      </Heading>
+                      <div className='text-xm'>
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                      </div>
+                    </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
+            </div>
+            <div className='mt-6 m-2'>
+              <Card variant={'filled'}>
+                <CardHeader>
+                  <Heading size='sm'>/tx/d79b...abef</Heading>
+                </CardHeader>
+                <CardBody>
+                  <Stack divider={<StackDivider />} spacing='2'>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        收入:
+                      </Heading>
+                      <div className='text-xm'>
+                        0 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        支出:
+                      </Heading>
+                      <div className='text-base'>
+                        -58 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        交易方:
+                      </Heading>
+                      <div className='text-xm'>
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                      </div>
+                    </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
+            </div>
+            <div className='mt-6 m-2'>
+              <Card variant={'filled'}>
+                <CardHeader>
+                  <Heading size='sm'>/tx/d79b...abef</Heading>
+                </CardHeader>
+                <CardBody>
+                  <Stack divider={<StackDivider />} spacing='2'>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        收入:
+                      </Heading>
+                      <div className='text-xm'>
+                        60 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        支出:
+                      </Heading>
+                      <div className='text-xm'>
+                        0 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        交易方:
+                      </Heading>
+                      <div className='text-xm'>
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                      </div>
+                    </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
+            </div>
+            <div className='mt-6 m-2'>
+              <Card variant={'filled'}>
+                <CardHeader>
+                  <Heading size='sm'>/tx/d79b...abef</Heading>
+                </CardHeader>
+                <CardBody>
+                  <Stack divider={<StackDivider />} spacing='2'>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        收入:
+                      </Heading>
+                      <div className='text-xm'>
+                        80 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        支出:
+                      </Heading>
+                      <div className='text-xm'>
+                        0 TVS
+                      </div>
+                    </Box>
+                    <Box>
+                      <Heading size='xm' textTransform='uppercase'>
+                        交易方:
+                      </Heading>
+                      <div className='text-xm'>
+                        08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
+                      </div>
+                    </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
+            </div>
+            {/* </UnorderedList> */}
           </div>
         </div>
       </div>
+      {/* <div className='h-16 flex justify-center items-center'>
+        <ButtonGroup size='sm' variant='outline' isAttached>
+          <IconButton
+            isRound={true}
+            variant='solid'
+            colorScheme='teal'
+            aria-label='Done'
+            onClick={toAdd}
+            icon={<Icon icon='material-symbols:add' className='text-2xl' />}
+          />
+          <Button onClick={toPublished}>Published</Button>
+          <Button onClick={toPaid}>Paid</Button>
+          <Button onClick={toForwarded}>Forwarded</Button>
+        </ButtonGroup>
+      </div> */}
     </div>
   );
 }
