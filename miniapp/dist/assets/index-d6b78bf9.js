@@ -43683,10 +43683,9 @@ function Index$3() {
   const getList = async () => {
     const result = await paytoview.getPayToViewList();
     if (result.code === "000000") {
-      const cid = "QmQRLCaUbC67tfRJtfsLdVnFVamgviqQwvc6Q1PhAGjivs";
       const list2 = flattenListData(result.data).map((v2) => ({
         ...v2,
-        Ipfs: `${"http://39.108.147.241/ipfs"}/cat?cid=${cid}`
+        Ipfs: `${"http://39.108.147.241/ipfs"}/cat?cid=QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`
         // Ipfs: `${"http://39.108.147.241/ipfs"}/cat?cid=${v.CidForpreview}`,
       }));
       console.log("published.tsx->getList, list:", list2);
