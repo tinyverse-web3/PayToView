@@ -417,5 +417,6 @@ export default function Index() {
         </div>
       </div>
     </div>
+    </LayoutThird>
   );
 }
