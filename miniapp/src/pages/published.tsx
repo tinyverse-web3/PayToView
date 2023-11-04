@@ -23,9 +23,11 @@ export default function Index() {
   const getList = async () => {
     const result = await paytoview.getPayToViewList();
     if (result.code === '000000') {
+      const cid = 'QmQRLCaUbC67tfRJtfsLdVnFVamgviqQwvc6Q1PhAGjivs'
       const list = flattenListData(result.data).map((v) => ({
         ...v,
-        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?pubkey=${accountInfo.publicKey}&cid=${v.CidForpreview}`,
+        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?cid=${cid}`,
+        // Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?cid=${v.CidForpreview}`,
       }));
       console.log('published.tsx->getList, list:', list);
       setPublishedList(list);

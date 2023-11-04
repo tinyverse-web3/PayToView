@@ -4,6 +4,12 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // server: {
+  //   https: {
+  //     key: path.resolve(__dirname, 'keys/cert.key'),
+  //     cert: path.resolve(__dirname, 'keys/cert.crt'),
+  //   }
+  // },
   plugins: [react()],
   define: {
     'process.env': process.env,
