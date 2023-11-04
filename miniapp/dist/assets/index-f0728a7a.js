@@ -43685,7 +43685,7 @@ function Index$3() {
     if (result.code === "000000") {
       const list2 = flattenListData(result.data).map((v2) => ({
         ...v2,
-        Ipfs: `${"http://39.108.147.241/ipfs"}/cat?cid=QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`
+        Ipfs: `http://39.108.147.241:8080/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`
         // Ipfs: `${"http://39.108.147.241/ipfs"}/cat?cid=${v.CidForpreview}`,
       }));
       console.log("published.tsx->getList, list:", list2);
