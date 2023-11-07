@@ -19,6 +19,9 @@ import LayoutThird from '@/layout/LayoutThird';
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import ReactJson from 'react-json-view';
+import { useTonAddress } from '@tonconnect/ui-react';
+import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
+
 
 
 export default function Index() {
@@ -54,6 +57,8 @@ export default function Index() {
               <ReactJson src={defaultTx} theme="ocean" onEdit={onChange} onAdd={onChange} onDelete={onChange} />
               {wallet ? (
                 <button onClick={() => tonConnectUi.sendTransaction(tx)}>
+                  console.log('tonAddress', useTonAddress());
+                  console.log('rawTonAddress:', useTonAddress(false))
                   Send transaction
                 </button>
               ) : (
