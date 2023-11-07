@@ -35,7 +35,12 @@
     "react-use": "^17.4.0",
     "ton3-core": "^1.0.1",
     "uuid": "^9.0.1",
-    "zustand": "^4.4.3"
+    "zustand": "^4.4.3",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "buffer": "^6.0.3",
+    "@ton/core": "^0.53.0",
+    "@ton/crypto": "^3.2.0",
+    "@ton/ton": "^13.9.0"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",

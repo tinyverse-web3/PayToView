@@ -21,8 +21,9 @@ import { useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import ReactJson from 'react-json-view';
 import { useTonAddress } from '@tonconnect/ui-react';
 import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
-import { BOC, Builder } from 'ton3-core'
+import { BOC as BOC1, Builder } from 'ton3-core'
 import { Address } from "ton3-core";
+import { beginCell } from '@ton/core'
 
 
 export default function Index() {
@@ -34,12 +35,15 @@ export default function Index() {
   const tonAddress = useTonAddress();
   const rawTonAddress = useTonAddress(false);
 
+
+  const payload = beginCell().storeUint(0, 32).storeStringTail("Hello, TON!").endCell().toBoc().toString('base64');
   const defaultTx = {
     validUntil: Math.floor(Date.now() / 1000) + 600, // unix epoch seconds
     messages: [
       {
         address: '0QDHpqs5ayRdE3v0HMh0Ymi5VXIguacE7DRF_EHjxZOTHWl6',
         amount: '20000000',
+        payload: payload
       }
     ],
   };
@@ -48,16 +52,6 @@ export default function Index() {
   const [tonConnectUi] = useTonConnectUI();
 
   const onChange = useCallback((value: object) => setTx((value as { updated_src: typeof defaultTx }).updated_src), []);
-
-  console.log(tonAddress)
-  console.log(rawTonAddress)
-
-  const address = new Address('0:412410771DA82CBA306A55FA9E0D43C9D245E38133CB58F1457DFB8D5CD8892F')
-  console.log(address.bounceable)
-  console.log(address.testOnly)
-  console.log(address.toString())
-  console.log(address.workchain)
-
 
   return (
     <LayoutThird title='充值'>
@@ -71,12 +65,9 @@ export default function Index() {
               <ReactJson src={defaultTx} theme="ocean" onEdit={onChange} onAdd={onChange} onDelete={onChange} />
               {wallet ? (
                 <button onClick={() => {
-                  console.log('tonAddress', tonAddress);
-                  console.log('rawTonAddress:', rawTonAddress)
                   tonConnectUi.sendTransaction(tx)
                 }
                 }>
-
                   Send transaction
                 </button>
               ) : (
