@@ -19,7 +19,7 @@ import LayoutThird from '@/layout/LayoutThird';
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import ReactJson from 'react-json-view';
-import './style.scss';
+
 
 export default function Index() {
   useTitle('PayToView');
