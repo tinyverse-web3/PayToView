@@ -32,7 +32,9 @@
     "uuid": "^9.0.1",
     "zustand": "^4.4.3",
     "@nextui-org/react": "^2.1.13",
-    "react-pull-to-refresh": "^2.0.1"
+    "react-pull-to-refresh": "^2.0.1",
+    "@tonconnect/ui-react": "^2.0.0-beta.4",
+    "react-json-view": "^1.21.3"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",

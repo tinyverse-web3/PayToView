@@ -180,6 +180,15 @@ export default function Index() {
                   </img>
                   <span className='text-xs text-blue-500'>{t('pages.forwarded.icon_title')}</span>
                 </div>
+                <div
+                  className='text-center'
+                  onClick={toForwarded}>
+                  <img
+                    className={`h-12 w-12`}
+                    src={`/images/forwarded.png`}>
+                  </img>
+                  <span className='text-xs text-blue-500'>充值</span>
+                </div>
               </SimpleGrid>
             </div>
             <div className='mt-m-2'>
