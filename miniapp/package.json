@@ -15,6 +15,8 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@iconify/react": "^4.1.1",
+    "@nextui-org/react": "^2.1.13",
+    "@tonconnect/ui-react": "^2.0.0-beta.4",
     "@vkruglikov/react-telegram-web-app": "^2.1.4",
     "axios": "^1.6.0",
     "framer-motion": "^10.16.4",
@@ -26,15 +28,14 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-i18next": "^13.3.0",
+    "react-json-view": "^1.21.3",
     "react-photo-view": "^1.2.3",
+    "react-pull-to-refresh": "^2.0.1",
     "react-router-dom": "^6.16.0",
     "react-use": "^17.4.0",
+    "ton3-core": "^1.0.1",
     "uuid": "^9.0.1",
-    "zustand": "^4.4.3",
-    "@nextui-org/react": "^2.1.13",
-    "react-pull-to-refresh": "^2.0.1",
-    "@tonconnect/ui-react": "^2.0.0-beta.4",
-    "react-json-view": "^1.21.3"
+    "zustand": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",
