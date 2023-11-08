@@ -35,13 +35,14 @@ export default function Index() {
   const tonAddress = useTonAddress();
   const rawTonAddress = useTonAddress(false);
 
-
-  const payload = beginCell().storeUint(0, 32).storeStringTail("Hello, TON!").endCell().toBoc().toString('base64');
+  const myAddress = 'UQB-Hz6V1mK_fN_8O5MDedrmqvhP-vLsIRFUi77HnI85O8ei'
+  const commitText = 'tvswallet=abcdefghijklmnopqrstuvwxyz&app=payToView'
+  const payload = beginCell().storeUint(0, 32).storeStringTail(commitText).endCell().toBoc().toString('base64');
   const defaultTx = {
     validUntil: Math.floor(Date.now() / 1000) + 600, // unix epoch seconds
     messages: [
       {
-        address: '0QDHpqs5ayRdE3v0HMh0Ymi5VXIguacE7DRF_EHjxZOTHWl6',
+        address: myAddress,
         amount: '20000000',
         payload: payload
       }
@@ -65,7 +66,12 @@ export default function Index() {
               <ReactJson src={defaultTx} theme="ocean" onEdit={onChange} onAdd={onChange} onDelete={onChange} />
               {wallet ? (
                 <button onClick={() => {
-                  tonConnectUi.sendTransaction(tx)
+                  tonConnectUi.sendTransaction(tx).then((result) => {
+                    console.log('topup.tsx sendTransaction result: ', result.boc);
+                  }).catch((error) => {
+                    console.error('topup.tsx sendTransaction error: ', error);
+                  })
+
                 }
                 }>
                   Send transaction
