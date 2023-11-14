@@ -1,5 +1,7 @@
 package modules
 
+import "unicode"
+
 // stringInSlice checks if a string is present in a slice of strings.
 //
 // Parameters:
@@ -15,4 +17,13 @@ func stringInSlice(a string, list []string) bool {
 		}
 	}
 	return false
+}
+
+func isInt(s string) bool {
+	for _, c := range s {
+		if !unicode.IsDigit(c) {
+			return false
+		}
+	}
+	return true
 }

@@ -9,10 +9,8 @@ import (
 )
 
 var (
-	menu         = &tb.ReplyMarkup{}
-	help_button  = sel.Data("HELP", "help_button")
-	back_button  = sel.Data("Back", "back_button")
-	reply_button = &tb.ReplyMarkup{ResizeKeyboard: true}
+	pay_to_view    = sel.Data("Pay to view", "pay_to_view")
+	points_payment = sel.Data("Points payment", "points_payment")
 )
 
 func Start(c tb.Context) error {
@@ -20,71 +18,56 @@ func Start(c tb.Context) error {
 	userId := strconv.FormatInt(c.Sender().ID, 10)
 	isExist := checkUserExists(userId)
 	if m.Private() && isExist {
-		genKeyboardButton(userId)
-		genHaveAccountButtons(userId)
-		_, err := b.Send(m.Sender, displayAccountInfo("xxxx", "xxxx", "xxxxx"), reply_button, menu)
-		if err != nil {
-			log.Logger.Error(err)
-		}
+		showBotView(c)
 		return nil
 	}
 	if m.Private() && !isExist {
-		createAccountInlineKeyboard(userId)
-		b.Send(m.Sender, fmt.Sprintf("Hey there! I am <b>%s</b>.\nIm an Tinverse Space Bot, you can call me anytime by click the buttons below! ", BOT_NAME), menu)
+		showCreateAccountView(c)
 		return nil
 	}
-
 	b.Reply(m, "Hey I'm TVS bot.")
 	return nil
 }
 
-func Help_Menu(c tb.Context) error {
-	if c.Message().Private() {
-		gen_help_buttons(c, help_caption, true)
-	}
-	return nil
-}
-
-func gen_help_buttons(c tb.Context, text string, Reply bool) {
-	sel.Inline(sel.Row(sel.Data("AFK", "help_button", "afk"), sel.Data("Admin", "help_button", "admin"), sel.Data("Bans", "help_button", "bans")), sel.Row(sel.Data("Chatbot", "help_button", "chatbot"), sel.Data("Feds", "help_button", "feds"), sel.Data("Greetings", "help_button", "greetings")), sel.Row(sel.Data("Inline", "help_button", "inline"), sel.Data("Locks", "help_button", "locks"), sel.Data("Misc", "help_button", "misc")), sel.Row(sel.Data("Notes", "help_button", "notes"), sel.Data("Pin", "help_button", "pin"), sel.Data("Stickers", "help_button", "stickers")), sel.Row(sel.Data("Warns", "help_button", "warns")))
-	if Reply {
-		c.Reply(text, sel)
-	} else {
-		c.Edit(text, sel)
-	}
-}
-
-func HelpCB(c tb.Context) error {
-	arg := c.Callback().Data
-	text, ok := help[arg]
-	sel.Inline(sel.Row(back_button))
-	if ok {
-		err := c.Edit(text.(string), &tb.SendOptions{ParseMode: "Markdown", ReplyMarkup: sel})
-		check(err)
-	}
-	return nil
-}
-
-func back_cb(c tb.Context) error {
-	gen_help_buttons(c, help_caption, false)
-	return nil
-}
-
-func createAccountInlineKeyboard(userId string) {
+func showCreateAccountView(c tb.Context) {
+	menu := &tb.ReplyMarkup{}
+	userId := strconv.FormatInt(c.Sender().ID, 10)
+	m := c.Message()
 	menu.Inline(
-		menu.Row(menu.WebApp("Create Account", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
-		})),
-		menu.Row(menu.URL("Help", "https://tinyverse.space/")))
+		menu.Row(
+			menu.WebApp(
+				"Create Account",
+				&tb.WebApp{URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId)})),
+		menu.Row(
+			menu.URL("Help", "https://tinyverse.space/"),
+		),
+	)
+	_, err := b.Send(m.Sender, fmt.Sprintf("Hey there! I am <b>%s</b>.\nIm an Tinverse Space Bot, you can call me anytime by click the buttons below! ", BOT_NAME), menu)
+	if err != nil {
+		log.Logger.Error(err)
+	}
 }
 
-func displayAccountInfo(tvn_address, tvs_balance, tvs_income string) string {
+func showBotView(c tb.Context) {
+	startPayload := c.Message().Payload
+	queryMap := parseParameters(startPayload) //The parameter can be up to 64 characters long
+	cmd := queryMap["cmd"]
+	switch cmd {
+	case "fwd": //forward
+		showWorkView(c)
+	case "cp": //Complete payment
+		showRechargeCompletedView(c)
+	default:
+		showBotMainView(c)
+	}
+}
+
+func showBotMainView(c tb.Context) {
+	userId := strconv.FormatInt(c.Sender().ID, 10)
+	ai := getAccountInfo(userId)
 	var accountInfo = "<b>TVN master account address:      </b><i>%s</i>\n\n<b>TVN points balance:                        </b><i>%s</i>\n\n<b>Total revenue (last 24 hours):      </b><i>%s</i>"
-	accountInfoStr := fmt.Sprintf(accountInfo, tvn_address, tvs_balance, tvs_income)
-	return accountInfoStr
-}
-
-func genHaveAccountButtons(userId string) {
+	accountInfoStr := fmt.Sprintf(accountInfo, ai.Address, ai.Balance, ai.Income)
+	menu := &tb.ReplyMarkup{}
 	menu.Inline(
 		menu.Row(menu.WebApp("New Content", &tb.WebApp{
 			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
@@ -99,10 +82,119 @@ func genHaveAccountButtons(userId string) {
 		}), menu.WebApp("Forwarded", &tb.WebApp{
 			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
 		})))
+	_, err := b.Send(c.Message().Sender, accountInfoStr, menu)
+	if err != nil {
+		log.Logger.Error(err)
+	}
 }
 
-func genKeyboardButton(userId string) {
-	reply_button.Reply(reply_button.Row(reply_button.WebApp("Create Account", &tb.WebApp{
-		URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
-	})))
+// func genKeyboardButton(userId string) {
+// 	reply_button.Reply(reply_button.Row(reply_button.WebApp("Create Account", &tb.WebApp{
+// 		URL: fmt.Sprintf("https://192.168.1.103:5173/#/?user=%s", userId),
+// 	})))
+// }
+
+func showWorkView(c tb.Context) {
+	userId := strconv.FormatInt(c.Sender().ID, 10)
+	startPayload := c.Message().Payload
+	queryMap := parseParameters(startPayload)
+	workId := queryMap["work_id"]
+	wi := getWorkInfo(workId)
+	menu := &tb.ReplyMarkup{}
+	var workDesInfo = "<b>Title:      </b><i>%s</i>\n<b>Description:      </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>\n<b>Share ratio:      </b><i>%s</i>"
+	workDescInfoStr := fmt.Sprintf(workDesInfo, wi.Title, wi.Description, wi.Creator, wi.Fee, wi.ShareRatio)
+
+	p := &tb.Photo{
+		File:    tb.FromURL(wi.ImageUrl),
+		Caption: workDescInfoStr,
+	}
+
+	queryText := fmt.Sprintf("cmd=fwd&work_%s", workId)
+	var viewButton tb.Btn
+	//Pay or not
+	if isPaid(userId, workId) { //Paid
+		viewButton = menu.WebApp("View", &tb.WebApp{
+			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})
+	} else { //no payment
+		workIdStr := fmt.Sprintf("work_id=%s", wi.Id)
+		pay_to_view.Data = encodeParameters(workIdStr) //set data
+		viewButton = pay_to_view
+	}
+	menu.Inline(
+		menu.Row(
+			menu.Query("Forward", queryText),
+			viewButton))
+	_, err := b.Send(c.Message().Sender, p, menu)
+	if err != nil {
+		log.Logger.Error(err)
+	}
+}
+
+func PayToViewButtonTap(c tb.Context) error {
+	userId := strconv.FormatInt(c.Sender().ID, 10)
+	callbackData := c.Callback().Data
+	queryMap := parseParameters(callbackData)
+	workId := queryMap["work_id"]
+	wi := getWorkInfo(workId)
+	var workDesInfo = "<b>Title:      </b><i>%s</i>\n<b>Description:      </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>\n<b>Share ratio:      </b><i>%s</i>"
+	workDescInfoStr := fmt.Sprintf(workDesInfo, wi.Title, wi.Description, wi.Creator, wi.Fee, wi.ShareRatio)
+	menu := &tb.ReplyMarkup{}
+	if pointsIsSufficient(userId, wi.Id) {
+		menu.Inline(menu.Row(menu.WebApp("Points payment", &tb.WebApp{
+			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})))
+	} else {
+		points_payment.Data = callbackData
+		menu.Inline(menu.Row(points_payment))
+	}
+	c.Edit(workDescInfoStr, menu)
+	return nil
+}
+
+func PointsPaymentButtonTap(c tb.Context) error {
+	callbackData := c.Callback().Data
+	queryMap := parseParameters(callbackData)
+	workId := queryMap["work_id"]
+	wi := getWorkInfo(workId)
+	var paymentDesc = "<b>Here is an explanation of what TVS is and its exchange ratio with other Tokens and etc. </b>"
+	menu := &tb.ReplyMarkup{}
+	menu.Inline(
+		menu.Row(menu.WebApp("Wallet Pay", &tb.WebApp{
+			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", wi.Id)})),
+		menu.Row(menu.WebApp("Ton Connect", &tb.WebApp{
+			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})),
+	)
+	_, err := b.Send(c.Message().Sender, paymentDesc, menu)
+	if err != nil {
+		log.Logger.Error(err)
+		return err
+	}
+	return nil
+}
+
+func showRechargeCompletedView(c tb.Context) {
+	startPayload := c.Message().Payload
+	queryMap := parseInlineQueryArgs(startPayload)
+	workId := queryMap["work_id"]
+	wi := getWorkInfo(workId)
+	menu := &tb.ReplyMarkup{}
+	var workDesInfo = "<b>Title:      </b><i>%s</i>\n<b>Description:      </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>\n<b>Share ratio:      </b><i>%s</i>"
+	workDescInfoStr := fmt.Sprintf(workDesInfo, wi.Title, wi.Description, wi.Creator, wi.Fee, wi.ShareRatio)
+
+	caption := "Payment completed, you can now watch the content, or repost and earn a share of the fees."
+	p := &tb.Photo{
+		File:    tb.FromURL(wi.ImageUrl),
+		Caption: caption,
+	}
+
+	queryText := fmt.Sprintf("cmd=fwd&work_%s", workId)
+	viewButton := menu.WebApp("View", &tb.WebApp{
+		URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})
+	menu.Inline(
+		menu.Row(
+			menu.Query("Forward", queryText),
+			viewButton))
+	_, err := b.Send(c.Message().Sender, p, workDescInfoStr, menu)
+	if err != nil {
+		log.Logger.Error(err)
+	}
 }
