@@ -20,7 +20,9 @@
     "request_error": "请求失败"
   },
   "pages": {
-    "detail": {
+    "publish": {
+      "title": "发布付费阅读内容",
+      "icon_title": "发布",
       "preview_mode": "预览方式",
       "password_mode": "加密密码",
       "blur_show": "模糊",
@@ -32,7 +34,37 @@
       "contract_name": "合约名称",
       "paied": "已经支付"
     },
+    "earning": {
+      "title": "收益",
+      "icon_title": "收益"
+    },
+    "published": {
+      "title": "已发布的列表",
+      "icon_title": "已发布"
+    },
+    "paid": {
+      "title": "已付费的列表",
+      "icon_title": "已支付"
+    },
+    "forwarded": {
+      "title": "已转发的列表",
+      "icon_title": "已转发"
+    },
+    "forward": {
+      "title": "阅读转发"
+    },
+    "detail": {
+      "title": "合约详情"
+    },
     "index": {
+      "title": "付费阅读",
+      "address": "主账号地址",
+      "transaction_record": "交易记录",
+      "more": "更多",
+      "income": "收入",
+      "outcome": "支出",
+      "trader": "交易方",
+      "profit": "24小时收益",
       "tab_1": "上传的",
       "tab_2": "支付的",
       "tab_3": "转发的"

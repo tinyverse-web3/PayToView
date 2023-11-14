@@ -11,6 +11,8 @@ import { useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { IpfsImage } from '@/components/IpfsImage';
 import { useIpfsSrc } from '@/lib/hooks';
+import LayoutThird from '@/layout/LayoutThird';
+
 export default function DetailRead() {
   useTitle('PayToView');
   const [searchParams] = useSearchParams();
@@ -19,6 +21,7 @@ export default function DetailRead() {
   const { t } = useTranslation();
   const [paid, setPaid] = useState(false);
   const [detail, setDetail] = useState<any>({});
+  const [contentSrc, setContentSrc] = useState<any>({});
   const type = 'image';
   const webApp = useWebApp();
   const toIndex = () => {
@@ -29,10 +32,19 @@ export default function DetailRead() {
     const result = await paytoview.payToView({
       ContractName: contractName,
     });
+    console.log(result);
+    // setPaidList([
+    //   {
+    //     type: 'image',
+    //     title: 'PayToView First Image',
+    //     image:
+    //       'https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png',
+    //   },
+    // ]);
+    webApp?.close();
     if (result.code === '000000') {
-      setPaid(true);
-    } 
-    // webApp?.close();
+      nav(ROUTE_PATH.PAID);
+    }
   };
   const getData = async () => {
     if (!contractName) return;
@@ -48,17 +60,25 @@ export default function DetailRead() {
       setDetail(result.data);
       setPaid(result.data.isPaid);
     }
+    if (result.data.isPaid) {
+      setContentSrc('https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ')
+    } else {
+      setContentSrc('https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA')
+    }
   };
   const toForward = () => {
     nav(ROUTE_PATH.DETAIL_FORWARD + '/?contract=' + contractName);
   }
   const readStatus = useMemo(() => detail.isPaid, [detail.isPaid]);
 
-  const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
+  // const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
+  const previewSrc = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
+  // var contentSrc = previewSrc;
   useEffect(() => {
     if (contractName) {
       getContractDetail();
     }
+
   }, [contractName]);
   useEffect(() => {
     if (contractName && paid) {
@@ -66,42 +86,45 @@ export default function DetailRead() {
     }
   }, [contractName, paid]);
   return (
-    <div className='min-h-ful p-4'>
-      <BackButton onClick={toIndex} />
-      <div className='mb-4'>
-        <PhotoProvider>
-          <div className='flex justify-center items-center'>
-            <div className='w-48 h-48'>
-              <PhotoView src={src}>
-                <Image src={src} height='100%' fit='cover' />
-              </PhotoView>
+    <LayoutThird title={t('pages.detail.title')}>
+      <div className='min-h-ful p-4'>
+        {/* <div>read.tsx</div> */}
+        <BackButton onClick={toIndex} />
+        <div className='mb-4'>
+          <PhotoProvider>
+            <div className='flex justify-center items-center'>
+              <div className='w-48 h-48'>
+                <PhotoView src={contentSrc}>
+                  <Image src={previewSrc} height='100%' fit='cover' />
+                </PhotoView>
+              </div>
             </div>
-          </div>
-        </PhotoProvider>
-      </div>
-      <div className='mb-4'>
-        <div className='font-bold mb-2'>{t('pages.detail.contract_name')}</div>
-        <div className='text-sm'>{detail.contractInfo?.ContractInfo?.Name}</div>
-      </div>
-      <HStack spacing='20px'>
-        {!readStatus && (
+          </PhotoProvider>
+        </div>
+        <div className='mb-4'>
+          <div className='font-bold mb-2'>{t('pages.publish.contract_name')}</div>
+          <div className='text-sm'>{detail.contractInfo?.ContractInfo?.Name}</div>
+        </div>
+        <HStack spacing='20px'>
+          {!readStatus && (
+            <Button
+              colorScheme='messenger'
+              size='lg'
+              className='flex-1'
+              onClick={toPay}>
+              {readStatus ? t('pages.publish.paied') : t('common.pay')}
+            </Button>
+          )}
+
           <Button
             colorScheme='messenger'
             size='lg'
             className='flex-1'
-            onClick={toPay}>
-            {readStatus ? t('pages.detail.paied') : t('common.pay')}
+            onClick={toForward}>
+            {t('common.forward')}
           </Button>
-        )}
-
-        <Button
-          colorScheme='messenger'
-          size='lg'
-          className='flex-1'
-          onClick={toForward}>
-          {t('common.forward')}
-        </Button>
-      </HStack>
-    </div>
+        </HStack>
+      </div>
+    </LayoutThird>
   );
 }

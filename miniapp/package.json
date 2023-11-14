@@ -5,16 +5,23 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
+    "dbuild": "tsc && vite build --minify false",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@iconify/react": "^4.1.1",
+    "@ton/core": "^0.53.0",
+    "@ton/crypto": "^3.2.0",
+    "@ton/ton": "^13.9.0",
+    "@tonconnect/ui-react": "^2.0.0-beta.4",
     "@vkruglikov/react-telegram-web-app": "^2.1.4",
     "axios": "^1.6.0",
+    "buffer": "^6.0.3",
     "framer-motion": "^10.16.4",
     "i18next": "^23.5.1",
     "i18next-browser-languagedetector": "^7.1.0",
@@ -24,11 +31,13 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-i18next": "^13.3.0",
+    "react-json-view": "^1.21.3",
     "react-photo-view": "^1.2.3",
     "react-router-dom": "^6.16.0",
     "react-use": "^17.4.0",
+    "ton3-core": "^1.0.1",
     "uuid": "^9.0.1",
-    "zustand": "^4.4.3"
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",

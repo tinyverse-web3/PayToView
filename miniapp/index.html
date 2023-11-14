@@ -1,14 +1,33 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PayToView</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <script type="module">
+    import * as buffer from "buffer";
+
+    if (typeof (window).global === "undefined") {
+      (window).global = window;
+    }
+
+    if (typeof (window).Buffer === "undefined") {
+      (window).Buffer = buffer.Buffer;
+    }
+
+  </script>
+  <script>
+    window.process = {}
+    window.global = window;
+  </script>
+  <title>PayToView</title>
+  <!-- <script src="https://telegram.org/js/telegram-web-app.js"></script> -->
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
