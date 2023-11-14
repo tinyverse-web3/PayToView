@@ -36,7 +36,7 @@ export default function Index() {
   const rawTonAddress = useTonAddress(false);
 
   const myAddress = 'UQB-Hz6V1mK_fN_8O5MDedrmqvhP-vLsIRFUi77HnI85O8ei'
-  const commitText = 'tvswallet=abcdefghijklmnopqrstuvwxyz&app=payToView'
+  const commitText = 'tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4&app=payToView'
   const payload = beginCell().storeUint(0, 32).storeStringTail(commitText).endCell().toBoc().toString('base64');
   const defaultTx = {
     validUntil: Math.floor(Date.now() / 1000) + 600, // unix epoch seconds
