@@ -73,6 +73,9 @@ export default function Index() {
     localStorage.clear();
     location.reload();
   };
+  const toTg = () => {
+    window.open('https://t.me/tvnb_bot?start=xyzw');
+  }
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -188,6 +191,15 @@ export default function Index() {
                     src={`/images/forwarded.png`}>
                   </img>
                   <span className='text-xs text-blue-500'>充值</span>
+                </div>
+                <div
+                  className='text-center'
+                  onClick={toTg}>
+                  <img
+                    className={`h-12 w-12`}
+                    src={`/images/forwarded.png`}>
+                  </img>
+                  <span className='text-xs text-blue-500'>测试tg</span>
                 </div>
               </SimpleGrid>
             </div>

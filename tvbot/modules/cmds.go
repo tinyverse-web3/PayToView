@@ -22,8 +22,6 @@ func GatherHandlers() map[string]HANDLE {
 
 	// start.go
 	HANDLERS["start"] = HANDLE{FUNC: Start}
-	HANDLERS["help"] = HANDLE{FUNC: Help_Menu}
-
 	return HANDLERS
 }
 
@@ -39,14 +37,19 @@ func RegisterHandlers() {
 }
 
 func CallBackHandlers() {
-	bot.Bot.Handle(&help_button, HelpCB)
-	bot.Bot.Handle(&back_button, back_cb)
+	// bot.Bot.Handle(&help_button, HelpCB)
+	// bot.Bot.Handle(&back_button, back_cb)
 
 	// common handlers
-	bot.Bot.Handle(tb.OnText, OnTextHandler)
+	//bot.Bot.Handle(tb.OnText, OnTextHandler)
 
 	// webApp handlers
 	bot.Bot.Handle(tb.OnWebApp, OnWebAppDataHandler)
+	bot.Bot.Handle(tb.OnQuery, InlineQueryHandler)
+
+	//paytoview handlers
+	bot.Bot.Handle(&pay_to_view, PayToViewButtonTap)
+	bot.Bot.Handle(&points_payment, PointsPaymentButtonTap)
 }
 
 func OnTextHandler(c tb.Context) error {
@@ -88,6 +91,7 @@ func OnWebAppDataHandler(c tb.Context) error {
 	if webapp.Data != "" {
 		webData := webapp.Data
 		var sharePaytoViewData SharePaytoViewData
+		var menu = &tb.ReplyMarkup{}
 		err := json.Unmarshal([]byte(webData), &sharePaytoViewData)
 		if err != nil {
 			log.Logger.Error(err)
@@ -99,10 +103,10 @@ func OnWebAppDataHandler(c tb.Context) error {
 		if !IsStringEmpty(title) {
 			text = text + fmt.Sprintf("<b>%s</b>\n\n", title)
 		}
-		if IsStringEmpty(description) {
+		if !IsStringEmpty(description) {
 			text = text + fmt.Sprintf("%s\n\n", description)
 		}
-		if IsStringEmpty(imageUrl) {
+		if !IsStringEmpty(imageUrl) {
 			text = text + "Share this image with your friends!"
 		}
 		p := &tb.Photo{
@@ -110,11 +114,15 @@ func OnWebAppDataHandler(c tb.Context) error {
 			Caption: text,
 		}
 
-		imageButton := &tb.InlineButton{
-			Text: "Read Detail!",
-			URL:  "https://t.me/ItToolBot?start=read",
-		}
-		receiveMsg, err := b.Send(c.Message().Sender, tb.Album{p}, imageButton)
+		// imageButton := &tb.Btn{
+		// 	Text: "Read Detail!",
+		// 	URL:  "https://t.me/ItToolBot?start=read",
+		// }
+		menu.Inline(
+			menu.Row(menu.URL("Share", "https://t.me/ItToolBot?start=share"), menu.URL("Read Detail!", "https://t.me/ItToolBot?start=read")),
+		)
+		// c.Message().Photo = p
+		receiveMsg, err := b.Send(c.Message().Sender, p, menu)
 		if err != nil {
 			log.Logger.Error(err)
 			return nil

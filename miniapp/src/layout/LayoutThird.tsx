@@ -1,15 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { SpinLoading } from '@/components/SpinLoading';
 import { Icon } from '@iconify/react';
-import { RefreshLoad } from '@/components/RefreshLoad';
 
 export default function Page({
   children,
   path,
   title,
-  onRefresh,
-  onLoad,
-  refreshable = false,
   rightContent,
 }: any) {
   const nav = useNavigate();
@@ -32,16 +28,7 @@ export default function Page({
         </div>
       </header>
       <section className='pt-12 h-full overflow-y-auto relative'>
-        {refreshable ? (
-          <RefreshLoad onLoad={onLoad} onRefresh={onRefresh}>
-            {children}
-          </RefreshLoad>
-        ) : (
-          children
-        )}
-        {/* {loading && (
-          <SpinLoading className='absolute top-1/2 left-1/2 -translate-1/2  z-99999' />
-        )} */}
+        {children}
       </section>
     </main>
   );

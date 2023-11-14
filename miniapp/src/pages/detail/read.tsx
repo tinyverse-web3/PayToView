@@ -19,6 +19,7 @@ export default function DetailRead() {
   const contractName = searchParams.get('contract');
   const nav = useNavigate();
   const { t } = useTranslation();
+  const [paid, setPaid] = useState(false);
   const [detail, setDetail] = useState<any>({});
   const [contentSrc, setContentSrc] = useState<any>({});
   const type = 'image';
@@ -45,6 +46,11 @@ export default function DetailRead() {
       nav(ROUTE_PATH.PAID);
     }
   };
+  const getData = async () => {
+    if (!contractName) return;
+    const result = await paytoview.getViewPassword({ ContractName: contractName });
+    console.log(result);
+  }
   const getContractDetail = async () => {
     if (!contractName) return;
     const result = await paytoview.getViewContractContent({
@@ -52,6 +58,7 @@ export default function DetailRead() {
     });
     if (result.code === '000000') {
       setDetail(result.data);
+      setPaid(result.data.isPaid);
     }
     if (result.data.isPaid) {
       setContentSrc('https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ')
@@ -65,7 +72,7 @@ export default function DetailRead() {
   const readStatus = useMemo(() => detail.isPaid, [detail.isPaid]);
 
   // const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
-  var previewSrc = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
+  const previewSrc = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
   // var contentSrc = previewSrc;
   useEffect(() => {
     if (contractName) {
@@ -73,6 +80,11 @@ export default function DetailRead() {
     }
 
   }, [contractName]);
+  useEffect(() => {
+    if (contractName && paid) {
+      getData();
+    }
+  }, [contractName, paid]);
   return (
     <LayoutThird title={t('pages.detail.title')}>
       <div className='min-h-ful p-4'>
