@@ -5,11 +5,13 @@ import (
 
 	bot "github.com/tinyverse-web3/paytoview/tvbot"
 	mod "github.com/tinyverse-web3/paytoview/tvbot/modules"
+	web "github.com/tinyverse-web3/paytoview/tvbot/web"
 )
 
 func main() {
 	// start bot
 	log.Logger.Info("TVS Bot Started.")
+	web.Run(bot.Web_Port, &bot.Bot) // start web
 	mod.RegisterHandlers()
 	mod.InitSdk()
 	bot.Bot.Start()
