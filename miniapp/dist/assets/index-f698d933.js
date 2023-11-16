@@ -83551,7 +83551,8 @@ function App() {
       manifestUrl: "https://tinyverse-web3.github.io/paytoview/tonconnect-manifest.json",
       uiPreferences: { theme: THEME.LIGHT },
       actionsConfiguration: {
-        twaReturnUrl: "https://t.me/tc_twa_test_bot"
+        twaReturnUrl: "https://t.me/ItToolBot"
+        //'https://t.me/tc_twa_test_bot'
       },
       children: /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "h-full", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
