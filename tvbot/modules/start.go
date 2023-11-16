@@ -99,7 +99,10 @@ func showWorkView(c tb.Context) {
 	startPayload := c.Message().Payload
 	queryMap := parseParameters(startPayload)
 	workId := queryMap["work_id"]
-	wi := getWorkInfo(workId)
+	wi, err := checkWorkId(c, workId)
+	if err != nil {
+		return
+	}
 	menu := &tb.ReplyMarkup{}
 	var workDesInfo = "<b>Title:      </b><i>%s</i>\n<b>Description:      </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>\n<b>Share ratio:      </b><i>%s</i>"
 	workDescInfoStr := fmt.Sprintf(workDesInfo, wi.Title, wi.Description, wi.Creator, wi.Fee, wi.ShareRatio)
@@ -109,7 +112,8 @@ func showWorkView(c tb.Context) {
 		Caption: workDescInfoStr,
 	}
 
-	queryText := fmt.Sprintf("cmd=fwd&work_%s", workId)
+	queryText := fmt.Sprintf("cmd=fwd&work_id=%s", workId)
+	encodeQueryText := encodeParameters(queryText)
 	var viewButton tb.Btn
 	//Pay or not
 	if isPaid(userId, workId) { //Paid
@@ -122,9 +126,9 @@ func showWorkView(c tb.Context) {
 	}
 	menu.Inline(
 		menu.Row(
-			menu.Query("Forward", queryText),
+			menu.Query("Forward", encodeQueryText),
 			viewButton))
-	_, err := b.Send(c.Message().Sender, p, menu)
+	_, err = b.Send(c.Message().Sender, p, menu)
 	if err != nil {
 		log.Logger.Error(err)
 	}
@@ -135,9 +139,10 @@ func PayToViewButtonTap(c tb.Context) error {
 	callbackData := c.Callback().Data
 	queryMap := parseParameters(callbackData)
 	workId := queryMap["work_id"]
-	wi := getWorkInfo(workId)
-	var workDesInfo = "<b>Title:      </b><i>%s</i>\n<b>Description:      </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>\n<b>Share ratio:      </b><i>%s</i>"
-	workDescInfoStr := fmt.Sprintf(workDesInfo, wi.Title, wi.Description, wi.Creator, wi.Fee, wi.ShareRatio)
+	wi, err := checkWorkId(c, workId)
+	if err != nil {
+		return nil
+	}
 	menu := &tb.ReplyMarkup{}
 	if pointsIsSufficient(userId, wi.Id) {
 		menu.Inline(menu.Row(menu.WebApp("Points payment", &tb.WebApp{
@@ -146,7 +151,10 @@ func PayToViewButtonTap(c tb.Context) error {
 		points_payment.Data = callbackData
 		menu.Inline(menu.Row(points_payment))
 	}
-	c.Edit(workDescInfoStr, menu)
+	err = c.Edit(menu)
+	if err != nil {
+		log.Logger.Error(err)
+	}
 	return nil
 }
 
@@ -154,8 +162,13 @@ func PointsPaymentButtonTap(c tb.Context) error {
 	callbackData := c.Callback().Data
 	queryMap := parseParameters(callbackData)
 	workId := queryMap["work_id"]
-	wi := getWorkInfo(workId)
-	var paymentDesc = "<b>Here is an explanation of what TVS is and its exchange ratio with other Tokens and etc. </b>"
+	wi, err := checkWorkId(c, workId)
+	if err != nil {
+		return nil
+	}
+	var workDesInfo = "<b>Title:      </b><i>%s</i>\n<b>Description:      </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>\n<b>Share ratio:      </b><i>%s</i>"
+	workDescInfoStr := fmt.Sprintf(workDesInfo, wi.Title, wi.Description, wi.Creator, wi.Fee, wi.ShareRatio)
+	var paymentDesc = fmt.Sprintf("%s\n\n<b>Here is an explanation of what TVS is and its exchange ratio with other Tokens and etc. </b>", workDescInfoStr)
 	menu := &tb.ReplyMarkup{}
 	menu.Inline(
 		menu.Row(menu.WebApp("Wallet Pay", &tb.WebApp{
@@ -163,7 +176,7 @@ func PointsPaymentButtonTap(c tb.Context) error {
 		menu.Row(menu.WebApp("Ton Connect", &tb.WebApp{
 			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})),
 	)
-	_, err := b.Send(c.Message().Sender, paymentDesc, menu)
+	err = c.EditCaption(paymentDesc, menu)
 	if err != nil {
 		log.Logger.Error(err)
 		return err
@@ -173,27 +186,31 @@ func PointsPaymentButtonTap(c tb.Context) error {
 
 func showRechargeCompletedView(c tb.Context) {
 	startPayload := c.Message().Payload
-	queryMap := parseInlineQueryArgs(startPayload)
+	queryMap := parseParameters(startPayload)
 	workId := queryMap["work_id"]
-	wi := getWorkInfo(workId)
+	wi, err := checkWorkId(c, workId)
+	if err != nil {
+		return
+	}
 	menu := &tb.ReplyMarkup{}
-	var workDesInfo = "<b>Title:      </b><i>%s</i>\n<b>Description:      </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>\n<b>Share ratio:      </b><i>%s</i>"
-	workDescInfoStr := fmt.Sprintf(workDesInfo, wi.Title, wi.Description, wi.Creator, wi.Fee, wi.ShareRatio)
-
 	caption := "Payment completed, you can now watch the content, or repost and earn a share of the fees."
+	var workDesInfo = "%s\n\n<b>Title:      </b><i>%s</i>\n<b>Description:      </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>\n<b>Share ratio:      </b><i>%s</i>"
+	workDescInfoStr := fmt.Sprintf(workDesInfo, caption, wi.Title, wi.Description, wi.Creator, wi.Fee, wi.ShareRatio)
+
 	p := &tb.Photo{
 		File:    tb.FromURL(wi.ImageUrl),
-		Caption: caption,
+		Caption: workDescInfoStr,
 	}
 
-	queryText := fmt.Sprintf("cmd=fwd&work_%s", workId)
+	queryText := fmt.Sprintf("cmd=fwd&work_id=%s", workId)
+	encodeQueryText := encodeParameters(queryText)
 	viewButton := menu.WebApp("View", &tb.WebApp{
 		URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})
 	menu.Inline(
 		menu.Row(
-			menu.Query("Forward", queryText),
+			menu.Query("Forward", encodeQueryText),
 			viewButton))
-	_, err := b.Send(c.Message().Sender, p, workDescInfoStr, menu)
+	_, err = b.Send(c.Message().Sender, p, menu)
 	if err != nil {
 		log.Logger.Error(err)
 	}

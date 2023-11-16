@@ -12,7 +12,7 @@ import (
 func BotInit() tb.Bot {
 	// init log
 	log.InitAPP(Log_Level)
-	log.InitModule(Server_Name, Log_Level)
+	log.InitModule(App_Name, Log_Level)
 
 	if err := dotenv.Load(); err != nil {
 		log.Logger.Error("Error loading .env file")
