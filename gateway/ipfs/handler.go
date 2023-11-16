@@ -120,7 +120,7 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 		setErrResp := func(code int, result string) {
 			logger.Debugf("ipfs->ipfsCatHandler: setErrResp: code: %d, result: %s", code, result)
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusNotFound)
+			w.WriteHeader(http.StatusOK)
 		}
 
 		logger.Debugf("ipfs->ipfsCatHandler: reqParams: %+v", r.URL.Query())
