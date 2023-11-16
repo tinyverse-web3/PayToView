@@ -10,18 +10,10 @@ function App() {
     <TonConnectUIProvider
       manifestUrl='https://tinyverse-web3.github.io/paytoview/tonconnect-manifest.json'
       uiPreferences={{ theme: THEME.LIGHT }}
-<<<<<<< HEAD
       actionsConfiguration={{
         twaReturnUrl: 'https://t.me/tc_twa_test_bot'
-      }}
-    >
-=======
-      actionsConfiguration={
-        {
-          // twaReturnUrl: 'https://t.me/tc_twa_test_bot'
-        }
-      }>
->>>>>>> 53bf21cb99fe0e2cacfbb59598328d84c7daaf32
+      }}>
+
       <main className='h-full'>
         <Toaster
           containerStyle={{ zIndex: 9999999, wordBreak: 'break-all' }}
