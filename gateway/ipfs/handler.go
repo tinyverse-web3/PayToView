@@ -117,8 +117,6 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		w.WriteHeader(http.StatusOK)
-
 		setErrResp := func(code int, result string) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusNotFound)
@@ -188,6 +186,7 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len)
+		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Disposition", "attachment; filename="+cidStr)
 		return
 	}
