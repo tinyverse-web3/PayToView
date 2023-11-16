@@ -118,6 +118,7 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		setErrResp := func(code int, result string) {
+			logger.Debugf("ipfs->ipfsCatHandler: setErrResp: code: %d, result: %s", code, result)
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusNotFound)
 		}

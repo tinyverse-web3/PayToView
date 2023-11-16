@@ -144,14 +144,14 @@ func main() {
 
 	msgInstance := msg.GetInstance(node.GetTvbase(), userPrivkey)
 
-	certPath := rootPath + "cert.pem"
-	privPath := rootPath + "priv.key"
+	// certPath := rootPath + "cert.pem"
+	// privPath := rootPath + "priv.key"
 	var svr webserver.WebServerHandle
 	if true {
 		httpSvr := webserver.NewWebServer()
 		svr = httpSvr
 		go httpSvr.Listen("0.0.0.0:80")
-		go httpSvr.ListenTLS("0.0.0.0:443", certPath, privPath)
+		// go httpSvr.ListenTLS("0.0.0.0:443", certPath, privPath)
 	} else {
 		// httpSvr := webserver.NewQuicWebServer()
 		// svr = httpSvr
