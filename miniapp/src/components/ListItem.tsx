@@ -15,6 +15,7 @@ import { useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { ListItemProps } from '@/store';
 import { IpfsImage } from './IpfsImage';
 import { QRCodeCanvas } from 'qrcode.react';
+import bot from '@/lib/bot';
 interface Props {
   onClick?: () => void;
   item?: ListItemProps;
@@ -30,23 +31,27 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
   };
   const shareHandler = () => {
     console.log('share');
-    if (!window.JsBridge) {
+    if (window.JsBridge) {
       setIsOpen(true);
     } else {
-      webApp?.sendData(
-        JSON.stringify(
-          item?.ContentType === 'image'
-            ? {
-                type: item.ContentType,
-                title: item.Name,
-                image: item.Ipfs,
-              }
-            : {
-                type: item?.ContentType,
-                title: item?.Name,
-              },
-        ),
-      );
+      window.open();
+      if (item?.ContractName) {
+        bot.forward(item?.ContractName);
+      }
+      // webApp?.sendData(
+      //   JSON.stringify(
+      //     item?.ContentType === 'image'
+      //       ? {
+      //           type: item.ContentType,
+      //           title: item.Name,
+      //           image: item.Ipfs,
+      //         }
+      //       : {
+      //           type: item?.ContentType,
+      //           title: item?.Name,
+      //         },
+      //   ),
+      // );
     }
   };
   const qrCodeurl = useMemo(() => {

@@ -25,7 +25,7 @@ export const ROUTE_PATH = {
   PAID: '/paid',
   FORWARDED: '/forwarded',
   EARN: '/earn',
-  Topup: '/topup',
+  TOPUP: '/topup',
 };
 const hashPath: any = {};
 Object.keys(ROUTE_PATH).forEach((k: any) => {
@@ -70,15 +70,14 @@ export const routes: RouteObject[] = [
       },
       {
         path: ROUTE_PATH.FORWARDED,
-        // element: <Forwarded />,
-        element: <Topup />,
+        element: <Forwarded />,
       },
       {
         path: ROUTE_PATH.EARN,
         element: <Earn />,
       },
       {
-        path: ROUTE_PATH.Topup,
+        path: ROUTE_PATH.TOPUP,
         element: <Topup />,
       },
     ],

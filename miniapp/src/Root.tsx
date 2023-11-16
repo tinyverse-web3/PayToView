@@ -11,7 +11,9 @@ export default function Root() {
   const [loading, setLoading] = useState(false);
   const [createStatus, setCreateStatus] = useState(false);
   const [error, setError] = useState(false);
-  const { getLocalAccountInfo } = useAccountStore((state) => state);
+  const { getLocalAccountInfo, setAccount, setBalance } = useAccountStore(
+    (state) => state,
+  );
   const [searchParams] = useSearchParams();
   const user = searchParams.get('user');
   const webApp = useWebApp();
@@ -24,66 +26,55 @@ export default function Root() {
       return webAppUserId || user;
     }
   };
+  const loadApp = async () => {
+    const localAccountResult = await dauth.account.hasLocalAccount();
+    const hasPasswordResult = await dauth.account.hasPassword();
+    if (localAccountResult.data && !hasPasswordResult.data) {
+      const _href = location.href;
+      console.log('location.href', _href);
+      location.replace(
+        `${import.meta.env.VITE_TINY_APP_URL}?redirect=${encodeURIComponent(
+          _href,
+        )}`,
+      );
+    } else {
+      await getLocalAccountInfo();
+    }
+  };
+  const loadTg = async () => {
+    const userId = await getUserId();
+    const tSssData = localStorage.getItem('tvs') as any;
+    if (!tSssData) {
+      setCreateStatus(true);
+    }
+    const tvsWasm = new TvsWasm();
+    await tvsWasm.initWasm();
+    const result = await paytoview.createAccount({
+      userID: userId,
+      sssData: tSssData,
+    });
+    // const tSssData = (await cloudstorage.getItem(`user_${userId}_sss`)) || '';
+    if (result.code === '000000') {
+      localStorage.setItem('tvs', result.data.sssData);
+
+      const profile = await paytoview.getProfile();
+      console.log(profile);
+      setAccount({
+        publicKey: profile.data.publickey,
+        messageKey: profile.data.messagekey,
+        address: profile.data.walletkey,
+      });
+      setBalance(profile.data.balance);
+      setError(false);
+    }
+  };
   const check = async () => {
     if (!window.Telegram) {
       setError(true);
       return;
     }
-    const userId = getUserId();
-
-    if (!userId) {
-      setError(true);
-    } else {
-      setLoading(true);
-
-      const localAccountResult = await dauth.account.hasLocalAccount();
-      const hasPasswordResult = await dauth.account.hasPassword();
-      // if (localAccountResult.data && hasPasswordResult.data) {
-      //   const ulockResult = await dauth.account.unlock('123456');
-      //   console.log(ulockResult);
-      if (localAccountResult.data && !hasPasswordResult.data) {
-        const _href = location.href;
-        console.log('location.href', _href);
-        location.replace(
-          `${import.meta.env.VITE_TINY_APP_URL}?redirect=${encodeURIComponent(
-            _href,
-          )}`,
-        );
-      } else {
-        await getLocalAccountInfo();
-      }
-      // }
-      // console.log(hasPasswordResult);
-      // if (localAccountResult.code === '000000') {
-
-      // }
-      // console.log(localAccountResult);
-      // const result = await dauth.account.createMasterAccount();
-      // console.log(result);
-      // if (result.code === '000000') {
-      //   getLocalAccountInfo();
-      // }
-      // const tSssData = localStorage.getItem('tvs');
-      // if (!tSssData) {
-      //   setCreateStatus(true);
-      // }
-      // const tvsWasm = new TvsWasm();
-      // await tvsWasm.initWasm();
-      // const result = await paytoview.createAccount({
-      //   userID: 'sdfafsafdsaf',
-      //   sssData: tSssData,
-      // });
-      // const tSssData = (await cloudstorage.getItem(`user_${userId}_sss`)) || '';
-
-      // if (result.code === '000000') {
-      //   localStorage.setItem('tvs', result.data.sssData);
-      //   setAccount({
-      //     publicKey: result.data.publicKey,
-      //   });
-      //   setError(false);
-      // }
-      // console.log(result);
-    }
+    setLoading(true);
+    await loadTg();
     setLoading(false);
   };
   useEffect(() => {
