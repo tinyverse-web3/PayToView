@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	// "github.com/ipfs/go-cid"
+	"github.com/ipfs/go-cid"
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/dkvs"
@@ -139,11 +140,11 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// c, err := cid.Decode(cidStr)
-		// if err != nil {
-		// 	setErrResp(-1, "invalid cid format")
-		// 	return
-		// }
+		_, err := cid.Decode(cidStr)
+		if err != nil {
+			setErrResp(-1, "invalid cid format")
+			return
+		}
 
 		// if c.Version() < 1 {
 		// 	setErrResp(-1, "invalid cid version")
