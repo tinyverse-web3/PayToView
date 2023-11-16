@@ -1,6 +1,7 @@
 package modules
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -32,8 +33,18 @@ func ConnectFunc(next tb.HandlerFunc) tb.HandlerFunc {
 
 func check(err error) {
 	if err != nil {
-		log.Logger.Error(err)
+		log.Logger.Errorf("error: %v", err)
 	}
+}
+
+func checkWorkId(c tb.Context, workId string) (*WorkInfo, error) {
+	wi := getWorkInfo(workId)
+	if wi == nil {
+		log.Logger.Errorf("failed to find work %s in tvn", workId)
+		c.Respond(&tb.CallbackResponse{Text: fmt.Sprintf("Failed to find work %s in tvn", workId), ShowAlert: true})
+		return nil, fmt.Errorf("failed to find work %s in tvn", workId)
+	}
+	return wi, nil
 }
 
 func AddPayload(c tb.Context) tb.Context {

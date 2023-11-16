@@ -4,18 +4,28 @@ import (
 	"fmt"
 	"strings"
 
+	log "github.com/tinyverse-web3/tinyverse_sdk/tinyverse/log"
 	tb "gopkg.in/telebot.v3"
 )
 
 func InlineQueryHandler(c tb.Context) error {
 	query := c.Query().Text //Text of the query (up to 256 characters)
+	queryText := query
 	if strings.HasPrefix(query, "cmd=fwd&work_id=") {
+		queryText = encodeParameters(query)
+		c.Query().Text = queryText
+	}
+	queryText, err := decodeParameters(queryText)
+	if err != nil {
+		return nil
+	}
+	if strings.HasPrefix(queryText, "cmd=fwd&work_id=") {
 		showRecipientView(c)
 		return nil
-	} else if strings.HasPrefix(query, "google") {
+	} else if strings.HasPrefix(queryText, "google") {
 		//ToDo
 		return nil
-	} else if strings.HasPrefix(query, "ud") {
+	} else if strings.HasPrefix(queryText, "ud") {
 		//ToDo
 		return nil
 	}
@@ -24,10 +34,13 @@ func InlineQueryHandler(c tb.Context) error {
 
 func showRecipientView(c tb.Context) {
 	query := c.Query().Text
-	queryMap := parseInlineQueryArgs(query)
+	queryMap := parseParameters(query)
 	workId := queryMap["work_id"]
 	wi := getWorkInfo(workId)
-
+	if wi == nil {
+		log.Logger.Errorf("Failed to find work %s in tvn", workId)
+		return
+	}
 	//Generate text and buttons
 	recipientView := &tb.ReplyMarkup{}
 	var formatText = "<a>%s</a>\n<b>Title:         </b><i>%s</i>\n<b>Creteor:                        </b><i>%s</i>\n<b>Fee:      </b><i>%s</i>"
@@ -37,20 +50,7 @@ func showRecipientView(c tb.Context) {
 	recipientView.Inline(recipientView.Row(recipientView.URL("View", inlineLinkStr)))
 
 	//generate result obj
-	// result := &tb.ArticleResult{
-	// 	ResultBase: tb.ResultBase{
-	// 		ReplyMarkup: recipientView,
-	// 		ParseMode:   "HTML",
-	// 		Content: &tb.InputTextMessageContent{
-	// 			Text:           textStr,
-	// 			DisablePreview: false,
-	// 		},
-	// 	},
-	// 	Title:    wi.Title,
-	// 	ThumbURL: wi.ImageUrl,
-	// }
-
-	result := &tb.PhotoResult{
+	result := &tb.ArticleResult{
 		ResultBase: tb.ResultBase{
 			ReplyMarkup: recipientView,
 			ParseMode:   "HTML",
@@ -59,17 +59,19 @@ func showRecipientView(c tb.Context) {
 				DisablePreview: false,
 			},
 		},
-		URL:      wi.ImageUrl,
 		Title:    wi.Title,
 		ThumbURL: wi.ImageUrl,
 	}
 	results := make(tb.Results, 1)
 	results[0] = result
 	results[0].SetResultID("0")
-	b.Answer(c.Query(), &tb.QueryResponse{
+	err := b.Answer(c.Query(), &tb.QueryResponse{
 		Results:   results,
 		CacheTime: 60,
 	})
+	if err != nil {
+		log.Logger.Error(err)
+	}
 }
 
 func TestInlineMainMenu(c tb.Context) {

@@ -5,7 +5,8 @@ package bot
 var (
 
 	// log
-	Server_Name = "tvbot"
+	Server_Type = "sdk"
+	App_Name    = "mtv"
 	Log_Level   = "debug"
 	Web_Port    = "7070"
 

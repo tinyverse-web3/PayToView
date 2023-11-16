@@ -53,13 +53,21 @@ func encodeParameters(s string) string {
 }
 
 func parseParameters(s string) map[string]string {
-	decodedBytes, err := base64.URLEncoding.DecodeString(s)
+	decodedString, err := decodeParameters(s)
 	if err != nil {
 		log.Logger.Errorf("Error decoding: %v\n", err)
 		return nil
 	}
-	decodedString := string(decodedBytes)
 	return parseInlineQueryArgs(decodedString)
+}
+
+func decodeParameters(s string) (string, error) {
+	decodedBytes, err := base64.URLEncoding.DecodeString(s)
+	if err != nil {
+		log.Logger.Errorf("Error decoding: %v\n", err)
+		return "", err
+	}
+	return string(decodedBytes), nil
 }
 
 func EscapeHTML(s string) string {
