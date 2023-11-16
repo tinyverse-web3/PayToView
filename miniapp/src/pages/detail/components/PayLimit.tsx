@@ -22,6 +22,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
   const [data, { set }] = useMap({
     amount: 0,
     textLimit: 10,
+    fee: 10,
     platform: 5,
     developer: 10,
     announcer: 70,
@@ -35,14 +36,14 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
     <div>
       {/* <div>PayLimit.tsx</div> */}
       <FormControl className='mb-4'>
-        <FormLabel>{t('pages.publish.divide_ratio')}</FormLabel>
+        <FormLabel>Amount</FormLabel>
         <NumberInput
           isReadOnly
           width='100%'
           size='sm'
           variant='filled'
-          value={data.amount}
-          onChange={(_, e: number) => set('amount', e)}>
+          value={data.fee}
+          onChange={(_, e: number) => set('fee', e)}>
           <NumberInputField />
         </NumberInput>
       </FormControl>

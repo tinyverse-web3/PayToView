@@ -1,5 +1,6 @@
 import { Request } from './dauth/request';
 import dauth from './dauth';
+import { file2array } from '@/lib/utils';
 
 import {
   ApplyViewProofParams,
@@ -9,6 +10,7 @@ import {
   GetViewContractContentParams,
   GetViewPasswordParams,
   PayToViewParams,
+  CreateAccountParams,
 } from './type';
 class PayToView {
   dauthRequest: Request = new Request();
@@ -20,7 +22,12 @@ class PayToView {
       if (data) {
         result = await funHandler(JSON.stringify(data));
         result = JSON.parse(result);
+      } else {
+        result = await funHandler();
+        result = JSON.parse(result);
       }
+      console.log(name + '  result: ');
+      console.log(result);
       return result;
     } else {
       const result = await this.dauthRequest.invoke({
@@ -29,6 +36,22 @@ class PayToView {
       });
       return result;
     }
+  }
+  async createAccount({ userID, sssData }: CreateAccountParams) {
+    const data = await this.request({
+      name: 'createAccount',
+      data: {
+        userID,
+        sssData,
+      },
+    });
+    return data;
+  }
+  async getProfile() {
+    const data = await this.request({
+      name: 'getProfile',
+    });
+    return data;
   }
   async applyViewProof({ ContractName, Tx }: ApplyViewProofParams) {
     const data = await this.request({
@@ -137,9 +160,26 @@ class PayToView {
     });
     return data;
   }
-  async addFileToIPFS(param: { file: File; fileName: string; password?: string }) {
-    const result = await dauth.account.payToViewUpload(param);
-    return result;
+  async addFileToIPFS(param: {
+    file: File;
+    fileName: string;
+    password?: string;
+  }) {
+    // eslint-disable-next-line no-extra-boolean-cast
+    if (!!window.createAccount) {
+      const content = await file2array(param.file);
+      console.log(content);
+      const result = await window.addFileToIPFS(
+        JSON.stringify({ fileName: param.fileName, password: param.password }),
+        content,
+      );
+      const data = JSON.parse(result);
+      console.log('addFileToIPFS data: ', data);
+      return data;
+    } else {
+      const result = await dauth.account.payToViewUpload(param);
+      return result;
+    }
   }
 }
 

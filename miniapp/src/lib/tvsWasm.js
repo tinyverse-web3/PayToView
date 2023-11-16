@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable no-undef */
-// import wasmUrl from '@/assets/main.wasm?url';
+import wasmUrl from '@/assets/main.wasm?url';
+// const wasmUrl = 'http://192.168.1.101:5500/wasm/main.wasm';
 (() => {
   const E = () => {
     const M = new Error('not implemented');
@@ -552,7 +553,7 @@ const h = async (E, D) => {
 };
 class p {
   constructor() {
-    (this.inputLocalWasm = 'http://192.168.1.101:5500/wasm/main.wasm'),
+    (this.inputLocalWasm = wasmUrl),
       (this.go = new Go()),
       (this.wasm = null),
       (this.importObject = this.go.importObject);

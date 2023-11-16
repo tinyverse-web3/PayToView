@@ -32,6 +32,8 @@ interface AccountInfo {
 interface AccountState {
   accountInfo: AccountInfo;
   balance: number;
+  setAccount: (accountInfo: any) => void;
+  setBalance: (b: number) => void;
   getLocalAccountInfo: () => void;
   reset: () => void;
 }
@@ -69,6 +71,9 @@ export const useAccountStore = create<AccountState>()(
           pointAccount: {},
         },
         balance: 1000,
+        setBalance: (b: number) => {
+          set({ balance: b });
+        },
         getLocalAccountInfo: async () => {
           const { code, data: localInfo } =
             await dauth.account.loadLocalAccount();
@@ -100,6 +105,15 @@ export const useAccountStore = create<AccountState>()(
             safeLevel: localInfo.SafeLevel || 0,
           });
           set({ accountInfo });
+        },
+        setAccount: (accountInfo: any) => {
+          console.log('setAccount', accountInfo);
+          set((state) => ({
+            accountInfo: {
+              ...state.accountInfo,
+              ...accountInfo,
+            },
+          }));
         },
         reset: () => {
           set({

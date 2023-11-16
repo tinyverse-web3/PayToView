@@ -1,38 +1,22 @@
 import {
   SimpleGrid,
-  IconButton,
-  Tabs,
-  TabList,
-  Tab,
   Card,
   CardHeader,
   Image,
-  ButtonGroup,
-  Button,
-  TabPanel,
-  TabPanels,
-  TableContainer,
-  Table,
-  TableCaption,
-  Tbody,
-  Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
   Box,
   CardBody,
   Heading,
   Stack,
   ListItem as Litem,
   StackDivider,
-  UnorderedList,
-  Input, InputGroup, InputRightElement
-
+  Input,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/react';
 
-import { Search2Icon } from "@chakra-ui/icons";
-
+import { Address } from '@/components/Address';
+import { Search2Icon } from '@chakra-ui/icons';
+import { HomeTxItem } from '@/components/HomeTxItem';
 import { useEffect, useMemo, useState } from 'react';
 import { ListItem } from '@/components/ListItem';
 import { Empty } from '@/components/Empty';
@@ -45,37 +29,71 @@ import { AssetsTokenItem } from '@/components/AssetsTokenItem';
 import { useAccountStore } from '@/store';
 import paytoview from '@/lib/paytoview';
 import LayoutThird from '@/layout/LayoutThird';
+const MenuButton = ({ name, icon, onClick }: any) => {
+  return (
+    <div className='flex flex-col items-center' onClick={onClick}>
+      <img className='h-12 w-12 mb-2' src={icon}></img>
+      <span className='text-sm'>{name}</span>
+    </div>
+  );
+};
 
 export default function Index() {
   useTitle('PayToView');
   const { t } = useTranslation();
   const nav = useNavigate();
   const { accountInfo, balance } = useAccountStore((state) => state);
-  const toAdd = () => {
-    nav(ROUTE_PATH.DETAIL_ADD);
-  };
-  const toPublished = () => {
-    nav(ROUTE_PATH.PUBLISHED);
-  };
-  const toPaid = () => {
-    nav(ROUTE_PATH.PAID);
-  };
-  const toForwarded = () => {
-    nav(ROUTE_PATH.FORWARDED);
-  };
   const toEarn = () => {
     nav(ROUTE_PATH.EARN);
   };
-  const toRead = () => {
-    nav(ROUTE_PATH.DETAIL_READ);
-  };
-  const clear = () => {
-    localStorage.clear();
-    location.reload();
-  };
+  console.log(accountInfo);
+  const menuList = [
+    {
+      name: t('pages.publish.icon_title'),
+      icon: '/images/publish.png',
+      onClick: () => {
+        nav(ROUTE_PATH.DETAIL_ADD);
+      },
+    },
+    {
+      name: t('pages.earning.icon_title'),
+      icon: '/images/earning.png',
+      onClick: () => {
+        toEarn();
+      },
+    },
+    {
+      name: t('pages.published.icon_title'),
+      icon: '/images/published.png',
+      onClick: () => {
+        nav(ROUTE_PATH.PUBLISHED);
+      },
+    },
+    {
+      name: t('pages.paid.icon_title'),
+      icon: '/images/paid.png',
+      onClick: () => {
+        nav(ROUTE_PATH.PAID);
+      },
+    },
+    {
+      name: t('pages.forwarded.icon_title'),
+      icon: '/images/forwarded.png',
+      onClick: () => {
+        nav(ROUTE_PATH.FORWARDED);
+      },
+    },
+    {
+      name: '充值',
+      icon: '/images/forwarded.png',
+      onClick: () => {
+        nav(ROUTE_PATH.TOPUP);
+      },
+    },
+  ];
   const toTg = () => {
     window.open('https://t.me/tvnb_bot?start=xyzw');
-  }
+  };
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -84,9 +102,9 @@ export default function Index() {
     if (event.key === 'Enter') {
       nav(ROUTE_PATH.DETAIL_READ + '/?contract=' + searchTerm);
     }
-  }
+  };
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   return (
     <LayoutThird title={t('pages.index.title')}>
       <div className='h-full overflow-hidden flex flex-col'>
@@ -97,12 +115,12 @@ export default function Index() {
                 <Image
                   src='/logo.png'
                   className='w-6 h-6 bg-gray-200 rounded-full mr-6'></Image>
-                <div className='break-all'>{accountInfo.publicKey}</div>
+                <div className='break-all'>{accountInfo.address}</div>
               </div>
               <div className='flex justify-between items-end '>
                 <div className='flex items-end'>
                   <span className='mr-2 text-4xl font-bold leading-none'>
-                    1000
+                    {balance}
                   </span>
                   <span className='text-sm leading-none mb-1'>TVS</span>
                 </div>
@@ -113,12 +131,11 @@ export default function Index() {
             </div>
             <div className=' bg-gray-100 p-4 mb-4 rounded-2xl'>
               <SimpleGrid columns={2} columnGap='20px'>
-                <div
-                  className='text-center bg-gray-200 p-2 rounded-xl'>
+                <div className='text-center bg-gray-200 p-2 rounded-xl'>
                   <div className='mb-2 text-xs'>{t('pages.index.address')}</div>
                   <div className='flex items-end justify-center'>
                     <span className='mr-2 text-xm font-bold leading-none'>
-                      0801e*****a1b4
+                      <Address address={accountInfo.publicKey} />
                     </span>
                     {/* <span className='text-xs leading-none '>TVS</span> */}
                   </div>
@@ -128,312 +145,52 @@ export default function Index() {
                   onClick={toEarn}>
                   <div className='mb-2 text-xs'>{t('pages.index.profit')}</div>
                   <div className='flex items-end justify-center'>
-                    <span className='mr-2 text-xm font-bold leading-none'>
-                      50
-                    </span>
+                    <span className='mr-2 text-xm font-bold leading-none'>50</span>
                     <span className='text-xs leading-none'>TVS</span>
                   </div>
                 </div>
               </SimpleGrid>
             </div>
             <div className='mt-4 mb-4 m-2'>
-              <SimpleGrid columns={5} columnGap='25px'>
-                <div
-                  className='text-center'
-                  onClick={toAdd}>
-                  <img
-                    className={`h-12 w-12`}
-                    src={`/images/publish.png`}>
-                  </img>
-                  <span className='text-xs text-blue-500'>{t('pages.publish.icon_title')}</span>
-                </div>
-                <div
-                  className='text-center'
-                  onClick={toEarn}>
-                  <img
-                    className={`h-12 w-12`}
-                    src={`/images/earning.png`}>
-                  </img>
-                  <span className='text-xs text-blue-500'>{t('pages.earning.icon_title')}</span>
-                </div>
-                <div
-                  className='text-center'
-                  onClick={toPublished}>
-                  <img
-                    className={`h-12 w-12`}
-                    src={`/images/published.png`}>
-                  </img>
-                  <span className='text-xs text-blue-500'>{t('pages.published.icon_title')}</span>
-                </div>
-                <div
-                  className='text-center'
-                  onClick={toPaid}>
-                  <img
-                    className={`h-12 w-12`}
-                    src={`/images/paid.png`}>
-                  </img>
-                  <span className='text-xs text-blue-500'>{t('pages.paid.icon_title')}</span>
-                </div>
-                <div
-                  className='text-center'
-                  onClick={toForwarded}>
-                  <img
-                    className={`h-12 w-12`}
-                    src={`/images/forwarded.png`}>
-                  </img>
-                  <span className='text-xs text-blue-500'>{t('pages.forwarded.icon_title')}</span>
-                </div>
-                <div
-                  className='text-center'
-                  onClick={toForwarded}>
-                  <img
-                    className={`h-12 w-12`}
-                    src={`/images/forwarded.png`}>
-                  </img>
-                  <span className='text-xs text-blue-500'>充值</span>
-                </div>
-                <div
-                  className='text-center'
-                  onClick={toTg}>
-                  <img
-                    className={`h-12 w-12`}
-                    src={`/images/forwarded.png`}>
-                  </img>
-                  <span className='text-xs text-blue-500'>测试tg</span>
-                </div>
+              <SimpleGrid columns={5} rowGap='25px'>
+                {menuList.map((item, i) => (
+                  <MenuButton
+                    key={i}
+                    name={item.name}
+                    icon={item.icon}
+                    onClick={item.onClick}
+                  />
+                ))}
               </SimpleGrid>
             </div>
             <div className='mt-m-2'>
               <InputGroup>
                 <Input
-                  type="text"
-                  placeholder="Search..."
+                  type='text'
+                  placeholder='Search...'
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onKeyPress={handleKeyPress}
-                // 根据需要添加其他属性
+                  // 根据需要添加其他属性
                 />
                 <InputRightElement>
-                  <Search2Icon color="gray.400" />
+                  <Search2Icon color='gray.400' />
                 </InputRightElement>
               </InputGroup>
             </div>
-            <div className='mt-4 mb-4' style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span className='text-xm ml-2'>{t('pages.index.transaction_record')}</span>
+            <div
+              className='mt-4 mb-4'
+              style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span className='text-xm ml-2'>
+                {t('pages.index.transaction_record')}
+              </span>
               <span className='text-xm mr-2'>{t('pages.index.more')} &gt;</span>
             </div>
-            <div style={{ height: '400px', overflowY: 'auto' }} className='text-xs'>
-
-              <div className='m-2'>
-                <Card variant={'filled'}>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d79b...3abe</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          10 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          080112202eb5947819be566f30c0faa3df0d272a47c0ae441d42e217bbcfd05932845adc
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </div>
-              <div className='mt-6 m-2'>
-                <Card variant={'filled'}>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d701..fd05</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-base'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          -105 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          080112202b61d8d5bd70fa7ad30b29848008d429b362baee191be6471ca0ad4cf601e14b
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </div>
-              <div className='mt-6 m-2'>
-                <Card variant={'filled'}>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          -3 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </div>
-              <div className='mt-6 m-2'>
-                <Card variant={'filled'}>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-base'>
-                          -58 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </div>
-              <div className='mt-6 m-2'>
-                <Card variant={'filled'}>
-                  <CardHeader>
-                    <Heading size='sm'>ID：/tx/d79b...abef</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          60 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </div>
-              <div className='mt-6 m-2'>
-                <Card variant={'filled'}>
-                  <CardHeader>
-                    <Heading size='sm'>/tx/d79b...abef</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          收入:
-                        </Heading>
-                        <div className='text-xm'>
-                          80 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          支出:
-                        </Heading>
-                        <div className='text-xm'>
-                          0 TVS
-                        </div>
-                      </Box>
-                      <Box>
-                        <Heading size='xm' textTransform='uppercase'>
-                          交易方:
-                        </Heading>
-                        <div className='text-xm'>
-                          08011220d74e79a35f09f3febee86918ab579f94e75b4a21a2cad47ebf403a6a089bc0b9
-                        </div>
-                      </Box>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </div>
+            <div>
+              <HomeTxItem />
+              <HomeTxItem />
+              <HomeTxItem />
+              <HomeTxItem />
             </div>
           </div>
         </div>

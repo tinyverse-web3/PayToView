@@ -1,40 +1,45 @@
 package modules
 
 import (
+	"strconv"
+
 	bot "github.com/tinyverse-web3/paytoview/tvbot"
 	log "github.com/tinyverse-web3/tinyverse_sdk/tinyverse/log"
 	"github.com/tinyverse-web3/tinyverse_sdk/tinyverse/sdk"
+	"github.com/tinyverse-web3/tinyverse_sdk/tinyverse/tvbot"
 )
 
+var BM *tvbot.BotManager
+
 func InitSdk() {
-	err := sdk.StartUp(bot.Server_Name)
+	err := sdk.StartUp("./mtv", bot.App_Name)
 	if err != nil {
-		log.Logger.Error(err)
+		log.Logger.Error("InitSdk failed--->%v", err)
 	}
+	BM = tvbot.GetInstance()
 }
 
 func checkUserExists(userId string) bool {
-	// var req controller.AccountReq
-	// req.UserID = userId
-	// req.SssData = ""
-	// res := controller.GetAuthInstance().CheckAccountExist(req)
-	// var resJson controller.RespJson
-	// err := json.Unmarshal([]byte(res), &resJson)
-	// if err != nil {
-	// 	log.Logger.Errorf("checkUserExists--->", err)
-	// 	return false
-	// }
-	// log.Logger.Info("check account exist = ", resJson.Data)
-	// if condition, ok := resJson.Data.(bool); ok {
-	// 	return condition
-
-	// }
+	//return BM.CheckAccountExist(userId)
 	return true
 }
 
-func getWorkInfo(workId string) WorkInfo {
-
-	return WorkInfo{
+func getWorkInfo(workId string) *WorkInfo {
+	// contract, walletKey, err := BM.GetContractInfo(workId)
+	// if err != nil {
+	// 	log.Logger.Errorf("getWorkInfo--->%v", err)
+	// 	return nil
+	// }
+	// return &WorkInfo{
+	// 	Id:          contract.Name,
+	// 	Title:       contract.Name,
+	// 	Description: contract.Content.Description,
+	// 	Creator:     walletKey,
+	// 	Fee:         strconv.FormatUint(contract.Fee, 10),
+	// 	ShareRatio:  strconv.Itoa(int(contract.Ritio.ForwarderPercent)),
+	// 	ImageUrl:    contract.Content.Cid,
+	// }
+	return &WorkInfo{
 		Id:          "080112201d2260111e",
 		Title:       "Beautiful Work",
 		Description: "Work Description",
@@ -46,17 +51,22 @@ func getWorkInfo(workId string) WorkInfo {
 }
 
 func getAccountInfo(userId string) accountInfo {
+	ac, err := BM.GetAccountProfile(userId)
+	if err != nil {
+		log.Logger.Error("getAccountInfo--->%v", err)
+		return accountInfo{}
+	}
 	return accountInfo{
-		Address: "080112201d2260111e0c737a1a919121466f7568660e5796b1559fbaac49c9af3f620ffb",
-		Balance: "50000",
-		Income:  "200",
+		Address: ac.WalletKey,
+		Balance: strconv.FormatUint(ac.Balance, 10),
+		Income:  "N/A",
 	}
 }
 
 func isPaid(userId string, workId string) bool {
-	return false
+	return BM.IsPaid(userId, workId)
 }
 
 func pointsIsSufficient(userId string, workId string) bool {
-	return true
+	return BM.CheckBalanceIsEnough(userId, workId)
 }

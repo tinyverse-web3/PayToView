@@ -2,6 +2,10 @@ export interface ApplyViewProofParams {
   ContractName: string;
   Tx: string;
 }
+export interface CreateAccountParams {
+  userID: string;
+  sssData?: string;
+}
 export interface DeployCommissionParams {
   Name: string;
   AgentPercent: number;
