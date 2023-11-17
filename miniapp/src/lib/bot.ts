@@ -5,6 +5,8 @@ class Bot {
       `cmd=fwd&work_id=${ConstractName}`,
     )}`;
     console.log(url);
+    // eslint-disable-next-line no-debugger
+    debugger;
     window.open(url);
   }
 }

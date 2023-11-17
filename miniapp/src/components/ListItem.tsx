@@ -34,7 +34,6 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
     if (window.JsBridge) {
       setIsOpen(true);
     } else {
-      window.open();
       if (item?.ContractName) {
         bot.forward(item?.ContractName);
       }
