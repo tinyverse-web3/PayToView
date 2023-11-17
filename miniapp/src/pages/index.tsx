@@ -134,7 +134,7 @@ export default function Index() {
                 <div className='text-center bg-gray-200 p-2 rounded-xl'>
                   <div className='mb-2 text-xs'>{t('pages.index.address')}</div>
                   <div className='flex items-end justify-center'>
-                    <span className='mr-2 text-xm font-bold leading-none'>
+                    <span className='mr-2 text-sm font-bold leading-none'>
                       <Address address={accountInfo.publicKey} />
                     </span>
                     {/* <span className='text-xs leading-none '>TVS</span> */}
@@ -145,7 +145,7 @@ export default function Index() {
                   onClick={toEarn}>
                   <div className='mb-2 text-xs'>{t('pages.index.profit')}</div>
                   <div className='flex items-end justify-center'>
-                    <span className='mr-2 text-xm font-bold leading-none'>50</span>
+                    <span className='mr-2 text-sm font-bold leading-none'>50</span>
                     <span className='text-xs leading-none'>TVS</span>
                   </div>
                 </div>
