@@ -8,7 +8,6 @@ import (
 	"mime/multipart"
 	"net/http"
 
-	// "github.com/ipfs/go-cid"
 	"github.com/ipfs/go-cid"
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
