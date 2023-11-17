@@ -3,6 +3,7 @@ package ipfs
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -122,7 +123,8 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			logger.Debugf("ipfs->ipfsCatHandler: setErrResp: code: %d, result: %s", code, result)
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(`{"code":` + string(code) + `,"result":"` + result + `"}`))
+			msg := fmt.Sprintf(`{"code":%d,"result":"%s"}`, code, result)
+			w.Write([]byte(msg))
 		}
 
 		logger.Debugf("ipfs->ipfsCatHandler: reqParams: %+v", r.URL.Query())
