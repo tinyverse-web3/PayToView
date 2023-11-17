@@ -18,6 +18,8 @@ class PayToView {
     // eslint-disable-next-line no-extra-boolean-cast
     if (!!window.createAccount) {
       const funHandler = window[name];
+      console.log(name + '  params: ');
+      console.log(data);
       let result;
       if (data) {
         result = await funHandler(JSON.stringify(data));
