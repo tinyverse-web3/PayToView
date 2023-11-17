@@ -78,8 +78,11 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, err.Error())
 			return
 		}
-		jsonData, _ := json.Marshal(resp)
-
+		jsonData, err := json.Marshal(resp)
+		if err != nil {
+			setErrResp(-1, err.Error())
+			return
+		}
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
 			logger.Errorf("dkvs->dkvsGetHandler: WriteString: error: %+v", err)
@@ -159,6 +162,8 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 
 		err = dkvsService.Put(key, value, pubkey, issuetime, ttl, sig)
 		if err != nil {
+			logger.Errorf("dkvs->dkvsPutHandler: dkvsService.Put:\n key: %s, value: %s, pubkey: %s, issuetime: %d, ttl: %d, error: %+v",
+				key, value, pubkey, issuetime, ttl, err)
 			setErrResp(-1, err.Error())
 			return
 		}
