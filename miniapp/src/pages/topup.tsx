@@ -55,7 +55,7 @@ export default function Index() {
   const onChange = useCallback((value: object) => setTx((value as { updated_src: typeof defaultTx }).updated_src), []);
 
   return (
-    <LayoutThird title='充值'>
+    <LayoutThird title='充值1'>
       <div className='h-full overflow-hidden'>
 
         <div className="send-tx-form">

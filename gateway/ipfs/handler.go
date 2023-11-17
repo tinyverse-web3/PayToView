@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	// "github.com/ipfs/go-cid"
+	"github.com/ipfs/go-cid"
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
 	"github.com/tinyverse-web3/paytoview/gateway/dkvs"
@@ -117,11 +118,11 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 
 func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		w.WriteHeader(http.StatusOK)
-
 		setErrResp := func(code int, result string) {
+			logger.Debugf("ipfs->ipfsCatHandler: setErrResp: code: %d, result: %s", code, result)
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusNotFound)
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte(`{"code":` + string(code) + `,"result":"` + result + `"}`))
 		}
 
 		logger.Debugf("ipfs->ipfsCatHandler: reqParams: %+v", r.URL.Query())
@@ -139,11 +140,11 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// c, err := cid.Decode(cidStr)
-		// if err != nil {
-		// 	setErrResp(-1, "invalid cid format")
-		// 	return
-		// }
+		_, err := cid.Decode(cidStr)
+		if err != nil {
+			setErrResp(-1, "invalid cid format")
+			return
+		}
 
 		// if c.Version() < 1 {
 		// 	setErrResp(-1, "invalid cid version")
@@ -188,6 +189,7 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		logger.Debugf("ipfs->ipfsCatHandler: len: %d", len)
+		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Disposition", "attachment; filename="+cidStr)
 		return
 	}
