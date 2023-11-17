@@ -44,9 +44,8 @@ func RegistHandler(hs webserver.WebServerHandle, ds common.DkvsService) {
 
 func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
-		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
-
+		w.WriteHeader(http.StatusOK)
 		resp := dkvsGetResp{
 			Key:    "",
 			Record: &dkvspb.DkvsRecord{},
@@ -55,7 +54,6 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		setErrResp := func(code int, result string) {
-			w.Header().Set("Content-Type", "application/json")
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
@@ -81,7 +79,7 @@ func dkvsGetHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		jsonData, _ := json.Marshal(resp)
-		w.WriteHeader(http.StatusOK)
+
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
 			logger.Errorf("dkvs->dkvsGetHandler: WriteString: error: %+v", err)
