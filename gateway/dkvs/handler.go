@@ -182,7 +182,12 @@ func dkvsPutHandler(w http.ResponseWriter, r *http.Request) {
 func IsExistUserProfile(userPubkey string) bool {
 	key := fmt.Sprintf("/%s/%s/%s", "user", userPubkey, "Profile")
 	value, _, _, _, _, err := dkvsService.Get(key)
-	if err != nil || value == nil {
+	if err != nil {
+		logger.Errorf("IsExistUserProfile: dkvsService.Get: error: %+v, key: %s", err, key)
+		return false
+	}
+	if value == nil {
+		logger.Debugf("IsExistUserProfile: value is nil, key: %s", key)
 		return false
 	}
 	return true
