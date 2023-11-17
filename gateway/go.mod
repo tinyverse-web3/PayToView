@@ -4,11 +4,9 @@ go 1.20
 
 require (
 	github.com/ethereum/go-ethereum v1.13.1
-	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-log/v2 v2.5.1
 	github.com/libp2p/go-libp2p v0.31.0
-	github.com/quic-go/quic-go v0.38.1
 	github.com/rs/cors v1.10.1
 	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231021024631-2aa34db23b57
 	github.com/tinyverse-web3/tvbase v0.0.0-20231030055255-1b7003b75e93
@@ -125,6 +123,7 @@ require (
 	github.com/prometheus/procfs v0.11.1 // indirect
 	github.com/quic-go/qpack v0.4.0 // indirect
 	github.com/quic-go/qtls-go1-20 v0.3.4 // indirect
+	github.com/quic-go/quic-go v0.38.1 // indirect
 	github.com/quic-go/webtransport-go v0.5.3 // indirect
 	github.com/raulk/go-watchdog v1.3.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect

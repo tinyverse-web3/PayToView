@@ -36,7 +36,7 @@ func initLog() (err error) {
 		"tvn":    "debug",
 		"tvbase": "info",
 		"dkvs":   "info",
-		"dmsg":   "debug",
+		"dmsg":   "info",
 	}
 	err = util.SetLogModule(moduleLevels)
 	if err != nil {
