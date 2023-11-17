@@ -11,7 +11,6 @@ import (
 	"github.com/ipfs/go-cid"
 	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/tinyverse-web3/mtv_go_utils/ipfs"
-	"github.com/tinyverse-web3/paytoview/gateway/dkvs"
 	"github.com/tinyverse-web3/paytoview/gateway/webserver"
 )
 
@@ -70,10 +69,12 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 			logger.Debugf("ipfs->ipfsAddHandler: WriteString len: %d", len)
 		}
 
-		if !dkvs.IsExistUserProfile(resp.PubKey) {
-			setErrResp(-1, "user profile not exist")
-			return
-		}
+		logger.Debugf("ipfs->ipfsAddHandler: resq:\n%+v", resp)
+		// if !dkvs.IsExistUserProfile(resp.PubKey) {
+		// 	logger.Debugf("ipfs->ipfsAddHandler: user profile not exist: pubkey: %s", resp.PubKey)
+		// 	setErrResp(-1, "user profile not exist")
+		// 	return
+		// }
 
 		var sizeInBytes int64 = 100 * 1024 * 1024 // 100M
 		err := r.ParseMultipartForm(sizeInBytes)
