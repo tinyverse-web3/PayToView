@@ -13,7 +13,7 @@ func ServerRouter(r *gin.Engine, bot *tb.Bot) {
 	miniapp.InitBot(bot)
 	middleware.InitBot(bot)
 	miniappGroup := r.Group("miniapp")
-	//miniappGroup.Use(middleware.Authorize())
+	miniappGroup.Use(middleware.Authorize())
 	{
 		miniappGroup.POST("/sendMsg", miniapp.SendMessage)
 	}

@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231115055158-cf5ef804c75b
+	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231117095238-5bcc39dfb37a
 	go.mongodb.org/mongo-driver v1.9.1
 	gopkg.in/telebot.v3 v3.1.3
 )

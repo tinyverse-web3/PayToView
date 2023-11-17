@@ -37,7 +37,7 @@ func showCreateAccountView(c tb.Context) {
 		menu.Row(
 			menu.WebApp(
 				"Create Account",
-				&tb.WebApp{URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId)})),
+				&tb.WebApp{URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", userId)})),
 		menu.Row(
 			menu.URL("Help", "https://tinyverse.space/"),
 		),
@@ -70,17 +70,17 @@ func showBotMainView(c tb.Context) {
 	menu := &tb.ReplyMarkup{}
 	menu.Inline(
 		menu.Row(menu.WebApp("New Content", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", userId),
 		})),
 		menu.Row(menu.WebApp("Earnings", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", userId),
 		}), menu.WebApp("Published", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", userId),
 		})),
 		menu.Row(menu.WebApp("Paid", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", userId),
 		}), menu.WebApp("Forwarded", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", userId),
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", userId),
 		})))
 	_, err := b.Send(c.Message().Sender, accountInfoStr, menu)
 	if err != nil {
@@ -118,7 +118,7 @@ func showWorkView(c tb.Context) {
 	//Pay or not
 	if isPaid(userId, workId) { //Paid
 		viewButton = menu.WebApp("View", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", "test")})
 	} else { //no payment
 		workIdStr := fmt.Sprintf("work_id=%s", wi.Id)
 		pay_to_view.Data = encodeParameters(workIdStr) //set data
@@ -146,7 +146,7 @@ func PayToViewButtonTap(c tb.Context) error {
 	menu := &tb.ReplyMarkup{}
 	if pointsIsSufficient(userId, wi.Id) {
 		menu.Inline(menu.Row(menu.WebApp("Points payment", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})))
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", "test")})))
 	} else {
 		points_payment.Data = callbackData
 		menu.Inline(menu.Row(points_payment))
@@ -172,9 +172,9 @@ func PointsPaymentButtonTap(c tb.Context) error {
 	menu := &tb.ReplyMarkup{}
 	menu.Inline(
 		menu.Row(menu.WebApp("Wallet Pay", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", wi.Id)})),
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", wi.Id)})),
 		menu.Row(menu.WebApp("Ton Connect", &tb.WebApp{
-			URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})),
+			URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", "test")})),
 	)
 	err = c.EditCaption(paymentDesc, menu)
 	if err != nil {
@@ -205,7 +205,7 @@ func showRechargeCompletedView(c tb.Context) {
 	queryText := fmt.Sprintf("cmd=fwd&work_id=%s", workId)
 	encodeQueryText := encodeParameters(queryText)
 	viewButton := menu.WebApp("View", &tb.WebApp{
-		URL: fmt.Sprintf("https://throbbing-art-9358.on.fleek.co/#/?user=%s", "test")})
+		URL: fmt.Sprintf("https://p2v.tinyverse.space/#/?user=%s", "test")})
 	menu.Inline(
 		menu.Row(
 			menu.Query("Forward", encodeQueryText),
