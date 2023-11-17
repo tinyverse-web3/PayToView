@@ -70,9 +70,13 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 			logger.Debugf("ipfs->ipfsAddHandler: WriteString len: %d", len)
 		}
 
-		logger.Debugf("ipfs->ipfsAddHandler: resq:\n%+v", resp)
+		logger.Debugf("ipfs->ipfsAddHandler: pubkey: %s", resp.PubKey)
+
+		if resp.PubKey == "" {
+			setErrResp(-1, "invalid param pubkey")
+			return
+		}
 		if !dkvs.IsExistUserProfile(resp.PubKey) {
-			logger.Debugf("ipfs->ipfsAddHandler: user profile not exist: pubkey: %s", resp.PubKey)
 			setErrResp(-1, "user profile not exist")
 			return
 		}
