@@ -19,8 +19,9 @@ export default function Root() {
   const webApp = useWebApp();
   const cloudstorage = useCloudStorage();
   const getUserId = async () => {
-    if (!window.Telegram) {
-      return undefined;
+    console.log(import.meta.env.MODE)
+    if (import.meta.env.MODE === 'development') {
+      return '123'
     } else {
       const webAppUserId = webApp?.initDataUnsafe?.user?.id;
       return webAppUserId || user;
