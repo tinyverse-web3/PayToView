@@ -472,6 +472,10 @@ github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231115013234-24254fb63fcf h1:5d
 github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231115013234-24254fb63fcf/go.mod h1:gPR3gUXP1wysYIStG6icNpq0fCMHk/RxZPUOkgHLx0Y=
 github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231115055158-cf5ef804c75b h1:oCKuZUo9cXpUOfJh899wnRw45PGPKp5la31z4NwZs/Y=
 github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231115055158-cf5ef804c75b/go.mod h1:gPR3gUXP1wysYIStG6icNpq0fCMHk/RxZPUOkgHLx0Y=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231117065816-08c015b5e55d h1:jm9S3ObRwXpj8dcCrHnZDnJFlR++58WWmM815BdhL68=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231117065816-08c015b5e55d/go.mod h1:gPR3gUXP1wysYIStG6icNpq0fCMHk/RxZPUOkgHLx0Y=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231117095238-5bcc39dfb37a h1:amfAcqxCHILIIg17SeF/8urIMYTSSBtHpWS1S1MqOJ4=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231117095238-5bcc39dfb37a/go.mod h1:gPR3gUXP1wysYIStG6icNpq0fCMHk/RxZPUOkgHLx0Y=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS4MhqMhdFk5YI=
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=

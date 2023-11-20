@@ -6,7 +6,7 @@ var (
 
 	// log
 	Server_Type = "sdk"
-	App_Name    = "mtv"
+	App_Name    = "pay2view"
 	Log_Level   = "debug"
 	Web_Port    = "7070"
 

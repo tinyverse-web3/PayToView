@@ -39,7 +39,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message with a button that opens a the web app."""
     button_text = 'PayToView'
     user = update.message.from_user
-    button_url = f'https://throbbing-art-9358.on.fleek.co/#/?user={user.id}'
+    button_url = f'https://p2v.tinyverse.space/#/?user={user.id}'
     if 'read' not in context.args:
 
         await update.message.reply_text(
@@ -66,7 +66,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 InlineKeyboardButton(
                     text="Read Detail!",
                     web_app=WebAppInfo(
-                        url="https://throbbing-art-9358.on.fleek.co/#/read")
+                        url="https://p2v.tinyverse.space/#/read")
                 ),
             ]]
             )
@@ -77,7 +77,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         #         InlineKeyboardButton(
         #             text="Read Detail!",
         #             web_app=WebAppInfo(
-        #                 url="https://throbbing-art-9358.on.fleek.co/#/read"),)]]
+        #                 url="https://p2v.tinyverse.space/#/read"),)]]
         #     ),
         # )
 

@@ -20,34 +20,33 @@ func InitSdk() {
 }
 
 func checkUserExists(userId string) bool {
-	//return BM.CheckAccountExist(userId)
-	return true
+	return BM.CheckAccountExist(userId)
 }
 
 func getWorkInfo(workId string) *WorkInfo {
-	// contract, walletKey, err := BM.GetContractInfo(workId)
-	// if err != nil {
-	// 	log.Logger.Errorf("getWorkInfo--->%v", err)
-	// 	return nil
-	// }
-	// return &WorkInfo{
-	// 	Id:          contract.Name,
-	// 	Title:       contract.Name,
-	// 	Description: contract.Content.Description,
-	// 	Creator:     walletKey,
-	// 	Fee:         strconv.FormatUint(contract.Fee, 10),
-	// 	ShareRatio:  strconv.Itoa(int(contract.Ritio.ForwarderPercent)),
-	// 	ImageUrl:    contract.Content.Cid,
-	// }
-	return &WorkInfo{
-		Id:          "080112201d2260111e",
-		Title:       "Beautiful Work",
-		Description: "Work Description",
-		Creator:     "Jack",
-		Fee:         "10",
-		ShareRatio:  "10%",
-		ImageUrl:    "https://test.tinyverse.space/paytoview_blur.png",
+	contract, walletKey, err := BM.GetContractInfo(workId)
+	if err != nil {
+		log.Logger.Errorf("getWorkInfo--->%v", err)
+		return nil
 	}
+	return &WorkInfo{
+		Id:          contract.Name,
+		Title:       contract.Name,
+		Description: contract.Content.Description,
+		Creator:     walletKey,
+		Fee:         strconv.FormatUint(contract.Fee, 10),
+		ShareRatio:  strconv.Itoa(int(contract.Ritio.ForwarderPercent)),
+		ImageUrl:    contract.Content.Cid,
+	}
+	// return &WorkInfo{
+	// 	Id:          "080112201d2260111e",
+	// 	Title:       "Beautiful Work",
+	// 	Description: "Work Description",
+	// 	Creator:     "Jack",
+	// 	Fee:         "10",
+	// 	ShareRatio:  "10%",
+	// 	ImageUrl:    "https://test.tinyverse.space/paytoview_blur.png",
+	// }
 }
 
 func getAccountInfo(userId string) accountInfo {

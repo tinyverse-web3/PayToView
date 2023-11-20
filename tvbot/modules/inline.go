@@ -100,7 +100,7 @@ func TestInlineMainMenu(c tb.Context) {
 	// }
 	menu.Inline(
 		menu.Row(menu.URL("Share", "https://t.me/@tvnb_bot?start=share"), menu.URL("Read Detail!", "https://t.me/@tvnb_bot?start=read")),
-	//menu.Row(menu.WebApp("Read Details!", &tb.WebApp{URL: "https://throbbing-art-9358.on.fleek.co/#/?user=test"}))// not work
+	//menu.Row(menu.WebApp("Read Details!", &tb.WebApp{URL: "https://p2v.tinyverse.space/#/?user=test"}))// not work
 	)
 
 	result := &tb.ArticleResult{
