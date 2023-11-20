@@ -52,7 +52,7 @@ export default function Index() {
       name: t('pages.publish.icon_title'),
       icon: '/images/publish.png',
       onClick: () => {
-        nav(ROUTE_PATH.DETAIL_ADD);
+        nav(ROUTE_PATH.PUBLISH);
       },
     },
     {

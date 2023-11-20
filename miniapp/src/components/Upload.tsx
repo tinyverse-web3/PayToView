@@ -29,7 +29,7 @@ export const Upload = ({ onChange }: UploadProps) => {
           <div className='p-4 border border-solid border-gray-300 rounded-xl w-full h-full flex justify-center items-center'>
             <div>
               <Icon icon='mdi:cloud-upload-outline' className='text-6xl' />
-              <div className='text-18px'>{t('common.upload.title')}</div>
+              <div className='text-18px text-center'>{t('common.upload.title')}</div>
             </div>
           </div>
         )}
