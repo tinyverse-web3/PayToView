@@ -26,26 +26,26 @@ export default function DetailEdit() {
   useTitle('PayToView');
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const ContractId = searchParams.get('contract');
+  const ContractID = searchParams.get('contract');
   const nav = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [data, { set }] = useMap({
     title: '',
   });
   const getContractDetail = async () => {
-    if (ContractId) {
+    if (ContractID) {
       const result = await paytoview.getViewContractContent({
-        ContractId: ContractId,
+        ContractID: ContractID,
       });
 
       console.log('getContractDetail: result:', result);
     }
   };
   const forwardHandler = async () => {
-    if (ContractId) {
+    if (ContractID) {
       const result = await paytoview.forwardAPayView({
         Name: data.title,
-        ContractId: ContractId,
+        ContractID: ContractID,
       });
       if (result.code === '000000') {
         setIsOpen(true);
@@ -55,14 +55,14 @@ export default function DetailEdit() {
     }
   };
   const qrCodeurl = useMemo(() => {
-    return `type=url&value=${location.origin}/#/detail/read?contract=${ContractId}`;
-  }, [ContractId]);
+    return `type=url&value=${location.origin}/#/detail/read?contract=${ContractID}`;
+  }, [ContractID]);
   const src = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
   useEffect(() => {
-    if (ContractId) {
+    if (ContractID) {
       getContractDetail();
     }
-  }, [ContractId]);
+  }, [ContractID]);
   return (
     <LayoutThird title={t('pages.forward.title')}>
       <div className='min-h-ful p-4'>
