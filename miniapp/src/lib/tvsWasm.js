@@ -7,6 +7,7 @@ import wasmUrl from '@/assets/main.wasm?url';
     const M = new Error('not implemented');
     return (M.code = 'ENOSYS'), M;
   };
+  
   if (!globalThis.fs) {
     let M = '';
     globalThis.fs = {

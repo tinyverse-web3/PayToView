@@ -19,9 +19,9 @@ export default function Root() {
   const webApp = useWebApp();
   const cloudstorage = useCloudStorage();
   const getUserId = async () => {
-    console.log(import.meta.env.MODE)
+    console.log(import.meta.env.MODE);
     if (import.meta.env.MODE === 'development') {
-      return 'sksskskss'
+      return 'sksskskss';
     } else {
       const webAppUserId = webApp?.initDataUnsafe?.user?.id;
       return webAppUserId || user;
@@ -51,7 +51,7 @@ export default function Root() {
     const tvsWasm = new TvsWasm();
     await tvsWasm.initWasm();
     const result = await paytoview.createAccount({
-      userID: userId.toString(),
+      userID: userId.toString() + '1',
       sssData: tSssData,
     });
     // const tSssData = (await cloudstorage.getItem(`user_${userId}_sss`)) || '';
