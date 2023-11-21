@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 export interface ListItemProps {
+  ContractID: string;
   ContractName: string;
   Name: string;
   CommissionContractName: string;

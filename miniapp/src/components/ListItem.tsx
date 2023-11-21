@@ -31,11 +31,12 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
   };
   const shareHandler = () => {
     console.log('share');
+    console.log(item)
     if (window.JsBridge) {
       setIsOpen(true);
     } else {
-      if (item?.ContractName) {
-        bot.forward(item?.ContractName);
+      if (item?.ContractID) {
+        bot.forward(item?.ContractID);
       }
       // webApp?.sendData(
       //   JSON.stringify(

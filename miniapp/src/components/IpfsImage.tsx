@@ -10,7 +10,7 @@ export const IpfsImage = ({ cid, ...rest }: Props) => {
   console.log('IpfsImage->cid:', cid);
   const src = useMemo(
     () =>
-      `https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`,
+      `http://192.168.1.102/ipfs/cat?pubkey=${accountInfo.publicKey}&cid=${cid}`,
     [cid, accountInfo.publicKey],
   );
   return <Image src={src} {...rest} />;

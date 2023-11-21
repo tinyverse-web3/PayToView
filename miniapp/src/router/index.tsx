@@ -1,7 +1,7 @@
 import { createHashRouter, RouteObject } from 'react-router-dom';
 import Root from '@/Root';
 import Index from '@/pages';
-import DetailAdd from '@/pages/detail/add';
+import Publish from '@/pages/publish';
 import DetailEdit from '@/pages/detail/edit';
 import DetailRead from '@/pages/detail/read';
 import DetailForward from '@/pages/detail/forward';
@@ -17,7 +17,7 @@ const resolveHashPath = (path: string) => {
 
 export const ROUTE_PATH = {
   INDEX: '/',
-  DETAIL_ADD: '/detail/add',
+  PUBLISH: '/publish',
   DETAIL_EDIT: '/detail/edit',
   DETAIL_READ: '/detail/read',
   DETAIL_FORWARD: '/detail/forward',
@@ -45,8 +45,8 @@ export const routes: RouteObject[] = [
         element: <Index />,
       },
       {
-        path: ROUTE_PATH.DETAIL_ADD,
-        element: <DetailAdd />,
+        path: ROUTE_PATH.PUBLISH,
+        element: <Publish />,
       },
       {
         path: ROUTE_PATH.DETAIL_EDIT,
