@@ -8,7 +8,8 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
+
+	// "time"
 
 	eth_crypto "github.com/ethereum/go-ethereum/crypto"
 	ipfsLog "github.com/ipfs/go-log/v2"
@@ -107,9 +108,9 @@ func main() {
 		cfg.ClearBootstrapPeers()
 		cfg.AddBootstrapPeer("/ip4/39.108.147.241/tcp/9000/p2p/12D3KooWJ9BvdU8q6gcEDpDUF42qV3PLaAd8vgh7HGveuktFMHoq")
 		cfg.AddBootstrapPeer("/ip4/39.108.96.46/tcp/9000/p2p/12D3KooWDzny9ZpW44Eb2YL5uQQ1CCcgQSQcc851oiB6XyXHG7TM")
-		ipfsShellUrl = "/ip4/39.108.147.241/tcp/5001"
+		ipfsShellUrl = "/ip4/127.0.0.1/tcp/5001"
 	}
-
+	logger.Debugf("tvn->main: env: %s, ipfsShellUrl: %s", *env, ipfsShellUrl)
 	cfg.InitMode(config.LightMode)
 
 	err = ipfs.InitIpfsShell(ipfsShellUrl)
@@ -162,7 +163,7 @@ func main() {
 	ipfs.RegistHandler(svr)
 	dkvs.RegistHandler(svr, node.GetDkvsService())
 
-	go msgInstance.TickerCleanRestResource(5 * time.Minute)
+	// go msgInstance.TickerCleanRestResource(5 * time.Minute)
 	<-ctx.Done()
 }
 

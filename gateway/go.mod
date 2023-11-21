@@ -8,7 +8,7 @@ require (
 	github.com/ipfs/go-log/v2 v2.5.1
 	github.com/libp2p/go-libp2p v0.31.0
 	github.com/rs/cors v1.10.1
-	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231021024631-2aa34db23b57
+	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231121111740-d4f43ed01e8d
 	github.com/tinyverse-web3/tvbase v0.0.0-20231030055255-1b7003b75e93
 )
 

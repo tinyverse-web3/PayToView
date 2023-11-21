@@ -174,11 +174,16 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, "cid is not pin")
 			return
 		}
+
+		logger.Debugf("ipfs->ipfsCatHandler: cidStr: %s", cidStr)
+
 		reader, err := ipfsShell.Cat(cidStr)
 		if err != nil {
 			setErrResp(-1, err.Error())
 			return
 		}
+
+		logger.Debugf("ipfs->ipfsCatHandler: cidStr: %s", cidStr)
 		// data, err := io.ReadAll(reader)
 		// if err != nil {
 		// 	setErrResp(-1, err.Error())
