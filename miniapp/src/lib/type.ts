@@ -31,14 +31,14 @@ export interface DeployPayToViewParams {
 }
 export interface ForwardAPayViewParams {
   Name: string;
-  ContractName: string;
+  ContractId: string;
 }
 export interface GetViewContractContentParams {
-  ContractName: string;
+  ContractId: string;
 }
 export interface GetViewPasswordParams {
-  ContractName: string;
+  ContractId: string;
 }
 export interface PayToViewParams {
-  ContractName: string;
+  ContractId: string;
 }

@@ -34,8 +34,8 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
     if (window.JsBridge) {
       setIsOpen(true);
     } else {
-      if (item?.ContractName) {
-        bot.forward(item?.ContractName);
+      if (item?.ContractId) {
+        bot.forward(item?.ContractId);
       }
       // webApp?.sendData(
       //   JSON.stringify(

@@ -1,5 +1,6 @@
 export const flattenListData = (list: any[]) => {
   return list?.map((v) => ({
+    ContractId: v.ContractId,
     ContractName: v.ContractName,
     CommissionContractName: v.ContractInfo.CommissionContractName,
     Name: v.ContractInfo.Name,

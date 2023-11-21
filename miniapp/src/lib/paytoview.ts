@@ -101,12 +101,12 @@ class PayToView {
     });
     return data;
   }
-  async forwardAPayView({ Name, ContractName }: ForwardAPayViewParams) {
+  async forwardAPayView({ Name, ContractId }: ForwardAPayViewParams) {
     const data = await this.request({
       name: 'forwardAPayView',
       data: {
         Name,
-        ContractName,
+        ContractId,
       },
     });
     return data;
@@ -135,29 +135,29 @@ class PayToView {
     });
     return data;
   }
-  async getViewContractContent({ ContractName }: GetViewContractContentParams) {
+  async getViewContractContent({ ContractId }: GetViewContractContentParams) {
     const data = await this.request({
       name: 'getViewContractContent',
       data: {
-        ContractName,
+        ContractId,
       },
     });
     return data;
   }
-  async getViewPassword({ ContractName }: GetViewPasswordParams) {
+  async getViewPassword({ ContractId }: GetViewPasswordParams) {
     const data = await this.request({
       name: 'getViewPassword',
       data: {
-        ContractName,
+        ContractId,
       },
     });
     return data;
   }
-  async payToView({ ContractName }: PayToViewParams) {
+  async payToView({ ContractId }: PayToViewParams) {
     const data = await this.request({
       name: 'payToView',
       data: {
-        ContractName,
+        ContractId,
       },
     });
     return data;

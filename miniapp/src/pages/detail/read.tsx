@@ -16,7 +16,7 @@ import LayoutThird from '@/layout/LayoutThird';
 export default function DetailRead() {
   useTitle('PayToView');
   const [searchParams] = useSearchParams();
-  const contractName = searchParams.get('contract');
+  const contractId = searchParams.get('contract');
   const nav = useNavigate();
   const { t } = useTranslation();
   const [paid, setPaid] = useState(false);
@@ -28,9 +28,9 @@ export default function DetailRead() {
     nav(ROUTE_PATH.INDEX, { replace: true });
   };
   const toPay = async () => {
-    if (!contractName) return;
+    if (!contractId) return;
     const result = await paytoview.payToView({
-      ContractName: contractName,
+      ContractId: contractId,
     });
     console.log(result);
     // setPaidList([
@@ -47,14 +47,14 @@ export default function DetailRead() {
     }
   };
   const getData = async () => {
-    if (!contractName) return;
-    const result = await paytoview.getViewPassword({ ContractName: contractName });
+    if (!contractId) return;
+    const result = await paytoview.getViewPassword({ ContractId: contractId });
     console.log(result);
   }
   const getContractDetail = async () => {
-    if (!contractName) return;
+    if (!contractId) return;
     const result = await paytoview.getViewContractContent({
-      ContractName: contractName,
+      ContractId: contractId,
     });
     if (result.code === '000000') {
       setDetail(result.data);
@@ -67,7 +67,7 @@ export default function DetailRead() {
     }
   };
   const toForward = () => {
-    nav(ROUTE_PATH.DETAIL_FORWARD + '/?contract=' + contractName);
+    nav(ROUTE_PATH.DETAIL_FORWARD + '/?contract=' + contractId);
   }
   const readStatus = useMemo(() => detail.isPaid, [detail.isPaid]);
 
@@ -75,16 +75,16 @@ export default function DetailRead() {
   const previewSrc = 'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA';
   // var contentSrc = previewSrc;
   useEffect(() => {
-    if (contractName) {
+    if (contractId) {
       getContractDetail();
     }
 
-  }, [contractName]);
+  }, [contractId]);
   useEffect(() => {
-    if (contractName && paid) {
+    if (contractId && paid) {
       getData();
     }
-  }, [contractName, paid]);
+  }, [contractId, paid]);
   return (
     <LayoutThird title={t('pages.detail.title')}>
       <div className='min-h-ful p-4'>
