@@ -21,6 +21,7 @@ import paytoview from '@/lib/paytoview';
 import { useEffect, useState, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 import LayoutThird from '@/layout/LayoutThird';
+import bot from '@/lib/bot';
 
 export default function DetailEdit() {
   useTitle('PayToView');
@@ -48,7 +49,7 @@ export default function DetailEdit() {
         ContractID: ContractID,
       });
       if (result.code === '000000') {
-        setIsOpen(true);
+        bot.forward(ContractID);
       } else {
         toast.error(result.msg);
       }

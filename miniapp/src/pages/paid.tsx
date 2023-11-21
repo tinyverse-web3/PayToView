@@ -36,7 +36,7 @@ export default function Index() {
     }
   };
   const toDetail = (item) => {
-    nav(ROUTE_PATH.DETAIL_READ + '/?contract=' + item.ContractName);
+    nav(ROUTE_PATH.DETAIL + '/?contract=' + item.ContractName);
   };
   useEffect(() => {
     getList();

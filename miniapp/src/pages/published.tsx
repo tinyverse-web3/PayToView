@@ -27,15 +27,18 @@ export default function Index() {
       const list = flattenListData(result.data).map((v) => ({
         ...v,
         // Ipfs: `https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA`,
-        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?cid=${v.CidForpreview}`,
+        Ipfs: `${import.meta.env.VITE_IPFS_GATEWAY_URL}/cat?cid=${
+          v.CidForpreview
+        }`,
       }));
       console.log('published.tsx->getList, list:', list);
       setPublishedList(list);
     }
   };
   const toDetail = (item) => {
-    nav(ROUTE_PATH.DETAIL_READ + '/?contract=' + item.ContractName);
-  }
+    console.log(item);
+    nav(ROUTE_PATH.DETAIL + '/?contract=' + item.ContractID);
+  };
   useEffect(() => {
     getList();
   }, []);
@@ -44,7 +47,6 @@ export default function Index() {
       <div className='h-full overflow-hidden'>
         {/* <div>published.tsx</div> */}
         <BackButton onClick={() => nav(-1)} />
-
         <div className='h-full overflow-y-auto'>
           <div className='p-4'>
             {publishedList.length === 0 && <Empty />}

@@ -6,6 +6,7 @@ export interface ListItemProps {
   ContractName: string;
   Name: string;
   CommissionContractName: string;
+  Fee: number;
   Cid: string;
   ContentType: 'text' | 'image' | 'video' | 'audio' | 'file';
   CidForpreview: string;

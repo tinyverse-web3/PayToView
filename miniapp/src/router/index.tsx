@@ -3,7 +3,8 @@ import Root from '@/Root';
 import Index from '@/pages';
 import Publish from '@/pages/publish';
 import DetailEdit from '@/pages/detail/edit';
-import DetailRead from '@/pages/detail/read';
+import DetailIndex from '@/pages/detail';
+import DetailView from '@/pages/detail/view';
 import DetailForward from '@/pages/detail/forward';
 import Published from '@/pages/published';
 import Paid from '@/pages/paid';
@@ -19,8 +20,9 @@ export const ROUTE_PATH = {
   INDEX: '/',
   PUBLISH: '/publish',
   DETAIL_EDIT: '/detail/edit',
-  DETAIL_READ: '/detail/read',
+  DETAIL: '/detail',
   DETAIL_FORWARD: '/detail/forward',
+  DETAIL_VIEW: '/detail/view',
   PUBLISHED: '/published',
   PAID: '/paid',
   FORWARDED: '/forwarded',
@@ -53,8 +55,12 @@ export const routes: RouteObject[] = [
         element: <DetailEdit />,
       },
       {
-        path: ROUTE_PATH.DETAIL_READ,
-        element: <DetailRead />,
+        path: ROUTE_PATH.DETAIL,
+        element: <DetailIndex />,
+      },
+      {
+        path: ROUTE_PATH.DETAIL_VIEW,
+        element: <DetailView />,
       },
       {
         path: ROUTE_PATH.DETAIL_FORWARD,
