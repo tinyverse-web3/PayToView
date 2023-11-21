@@ -33,6 +33,7 @@ export default function Root() {
     if (localAccountResult.data && !hasPasswordResult.data) {
       const _href = location.href;
       console.log('location.href', _href);
+      
       location.replace(
         `${import.meta.env.VITE_TINY_APP_URL}?redirect=${encodeURIComponent(
           _href,

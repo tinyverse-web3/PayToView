@@ -100,7 +100,7 @@ export default function Index() {
   const handleKeyPress = (event) => {
     // 在按下 Enter 键时，执行搜索
     if (event.key === 'Enter') {
-      nav(ROUTE_PATH.DETAIL_READ + '/?contract=' + searchTerm);
+      nav(ROUTE_PATH.DETAIL + '/?contract=' + searchTerm);
     }
   };
 

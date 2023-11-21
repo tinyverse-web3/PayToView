@@ -63,7 +63,7 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
         className='w-full h-full flex justify-center items-center'
         onClick={onClick}>
         {item?.ContentType === 'image' ? (
-          <IpfsImage cid={item.Cid} />
+          <IpfsImage cid={item.CidForpreview} />
         ) : (
           <div className='p-4  h-full'>
             <div className='break-all overflow-hidden h-full '>
