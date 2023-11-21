@@ -51,7 +51,7 @@ export default function Root() {
     const tvsWasm = new TvsWasm();
     await tvsWasm.initWasm();
     const result = await paytoview.createAccount({
-      userID: userId.toString() + '1',
+      userID: userId.toString() + '2',
       sssData: tSssData,
     });
     // const tSssData = (await cloudstorage.getItem(`user_${userId}_sss`)) || '';
