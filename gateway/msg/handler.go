@@ -128,7 +128,7 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				logger.Errorf("msg->msgProxyReadMailboxHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d", len)
+			logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d, resp: %+v", len, resp)
 		}
 
 		reqParams := map[string]string{}
@@ -162,12 +162,6 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 		timeout, err := strconv.ParseInt(reqParams["timeout"], 10, 64)
 		if err == nil {
 			duration = time.Second * time.Duration(timeout)
-		}
-		if timeout <= 10 {
-			duration = 30 * time.Second
-		}
-		if timeout > 180 {
-			duration = 180 * time.Second
 		}
 
 		resp.MsgList, err = service.readMailbox(pubkey, duration)
