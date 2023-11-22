@@ -45,7 +45,6 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		setErrResp := func(code int, result string) {
-			w.Header().Set("Content-Type", "application/json")
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
@@ -101,7 +100,6 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		jsonData, _ := json.Marshal(resp)
-		w.WriteHeader(http.StatusOK)
 		len, err := io.WriteString(w, string(jsonData))
 		if err != nil {
 			logger.Errorf("msg->msgProxySendMsgHandler: WriteString: error: %+v", err)
