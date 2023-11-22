@@ -21,8 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { useListStore } from '@/store';
 import LayoutThird from '@/layout/LayoutThird';
 import { TonConnectButton } from '@tonconnect/ui-react';
-import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
-import { useTonAddress } from '@tonconnect/ui-react';
+import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
 import { BOC as BOC1, Builder } from 'ton3-core';
 import { Address } from 'ton3-core';
@@ -34,7 +33,7 @@ export default function Index() {
   const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
   const [fee, setFee] = useState(0);
-  const tonAddress = useTonAddress();
+  const tonAddress = useTonAddress(true);
   const rawTonAddress = useTonAddress(false);
 
   const [tonConnectUi] = useTonConnectUI();
@@ -71,16 +70,27 @@ export default function Index() {
   const disconnect = () => {
     tonConnectUi.disconnect();
   };
+  console.log(tonAddress)
+  console.log(tonConnectUi)
   return (
     <LayoutThird title='充值'>
       <div className='h-full overflow-hidden p-4'>
         <SimpleGrid columns={2} spacing='10px' className='mb-4'>
-          <Button
-            colorScheme='blue'
-            onClick={() => tonConnectUi.connectWallet()}>
-            Connect Wallet
-          </Button>
-          <Button onClick={disconnect} isDisabled={!tonConnectUi.connected}>
+          {!tonConnectUi.connected ? (
+            <Button
+              colorScheme='blue'
+              onClick={() => tonConnectUi.connectWallet()}>
+              Connect Wallet
+            </Button>
+          ) : (
+            <Button
+              colorScheme='blue'
+              onClick={() => tonConnectUi.connectWallet()}>
+              {tonAddress}
+            </Button>
+          )}
+
+          <Button colorScheme={tonConnectUi.connected ?'blue': 'default'} onClick={disconnect} isDisabled={!tonConnectUi.connected}>
             Disconnect
           </Button>
         </SimpleGrid>
@@ -113,7 +123,6 @@ export default function Index() {
             充值
           </Button>
         </div>
-        
       </div>
     </LayoutThird>
   );

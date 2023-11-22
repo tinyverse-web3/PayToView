@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { ROUTE_PATH } from '@/router';
 import { useWebApp } from '@vkruglikov/react-telegram-web-app';
+
 import { ListItemProps } from '@/store';
 import { IpfsImage } from './IpfsImage';
 import { QRCodeCanvas } from 'qrcode.react';
@@ -31,7 +32,7 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
   };
   const shareHandler = () => {
     console.log('share');
-    console.log(item)
+    console.log(item);
     if (window.JsBridge) {
       setIsOpen(true);
     } else {

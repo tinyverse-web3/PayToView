@@ -9,8 +9,7 @@ import paytoview from '@/lib/paytoview';
 import { useTranslation } from 'react-i18next';
 import { useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { IpfsImage } from '@/components/IpfsImage';
-import { useIpfsSrc } from '@/lib/hooks';
+import { template } from 'lodash';
 import LayoutThird from '@/layout/LayoutThird';
 
 export default function DetailView() {
@@ -22,29 +21,9 @@ export default function DetailView() {
   const [paid, setPaid] = useState(false);
   const [detail, setDetail] = useState<any>({});
   const [contentSrc, setContentSrc] = useState<any>({});
-  const type = 'image';
   const webApp = useWebApp();
   const toIndex = () => {
     nav(ROUTE_PATH.INDEX, { replace: true });
-  };
-  const toPay = async () => {
-    if (!ContractID) return;
-    const result = await paytoview.payToView({
-      ContractID: ContractID,
-    });
-    console.log(result);
-    // setPaidList([
-    //   {
-    //     type: 'image',
-    //     title: 'PayToView First Image',
-    //     image:
-    //       'https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png',
-    //   },
-    // ]);
-    webApp?.close();
-    if (result.code === '000000') {
-      nav(ROUTE_PATH.PAID);
-    }
   };
   const getData = async () => {
     if (!ContractID) return;
@@ -60,25 +39,25 @@ export default function DetailView() {
       setDetail(result.data);
       setPaid(result.data.isPaid);
     }
-    if (result.data.isPaid) {
-      setContentSrc(
-        'https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ',
-      );
-    } else {
-      setContentSrc(
-        'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA',
-      );
-    }
+    // if (result.data.isPaid) {
+    //   setContentSrc(
+    //     'https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ',
+    //   );
+    // } else {
+    //   setContentSrc(
+    //     'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA',
+    //   );
+    // }
   };
   const toForward = () => {
     nav(ROUTE_PATH.DETAIL_FORWARD + '/?contract=' + ContractID);
   };
-  const readStatus = useMemo(() => detail.isPaid, [detail.isPaid]);
 
-  // const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
   const previewSrc = useMemo(
     () =>
-      `http://39.108.147.241:8080/ipfs/${detail.contractInfo?.ContractInfo?.Content?.CidForpreview}`,
+    template(import.meta.env.VITE_IPFS_GATEWAY_URL)({
+      cid: detail.contractInfo?.ContractInfo?.Content?.CidForpreview,
+    }),
     [detail.contractInfo?.ContractInfo?.Content?.CidForpreview],
   );
   console.log('previewSrc:', previewSrc);
