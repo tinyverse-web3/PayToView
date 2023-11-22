@@ -23,7 +23,7 @@ export default function DetailAdd() {
     title: 'PayToView First Image',
     content: '',
     description: '',
-    password: '',
+    password: '123456',
     image: undefined,
     previewImage: undefined,
     fee: 300,
