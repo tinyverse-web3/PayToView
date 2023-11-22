@@ -120,7 +120,6 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 			Result: "succ",
 		}
 		setErrResp := func(code int, result string) {
-			w.Header().Set("Content-Type", "application/json")
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
