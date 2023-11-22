@@ -579,6 +579,10 @@ github.com/tinyverse-web3/tvbase v0.0.0-20231030055255-1b7003b75e93 h1:CBEp2cWP4
 github.com/tinyverse-web3/tvbase v0.0.0-20231030055255-1b7003b75e93/go.mod h1:fL0a59bPtKoxPLwTIkZuIT9fP7zdmKbmxCd0fKKhDjw=
 github.com/tinyverse-web3/tvbase v0.0.0-20231122071254-cf534561d580 h1:oVBuT2QDXRCDrp/ZyZE2+1s6mgU2PrCPrb150ga0Ke4=
 github.com/tinyverse-web3/tvbase v0.0.0-20231122071254-cf534561d580/go.mod h1:fL0a59bPtKoxPLwTIkZuIT9fP7zdmKbmxCd0fKKhDjw=
+github.com/tinyverse-web3/tvbase v0.0.0-20231122074404-645cb2db0102 h1:lWzIEIE/qURF+KIFhvgtVYCtqTdHmaDIhUx/uJ6Lk8k=
+github.com/tinyverse-web3/tvbase v0.0.0-20231122074404-645cb2db0102/go.mod h1:fL0a59bPtKoxPLwTIkZuIT9fP7zdmKbmxCd0fKKhDjw=
+github.com/tinyverse-web3/tvbase v0.0.0-20231122074744-ddbd7463a26f h1:9qCRKdFu7NsGoNVaGb1Q4rTugfiDmHqxUnWPxPdIX8A=
+github.com/tinyverse-web3/tvbase v0.0.0-20231122074744-ddbd7463a26f/go.mod h1:fL0a59bPtKoxPLwTIkZuIT9fP7zdmKbmxCd0fKKhDjw=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=
 github.com/urfave/cli v1.22.2/go.mod h1:Gos4lmkARVdJ6EkW0WaNv/tZAAMe9V7XWyB60NtXRu0=
 github.com/urfave/cli v1.22.10/go.mod h1:Gos4lmkARVdJ6EkW0WaNv/tZAAMe9V7XWyB60NtXRu0=

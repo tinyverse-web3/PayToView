@@ -139,7 +139,7 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, err.Error())
 			return
 		}
-		logger.Debugf("msg->msgProxySendMsgHandler: reqParams:\n%+v", reqParams)
+		logger.Debugf("msg->msgProxyReadMailboxHandler: reqParams:\n%+v", reqParams)
 
 		pubkey := reqParams["pubkey"]
 		if pubkey == "" {
