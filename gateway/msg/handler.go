@@ -48,11 +48,11 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
-			len, err := io.WriteString(w, string(jsonData))
+			_, err := io.WriteString(w, string(jsonData))
 			if err != nil {
 				logger.Errorf("msg->msgProxySendMsgHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("msg->msgProxySendMsgHandler: WriteString len: %d", len)
+			logger.Debugf("msg->msgProxySendMsgHandler: WriteString resp: %+v", resp)
 		}
 
 		reqParams := map[string]string{}
@@ -100,11 +100,11 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		jsonData, _ := json.Marshal(resp)
-		len, err := io.WriteString(w, string(jsonData))
+		_, err = io.WriteString(w, string(jsonData))
 		if err != nil {
 			logger.Errorf("msg->msgProxySendMsgHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("msg->msgProxySendMsgHandler: WriteString len: %d", len)
+		logger.Debugf("msg->msgProxySendMsgHandler: WriteString resp: %+v", resp)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
