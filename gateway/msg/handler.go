@@ -123,11 +123,11 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
-			len, err := io.WriteString(w, string(jsonData))
+			_, err := io.WriteString(w, string(jsonData))
 			if err != nil {
 				logger.Errorf("msg->msgProxyReadMailboxHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d, resp: %+v", len, resp)
+			logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString resp: %+v", resp)
 		}
 
 		reqParams := map[string]string{}
@@ -170,11 +170,11 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		jsonData, _ := json.Marshal(resp)
-		len, err := io.WriteString(w, string(jsonData))
+		_, err = io.WriteString(w, string(jsonData))
 		if err != nil {
 			logger.Errorf("msg->msgProxyReadMailboxHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d", len)
+		logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString resp: %+v", resp)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
