@@ -17,17 +17,17 @@ import (
 
 type MsgUser struct {
 	service        *client.DmsgService
-	mu             *sync.Mutex
+	serviceMu      *sync.Mutex
 	lastAccessTime time.Time
 }
 
 type MsgService struct {
-	tvbase    *tvbase.TvBase
-	privkey   *ecdsa.PrivateKey
-	mu        sync.Mutex
-	userList  sync.Map
-	svrPubkey string
-	getSig    func(protoData []byte) ([]byte, error)
+	tvbase        *tvbase.TvBase
+	privkey       *ecdsa.PrivateKey
+	serviceListMu sync.Mutex
+	userList      sync.Map
+	svrPubkey     string
+	getSig        func(protoData []byte) ([]byte, error)
 }
 
 var service *MsgService
@@ -67,20 +67,20 @@ func (m *MsgService) RegistHandler(s webserver.WebServerHandle) {
 }
 
 func (m *MsgService) getService(pubkey string) (*client.DmsgService, error) {
-	m.mu.Lock()
+	m.serviceListMu.Lock()
 	data, _ := m.userList.Load(pubkey)
 	user, _ := data.(*MsgUser)
 	if user == nil {
 		user = &MsgUser{
-			service: nil,
-			mu:      &sync.Mutex{},
+			service:   nil,
+			serviceMu: &sync.Mutex{},
 		}
 	}
 	m.userList.Store(pubkey, user)
-	m.mu.Unlock()
+	m.serviceListMu.Unlock()
 
-	user.mu.Lock()
-	defer user.mu.Unlock()
+	user.serviceMu.Lock()
+	defer user.serviceMu.Unlock()
 
 	if user.service == nil {
 		var err error
@@ -165,7 +165,7 @@ func (m *MsgService) sendMsg(userPubkey string, destPubkey string, content []byt
 		err = service.SubscribeDestUser(destPubkey, false)
 		if err != nil {
 			logger.Errorf("msg->getService: SubscribeSrcUser failed: %v", err)
-			// return err
+			return err
 		}
 	}
 	sendMsgReq, err := service.SendMsg(destPubkey, content)
@@ -190,11 +190,11 @@ func (m *MsgService) TickerCleanRestResource(defaultTimeout time.Duration) {
 		select {
 		case <-ticker.C:
 			func() {
-				m.mu.Lock()
-				defer m.mu.Unlock()
+				m.serviceListMu.Lock()
+				defer m.serviceListMu.Unlock()
 				m.userList.Range(func(key, value any) bool {
 					user := value.(*MsgUser)
-					user.mu.Lock()
+					user.serviceMu.Lock()
 					if time.Since(user.lastAccessTime) > defaultTimeout {
 						if user.service != nil {
 							user.service.Stop()
@@ -202,7 +202,7 @@ func (m *MsgService) TickerCleanRestResource(defaultTimeout time.Duration) {
 						}
 						m.userList.Delete(key)
 					}
-					user.mu.Unlock()
+					user.serviceMu.Unlock()
 					return true
 				})
 			}()
