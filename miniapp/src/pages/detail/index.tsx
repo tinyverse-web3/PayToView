@@ -9,8 +9,7 @@ import paytoview from '@/lib/paytoview';
 import { useTranslation } from 'react-i18next';
 import { useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { IpfsImage } from '@/components/IpfsImage';
-import { useIpfsSrc } from '@/lib/hooks';
+import { template } from 'lodash';
 import LayoutThird from '@/layout/LayoutThird';
 
 export default function DetailIndex() {
@@ -21,9 +20,6 @@ export default function DetailIndex() {
   const { t } = useTranslation();
   const [paid, setPaid] = useState(false);
   const [detail, setDetail] = useState<any>({});
-  const [contentSrc, setContentSrc] = useState<any>({});
-  const type = 'image';
-  const webApp = useWebApp();
   const toIndex = () => {
     nav(ROUTE_PATH.INDEX, { replace: true });
   };
@@ -32,18 +28,8 @@ export default function DetailIndex() {
     const result = await paytoview.payToView({
       ContractID: ContractID,
     });
-    console.log(result);
-    // setPaidList([
-    //   {
-    //     type: 'image',
-    //     title: 'PayToView First Image',
-    //     image:
-    //       'https://tinyverse.space/static/media/secure-storage.80ea715b795dd9da0758.png',
-    //   },
-    // ]);
-    webApp?.close();
     if (result.code === '000000') {
-      nav(ROUTE_PATH.PAID);
+      setPaid(true);
     }
   };
   const getData = async () => {
@@ -60,15 +46,6 @@ export default function DetailIndex() {
       setDetail(result.data);
       setPaid(result.data.isPaid);
     }
-    if (result.data.isPaid) {
-      setContentSrc(
-        'https://156.251.179.141/ipfs/QmZpv4DQxQQjUruTTqX7rx9qKiQbztcn31qtmoQYeH6yYQ',
-      );
-    } else {
-      setContentSrc(
-        'https://156.251.179.141/ipfs/QmcvhAUPrxMVywhgTS1cumfqLgeaMt34fJzgmPCKHMjYDA',
-      );
-    }
   };
   const toView = () => {
     nav(ROUTE_PATH.DETAIL_VIEW + '/?contract=' + ContractID);
@@ -78,7 +55,9 @@ export default function DetailIndex() {
   // const src = useIpfsSrc(detail.contractInfo?.ContractInfo?.Content?.Cid);
   const previewSrc = useMemo(
     () =>
-      `http://39.108.147.241:8080/ipfs/${detail.contractInfo?.ContractInfo?.Content?.CidForpreview}`,
+      template(import.meta.env.VITE_IPFS_GATEWAY_URL)({
+        cid: detail.contractInfo?.ContractInfo?.Content?.CidForpreview,
+      }),
     [detail.contractInfo?.ContractInfo?.Content?.CidForpreview],
   );
   console.log('previewSrc:', previewSrc);
@@ -103,7 +82,7 @@ export default function DetailIndex() {
           <PhotoProvider>
             <div className='flex justify-center items-center'>
               <div className='w-48 h-48'>
-                <PhotoView src={contentSrc}>
+                <PhotoView src={previewSrc}>
                   <Image src={previewSrc} height='100%' fit='cover' />
                 </PhotoView>
               </div>
@@ -125,20 +104,23 @@ export default function DetailIndex() {
           </div>
         </div>
 
-        <Button
-          colorScheme='messenger'
-          size='lg'
-          className='w-full'
-          onClick={toPay}>
-          {readStatus ? t('pages.publish.paied') : t('common.pay')}
-        </Button>
-        <Button
-          colorScheme='messenger'
-          size='lg'
-          className='w-full'
-          onClick={toView}>
-          View
-        </Button>
+        {!paid ? (
+          <Button
+            colorScheme='messenger'
+            size='lg'
+            className='w-full'
+            onClick={toPay}>
+            {readStatus ? t('pages.publish.paied') : t('common.pay')}
+          </Button>
+        ) : (
+          <Button
+            colorScheme='messenger'
+            size='lg'
+            className='w-full'
+            onClick={toView}>
+            View
+          </Button>
+        )}
       </div>
     </LayoutThird>
   );

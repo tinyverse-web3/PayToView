@@ -33,7 +33,7 @@ export default function Root() {
     if (localAccountResult.data && !hasPasswordResult.data) {
       const _href = location.href;
       console.log('location.href', _href);
-      
+
       location.replace(
         `${import.meta.env.VITE_TINY_APP_URL}?redirect=${encodeURIComponent(
           _href,
@@ -68,6 +68,8 @@ export default function Root() {
       });
       setBalance(profile.data.balance);
       setError(false);
+    } else {
+      throw new Error('createAccount error');
     }
   };
   const check = async () => {
@@ -84,14 +86,6 @@ export default function Root() {
   }, []);
   return (
     <div className='h-full'>
-      {/* <Toaster
-        containerStyle={{ zIndex: 9999999, wordBreak: 'break-all' }}
-        position='top-center'
-        reverseOrder={false}
-        toastOptions={{
-          duration: 2000,
-        }}
-      /> */}
       {loading ? (
         <div className='w-screen h-screen flex justify-center items-center'>
           {' '}
