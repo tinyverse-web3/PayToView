@@ -9,7 +9,7 @@ require (
 	github.com/libp2p/go-libp2p v0.31.0
 	github.com/rs/cors v1.10.1
 	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231121111740-d4f43ed01e8d
-	github.com/tinyverse-web3/tvbase v0.0.0-20231030055255-1b7003b75e93
+	github.com/tinyverse-web3/tvbase v0.0.0-20231122071254-cf534561d580
 )
 
 require (
