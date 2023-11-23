@@ -30,13 +30,13 @@ func getWorkInfo(workId string) *WorkInfo {
 		return nil
 	}
 	return &WorkInfo{
-		Id:          contract.Name,
+		Id:          workId,
 		Title:       contract.Name,
 		Description: contract.Content.Description,
 		Creator:     walletKey,
 		Fee:         strconv.FormatUint(contract.Fee, 10),
 		ShareRatio:  strconv.Itoa(int(contract.Ritio.ForwarderPercent)),
-		ImageUrl:    contract.Content.Cid,
+		ImageUrl:    bot.IPFS_IMAGE_API_URL + contract.Content.CidForpreview,
 	}
 	// return &WorkInfo{
 	// 	Id:          "080112201d2260111e",
