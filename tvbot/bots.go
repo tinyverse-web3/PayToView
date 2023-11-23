@@ -23,7 +23,7 @@ func BotInit() tb.Bot {
 		Token:       BOT_TOKEN,
 		Poller:      &tb.LongPoller{Timeout: 10},
 		Synchronous: false,
-		Verbose:     false,
+		Verbose:     true,
 		ParseMode:   "HTML",
 		Offline:     false,
 		OnError: func(e error, c tb.Context) {
