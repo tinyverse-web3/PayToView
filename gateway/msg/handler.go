@@ -45,15 +45,14 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		setErrResp := func(code int, result string) {
-			w.Header().Set("Content-Type", "application/json")
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
-			len, err := io.WriteString(w, string(jsonData))
+			_, err := io.WriteString(w, string(jsonData))
 			if err != nil {
 				logger.Errorf("msg->msgProxySendMsgHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("msg->msgProxySendMsgHandler: WriteString len: %d", len)
+			logger.Debugf("msg->msgProxySendMsgHandler: WriteString resp: %+v", resp)
 		}
 
 		reqParams := map[string]string{}
@@ -101,12 +100,11 @@ func msgProxySendMsgHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		jsonData, _ := json.Marshal(resp)
-		w.WriteHeader(http.StatusOK)
-		len, err := io.WriteString(w, string(jsonData))
+		_, err = io.WriteString(w, string(jsonData))
 		if err != nil {
 			logger.Errorf("msg->msgProxySendMsgHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("msg->msgProxySendMsgHandler: WriteString len: %d", len)
+		logger.Debugf("msg->msgProxySendMsgHandler: WriteString resp: %+v", resp)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)
@@ -122,15 +120,14 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 			Result: "succ",
 		}
 		setErrResp := func(code int, result string) {
-			w.Header().Set("Content-Type", "application/json")
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
-			len, err := io.WriteString(w, string(jsonData))
+			_, err := io.WriteString(w, string(jsonData))
 			if err != nil {
 				logger.Errorf("msg->msgProxyReadMailboxHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d", len)
+			logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString resp: %+v", resp)
 		}
 
 		reqParams := map[string]string{}
@@ -139,7 +136,7 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 			setErrResp(-1, err.Error())
 			return
 		}
-		logger.Debugf("msg->msgProxySendMsgHandler: reqParams:\n%+v", reqParams)
+		logger.Debugf("msg->msgProxyReadMailboxHandler: reqParams:\n%+v", reqParams)
 
 		pubkey := reqParams["pubkey"]
 		if pubkey == "" {
@@ -165,12 +162,6 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 		if err == nil {
 			duration = time.Second * time.Duration(timeout)
 		}
-		if timeout <= 10 {
-			duration = 30 * time.Second
-		}
-		if timeout > 180 {
-			duration = 180 * time.Second
-		}
 
 		resp.MsgList, err = service.readMailbox(pubkey, duration)
 		if err != nil {
@@ -179,11 +170,11 @@ func msgProxyReadMailboxHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		jsonData, _ := json.Marshal(resp)
-		len, err := io.WriteString(w, string(jsonData))
+		_, err = io.WriteString(w, string(jsonData))
 		if err != nil {
 			logger.Errorf("msg->msgProxyReadMailboxHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString len: %d", len)
+		logger.Debugf("msg->msgProxyReadMailboxHandler: WriteString resp: %+v", resp)
 		return
 	}
 	w.WriteHeader(http.StatusNotFound)

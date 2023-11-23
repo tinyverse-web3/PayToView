@@ -63,11 +63,11 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 			resp.Code = -1
 			resp.Result = result
 			jsonData, _ := json.Marshal(resp)
-			len, err := io.WriteString(w, string(jsonData))
+			_, err := io.WriteString(w, string(jsonData))
 			if err != nil {
 				logger.Errorf("ipfs->ipfsAddHandler: WriteString: error: %+v", err)
 			}
-			logger.Debugf("ipfs->ipfsAddHandler: WriteString len: %d", len)
+			logger.Debugf("ipfs->ipfsAddHandler: WriteString resp: %+v", resp)
 		}
 
 		logger.Debugf("ipfs->ipfsAddHandler: pubkey: %s", resp.PubKey)
@@ -112,11 +112,11 @@ func ipfsAddHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		jsonData, _ := json.Marshal(resp)
-		len, err := io.WriteString(w, string(jsonData))
+		_, err = io.WriteString(w, string(jsonData))
 		if err != nil {
 			logger.Errorf("ipfs->ipfsAddHandler: WriteString: error: %+v", err)
 		}
-		logger.Debugf("ipfs->ipfsAddHandler: WriteString len: %d", len)
+		logger.Debugf("ipfs->ipfsAddHandler: WriteString resp: %+v", resp)
 		return
 	}
 
@@ -184,21 +184,6 @@ func ipfsCatHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		logger.Debugf("ipfs->ipfsCatHandler: cidStr: %s", cidStr)
-		// data, err := io.ReadAll(reader)
-		// if err != nil {
-		// 	setErrResp(-1, err.Error())
-		// 	return
-		// }
-
-		// w.Header().Set("Content-Type", "image/jpeg")
-		// w.Header().Set("Cache-Control", "no-cache")
-		// w.Header().Set("Transfer-Encoding", "chunked")
-
-		// len1 := len(data)
-		// logger.Debugf("ipfs->ipfsCatHandler: len: %d", len1)
-		// // data1 := data[:len1-200000]
-		// len, err := w.Write(data)
-
 		len, err := io.Copy(w, reader)
 		if err != nil {
 			logger.Errorf("ipfs->ipfsCatHandler: error: %+v", err)
