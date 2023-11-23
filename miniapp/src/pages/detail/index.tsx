@@ -32,11 +32,7 @@ export default function DetailIndex() {
       setPaid(true);
     }
   };
-  const getData = async () => {
-    if (!ContractID) return;
-    const result = await paytoview.getViewPassword({ ContractID: ContractID });
-    console.log(result);
-  };
+
   const getContractDetail = async () => {
     if (!ContractID) return;
     const result = await paytoview.getViewContractContent({
@@ -68,11 +64,6 @@ export default function DetailIndex() {
       getContractDetail();
     }
   }, [ContractID]);
-  useEffect(() => {
-    if (ContractID && paid) {
-      getData();
-    }
-  }, [ContractID, paid]);
   return (
     <LayoutThird title={t('pages.detail.title')}>
       <div className='min-h-ful p-4'>
@@ -90,15 +81,21 @@ export default function DetailIndex() {
           </PhotoProvider>
         </div>
         <div>
-          <div className='mb-2 flex'>
-            <div className='font-bold mb-2'>Title</div>
-            <div className='text-sm'>
+        <div className='mb-2 flex'>
+            <div className='font-bold mb-2 w-20'>Title</div>
+            <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Name}
             </div>
           </div>
           <div className='mb-2 flex'>
-            <div className='font-bold mb-2'>Fee</div>
-            <div className='text-sm'>
+            <div className='font-bold mb-2 w-20'>Creater</div>
+            <div className='text-sm flex-1 break-all'>
+              {detail.walletKey}
+            </div>
+          </div>
+          <div className='mb-2 flex'>
+            <div className='font-bold mb-2 w-20'>Fee</div>
+            <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Fee}
             </div>
           </div>

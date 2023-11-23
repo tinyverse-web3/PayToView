@@ -110,11 +110,11 @@ export class Tvs {
     }
   }
   // 获取付费列表
-  async getPaiedList() {
+  async getPaidList() {
     try {
-      const result = await window.getPaiedList();
+      const result = await window.getPaidList();
       const data = JSON.parse(result);
-      console.log('getPaiedList data: ', data);
+      console.log('getPaidList data: ', data);
       return data;
     } catch (error) {
       return { data: { code: '500000', msg: i18n.t('common.request_error') } };

@@ -13,7 +13,7 @@ declare global {
     getViewContractContent: (params: any) => Promise<any>;
     getCommissionList: () => Promise<any>;
     getPayToViewList: () => Promise<any>;
-    getPaiedList: () => Promise<any>;
+    getPaidList: () => Promise<any>;
     sendToGpt: (params: any) => Promise<any>;
     addFileToIPFS: (params: any, content: string | file) => Promise<any>;
   }
@@ -30,7 +30,7 @@ declare global {
     getViewContractContent: (params: any) => Promise<any>;
     getCommissionList: () => Promise<any>;
     getPayToViewList: () => Promise<any>;
-    getPaiedList: () => Promise<any>;
+    getPaidList: () => Promise<any>;
     sendToGpt: (params: any) => Promise<any>;
     addFileToIPFS: (params: any, content: string | file) => Promise<any>;
   }

@@ -26,7 +26,7 @@ export default function Index() {
   const { paidList, setPaidList } = useListStore((state) => state);
 
   const getList = async () => {
-    const result = await paytoview.getPaiedList();
+    const result = await paytoview.getPaidList();
     if (result.code === '000000') {
       const list = flattenListData(result.data).map((v) => ({
         ...v,

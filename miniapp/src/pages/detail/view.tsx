@@ -91,14 +91,20 @@ export default function DetailView() {
         </div>
         <div>
           <div className='mb-2 flex'>
-            <div className='font-bold mb-2'>Title</div>
-            <div className='text-sm'>
+            <div className='font-bold mb-2 w-20'>Title</div>
+            <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Name}
             </div>
           </div>
           <div className='mb-2 flex'>
-            <div className='font-bold mb-2'>Fee</div>
-            <div className='text-sm'>
+            <div className='font-bold mb-2 w-20'>Creater</div>
+            <div className='text-sm flex-1 break-all'>
+              {detail.walletKey}
+            </div>
+          </div>
+          <div className='mb-2 flex'>
+            <div className='font-bold mb-2 w-20'>Fee</div>
+            <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Fee}
             </div>
           </div>

@@ -123,9 +123,9 @@ class PayToView {
     });
     return data;
   }
-  async getPaiedList() {
+  async getPaidList() {
     const data = await this.request({
-      name: 'getPaiedList',
+      name: 'getPaidList',
     });
     return data;
   }
