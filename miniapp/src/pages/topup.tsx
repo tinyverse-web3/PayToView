@@ -73,7 +73,7 @@ export default function Index() {
   console.log(tonAddress)
   console.log(tonConnectUi)
   return (
-    <LayoutThird title='充值'>
+    <LayoutThird title='充值' path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden p-4'>
         <SimpleGrid columns={2} spacing='10px' className='mb-4'>
           {!tonConnectUi.connected ? (
@@ -98,7 +98,6 @@ export default function Index() {
           <FormControl className='mb-4'>
             <FormLabel>充值积分</FormLabel>
             <NumberInput
-              isReadOnly
               width='100%'
               rounded={10}
               variant='filled'

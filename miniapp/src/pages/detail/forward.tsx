@@ -98,20 +98,26 @@ export default function DetailEdit() {
           </div>
         </div>
         <div>
-          <div className='mb-2 flex'>
-            <div className='font-bold mb-2 w-20'>Title</div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Title</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Name}
             </div>
           </div>
-          <div className='mb-2 flex'>
-            <div className='font-bold mb-2 w-20'>Creater</div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Creater</div>
             <div className='text-sm flex-1 break-all'>{detail.walletKey}</div>
           </div>
-          <div className='mb-2 flex'>
-            <div className='font-bold mb-2 w-20'>Fee</div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Fee</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Fee}
+            </div>
+          </div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>分成比例</div>
+            <div className='text-sm flex-1'>
+              {detail.contractInfo?.ContractInfo?.Ratio?.PublisherPercent}
             </div>
           </div>
         </div>

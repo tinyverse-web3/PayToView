@@ -152,7 +152,7 @@ export default function Index() {
               </SimpleGrid>
             </div>
             <div className='mt-4 mb-4 m-2'>
-              <SimpleGrid columns={5} rowGap='25px'>
+              <SimpleGrid columns={3} rowGap='25px'>
                 {menuList.map((item, i) => (
                   <MenuButton
                     key={i}
@@ -163,7 +163,7 @@ export default function Index() {
                 ))}
               </SimpleGrid>
             </div>
-            <div className='mt-m-2'>
+            {/* <div className='mt-m-2'>
               <InputGroup>
                 <Input
                   type='text'
@@ -177,8 +177,8 @@ export default function Index() {
                   <Search2Icon color='gray.400' />
                 </InputRightElement>
               </InputGroup>
-            </div>
-            <div
+            </div> */}
+            {/* <div
               className='mt-4 mb-4'
               style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span className='text-xm ml-2'>
@@ -191,7 +191,7 @@ export default function Index() {
               <HomeTxItem />
               <HomeTxItem />
               <HomeTxItem />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

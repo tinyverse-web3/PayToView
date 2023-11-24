@@ -29,6 +29,20 @@ export default function DetailView() {
     if (!ContractID) return;
     const result = await paytoview.getViewPassword({ ContractID: ContractID });
     console.log(result);
+    if (result.code === '000000') {
+      console.log(detail.contractInfo?.ContractInfo?.Content?.Cid);
+      const res = await paytoview.getFileFromIPFS({
+        Cid: detail.contractInfo?.ContractInfo?.Content?.Cid,
+        Password: result.data,
+      });
+      if (res) {
+        const localFile = new Blob([res], { type: 'image/png' });
+        const url = URL.createObjectURL(localFile);
+        setContentSrc(url);
+        console.log(url);
+      }
+    }
+    console.log(result);
   };
   const getContractDetail = async () => {
     if (!ContractID) return;
@@ -55,9 +69,9 @@ export default function DetailView() {
 
   const previewSrc = useMemo(
     () =>
-    template(import.meta.env.VITE_IPFS_GATEWAY_URL)({
-      cid: detail.contractInfo?.ContractInfo?.Content?.CidForpreview,
-    }),
+      template(import.meta.env.VITE_IPFS_GATEWAY_URL)({
+        cid: detail.contractInfo?.ContractInfo?.Content?.CidForpreview,
+      }),
     [detail.contractInfo?.ContractInfo?.Content?.CidForpreview],
   );
   console.log('previewSrc:', previewSrc);
@@ -74,7 +88,7 @@ export default function DetailView() {
     }
   }, [ContractID, paid]);
   return (
-    <LayoutThird title={t('pages.detail.title')}>
+    <LayoutThird title={t('pages.detail.title')} path={ROUTE_PATH.INDEX}>
       <div className='min-h-ful p-4'>
         {/* <div>read.tsx</div> */}
         <BackButton onClick={toIndex} />
@@ -83,27 +97,25 @@ export default function DetailView() {
             <div className='flex justify-center items-center'>
               <div className='w-48 h-48'>
                 <PhotoView src={contentSrc}>
-                  <Image src={previewSrc} height='100%' fit='cover' />
+                  <Image src={contentSrc} height='100%' fit='cover' />
                 </PhotoView>
               </div>
             </div>
           </PhotoProvider>
         </div>
         <div>
-          <div className='mb-2 flex'>
-            <div className='font-bold mb-2 w-20'>Title</div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Title</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Name}
             </div>
           </div>
-          <div className='mb-2 flex'>
-            <div className='font-bold mb-2 w-20'>Creater</div>
-            <div className='text-sm flex-1 break-all'>
-              {detail.walletKey}
-            </div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Creater</div>
+            <div className='text-sm flex-1 break-all'>{detail.walletKey}</div>
           </div>
-          <div className='mb-2 flex'>
-            <div className='font-bold mb-2 w-20'>Fee</div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Fee</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Fee}
             </div>

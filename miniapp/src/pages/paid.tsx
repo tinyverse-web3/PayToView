@@ -42,7 +42,7 @@ export default function Index() {
     getList();
   }, []);
   return (
-    <LayoutThird title={t('pages.paid.title')}>
+    <LayoutThird title={t('pages.paid.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden'>
         {/* <div>paid.tsx</div> */}
         <BackButton onClick={() => nav(-1)} />

@@ -11,6 +11,7 @@ import {
 import { useEffect } from 'react';
 import { useMap } from 'react-use';
 import { useTranslation } from 'react-i18next';
+import { use } from 'i18next';
 
 interface PayLimitProps {
   type: 'image' | 'text';
@@ -32,13 +33,15 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
   useEffect(() => {
     onChange?.(data);
   }, [data]);
+  useEffect(() => {
+    onChange?.(data);
+  }, []);
   return (
     <div>
       {/* <div>PayLimit.tsx</div> */}
       <FormControl className='mb-4'>
         <FormLabel>Amount</FormLabel>
         <NumberInput
-          isReadOnly
           width='100%'
           size='sm'
           variant='filled'
