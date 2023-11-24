@@ -48,7 +48,7 @@ func parseInlineQueryArgs(queryArgs string) map[string]string {
 
 func encodeParameters(s string) string {
 	originalBytes := []byte(s)
-	base64URL := base64.URLEncoding.EncodeToString(originalBytes)
+	base64URL := base64.RawURLEncoding.EncodeToString(originalBytes)
 	return base64URL
 }
 
@@ -62,7 +62,7 @@ func parseParameters(s string) map[string]string {
 }
 
 func decodeParameters(s string) (string, error) {
-	decodedBytes, err := base64.URLEncoding.DecodeString(s)
+	decodedBytes, err := base64.RawURLEncoding.DecodeString(s)
 	if err != nil {
 		log.Logger.Errorf("Error decoding: %v\n", err)
 		return "", err

@@ -44,6 +44,7 @@ func checkWorkId(c tb.Context, workId string) (*WorkInfo, error) {
 		c.Respond(&tb.CallbackResponse{Text: fmt.Sprintf("Failed to find work %s in tvn", workId), ShowAlert: true})
 		return nil, fmt.Errorf("failed to find work %s in tvn", workId)
 	}
+	log.Logger.Infof("work info:%v", wi)
 	return wi, nil
 }
 
