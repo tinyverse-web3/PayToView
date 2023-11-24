@@ -24,7 +24,7 @@ export default function Index() {
   const nav = useNavigate();
 
   return (
-    <LayoutThird title={t('pages.earning.title')}>
+    <LayoutThird title={t('pages.earning.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden'>
         {/* <div>earn.tsx</div> */}
         <div className='p-4'>

@@ -37,7 +37,7 @@ export default function Index() {
     getList();
   }, []);
   return (
-    <LayoutThird title={t('pages.forwarded.title')}>
+    <LayoutThird title={t('pages.forwarded.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden'>
         {/* <div>forwarded.tsx</div> */}
         <BackButton onClick={() => nav(-1)} />

@@ -42,3 +42,7 @@ export interface GetViewPasswordParams {
 export interface PayToViewParams {
   ContractID: string;
 }
+export interface GetFileFromIPFSParams {
+  Password: string;
+  Cid: string;
+}

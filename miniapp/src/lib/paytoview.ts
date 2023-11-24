@@ -11,10 +11,19 @@ import {
   GetViewPasswordParams,
   PayToViewParams,
   CreateAccountParams,
+  GetFileFromIPFSParams,
 } from './type';
 class PayToView {
   dauthRequest: Request = new Request();
-  async request({ data, name }: { data?: any; name: string }) {
+  async request({
+    data,
+    name,
+    json = true,
+  }: {
+    data?: any;
+    name: string;
+    json?: boolean;
+  }) {
     // eslint-disable-next-line no-extra-boolean-cast
     if (!!window.createAccount) {
       const funHandler = window[name];
@@ -23,10 +32,14 @@ class PayToView {
       let result;
       if (data) {
         result = await funHandler(JSON.stringify(data));
-        result = JSON.parse(result);
+        if (json) {
+          result = JSON.parse(result);
+        }
       } else {
         result = await funHandler();
-        result = JSON.parse(result);
+        if (json) {
+          result = JSON.parse(result);
+        }
       }
       console.log(name + '  result: ');
       console.log(result);
@@ -159,6 +172,17 @@ class PayToView {
       data: {
         ContractID,
       },
+    });
+    return data;
+  }
+  async getFileFromIPFS({ Password, Cid }: GetFileFromIPFSParams) {
+    const data = await this.request({
+      name: 'getFileFromIPFS',
+      data: {
+        Password,
+        Cid,
+      },
+      json: false,
     });
     return data;
   }

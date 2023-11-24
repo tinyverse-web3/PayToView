@@ -43,7 +43,7 @@ export default function Index() {
     getList();
   }, []);
   return (
-    <LayoutThird title={t('pages.published.title')}>
+    <LayoutThird title={t('pages.published.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden'>
         {/* <div>published.tsx</div> */}
         <BackButton onClick={() => nav(-1)} />

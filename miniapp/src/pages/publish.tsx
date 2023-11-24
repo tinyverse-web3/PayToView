@@ -165,7 +165,7 @@ export default function DetailAdd() {
     // nav(-1);
   };
   return (
-    <LayoutThird title={t('pages.publish.title')}>
+    <LayoutThird title={t('pages.publish.title')} path={ROUTE_PATH.INDEX}>
       <div className='min-h-ful py-4'>
         {/* <div>add.tsx</div> */}
 
