@@ -43,9 +43,28 @@ export default function Root() {
       await getLocalAccountInfo();
     }
   };
+  const getSssDataByUserId = async (userId: string) => {
+    let tSssData = '';
+    const key = `user_${userId}_sss`;
+    if (import.meta.env.MODE === 'development') {
+      tSssData = localStorage.getItem(key) as any;
+    } else {
+      tSssData = (await cloudstorage.getItem(key)) || '';
+    }
+    return tSssData;
+  };
+  const setSssDataByUserId = async (userId: string, sssData: string) => {
+    const key = `user_${userId}_sss`;
+    if (import.meta.env.MODE === 'development') {
+      await localStorage.setItem(key, sssData);
+    } else {
+      await cloudstorage.setItem(key, sssData);
+    }
+  };
   const loadTg = async () => {
     const userId = await getUserId();
-    const tSssData = localStorage.getItem('tvs') as any;
+    const tSssData = await getSssDataByUserId(userId);
+    // const tSssData = localStorage.getItem('tvs') as any;
     if (!tSssData) {
       setCreateStatus(true);
     }
@@ -55,10 +74,9 @@ export default function Root() {
       userID: userId.toString() + '4',
       sssData: tSssData,
     });
-    // const tSssData = (await cloudstorage.getItem(`user_${userId}_sss`)) || '';
-    if (result.code === '000000') {
-      localStorage.setItem('tvs', result.data.sssData);
 
+    if (result.code === '000000') {
+      await setSssDataByUserId(userId, result.data.sssData);
       const profile = await paytoview.getProfile();
       console.log(profile);
       setAccount({
