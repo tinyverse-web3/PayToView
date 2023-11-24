@@ -162,7 +162,7 @@ func main() {
 	ipfs.RegistHandler(svr)
 	dkvs.RegistHandler(svr, node.GetDkvsService())
 
-	go msgInstance.TickerCleanRestResource(5 * time.Minute)
+	go msgInstance.TickerCleanRestResource(30 * time.Minute)
 	<-ctx.Done()
 }
 

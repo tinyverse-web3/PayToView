@@ -197,7 +197,10 @@ func (m *MsgService) TickerCleanRestResource(defaultTimeout time.Duration) {
 					user.serviceMu.Lock()
 					if time.Since(user.lastAccessTime) > defaultTimeout {
 						if user.service != nil {
-							user.service.Stop()
+							err := user.service.Stop()
+							if err != nil {
+								logger.Errorf("MsgService->TickerCleanRestResource: Stop error: %v", err)
+							}
 							user.service = nil
 						}
 						m.userList.Delete(key)
