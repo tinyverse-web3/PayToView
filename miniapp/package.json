@@ -37,7 +37,11 @@
     "react-use": "^17.4.0",
     "ton3-core": "^1.0.1",
     "uuid": "^9.0.1",
-    "zustand": "^4.4.6"
+    "zustand": "^4.4.6",
+    "@web3modal/wagmi": "3.3.2",
+    "use-debounce": "^10.0.0",
+    "viem": "^1.19.2",
+    "wagmi": "^1.4.2"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",
