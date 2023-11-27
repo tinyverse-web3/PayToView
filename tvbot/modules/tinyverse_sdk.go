@@ -20,8 +20,8 @@ func InitSdk() {
 }
 
 func checkUserExists(userId string) bool {
-	//return BM.CheckAccountExist(userId)
-	return true
+	return BM.CheckAccountExist(userId)
+	//return true
 }
 
 func getWorkInfo(workId string) *WorkInfo {
@@ -51,21 +51,21 @@ func getWorkInfo(workId string) *WorkInfo {
 }
 
 func getAccountInfo(userId string) accountInfo {
-	// ac, err := BM.GetAccountProfile(userId)
-	// if err != nil {
-	// 	log.Logger.Error("getAccountInfo--->%v", err)
-	// 	return accountInfo{}
-	// }
-	// return accountInfo{
-	// 	Address: ac.WalletKey,
-	// 	Balance: strconv.FormatUint(ac.Balance, 10),
-	// 	Income:  "N/A",
-	// }
+	ac, err := BM.GetAccountProfile(userId)
+	if err != nil {
+		log.Logger.Error("getAccountInfo--->%v", err)
+		return accountInfo{}
+	}
 	return accountInfo{
-		Address: "xxxxxxxxxxxxxxxxxx",
-		Balance: "100",
+		Address: ac.WalletKey,
+		Balance: strconv.FormatUint(ac.Balance, 10),
 		Income:  "N/A",
 	}
+	// return accountInfo{
+	// 	Address: "xxxxxxxxxxxxxxxxxx",
+	// 	Balance: "100",
+	// 	Income:  "N/A",
+	// }
 }
 
 func isPaid(userId string, workId string) bool {

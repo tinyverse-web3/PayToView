@@ -11,8 +11,9 @@ import (
 func main() {
 	// start bot
 	log.Logger.Info("TVS Bot Started.")
+	go mod.InitSdk()
 	go web.Run(bot.Web_Port, &bot.Bot) // start web
 	mod.RegisterHandlers()
-	//go mod.InitSdk()
-	bot.Bot.Start()
+	go bot.Bot.Start()
+	select {}
 }
