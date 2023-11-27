@@ -1,0 +1,7 @@
+# mac
+.DS_Store
+# debug
+__debug_bin*
+
+# data
+data

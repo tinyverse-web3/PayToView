@@ -21,6 +21,7 @@ func InitSdk() {
 
 func checkUserExists(userId string) bool {
 	return BM.CheckAccountExist(userId)
+	//return true
 }
 
 func getWorkInfo(workId string) *WorkInfo {
@@ -35,7 +36,7 @@ func getWorkInfo(workId string) *WorkInfo {
 		Description: contract.Content.Description,
 		Creator:     walletKey,
 		Fee:         strconv.FormatUint(contract.Fee, 10),
-		ShareRatio:  strconv.Itoa(int(contract.Ritio.ForwarderPercent)),
+		ShareRatio:  strconv.Itoa(int(contract.Ratio.ForwarderPercent)),
 		ImageUrl:    bot.IPFS_IMAGE_API_URL + contract.Content.CidForpreview,
 	}
 	// return &WorkInfo{
@@ -60,6 +61,11 @@ func getAccountInfo(userId string) accountInfo {
 		Balance: strconv.FormatUint(ac.Balance, 10),
 		Income:  "N/A",
 	}
+	// return accountInfo{
+	// 	Address: "xxxxxxxxxxxxxxxxxx",
+	// 	Balance: "100",
+	// 	Income:  "N/A",
+	// }
 }
 
 func isPaid(userId string, workId string) bool {
