@@ -35,7 +35,7 @@ func getWorkInfo(workId string) *WorkInfo {
 		Description: contract.Content.Description,
 		Creator:     walletKey,
 		Fee:         strconv.FormatUint(contract.Fee, 10),
-		ShareRatio:  strconv.Itoa(int(contract.Ritio.ForwarderPercent)),
+		ShareRatio:  strconv.Itoa(int(contract.Ratio.ForwarderPercent)),
 		ImageUrl:    bot.IPFS_IMAGE_API_URL + contract.Content.CidForpreview,
 	}
 	// return &WorkInfo{
