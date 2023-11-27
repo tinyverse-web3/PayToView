@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { file2array } from '@/lib/utils';
 interface UploadProps {
   onChange?: (file: File) => void;
 }
@@ -10,6 +10,7 @@ export const Upload = ({ onChange }: UploadProps) => {
   const [previewSrc, setPreviewSrc] = useState('');
   const imageChange = async (e: any) => {
     const image = e.target.files[0];
+    console.log(image);
     const reader = new FileReader();
     reader.onload = function () {
       if (typeof reader.result === 'string') {
@@ -17,6 +18,7 @@ export const Upload = ({ onChange }: UploadProps) => {
       }
     };
     reader.readAsDataURL(image);
+    const res = file2array(image);
     e.target.value = '';
     onChange?.(image);
   };
@@ -29,7 +31,9 @@ export const Upload = ({ onChange }: UploadProps) => {
           <div className='p-4 border border-solid border-gray-300 rounded-xl w-full h-full flex justify-center items-center'>
             <div>
               <Icon icon='mdi:cloud-upload-outline' className='text-6xl' />
-              <div className='text-18px text-center'>{t('common.upload.title')}</div>
+              <div className='text-18px text-center'>
+                {t('common.upload.title')}
+              </div>
             </div>
           </div>
         )}

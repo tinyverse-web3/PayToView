@@ -18,6 +18,7 @@ export default function Index() {
   useTitle('Forwarded');
   const { t } = useTranslation();
   const nav = useNavigate();
+  
   const { forwardList, setForwardList } = useListStore((state) => state);
   const { accountInfo } = useAccountStore((state) => state);
   const getList = async () => {
@@ -30,6 +31,8 @@ export default function Index() {
       }));
       console.log(list);
       setForwardList(list);
+    } else {
+      setForwardList([]);
     }
   };
 

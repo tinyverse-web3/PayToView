@@ -27,6 +27,7 @@ import { template } from 'lodash';
 export default function DetailEdit() {
   useTitle('PayToView');
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const ContractID = searchParams.get('contract');
   const nav = useNavigate();
@@ -50,6 +51,7 @@ export default function DetailEdit() {
   };
   const forwardHandler = async () => {
     if (ContractID) {
+      setLoading(true);
       const result = await paytoview.forwardAPayView({
         Name: data.title,
         ContractID: ContractID,
@@ -59,6 +61,7 @@ export default function DetailEdit() {
       } else {
         toast.error(result.msg);
       }
+      setLoading(false);
     }
   };
   const qrCodeurl = useMemo(() => {
@@ -126,6 +129,7 @@ export default function DetailEdit() {
           <Button
             colorScheme='messenger'
             size='lg'
+            isLoading={loading}
             className='w-full'
             onClick={forwardHandler}>
             {t('common.forward')}

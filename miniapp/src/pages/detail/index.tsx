@@ -15,6 +15,7 @@ import LayoutThird from '@/layout/LayoutThird';
 export default function DetailIndex() {
   useTitle('PayToView');
   const [searchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
   const ContractID = searchParams.get('contract');
   const nav = useNavigate();
   const { t } = useTranslation();
@@ -25,12 +26,14 @@ export default function DetailIndex() {
   };
   const toPay = async () => {
     if (!ContractID) return;
+    setLoading(true);
     const result = await paytoview.payToView({
       ContractID: ContractID,
     });
     if (result.code === '000000') {
       setPaid(true);
     }
+    setLoading(false);
   };
 
   const getContractDetail = async () => {
@@ -106,6 +109,7 @@ export default function DetailIndex() {
             colorScheme='messenger'
             size='lg'
             className='w-full'
+            isLoading={loading}
             onClick={toPay}>
             {readStatus ? t('pages.publish.paied') : t('common.pay')}
           </Button>

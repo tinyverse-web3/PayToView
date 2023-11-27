@@ -33,6 +33,8 @@ export default function Index() {
       }));
       console.log('published.tsx->getList, list:', list);
       setPublishedList(list);
+    } else {
+      setPublishedList([]);
     }
   };
   const toDetail = (item) => {

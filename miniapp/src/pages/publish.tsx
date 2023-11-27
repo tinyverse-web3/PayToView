@@ -71,7 +71,7 @@ export default function DetailAdd() {
   // const webApp = useWebApp();
   const addHandler = async () => {
     setLoading(true);
-    const password = generatePassword();
+    // const password = generatePassword();
     const commissionContract = await getCommisionContrcat();
     if (!commissionContract) {
       setLoading(false);
@@ -91,7 +91,7 @@ export default function DetailAdd() {
         {
           fileName: data.title,
           file: data.image,
-          password: password,
+          password: '123456',
         },
       );
       contentCid = ipfsResult.data;

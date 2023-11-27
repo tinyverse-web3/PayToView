@@ -33,6 +33,8 @@ export default function Index() {
       }));
       console.log(list);
       setPaidList(list);
+    } else {
+      setPaidList([]);
     }
   };
   const toDetail = (item) => {

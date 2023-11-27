@@ -29,17 +29,16 @@ export default function DetailView() {
     if (!ContractID) return;
     const result = await paytoview.getViewPassword({ ContractID: ContractID });
     console.log(result);
-    if (result.code === '000000') {
+    if (result.code !== '000000') {
       console.log(detail.contractInfo?.ContractInfo?.Content?.Cid);
       const res = await paytoview.getFileFromIPFS({
         Cid: detail.contractInfo?.ContractInfo?.Content?.Cid,
-        Password: result.data,
+        Password: '123456',
       });
       if (res) {
-        const localFile = new Blob([res], { type: 'image/png' });
+        const localFile = new Blob([new Uint8Array(res)], { type: 'application/octet-stream' });
         const url = URL.createObjectURL(localFile);
         setContentSrc(url);
-        console.log(url);
       }
     }
     console.log(result);

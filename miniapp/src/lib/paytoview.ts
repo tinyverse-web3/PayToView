@@ -195,6 +195,7 @@ class PayToView {
     if (!!window.createAccount) {
       const content = await file2array(param.file);
       console.log(content);
+      console.log(JSON.stringify({ fileName: param.fileName, password: param.password }));
       const result = await window.addFileToIPFS(
         JSON.stringify({ fileName: param.fileName, password: param.password }),
         content,
