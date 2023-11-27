@@ -13,6 +13,6 @@ func main() {
 	log.Logger.Info("TVS Bot Started.")
 	go web.Run(bot.Web_Port, &bot.Bot) // start web
 	mod.RegisterHandlers()
-	go mod.InitSdk()
+	//go mod.InitSdk()
 	bot.Bot.Start()
 }
