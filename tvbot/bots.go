@@ -2,6 +2,7 @@ package bot
 
 import (
 	"fmt"
+	"time"
 
 	log "github.com/tinyverse-web3/tinyverse_sdk/tinyverse/log"
 	tb "gopkg.in/telebot.v3"
@@ -21,7 +22,7 @@ func BotInit() tb.Bot {
 	b, _ := tb.NewBot(tb.Settings{
 		URL:         "",
 		Token:       BOT_TOKEN,
-		Poller:      &tb.LongPoller{Timeout: 10},
+		Poller:      &tb.LongPoller{Timeout: 10 * time.Second},
 		Synchronous: false,
 		Verbose:     false,
 		ParseMode:   "HTML",
