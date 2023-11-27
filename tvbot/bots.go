@@ -28,7 +28,7 @@ func BotInit() tb.Bot {
 		Offline:     false,
 		OnError: func(e error, c tb.Context) {
 			fmt.Println(e)
-			log.Logger.Errorln(e)
+			log.Logger.Errorf("error: %v", e)
 		},
 	})
 	return *b

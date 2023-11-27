@@ -4,6 +4,7 @@ package bot
 
 import (
 	_ "github.com/btcsuite/btcd/chaincfg/chainhash"
+	_ "golang.org/x/mobile/bind"
 )
 
 var (

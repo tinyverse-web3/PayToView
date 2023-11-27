@@ -4,11 +4,11 @@ go 1.20
 
 require (
 	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.2
-	github.com/joho/godotenv v1.5.1
 	github.com/microcosm-cc/bluemonday v1.0.1
 	github.com/telegram-mini-apps/init-data-golang v1.1.2
-	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231123032403-bb2eb186be4b
+	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231123094058-380a25e6f77f
 	go.mongodb.org/mongo-driver v1.9.1
+	golang.org/x/mobile v0.0.0-20231108233038-35478a0c49da
 	gopkg.in/telebot.v3 v3.1.3
 )
 
