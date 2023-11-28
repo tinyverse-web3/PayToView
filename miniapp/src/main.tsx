@@ -22,7 +22,6 @@ let chains = [
     sepolia
 ];
 
-debugger
 const projectId = import.meta.env.VITE_EVM_WALLET_CONNECT_PROJECT_ID || "";
 
 const metadata = {
@@ -32,7 +31,7 @@ const metadata = {
     icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-var wagmiConfig = defaultWagmiConfig({ chains: chains, projectId, metadata });
+const wagmiConfig = defaultWagmiConfig({ chains: chains, projectId, metadata });
 createWeb3Modal({ wagmiConfig, projectId, chains: chains });
 
 if (import.meta.env.MODE === "production") {

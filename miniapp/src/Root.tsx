@@ -21,7 +21,7 @@ export default function Root() {
   const getUserId = async () => {
     console.log(import.meta.env.MODE);
     if (import.meta.env.MODE === 'development') {
-      return 'sksskssddskssss';
+      return 'sk57799sd';
     } else {
       const webAppUserId = webApp?.initDataUnsafe?.user?.id;
       return webAppUserId || user;
@@ -71,7 +71,7 @@ export default function Root() {
     const tvsWasm = new TvsWasm();
     await tvsWasm.initWasm();
     const result = await paytoview.createAccount({
-      userID: userId.toString() + '5',
+      userID: userId.toString() + '6',
       sssData: tSssData,
     });
 
