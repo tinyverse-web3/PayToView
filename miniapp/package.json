@@ -20,6 +20,7 @@
     "@ton/ton": "^13.9.0",
     "@tonconnect/ui-react": "^2.0.0-beta.4",
     "@vkruglikov/react-telegram-web-app": "^2.1.4",
+    "@web3modal/wagmi": "3.3.2",
     "axios": "^1.6.0",
     "buffer": "^6.0.3",
     "framer-motion": "^10.16.4",
@@ -35,13 +36,13 @@
     "react-photo-view": "^1.2.3",
     "react-router-dom": "^6.16.0",
     "react-use": "^17.4.0",
+    "stackblur-canvas": "^2.6.0",
     "ton3-core": "^1.0.1",
-    "uuid": "^9.0.1",
-    "zustand": "^4.4.6",
-    "@web3modal/wagmi": "3.3.2",
     "use-debounce": "^10.0.0",
+    "uuid": "^9.0.1",
     "viem": "^1.19.2",
-    "wagmi": "^1.4.2"
+    "wagmi": "^1.4.2",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",
