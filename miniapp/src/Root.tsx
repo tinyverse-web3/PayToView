@@ -24,7 +24,7 @@ export default function Root() {
       return 'sk57799sd';
     } else {
       const webAppUserId = webApp?.initDataUnsafe?.user?.id;
-      return webAppUserId || user;
+      return (webAppUserId || user).toString() + '7';
     }
   };
   const loadApp = async () => {
@@ -71,7 +71,7 @@ export default function Root() {
     const tvsWasm = new TvsWasm();
     await tvsWasm.initWasm();
     const result = await paytoview.createAccount({
-      userID: userId.toString() + '6',
+      userID: userId.toString(),
       sssData: tSssData,
     });
 
