@@ -13,11 +13,23 @@ var (
 	Server_Type = "sdk"
 	App_Name    = "mtv"
 	Log_Level   = "debug"
+
+	//TVBot
+	//root path
+	TVBOT_ROOT_PATH = "/home/tvbot"
+	//TVBOT_ROOT_PATH = "."
+
+	//SDK
+	//root path
+	SDK_ROOT_PATH = TVBOT_ROOT_PATH + "/" + App_Name
+
 	//gin web server port
 	Web_Port = "7070"
+
 	//bot config
 	BOT_TOKEN    = "6591734251:AAEHFZXOhX4h-j_s03Y23ojXeSPULClLEtQ"
 	MONGO_DB_URI = "mongodb://localhost:27017"
+
 	//ipfs
 	IPFS_IMAGE_API_BASE  = "https://dashboard.dkvs.xyz/ipfs/"
 	IPFS_IMAGE_API_PARAM = "cat?cid="

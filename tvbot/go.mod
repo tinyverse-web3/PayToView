@@ -6,7 +6,7 @@ require (
 	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.2
 	github.com/microcosm-cc/bluemonday v1.0.1
 	github.com/telegram-mini-apps/init-data-golang v1.1.2
-	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231123094058-380a25e6f77f
+	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231128075153-80f31dfe1312
 	go.mongodb.org/mongo-driver v1.9.1
 	golang.org/x/mobile v0.0.0-20231108233038-35478a0c49da
 	gopkg.in/telebot.v3 v3.1.3
@@ -126,7 +126,6 @@ require (
 	github.com/jbenet/go-temp-err-catcher v0.1.0 // indirect
 	github.com/jbenet/goprocess v0.1.4 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/juju/ratelimit v1.0.2 // indirect
 	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/koron/go-ssdp v0.0.4 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
@@ -195,7 +194,8 @@ require (
 	github.com/samber/lo v1.36.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
-	github.com/tinyverse-web3/tvbase v0.0.0-20231116090601-56ac86601f6b // indirect
+	github.com/tinyverse-web3/tvbase v0.0.0-20231127140909-2938c8bf2b08 // indirect
+	github.com/tinyverse-web3/tvutil v0.0.0-20230719073602-eff568f409f6 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/tyler-smith/go-bip39 v1.1.0 // indirect
 	github.com/ucarion/urlpath v0.0.0-20200424170820-7ccc79b76bbb // indirect
@@ -265,7 +265,7 @@ require (
 	github.com/minio/sha256-simd v1.0.1 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
-	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20230927093723-c3570c9f829d
+	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.25.0 // indirect
 	golang.org/x/crypto v0.15.0 // indirect
