@@ -80,6 +80,8 @@ export default function DetailView() {
     }
   }, [ContractID]);
   useEffect(() => {
+    console.log('paid:', paid)
+    console.log('ContractID:', ContractID)
     if (ContractID && paid) {
       getData();
     }
