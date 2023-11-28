@@ -28,7 +28,6 @@ export default function DetailView() {
   const getData = async () => {
     if (!ContractID) return;
     const result = await paytoview.getViewPassword({ ContractID: ContractID });
-    console.log(result);
     if (result.code === '000000') {
       console.log(detail.contractInfo?.ContractInfo?.Content?.Cid);
       const res = await paytoview.getFileFromIPFS({
@@ -41,7 +40,6 @@ export default function DetailView() {
         setContentSrc(url);
       }
     }
-    console.log(result);
   };
   const getContractDetail = async () => {
     if (!ContractID) return;

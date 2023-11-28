@@ -53,11 +53,12 @@ export default function Index() {
       messages: [
         {
           address: myAddress,
-          amount: '20000000',
+          amount: (fee / 10000).toString(),
           payload: payload,
         },
       ],
     };
+    console.log('topup.tsx sendTransaction txDetail: ', txDetail )
     tonConnectUi
       .sendTransaction(txDetail)
       .then((result) => {
