@@ -55,13 +55,13 @@ export default function Index() {
         nav(ROUTE_PATH.PUBLISH);
       },
     },
-    {
-      name: t('pages.earning.icon_title'),
-      icon: '/images/earning.png',
-      onClick: () => {
-        toEarn();
-      },
-    },
+    // {
+    //   name: t('pages.earning.icon_title'),
+    //   icon: '/images/earning.png',
+    //   onClick: () => {
+    //     toEarn();
+    //   },
+    // },
     {
       name: t('pages.published.icon_title'),
       icon: '/images/published.png',
@@ -130,7 +130,7 @@ export default function Index() {
               </div>
             </div>
             <div className=' bg-gray-100 p-4 mb-4 rounded-2xl'>
-              <SimpleGrid columns={2} columnGap='20px'>
+              <SimpleGrid columns={1} columnGap='20px'>
                 <div className='text-center bg-gray-200 p-2 rounded-xl'>
                   <div className='mb-2 text-xs'>{t('pages.index.address')}</div>
                   <div className='flex items-end justify-center'>
@@ -140,7 +140,7 @@ export default function Index() {
                     {/* <span className='text-xs leading-none '>TVS</span> */}
                   </div>
                 </div>
-                <div
+                {/* <div
                   className='text-center bg-gray-200 p-2 rounded-xl'
                   onClick={toEarn}>
                   <div className='mb-2 text-xs'>{t('pages.index.profit')}</div>
@@ -148,7 +148,7 @@ export default function Index() {
                     <span className='mr-2 text-sm font-bold leading-none'>50</span>
                     <span className='text-xs leading-none'>TVS</span>
                   </div>
-                </div>
+                </div> */}
               </SimpleGrid>
             </div>
             <div className='mt-4 mb-4 m-2'>
