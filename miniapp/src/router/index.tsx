@@ -11,6 +11,7 @@ import Paid from '@/pages/paid';
 import Forwarded from '@/pages/forwarded';
 import Earn from '@/pages/earn';
 import Topup from '@/pages/topup';
+import TopupEth from '@/pages/topup_eth';
 
 const resolveHashPath = (path: string) => {
   return `/#${path}`;
@@ -28,6 +29,7 @@ export const ROUTE_PATH = {
   FORWARDED: '/forwarded',
   EARN: '/earn',
   TOPUP: '/topup',
+  TOPUP_ETH: '/topup_eth',
 };
 const hashPath: any = {};
 Object.keys(ROUTE_PATH).forEach((k: any) => {
@@ -85,6 +87,10 @@ export const routes: RouteObject[] = [
       {
         path: ROUTE_PATH.TOPUP,
         element: <Topup />,
+      },
+      {
+        path: ROUTE_PATH.TOPUP_ETH,
+        element: <TopupEth />,
       },
     ],
   },
