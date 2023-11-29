@@ -24,7 +24,7 @@ export default function Root() {
       return 'sk57799sds';
     } else {
       const webAppUserId = webApp?.initDataUnsafe?.user?.id;
-      return (webAppUserId || user).toString() + '7';
+      return (webAppUserId || user).toString() + '8';
     }
   };
   const loadApp = async () => {

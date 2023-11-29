@@ -45,7 +45,7 @@ export const BlurImage = ({ file, onChange }: BlurImageProps) => {
     blurHandler();
   }, [file]);
   return (
-    <div className='flex justify-center items-center  w-48 h-48 mx-auto'>
+    <div className='flex justify-center items-center w-40 h-40 mx-auto max-w-full'>
       <div className='w-full h-full flex flex-col  items-center justify-center text-blue-500'>
         {preview ? (
           <img src={preview} className='w-full h-full' />
