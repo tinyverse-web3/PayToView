@@ -11,7 +11,7 @@ import { useWebApp } from '@vkruglikov/react-telegram-web-app';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { template } from 'lodash';
 import LayoutThird from '@/layout/LayoutThird';
-
+import { toast } from 'react-hot-toast';
 export default function DetailIndex() {
   useTitle('PayToView');
   const [searchParams] = useSearchParams();
@@ -32,6 +32,8 @@ export default function DetailIndex() {
     });
     if (result.code === '000000') {
       setPaid(true);
+    } else {
+      toast.error(result.msg);
     }
     setLoading(false);
   };
