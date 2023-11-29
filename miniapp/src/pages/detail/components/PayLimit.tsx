@@ -53,7 +53,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
           variant='filled'
           value={data.fee}
           onFocus={focusHandler}
-          onChange={(_, e: number) => set('fee', e)}>
+          onChange={(_, e: number) => set('fee', isNaN(e) ? 0 : e)}>
           <NumberInputField />
         </NumberInput>
       </FormControl>
@@ -71,7 +71,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
               variant='filled'
               value={data.platform}
               onFocus={focusHandler}
-              onChange={(_, e: number) => set('platform', e)}>
+              onChange={(_, e: number) => set('platform', isNaN(e) ? 0 : e)}>
               <NumberInputField />
             </NumberInput>
           </div>
@@ -86,7 +86,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
               variant='filled'
               value={data.developer}
               onFocus={focusHandler}
-              onChange={(_, e: number) => set('developer', e)}>
+              onChange={(_, e: number) => set('developer', isNaN(e) ? 0 : e)}>
               <NumberInputField />
             </NumberInput>
           </div>
@@ -102,7 +102,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
               variant='filled'
               value={data.forwarder}
               onFocus={focusHandler}
-              onChange={(_, e: number) => set('forwarder', e)}>
+              onChange={(_, e: number) => set('forwarder', isNaN(e) ? 0 : e)}>
               <NumberInputField />
             </NumberInput>
           </div>
@@ -118,7 +118,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
               variant='filled'
               value={data.announcer}
               onFocus={focusHandler}
-              onChange={(_, e: number) => set('announcer', e)}>
+              onChange={(_, e: number) => set('announcer', isNaN(e) ? 0 : e)}>
               <NumberInputField />
             </NumberInput>
           </div>
