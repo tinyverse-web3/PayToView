@@ -27,7 +27,7 @@
       "password_mode": "加密密码",
       "blur_show": "模糊",
       "divide_ratio": "分成比例",
-      "network": "网络",
+      "network": "网络服务商",
       "app": "应用开发商",
       "sender": "发布者",
       "forwarder": "转发人",
@@ -55,6 +55,9 @@
     },
     "detail": {
       "title": "合约详情"
+    },
+    "topup": {
+      "title": "充值"
     },
     "index": {
       "title": "付费阅读",

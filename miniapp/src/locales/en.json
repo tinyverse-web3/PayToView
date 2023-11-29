@@ -21,8 +21,8 @@
   },
   "pages": {
     "publish": {
-      "title": "publish",
-      "icon_title": "publish",
+      "title": "Publish",
+      "icon_title": "Publish",
       "preview_mode": "Preview Mode",
       "password_mode": "Encrypted Password",
       "blur_show": "Blur",
@@ -35,26 +35,33 @@
       "paied": "Paied"
     },
     "earning": {
-      "title": "earning",
-      "icon_title": "earning"
+      "title": "Earning",
+      "icon_title": "Earning"
     },
     "published": {
-      "title": "published list",
-      "icon_title": "published"
+      "title": "Published List",
+      "icon_title": "Published"
     },
     "paid": {
-      "title": "paid list",
-      "icon_title": "paid"
+      "title": "Paid List",
+      "icon_title": "Paid"
     },
     "forwarded": {
-      "title": "forwarded list",
-      "icon_title": "forwarded"
+      "title": "Forwarded List",
+      "icon_title": "Forwarded"
     },
     "forward": {
-      "title": "forward"
+      "title": "Forward"
     },
     "detail": {
-      "title": "detail"
+      "title": "Detail"
+    },
+    "topup": {
+      "title": "Topup",
+      "placeholder": "Topup Tvs",
+      "btn_connect": "Connect Wallet",
+      "btn_disconnect": "Disconnect",
+      "btn_topup": "Topup"
     },
     "index": {
       "title": "PayToView",

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import * as StackBlur from 'stackblur-canvas';
+import { useTranslation } from 'react-i18next';
 interface BlurImageProps {
-  file: File;
+  file: File | null;
   onChange?: (file: File) => void;
 }
 export const BlurImage = ({ file, onChange }: BlurImageProps) => {
   const [preview, setPreview] = useState<string>('');
+  const { t } = useTranslation();
   const blurImage = (image, radius) => {
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
@@ -43,8 +45,21 @@ export const BlurImage = ({ file, onChange }: BlurImageProps) => {
     blurHandler();
   }, [file]);
   return (
-    <div className='flex justify-center items-center'>
-      <img src={preview} alt='' className='w-48 h-48' />
+    <div className='flex justify-center items-center  w-48 h-48 mx-auto'>
+      <div className='w-full h-full flex flex-col  items-center justify-center text-blue-500'>
+        {preview ? (
+          <img src={preview} className='w-full h-full' />
+        ) : (
+          <div className='p-4 border border-solid border-gray-300 rounded-xl w-full h-full flex justify-center items-center'>
+            <div>
+              <img src='/images/preview.png' className='w-12 h-12 mb-2' />
+              <div className='text-18px text-center'>
+                {t('common.upload.title')}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

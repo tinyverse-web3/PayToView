@@ -7,6 +7,7 @@ import {
   NumberInput,
   NumberInputField,
   InputRightAddon,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { Upload } from '@/components/Upload';
 import { useEffect } from 'react';
@@ -59,6 +60,24 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
   return (
     <div>
       {/* <div>ContentUpload.tsx</div> */}
+      {type === 'image' ? (
+        <SimpleGrid columns={2} spacing={4} className='mb-4'>
+          <Upload onChange={imageChange} />
+          <div>
+            <BlurImage file={data.image} onChange={blurChange} />
+          </div>
+        </SimpleGrid>
+      ) : (
+        <FormControl>
+          <Textarea
+            value={data.content}
+            onChange={contentChange}
+            placeholder='Content'
+            size='sm'
+            variant='filled'
+          />
+        </FormControl>
+      )}
       <FormControl className='mb-4'>
         <Input
           type='text'
@@ -76,42 +95,6 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
           value={data.description}
           onChange={descriptionChange}
         />
-      </FormControl>
-      {type === 'image' ? (
-        <Upload onChange={imageChange} />
-      ) : (
-        <FormControl>
-          <Textarea
-            value={data.content}
-            onChange={contentChange}
-            placeholder='Content'
-            size='sm'
-            variant='filled'
-          />
-        </FormControl>
-      )}
-      <FormControl className='mb-4'>
-        <FormLabel>{t('pages.publish.preview_mode')}</FormLabel>
-        {type === 'text' ? (
-          <InputGroup size='md'>
-            <NumberInput
-              min={10}
-              max={90}
-              width='100%'
-              value={data.textLimit}
-              onChange={(_, e: number) => set('textLimit', e)}>
-              <NumberInputField />
-            </NumberInput>
-            <InputRightAddon children='%' />
-          </InputGroup>
-        ) : (
-          <div>
-            <div className='text-sm mb-2'>{t('pages.publish.blur_show')}</div>
-            {data.image && (
-              <BlurImage file={data.image} onChange={blurChange} />
-            )}
-          </div>
-        )}
       </FormControl>
       {/* <FormControl className='mb-4'>
         <FormLabel>{t('pages.publish.password_mode')}</FormLabel>

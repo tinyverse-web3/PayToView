@@ -23,14 +23,14 @@ export const Upload = ({ onChange }: UploadProps) => {
     onChange?.(image);
   };
   return (
-    <div className='flex justify-center items-center  w-48 h-48 mx-auto mb-2'>
+    <div className='flex justify-center items-center  w-48 h-48 mx-auto'>
       <label className='w-full h-full flex flex-col  items-center justify-center text-blue-500'>
         {previewSrc ? (
           <img src={previewSrc} className='w-full h-full' />
         ) : (
           <div className='p-4 border border-solid border-gray-300 rounded-xl w-full h-full flex justify-center items-center'>
             <div>
-              <Icon icon='mdi:cloud-upload-outline' className='text-6xl' />
+              <img src='/images/upload.png' className='w-16 h-12 mb-2' />
               <div className='text-18px text-center'>
                 {t('common.upload.title')}
               </div>

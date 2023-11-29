@@ -84,7 +84,7 @@ export default function Index() {
       },
     },
     {
-      name: '充值',
+      name:  t('pages.topup.title'),
       icon: '/images/forwarded.png',
       onClick: () => {
         nav(ROUTE_PATH.TOPUP);

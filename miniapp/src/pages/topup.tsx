@@ -58,7 +58,7 @@ export default function Index() {
         },
       ],
     };
-    console.log('topup.tsx sendTransaction txDetail: ', txDetail )
+    console.log('topup.tsx sendTransaction txDetail: ', txDetail);
     tonConnectUi
       .sendTransaction(txDetail)
       .then((result) => {
@@ -71,17 +71,17 @@ export default function Index() {
   const disconnect = () => {
     tonConnectUi.disconnect();
   };
-  console.log(tonAddress)
-  console.log(tonConnectUi)
+  console.log(tonAddress);
+  console.log(tonConnectUi);
   return (
-    <LayoutThird title='充值' path={ROUTE_PATH.INDEX}>
+    <LayoutThird title={t('pages.topup.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden p-4'>
         <SimpleGrid columns={2} spacing='10px' className='mb-4'>
           {!tonConnectUi.connected ? (
             <Button
               colorScheme='blue'
               onClick={() => tonConnectUi.connectWallet()}>
-              Connect Wallet
+              {t('pages.topup.btn_connect')}
             </Button>
           ) : (
             <Button
@@ -91,20 +91,23 @@ export default function Index() {
             </Button>
           )}
 
-          <Button colorScheme={tonConnectUi.connected ?'blue': 'default'} onClick={disconnect} isDisabled={!tonConnectUi.connected}>
-            Disconnect
+          <Button
+            colorScheme={tonConnectUi.connected ? 'blue' : 'gray'}
+            onClick={disconnect}
+            isDisabled={!tonConnectUi.connected}>
+            {t('pages.topup.btn_disconnect')}
           </Button>
         </SimpleGrid>
         <div className='mb-4'>
           <FormControl className='mb-4'>
-            <FormLabel>充值积分</FormLabel>
+            <FormLabel>{t('pages.topup.placeholder')}</FormLabel>
             <NumberInput
               width='100%'
               rounded={10}
               variant='filled'
               value={fee}
               min={0}
-              onChange={(_, e: number) => setFee(e)}>
+              onChange={(_, e: number) => setFee(isNaN(e) ? 0 : e)}>
               <NumberInputField />
             </NumberInput>
           </FormControl>
@@ -120,7 +123,7 @@ export default function Index() {
             isDisabled={fee <= 0}
             colorScheme='blue'
             onClick={topupHandler}>
-            充值
+            {t('pages.topup.btn_topup')}
           </Button>
         </div>
       </div>
