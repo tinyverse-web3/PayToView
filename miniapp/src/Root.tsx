@@ -2,14 +2,13 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@chakra-ui/react';
 import { useWebApp, useCloudStorage } from '@vkruglikov/react-telegram-web-app';
-
 import TvsWasm from '@/lib/tvsWasm';
 import paytoview from '@/lib/paytoview';
 import dauth from '@/lib/dauth';
 import { generatePassword } from '@/lib/utils';
 import { useAccountStore } from './store';
+
 export default function Root() {
-  localStorage.clear();
   const [loading, setLoading] = useState(false);
   const [createStatus, setCreateStatus] = useState(false);
   const [error, setError] = useState(false);

@@ -39,11 +39,11 @@ if (import.meta.env.MODE === "production") {
 }
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <WagmiConfig config={wagmiConfig}>
             <App />
         </WagmiConfig>
-    </React.StrictMode>
+    // </React.StrictMode>
 );
 
 // ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
