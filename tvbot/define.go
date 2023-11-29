@@ -27,7 +27,7 @@ var (
 	Web_Port = "7070"
 
 	//bot config
-	BOT_TOKEN    = "6591734251:AAEHFZXOhX4h-j_s03Y23ojXeSPULClLEtQ"
+	BOT_TOKEN    = "6591734251:AAHnToeu-ZTeJ2ThYqhpdejF_B37HSy726g"
 	MONGO_DB_URI = "mongodb://localhost:27017"
 
 	//ipfs
