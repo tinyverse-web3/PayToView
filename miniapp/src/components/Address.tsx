@@ -1,10 +1,12 @@
 import { useCopyToClipboard } from 'react-use';
 import { useMemo } from 'react';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 interface Props {
   address?: string;
 }
 export const Address = ({ address }: Props) => {
+  const {t} = useTranslation();
   const [_, copyToClipboard] = useCopyToClipboard();
   const shortAddress = useMemo(() => {
     return `${address?.substring(0, 5)}*****${address?.substring(
@@ -14,7 +16,7 @@ export const Address = ({ address }: Props) => {
   const clickHandler = () => {
     if (address) {
       copyToClipboard(address);
-      toast.success('复制成功');
+      toast.success(t('common.copy.success'));
     }
   };
   return (

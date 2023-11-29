@@ -17,6 +17,10 @@
       "title": "Empty",
       "description": "Empty"
     },
+    "copy": {
+      "title": "Copy",
+      "success": "Copy Success"
+    },
     "request_error": "Request failed"
   },
   "pages": {
@@ -65,7 +69,7 @@
     },
     "index": {
       "title": "PayToView",
-      "address": "Main account address",
+      "address": "Wallet Address",
       "transaction_record": "transaction record",
       "more": "more",
       "profit": "24小时收益",

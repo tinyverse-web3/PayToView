@@ -110,12 +110,12 @@ export default function Index() {
       <div className='h-full overflow-hidden flex flex-col'>
         <div className='overflow-y-auto flex-1'>
           <div className='p-4'>
-            <div className='bg-gray-100 p-4 mb-4 rounded-2xl'>
+            {/* <div className='bg-gray-100 p-4 mb-4 rounded-2xl'>
               <div className='flex mb-6 items-center'>
                 <Image
                   src='/logo.png'
                   className='w-6 h-6 bg-gray-200 rounded-full mr-6'></Image>
-                <div className='break-all'>{accountInfo.address}</div>
+                <div className='break-all'><Address address={accountInfo.publicKey} /></div>
               </div>
               <div className='flex justify-between items-end '>
                 <div className='flex items-end'>
@@ -128,6 +128,14 @@ export default function Index() {
                   Tinyverse
                 </p>
               </div>
+            </div> */}
+            <div className='text-center mb-4'>
+              <div className='mb-2 text-base'>
+                TVS
+              </div>
+              <div className='font-bold text-xl'>
+                {balance} TVS
+              </div>
             </div>
             <div className=' bg-gray-100 p-4 mb-4 rounded-2xl'>
               <SimpleGrid columns={1} columnGap='20px'>
@@ -137,7 +145,6 @@ export default function Index() {
                     <span className='mr-2 text-sm font-bold leading-none'>
                       <Address address={accountInfo.publicKey} />
                     </span>
-                    {/* <span className='text-xs leading-none '>TVS</span> */}
                   </div>
                 </div>
                 {/* <div

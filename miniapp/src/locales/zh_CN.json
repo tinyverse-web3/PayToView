@@ -17,6 +17,10 @@
       "title": "暂无数据",
       "description": "Empty"
     },
+    "copy": {
+      "title": "复制",
+      "success": "复制成功"
+    },
     "request_error": "请求失败"
   },
   "pages": {
@@ -61,7 +65,7 @@
     },
     "index": {
       "title": "付费阅读",
-      "address": "主账号地址",
+      "address": "钱包地址",
       "transaction_record": "交易记录",
       "more": "更多",
       "income": "收入",
