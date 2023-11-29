@@ -25,6 +25,7 @@ import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
 import { BOC as BOC1, Builder } from 'ton3-core';
 import { Address } from 'ton3-core';
+import { hideStr} from '@/lib/utils'
 import { beginCell } from '@ton/core';
 import { useAccountStore } from '@/store';
 
@@ -42,6 +43,7 @@ export default function Index() {
     () => 'tvswallet=' + accountInfo.address + '&app=payToView',
     [accountInfo.address],
   );
+  const shortAddress = useMemo(() => hideStr(tonAddress, 5), [tonAddress]);
   const focusHandler = (e) => {
     console.log('focus');
     e.target.scrollIntoView({
@@ -98,7 +100,7 @@ export default function Index() {
             <Button
               colorScheme='blue'
               onClick={() => tonConnectUi.connectWallet()}>
-              {tonAddress}
+              {shortAddress}
             </Button>
           )}
 
