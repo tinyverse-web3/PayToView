@@ -42,6 +42,14 @@ export default function Index() {
     () => 'tvswallet=' + accountInfo.address + '&app=payToView',
     [accountInfo.address],
   );
+  const focusHandler = (e) => {
+    console.log('focus');
+    e.target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  };
   const topupHandler = () => {
     const officePayAddress =
       import.meta.env.VITE_PAYTOVIEW_OFFICE_TON_WALLET_ID || '';
@@ -110,6 +118,7 @@ export default function Index() {
               variant='filled'
               value={fee}
               min={0}
+              onFocus={focusHandler}
               onChange={(_, e: number) => setFee(isNaN(e) ? 0 : e)}>
               <NumberInputField />
             </NumberInput>

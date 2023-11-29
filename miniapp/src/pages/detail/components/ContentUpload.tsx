@@ -43,6 +43,13 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
   const contentChange = (e) => {
     set('content', e.target.value);
   };
+  const focusHandler = (e) => {
+    e.target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  };
   const descriptionChange = (e) => {
     set('description', e.target.value);
   };
@@ -84,6 +91,7 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
           placeholder='Title'
           variant='filled'
           value={data.title}
+          onFocus={focusHandler}
           onChange={titleChange}
         />
       </FormControl>
@@ -93,6 +101,7 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
           placeholder='Description'
           variant='filled'
           value={data.description}
+          onFocus={focusHandler}
           onChange={descriptionChange}
         />
       </FormControl>

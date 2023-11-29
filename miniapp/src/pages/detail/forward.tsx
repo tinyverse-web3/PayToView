@@ -74,6 +74,13 @@ export default function DetailEdit() {
       }),
     [detail.contractInfo?.ContractInfo?.Content?.CidForpreview],
   );
+  const focusHandler = (e) => {
+    e.target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  };
   useEffect(() => {
     if (ContractID) {
       getContractDetail();
@@ -90,6 +97,7 @@ export default function DetailEdit() {
             placeholder='Forward Title'
             variant='filled'
             value={data.title}
+            onFocus={focusHandler}
             onChange={(e) => set('title', e.target.value)}
           />
         </FormControl>

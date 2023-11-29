@@ -80,13 +80,6 @@ export default function DetailAdd() {
 
       return;
     }
-    // if (type === 'text') {
-    //   file = new File([data.content], `${data.title}.txt`, {
-    //     type: 'text/plain',
-    //   });
-    // } else {
-    //   file = data.image;
-    // }
     let contentCid;
     if (data.image) {
       const ipfsResult = await paytoview.addFileToIPFS({
@@ -104,31 +97,6 @@ export default function DetailAdd() {
       });
       previewCid = ipfsResult.data;
     }
-
-    // let previewFile;
-    // if (type === 'image') {
-    //   console.log(data.image)
-    //   previewFile = new File([data.image], `${data.title}.png`, {
-    //     type: 'image/png',
-    //   });
-    // } else {
-    //   previewFile = new File([data.description], `${data.title}.txt`, {
-    //     type: 'text/plain',
-    //   });
-    // }
-    // const ipfsPreviewResult = await tvs.addFileToIPFS(
-    //   {
-    //     fileName: data.title,
-    //   },
-    //   new Uint8Array(previewFile),
-    // );
-    // if (ipfsPreviewResult.code !== '000000' || !ipfsPreviewResult.data) {
-    //   return;
-    // }
-    // const previewCid = ipfsPreviewResult.data;
-    // // const contentCid = '123'
-    // // const previewCid = '123'
-    // console.log(contentCid, previewCid);
     if (!contentCid || !previewCid) {
       setLoading(false);
       toast('cid is error');

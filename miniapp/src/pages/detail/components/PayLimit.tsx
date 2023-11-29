@@ -29,7 +29,13 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
     announcer: 70,
     forwarder: 15,
   });
-
+  const focusHandler = (e) => {
+    e.target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  };
   useEffect(() => {
     onChange?.(data);
   }, [data]);
@@ -46,6 +52,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
           size='sm'
           variant='filled'
           value={data.fee}
+          onFocus={focusHandler}
           onChange={(_, e: number) => set('fee', e)}>
           <NumberInputField />
         </NumberInput>
@@ -63,6 +70,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
               size='sm'
               variant='filled'
               value={data.platform}
+              onFocus={focusHandler}
               onChange={(_, e: number) => set('platform', e)}>
               <NumberInputField />
             </NumberInput>
@@ -77,6 +85,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
               size='sm'
               variant='filled'
               value={data.developer}
+              onFocus={focusHandler}
               onChange={(_, e: number) => set('developer', e)}>
               <NumberInputField />
             </NumberInput>
@@ -92,6 +101,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
               width='100%'
               variant='filled'
               value={data.forwarder}
+              onFocus={focusHandler}
               onChange={(_, e: number) => set('forwarder', e)}>
               <NumberInputField />
             </NumberInput>
@@ -107,6 +117,7 @@ export const PayLimit = ({ onChange }: PayLimitProps) => {
               size='sm'
               variant='filled'
               value={data.announcer}
+              onFocus={focusHandler}
               onChange={(_, e: number) => set('announcer', e)}>
               <NumberInputField />
             </NumberInput>
