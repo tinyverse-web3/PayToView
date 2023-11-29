@@ -38,10 +38,13 @@ export default function Index() {
   const rawTonAddress = useTonAddress(false);
   const { accountInfo, balance } = useAccountStore((state) => state);
   const [tonConnectUi] = useTonConnectUI();
-
+  const commitText = useMemo(
+    () => 'tvswallet=' + accountInfo.address + '&app=payToView',
+    [accountInfo.address],
+  );
   const topupHandler = () => {
-    const officePayAddress = import.meta.env.VITE_PAYTOVIEW_OFFICE_TON_WALLET_ID || "";
-    const commitText = 'tvswallet=' + accountInfo.address + '&app=payToView';
+    const officePayAddress =
+      import.meta.env.VITE_PAYTOVIEW_OFFICE_TON_WALLET_ID || '';
     const payload = beginCell()
       .storeUint(0, 32)
       .storeStringTail(commitText)
