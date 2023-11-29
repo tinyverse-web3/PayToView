@@ -25,7 +25,7 @@ import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
 import { BOC as BOC1, Builder } from 'ton3-core';
 import { Address } from 'ton3-core';
-import { hideStr} from '@/lib/utils'
+import { hideStr } from '@/lib/utils';
 import { beginCell } from '@ton/core';
 import { useAccountStore } from '@/store';
 
@@ -35,6 +35,7 @@ export default function Index() {
   const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
   const [fee, setFee] = useState(0);
+  const [translateStatus, setTranslateStatus] = useState(false);
   const tonAddress = useTonAddress(true);
   const rawTonAddress = useTonAddress(false);
   const { accountInfo, balance } = useAccountStore((state) => state);
@@ -52,7 +53,7 @@ export default function Index() {
       inline: 'center',
     });
   };
-  const topupHandler = () => {
+  const transcationHandler = () => {
     const officePayAddress =
       import.meta.env.VITE_PAYTOVIEW_OFFICE_TON_WALLET_ID || '';
     const payload = beginCell()
@@ -76,11 +77,29 @@ export default function Index() {
       .sendTransaction(txDetail)
       .then((result) => {
         console.log('topup.tsx sendTransaction result: ', result.boc);
+        setTranslateStatus(false);
+        tonConnectUi.disconnect();
       })
       .catch((error) => {
         console.error('topup.tsx sendTransaction error: ', error);
+        setTranslateStatus(false);
+        tonConnectUi.disconnect();
+        
       });
   };
+  const topupHandler = () => {
+    if (tonConnectUi.connected) {
+      transcationHandler();
+    } else {
+      setTranslateStatus(true);
+      tonConnectUi.connectWallet();
+    }
+  };
+  useEffect(() => {
+    if (translateStatus && tonConnectUi.connected) {
+      transcationHandler();
+    }
+  }, [tonConnectUi.connected, translateStatus]);
   const disconnect = () => {
     tonConnectUi.disconnect();
   };
@@ -89,7 +108,7 @@ export default function Index() {
   return (
     <LayoutThird title={t('pages.topup.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden p-4'>
-        <SimpleGrid columns={2} spacing='10px' className='mb-4'>
+        {/* <SimpleGrid columns={2} spacing='10px' className='mb-4'>
           {!tonConnectUi.connected ? (
             <Button
               colorScheme='blue'
@@ -110,7 +129,7 @@ export default function Index() {
             isDisabled={!tonConnectUi.connected}>
             {t('pages.topup.btn_disconnect')}
           </Button>
-        </SimpleGrid>
+        </SimpleGrid> */}
         <div className='mb-4'>
           <FormControl className='mb-4'>
             <FormLabel>{t('pages.topup.placeholder')}</FormLabel>
@@ -127,9 +146,15 @@ export default function Index() {
           </FormControl>
         </div>
         <SimpleGrid columns={3} spacing='10px' className='mb-4'>
-          <Button onClick={() => setFee(10)}>10 TVS</Button>
-          <Button onClick={() => setFee(20)}>20 TVS</Button>
-          <Button onClick={() => setFee(30)}>50 TVS</Button>
+          <Button colorScheme='teal' onClick={() => setFee(10)}>
+            10 TVS
+          </Button>
+          <Button colorScheme='teal' onClick={() => setFee(20)}>
+            20 TVS
+          </Button>
+          <Button colorScheme='teal' onClick={() => setFee(30)}>
+            50 TVS
+          </Button>
         </SimpleGrid>
         <div>
           <Button

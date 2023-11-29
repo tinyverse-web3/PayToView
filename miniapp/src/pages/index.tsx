@@ -32,7 +32,7 @@ import LayoutThird from '@/layout/LayoutThird';
 const MenuButton = ({ name, icon, onClick }: any) => {
   return (
     <div className='flex flex-col items-center' onClick={onClick}>
-      <img className='h-12 w-12 mb-2' src={icon}></img>
+      <img className='h-10 w-10 mb-2' src={icon}></img>
       <span className='text-sm'>{name}</span>
     </div>
   );
@@ -159,7 +159,7 @@ export default function Index() {
               </SimpleGrid>
             </div>
             <div className='mt-4 mb-4 m-2'>
-              <SimpleGrid columns={3} rowGap='25px'>
+              <SimpleGrid columns={5} rowGap='25px'>
                 {menuList.map((item, i) => (
                   <MenuButton
                     key={i}
