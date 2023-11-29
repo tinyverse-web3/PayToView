@@ -143,7 +143,7 @@ export default function Index() {
                   <div className='mb-2 text-xs'>{t('pages.index.address')}</div>
                   <div className='flex items-end justify-center'>
                     <span className='mr-2 text-sm font-bold leading-none'>
-                      <Address address={accountInfo.publicKey} />
+                      <Address address={accountInfo.address} />
                     </span>
                   </div>
                 </div>
