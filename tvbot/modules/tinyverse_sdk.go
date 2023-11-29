@@ -12,7 +12,7 @@ import (
 var BM *tvbot.BotManager
 
 func InitSdk() {
-	err := sdk.StartUp(bot.SDK_ROOT_PATH, bot.App_Name)
+	err := sdk.StartUpBase(bot.SDK_ROOT_PATH, bot.App_Name)
 	if err != nil {
 		log.Logger.Error("InitSdk failed--->%v", err)
 	}
