@@ -13,6 +13,7 @@ import { generatePassword } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { ROUTE_PATH } from '@/router';
 import LayoutThird from '@/layout/LayoutThird';
+import { toast } from 'react-hot-toast';
 
 export default function DetailAdd() {
   useTitle('PayToView');
@@ -75,7 +76,8 @@ export default function DetailAdd() {
     const commissionContract = await getCommisionContrcat();
     if (!commissionContract) {
       setLoading(false);
-      console.log('no tvs, need buy tvs')
+      console.log('no tvs, need buy tvs');
+
       return;
     }
     // if (type === 'text') {
@@ -87,23 +89,19 @@ export default function DetailAdd() {
     // }
     let contentCid;
     if (data.image) {
-      const ipfsResult = await paytoview.addFileToIPFS(
-        {
-          fileName: data.title,
-          file: data.image,
-          password: '123456',
-        },
-      );
+      const ipfsResult = await paytoview.addFileToIPFS({
+        fileName: data.title,
+        file: data.image,
+        password: '123456',
+      });
       contentCid = ipfsResult.data;
     }
     let previewCid;
     if (data.previewImage) {
-      const ipfsResult = await paytoview.addFileToIPFS(
-        {
-          fileName: data.title,
-          file: data.previewImage,
-        },
-      );
+      const ipfsResult = await paytoview.addFileToIPFS({
+        fileName: data.title,
+        file: data.previewImage,
+      });
       previewCid = ipfsResult.data;
     }
 
@@ -131,9 +129,10 @@ export default function DetailAdd() {
     // // const contentCid = '123'
     // // const previewCid = '123'
     // console.log(contentCid, previewCid);
-    if (contentCid === undefined || previewCid === undefined) {
+    if (!contentCid || !previewCid) {
       setLoading(false);
-      console.error('cid is error')
+      toast('cid is error');
+      console.error('cid is error');
       return;
     }
     const result = await paytoview.deployPayToView({
@@ -154,10 +153,10 @@ export default function DetailAdd() {
       Fee: data.fee,
       Password: data.password,
     });
-    console.log('add.tsx->addHandler: result:', result)
+    console.log('add.tsx->addHandler: result:', result);
     if (result.code !== '000000') {
       setLoading(false);
-      console.error('deployPayToView is error')
+      console.error('deployPayToView is error');
       return;
     }
     setLoading(false);

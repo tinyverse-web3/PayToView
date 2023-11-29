@@ -14,7 +14,7 @@
       "description": "Upload a file to IPFS"
     },
     "empty": {
-      "title": "Empty",
+      "title": "No Data",
       "description": "Empty"
     },
     "copy": {
