@@ -26,6 +26,7 @@ import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
 import { BOC as BOC1, Builder } from 'ton3-core';
 import { Address } from 'ton3-core';
 import { beginCell } from '@ton/core';
+import { useAccountStore } from '@/store';
 
 export default function Index() {
   useTitle('PayToView');
@@ -35,13 +36,12 @@ export default function Index() {
   const [fee, setFee] = useState(0);
   const tonAddress = useTonAddress(true);
   const rawTonAddress = useTonAddress(false);
-
+  const { accountInfo, balance } = useAccountStore((state) => state);
   const [tonConnectUi] = useTonConnectUI();
 
   const topupHandler = () => {
-    const myAddress = 'UQB-Hz6V1mK_fN_8O5MDedrmqvhP-vLsIRFUi77HnI85O8ei';
-    const commitText =
-      'tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4&app=payToView';
+    const officePayAddress = import.meta.env.VITE_PAYTOVIEW_OFFICE_TON_WALLET_ID || "";
+    const commitText = 'tvswallet=' + accountInfo.address + '&app=payToView';
     const payload = beginCell()
       .storeUint(0, 32)
       .storeStringTail(commitText)
@@ -52,7 +52,7 @@ export default function Index() {
       validUntil: Math.floor(Date.now() / 1000) + 600, // unix epoch seconds
       messages: [
         {
-          address: myAddress,
+          address: officePayAddress,
           amount: (fee / 10000).toString(),
           payload: payload,
         },
@@ -71,8 +71,8 @@ export default function Index() {
   const disconnect = () => {
     tonConnectUi.disconnect();
   };
-  console.log(tonAddress);
-  console.log(tonConnectUi);
+  // console.log(tonAddress);
+  // console.log(tonConnectUi);
   return (
     <LayoutThird title={t('pages.topup.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden p-4'>
