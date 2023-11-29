@@ -6,8 +6,9 @@ class Bot {
     )}`;
     console.log(url);
     // eslint-disable-next-line no-debugger
-    debugger;
-    window.open(url);
+    // debugger;
+    window.Telegram.WebApp.openTelegramLink(url)
+    // window.open(url);
   }
 }
 
