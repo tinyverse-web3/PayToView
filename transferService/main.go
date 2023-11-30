@@ -34,11 +34,6 @@ func main() {
 		logger.Fatalf("LoadConfig error: %v", err)
 	}
 
-	err = setLogModule(cfg.LogLevels)
-	if err != nil {
-		logger.Fatalf("initLog error: %v", err)
-	}
-
 	tvSdkInst, err = initTvSdk(rootPath, tvsAccountPassword)
 	if err != nil {
 		logger.Fatalf("initTvSdk error: %v", err)
@@ -64,5 +59,10 @@ func main() {
 	// }
 
 	go util.HandleInterrupt()
+
+	err = setLogModule(cfg.LogLevels)
+	if err != nil {
+		logger.Fatalf("initLog error: %v", err)
+	}
 	<-ctx.Done()
 }
