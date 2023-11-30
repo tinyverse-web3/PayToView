@@ -58,11 +58,21 @@ func parseCmdParams() (string, string, string) {
 			logger.Fatalf("WriteFile error: %v", err)
 		}
 
-		// init dkvs
-		err = initDkvs(dataPath, *tvsAccountPassword)
+		logger.Infof("init transfer service config success.")
+
+		// init sdk
+		tvSdkInst, err = initTvSdk(dataPath, *tvsAccountPassword)
+		if err != nil {
+			logger.Fatalf("initTvSdk error: %v", err)
+		}
+		logger.Infof("init tvsdk account data success.")
+
+		// init transferSummary in dkvs
+		err = initAccountSummaryForDkvs(dataPath, *tvsAccountPassword)
 		if err != nil {
 			logger.Fatalf("initDkvs error: %v", err)
 		}
+		logger.Infof("init account transfer summary in dkvs is success.")
 		os.Exit(0)
 	}
 
@@ -82,23 +92,38 @@ func parseCmdParams() (string, string, string) {
 	return *rootPath, *tvsAccountPassword, *env
 }
 
-func initDkvs(rootPath string, tvsAccountPassword string) error {
-	tvSdkInst, err := initTvSdk(rootPath, tvsAccountPassword)
-	if err != nil {
-		return err
-	}
-
+func initAccountSummaryForDkvs(rootPath string, tvsAccountPassword string) error {
 	accountPk, err := tvSdkInst.GetAccountStorePubkey()
 	if err != nil {
 		return err
 	}
 
+	// init ton dkvs
 	key := ton.GetInitInfoKey(accountPk)
+	logger.Infof("initAccountSummaryForDkvs: init ton account summary key: %s", key)
 	err = tvSdkInst.SetDKVS(key, nil, 2*time.Second)
 	if err != nil {
 		return err
 	}
 
+	// show record.Validity
+	// record, err := tvSdkInst.GetRecordFromDKVS(key)
+	// if err != nil {
+	// 	return err
+	// }
+
+	// fmt.Printf("record.Validity: %v\n", time.UnixMilli(int64(record.Validity)).Format("2006-01-02 15:04:05"))
+	// fmt.Printf("record: %v\n", record)
+
+	// init eth dkvs
+	key = eth.GetInitInfoKey(accountPk)
+	logger.Infof("initAccountSummaryForDkvs: init eth account summary key: %s", key)
+	err = tvSdkInst.SetDKVS(key, nil, 2*time.Second)
+	if err != nil {
+		return err
+	}
+
+	// show record.Validity
 	// record, err := tvSdkInst.GetRecordFromDKVS(key)
 	// if err != nil {
 	// 	return err
