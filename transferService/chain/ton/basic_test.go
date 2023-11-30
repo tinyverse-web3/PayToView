@@ -43,7 +43,7 @@ func TestAccount(t *testing.T) {
 		logger.Fatalf("tonAccount.SetAccountID error: %v", err)
 	}
 
-	err = tonAccount.SetLog(true, "./log")
+	err = tonAccount.SetLog(true, "./log/")
 	if err != nil {
 		logger.Fatalf("tonAccount.SetLog error: %v", err)
 	}

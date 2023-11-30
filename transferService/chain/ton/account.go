@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/tonkeeper/tongo"
@@ -191,6 +192,9 @@ func (s *Account) Release() {
 }
 
 func (s *Account) SetLog(enableLog bool, logPath string) (err error) {
+	if !strings.HasSuffix(logPath, string(os.PathSeparator)) {
+		logPath += string(os.PathSeparator)
+	}
 	_, err = os.Stat(logPath)
 	if os.IsNotExist(err) {
 		err = os.MkdirAll(logPath, 0755)
