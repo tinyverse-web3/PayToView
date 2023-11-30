@@ -28,7 +28,7 @@ import LayoutThird from '@/layout/LayoutThird';
 import { TonConnectButton } from '@tonconnect/ui-react';
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
-import { BOC as BOC1, Builder } from 'ton3-core';
+import { BOC, Builder } from 'ton3-core';
 import { Address } from 'ton3-core';
 import { hideStr } from '@/lib/utils';
 import { beginCell } from '@ton/core';
@@ -130,7 +130,7 @@ export default function Index() {
       messages: [
         {
           address: officePayAddress,
-          amount: tonPayAmount,
+          amount: amount.toFixed(0),
           payload: payload,
         },
       ],
@@ -189,7 +189,7 @@ export default function Index() {
       toast.error('fee cannot be less than 10');
       return;
     }
-    setEvmPayAmount(amount.toString());
+    setEvmPayAmount(amount.toFixed(0));
 
     if (isEvmWalletDisconnected || isEvmWalletConnecting) {
       toast.error('Please topup again for connect wallet');
@@ -201,10 +201,10 @@ export default function Index() {
     ).toString(16)}` as Hex;
     const { config } = usePrepareSendTransaction({
       to: import.meta.env.VITE_OFFICE_EVM_WALLET_ID,
-      value: parseEther(evmPayAmount),
+      value: parseEther(amount.toFixed(0)),
       data: evmTxData,
       enabled: Boolean(
-        import.meta.env.VITE_OFFICE_EVM_WALLET_ID && evmPayAmount != '',
+        import.meta.env.VITE_OFFICE_EVM_WALLET_ID && amount.toString() != '',
       ),
       // onError: () => void evmDisconnect(),
       // onSuccess: () => void evmDisconnect(),
@@ -315,55 +315,52 @@ export default function Index() {
             onClick={topupTonHandler}>
             {t('pages.topup.btn_ton_topup')}
           </Button>
-          <div>
-            {tonAddress != '' && (
-              <React.Fragment>
-                <div> env: {import.meta.env.MODE} </div>
-                <div> user rawTonAddress: {rawTonAddress} </div>
-                <div>
-                  {' '}
-                  user friendAddress:{' '}
-                  {toUserFriendlyAddress(
-                    rawTonAddress,
-                    import.meta.env.MODE === 'development',
-                  )}{' '}
-                </div>
-                <div>
-                  {' '}
-                  topay rawTonAddress:{' '}
-                  {import.meta.env.VITE_OFFICE_TON_WALLET_ID}{' '}
-                </div>
-                <div>
-                  {' '}
-                  topay friendAddress:{' '}
-                  {toUserFriendlyAddress(
+
+          {tonAddress != '' && (
+            <React.Fragment>
+              <div> env: {import.meta.env.MODE} </div>
+              <div> user rawTonAddress: {rawTonAddress} </div>
+              <div>
+                {' '}
+                user friendAddress:{' '}
+                {toUserFriendlyAddress(
+                  rawTonAddress,
+                  import.meta.env.MODE === 'development',
+                )}{' '}
+              </div>
+              <div>
+                {' '}
+                topay rawTonAddress:{' '}
+                {import.meta.env.VITE_OFFICE_TON_WALLET_ID}{' '}
+              </div>
+              <div>
+                {' '}
+                topay friendAddress:{' '}
+                {toUserFriendlyAddress(
+                  import.meta.env.VITE_OFFICE_TON_WALLET_ID,
+                  import.meta.env.MODE === 'development',
+                )}{' '}
+              </div>
+            </React.Fragment>
+          )}
+          {tonTxReceipt != null && (
+            <React.Fragment>
+              <div>Transaction amount: {tonPayAmount} tonWei</div>
+              <div>
+                Transaction receipt:{stringify(tonTxReceipt, null, 2)}
+              </div>
+              <div>
+                <a
+                  href={`https://testnet.tonviewer.com/${toUserFriendlyAddress(
                     import.meta.env.VITE_OFFICE_TON_WALLET_ID,
                     import.meta.env.MODE === 'development',
-                  )}{' '}
-                </div>
-              </React.Fragment>
-            )}
-            <div>
-              {tonTxReceipt != null && (
-                <React.Fragment>
-                  <div>Transaction amount: {tonPayAmount} tonWei</div>
-                  <div>
-                    Transaction receipt:{' '}
-                    {tonTxReceipt && stringify(tonTxReceipt, null, 2)}
-                  </div>
-                  <div>
-                    <a
-                      href={`https://testnet.tonviewer.com/${toUserFriendlyAddress(
-                        import.meta.env.VITE_OFFICE_TON_WALLET_ID,
-                        import.meta.env.MODE === 'development',
-                      )}`}>
-                      Transaction View
-                    </a>
-                  </div>
-                </React.Fragment>
-              )}
-            </div>
-          </div>
+                  )}`}>
+                  Transaction View
+                </a>
+              </div>
+            </React.Fragment>
+          )}
+
           <Button
             className='w-full'
             isDisabled={fee <= 0}
@@ -371,15 +368,20 @@ export default function Index() {
             onClick={topupEthHandler}>
             {t('pages.topup.btn_eth_topup')}
           </Button>
-          <div>
-            sent {evmPayAmount} ether to{' '}
-            {import.meta.env.VITE_OFFICE_EVM_WALLET_ID}
-            <div>tx Hash: {evmWaitTxReceipt?.hash}</div>
-            <div>
-              tx Receipt:{' '}
-              <pre>
-                {evmWaitTxReceipt && stringify(evmWaitTxReceipt, null, 2)}
-              </pre>
+
+          {tonAddress != '' && (
+            <React.Fragment>
+              <div>env: {import.meta.env.MODE} </div>
+              <div>user address: {evmWalletAddress}</div>
+              <div>topay address: {import.meta.env.VITE_OFFICE_EVM_WALLET_ID} </div>
+            </React.Fragment>
+          )}
+
+          {evmWaitTxReceipt != null && (
+            <React.Fragment>
+              <div>Transaction amount: {evmPayAmount} tonWei</div>
+              <div>Transaction Hash: {evmWaitTxReceipt?.hash}</div>
+              <div>Transaction receipt: {stringify(evmWaitTxReceipt, null, 2)}</div>
               {String(selectedEvmNetworkId) === '11155111' && (
                 <div>
                   <a
@@ -395,8 +397,8 @@ export default function Index() {
                   </a>
                 </div>
               )}
-            </div>
-          </div>
+            </React.Fragment>
+          )}
         </div>
       </div>
     </LayoutThird>

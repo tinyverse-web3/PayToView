@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	logName = "tvsconnect.main"
+	logName = "transferService.main"
 )
 
 var logger = ipfsLog.Logger(logName)

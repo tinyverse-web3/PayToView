@@ -51,7 +51,7 @@ func NewDefaultAppConfig() *AppConfig {
 		},
 		Ton: &TonConfig{
 			ChainConfig: ChainConfig{
-				AccountID:            "0xeA7e42C7C9262e6831bfa7Be71d67aa5523E27BD",
+				AccountID:            "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b",
 				EnableTxLog:          false,
 				LoadTxsInterval:      5 * time.Second,
 				CheckFailTxsInterval: 5 * time.Second,
@@ -59,7 +59,7 @@ func NewDefaultAppConfig() *AppConfig {
 		},
 		Eth: &EthConfig{
 			ChainConfig: ChainConfig{
-				AccountID:            "0xeA7e42C7C9262e6831bfa7Be71d67aa5523E27BD",
+				AccountID:            "0x563f451c79003571bBFD2Acbcc265C82C0884519",
 				EnableTxLog:          false,
 				LoadTxsInterval:      5 * time.Second,
 				CheckFailTxsInterval: 5 * time.Second,

@@ -34,11 +34,6 @@ func main() {
 		logger.Fatalf("LoadConfig error: %v", err)
 	}
 
-	err = setLogModule(cfg.LogLevels)
-	if err != nil {
-		logger.Fatalf("initLog error: %v", err)
-	}
-
 	tvSdkInst, err = initTvSdk(rootPath, tvsAccountPassword)
 	if err != nil {
 		logger.Fatalf("initTvSdk error: %v", err)
@@ -54,15 +49,20 @@ func main() {
 		logger.Fatalf("initTonTransferService error: %v", err)
 	}
 
-	ethAccountInst, err = initEthAccount(cfg.Eth.AccountID, cfg.Eth.EtherScanApiKey, env == "dev", cfg.Eth.EnableTxLog, rootPath+"log")
-	if err != nil {
-		logger.Fatalf("initEthAccount error: %v", err)
-	}
-	_, err = initEthTransferService(ctx, rootPath, cfg.Eth)
-	if err != nil {
-		logger.Fatalf("initTonTransferService error: %v", err)
-	}
+	// ethAccountInst, err = initEthAccount(cfg.Eth.AccountID, cfg.Eth.EtherScanApiKey, env == "dev", cfg.Eth.EnableTxLog, rootPath+"log")
+	// if err != nil {
+	// 	logger.Fatalf("initEthAccount error: %v", err)
+	// }
+	// _, err = initEthTransferService(ctx, rootPath, cfg.Eth)
+	// if err != nil {
+	// 	logger.Fatalf("initTonTransferService error: %v", err)
+	// }
 
 	go util.HandleInterrupt()
+
+	err = setLogModule(cfg.LogLevels)
+	if err != nil {
+		logger.Fatalf("initLog error: %v", err)
+	}
 	<-ctx.Done()
 }
