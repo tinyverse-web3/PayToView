@@ -8,11 +8,9 @@ import (
 	"github.com/tinyverse-web3/tinyverse_sdk/tinyverse/defines"
 	"github.com/tinyverse-web3/tinyverse_sdk/tinyverse/sdk"
 	"github.com/tinyverse-web3/tinyverse_sdk/tinyverse/sdkutils"
-	"github.com/tinyverse-web3/tinyverse_sdk/tinyverse/services/dkvsservice"
 	"github.com/tinyverse-web3/tinyverse_sdk/tinyverse/tvwallet"
 	"github.com/tinyverse-web3/tinyverse_sdk/tinyverse/usercenter"
 	useraccountmanager "github.com/tinyverse-web3/tinyverse_sdk/tinyverse/usercenter/useraccountManager"
-	dkvscm "github.com/tinyverse-web3/tvbase/dkvs/common"
 	dkvsPb "github.com/tinyverse-web3/tvbase/dkvs/pb"
 )
 
@@ -25,7 +23,7 @@ func NewSdk() *TvSdk {
 }
 
 func (t *TvSdk) Init(rootPath string, password string) (err error) {
-	err = sdk.StartUpBase("", rootPath, "transferService")
+	err = sdk.StartUpBase("", rootPath)
 	if err != nil {
 		logger.Errorf("TvSdk.Init: StartUpBase error: %v", err)
 		return err
@@ -39,7 +37,6 @@ func (t *TvSdk) Init(rootPath string, password string) (err error) {
 		userAccount.UpdatePassword(defaultPassword, password)
 	}
 	usercenter.InitUserCenter(false)
-	dkvsservice.GetInstance().SetReadRecMode(dkvscm.NetworkFirst)
 
 	return nil
 }
