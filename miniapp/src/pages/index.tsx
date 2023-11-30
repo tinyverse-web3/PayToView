@@ -25,7 +25,7 @@ import { Icon } from '@iconify/react';
 import { ROUTE_PATH } from '@/router';
 import { useTranslation } from 'react-i18next';
 import { AssetsTokenItem } from '@/components/AssetsTokenItem';
-import { useAccountStore } from '@/store';
+import { useAccountStore, useListStore } from '@/store';
 import paytoview from '@/lib/paytoview';
 import LayoutThird from '@/layout/LayoutThird';
 import { TxLixt } from '@/components/TxLixt';
@@ -41,8 +41,8 @@ const MenuButton = ({ name, icon, onClick }: any) => {
 export default function Index() {
   useTitle('PayToView');
   const { t } = useTranslation();
-  const [income, setIncome] = useState(0);
   const nav = useNavigate();
+  const { income, setIncome } = useListStore((state) => state);
   const { accountInfo, balance } = useAccountStore((state) => state);
   const toEarn = () => {
     nav(ROUTE_PATH.EARN);
@@ -103,12 +103,14 @@ export default function Index() {
   };
   const toTx = () => {
     nav(ROUTE_PATH.TX);
-  }
+  };
   const getIncomeWithin24h = async () => {
     const result = await paytoview.getIncomeWithin24h();
     console.log('getIncomeWithin24h: result:', result);
     if (result.code === '000000') {
       setIncome(result.data || 0);
+    } else {
+      setIncome(0);
     }
   };
   const [searchTerm, setSearchTerm] = useState('');
