@@ -12,7 +12,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3
-	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231130054141-b8b7a54d057f
+	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231130091142-a814cb74067b
 	github.com/tinyverse-web3/tvbase v0.0.0-20231130081907-d30d67393d25
 	github.com/tonkeeper/tongo v1.4.1
 )
@@ -26,6 +26,7 @@ require (
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
 	github.com/tklauser/numcpus v0.6.1 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
+	golang.org/x/mobile v0.0.0-20230818142238-7088062f872d // indirect
 )
 
 require (
