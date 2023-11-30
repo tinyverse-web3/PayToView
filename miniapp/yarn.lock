@@ -1693,7 +1693,7 @@
     "@tonconnect/isomorphic-fetch" "^0.0.3"
     "@tonconnect/protocol" "^2.2.6"
 
-"@tonconnect/ui-react@^2.0.0-beta.4":
+"@tonconnect/ui-react@^2.0.0-beta.6":
   "integrity" "sha512-SgWYy42IWCI8jDq4yxG4kjBZsg1IQl411uWsAO3/bwoNfTjYAn9JoRPezDqtOb10w/3+EeVV5tmMnuzvo6u59w=="
   "resolved" "https://registry.npmjs.org/@tonconnect/ui-react/-/ui-react-2.0.0-beta.6.tgz"
   "version" "2.0.0-beta.6"
