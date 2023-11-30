@@ -61,11 +61,12 @@
       "title": "Detail"
     },
     "topup": {
-      "title": "Topup",
-      "placeholder": "Topup Tvs",
+      "title": "Topup Tvs",
+      "placeholder": "Topup fee",
       "btn_connect": "Connect Wallet",
       "btn_disconnect": "Disconnect",
-      "btn_topup": "Topup"
+      "btn_ton_topup": "Ton Wallet Topup",
+      "btn_eth_topup": "Eth Wallet Topup"
     },
     "index": {
       "title": "PayToView",

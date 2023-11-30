@@ -84,10 +84,17 @@ export default function Index() {
       },
     },
     {
-      name:  t('pages.topup.title'),
+      name: t('pages.topup.title'),
       icon: '/images/forwarded.png',
       onClick: () => {
         nav(ROUTE_PATH.TOPUP);
+      },
+    },
+    {
+      name: t('pages.topup.title'),
+      icon: '/images/forwarded.png',
+      onClick: () => {
+        nav(ROUTE_PATH.TOPUP_ETH);
       },
     },
   ];
@@ -104,7 +111,7 @@ export default function Index() {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   return (
     <LayoutThird title={t('pages.index.title')}>
       <div className='h-full overflow-hidden flex flex-col'>

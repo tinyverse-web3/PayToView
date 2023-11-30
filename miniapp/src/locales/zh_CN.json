@@ -61,7 +61,12 @@
       "title": "合约详情"
     },
     "topup": {
-      "title": "充值"
+      "title": "充值Tvs",
+      "placeholder": "充值",
+      "btn_connect": "联接钱包",
+      "btn_disconnect": "断开",
+      "btn_ton_topup": "Ton钱包充值",
+      "btn_eth_topup": "Eth钱包充值"
     },
     "index": {
       "title": "付费阅读",

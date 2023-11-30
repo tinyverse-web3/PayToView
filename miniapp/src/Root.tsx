@@ -21,7 +21,7 @@ export default function Root() {
   const getUserId = async () => {
     console.log(import.meta.env.MODE);
     if (import.meta.env.MODE === 'development') {
-      return 'sk57799sds';
+      return 'sk57799sds1';
     } else {
       const webAppUserId = webApp?.initDataUnsafe?.user?.id;
       return (webAppUserId || user).toString() + '8';

@@ -1,3 +1,6 @@
+import * as React from 'react'
+import axios from 'axios';
+import toast from 'react-hot-toast';
 import {
   SimpleGrid,
   IconButton,
@@ -20,6 +23,8 @@ import { ROUTE_PATH } from '@/router';
 import { useTranslation } from 'react-i18next';
 import { useListStore } from '@/store';
 import LayoutThird from '@/layout/LayoutThird';
+
+// ton
 import { TonConnectButton } from '@tonconnect/ui-react';
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
@@ -29,22 +34,52 @@ import { hideStr } from '@/lib/utils';
 import { beginCell } from '@ton/core';
 import { useAccountStore } from '@/store';
 
+// evm
+import { useDebounce } from 'use-debounce'
+import { usePrepareSendTransaction, useSendTransaction, useWaitForTransaction, useConnect as useEvmConnect, useDisconnect as useEvmDisconnect, useAccount as useEvmAccount } from 'wagmi'
+import { useWeb3ModalState } from '@web3modal/wagmi/react'
+import { parseEther, Hex, stringify } from 'viem'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { SendTransactionResult } from '@wagmi/core'
+
 export default function Index() {
   useTitle('PayToView');
   const { t } = useTranslation();
   const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
+
+  // bussiness
   const [fee, setFee] = useState(0);
-  const [translateStatus, setTranslateStatus] = useState(false);
-  const tonAddress = useTonAddress(true);
-  const rawTonAddress = useTonAddress(false);
+
   const { accountInfo, balance } = useAccountStore((state) => state);
-  const [tonConnectUi] = useTonConnectUI();
-  const commitText = useMemo(
+  const commentText = useMemo(
     () => 'tvswallet=' + accountInfo.address + '&app=payToView',
     [accountInfo.address],
   );
+
+  // ton
+  const [tonTranslateStatus, setTonTranslateStatus] = useState(false);
+  const tonAddress = useTonAddress(true);
+  const rawTonAddress = useTonAddress(false);
+  const [tonConnectUi] = useTonConnectUI();
   const shortAddress = useMemo(() => hideStr(tonAddress, 5), [tonAddress]);
+  const [tonTxReceipt, setTonTxReceipt] = useState<any>(null)
+  const [tonPayAmount, setTonPayAmount] = React.useState('0')
+
+  // evm
+  const [ethTranslateStatus, setEthTranslateStatus] = useState(false);
+  const { disconnect: evmDisconnect } = useEvmDisconnect()
+  const { address: evmWalletAddress, isConnecting: isEvmWalletConnecting, isDisconnected: isEvmWalletDisconnected } = useEvmAccount()
+  const { selectedNetworkId: selectedEvmNetworkId } = useWeb3ModalState()
+  const { open: OpenEvmWallet } = useWeb3Modal()
+  const [evmPayAmount, setEvmPayAmount] = React.useState('')
+  // const [evmDebouncedPayAmount] = useDebounce(evmPayAmount, 500)
+  // var  rcepipt: SendTransactionResult = {
+  //   hash : `0x${BigInt("0x" + Buffer.from(commentText).toString("hex")).toString(16)}` as Hex
+  // }
+  const [evmWaitTxReceipt, setEvmWaitTxReceipt] = useState<any>(null)
+
+
   const focusHandler = (e) => {
     console.log('focus');
     e.target.scrollIntoView({
@@ -53,58 +88,142 @@ export default function Index() {
       inline: 'center',
     });
   };
-  const transcationHandler = () => {
-    const officePayAddress =
-      import.meta.env.VITE_PAYTOVIEW_OFFICE_TON_WALLET_ID || '';
+  const tonTranscationHandler = async () => {
+    const officePayAddress = import.meta.env.VITE_OFFICE_TON_WALLET_ID || '';
+    let usdRatio = 0
+    try {
+      usdRatio = await getTonValueForUSD()
+      console.log("1ton to usd:", usdRatio)
+    } catch (error) {
+      console.error('getTonValueForUSD error: ', error);
+      toast.error("getTonValueForUSD error")
+      return
+    }
+    toast.success("ton to usd radio: 1ton:" + usdRatio + "usd")
+
     const payload = beginCell()
       .storeUint(0, 32)
-      .storeStringTail(commitText)
+      .storeStringTail(commentText)
       .endCell()
       .toBoc()
       .toString('base64');
+
+    let amount = fee / 1000 / usdRatio * 1000000000 // 1vs=1/1000usd; 1usd=1/2.41ton 1ton=1000000000tonwei
+    if (amount < 10) {
+      toast.error("fee cannot be less than 10")
+      return
+    }
+
+    setTonPayAmount(amount.toFixed(0))
     const txDetail = {
       validUntil: Math.floor(Date.now() / 1000) + 600, // unix epoch seconds
       messages: [
         {
           address: officePayAddress,
-          amount: (fee / 10000).toString(),
+          amount: tonPayAmount,
           payload: payload,
         },
       ],
     };
-    console.log('topup.tsx sendTransaction txDetail: ', txDetail);
+
+    console.log('ton sendTransaction txDetail: ', txDetail);
     tonConnectUi
       .sendTransaction(txDetail)
       .then((result) => {
-        console.log('topup.tsx sendTransaction result: ', result.boc);
-        setTranslateStatus(false);
+        console.log('ton sendTransaction result: ', result.boc);
+        setTonTxReceipt(result)
+        setTonTranslateStatus(false);
         tonConnectUi.disconnect();
       })
       .catch((error) => {
-        console.error('topup.tsx sendTransaction error: ', error);
-        setTranslateStatus(false);
+        console.error('ton sendTransaction error: ', error);
+        setTonTranslateStatus(false);
         tonConnectUi.disconnect();
-        
+
       });
   };
-  const topupHandler = () => {
+  const topupTonHandler = () => {
     if (tonConnectUi.connected) {
-      transcationHandler();
+      tonTranscationHandler();
     } else {
-      setTranslateStatus(true);
+      setTonTranslateStatus(true);
       tonConnectUi.connectWallet();
     }
   };
-  useEffect(() => {
-    if (translateStatus && tonConnectUi.connected) {
-      transcationHandler();
+
+  const topupEthHandler = () => {
+    if (isEvmWalletDisconnected && !isEvmWalletConnecting) {
+      ethTranscationHandler();
+    } else {
+      setTonTranslateStatus(true);
+      tonConnectUi.connectWallet();
     }
-  }, [tonConnectUi.connected, translateStatus]);
-  const disconnect = () => {
-    tonConnectUi.disconnect();
   };
-  // console.log(tonAddress);
-  // console.log(tonConnectUi);
+
+  const ethTranscationHandler = async () => {
+    let usdRatio = 0
+    try {
+      usdRatio = await getEthValueForUSD()
+      console.log("1eth to Usd: ", usdRatio)
+    } catch (error) {
+      console.error('getEthValueForUSD error: ', error);
+      toast.error("getEthValueForUSD error")
+      return
+    }
+    toast.success("ton to usd radio: 1ton:" + usdRatio + "usd")
+
+    let amount = fee / 1000 / usdRatio * 1000000000 // 1vs=1/1000usd; 1usd=1/2057.23eth 1eth=10000000000ethwei
+    if (amount < 10) {
+      toast.error("fee cannot be less than 10")
+      return
+    }
+    setEvmPayAmount(amount.toString())
+
+    await OpenEvmWallet()
+
+    if (isEvmWalletDisconnected || isEvmWalletConnecting) {
+      toast.error("Please topup again for connect wallet")
+      evmDisconnect()
+      return
+    }
+    const evmTxData = `0x${BigInt("0x" + Buffer.from(commentText).toString("hex")).toString(16)}` as Hex
+    const { config } = usePrepareSendTransaction({
+      to: import.meta.env.VITE_OFFICE_EVM_WALLET_ID,
+      value: parseEther(evmPayAmount),
+      data: evmTxData,
+      enabled: Boolean(import.meta.env.VITE_OFFICE_EVM_WALLET_ID && evmPayAmount != ""),
+      // onError: () => void evmDisconnect(),
+      // onSuccess: () => void evmDisconnect(),
+    })
+
+    const { data: evmSendTxData, error, isLoading: isEvmSendTxLoading, isError: isEvmSendTxError, sendTransaction } =
+      useSendTransaction(config)
+    const { data: evmWaitTxData, isLoading: isEvmWaitTxPending, isSuccess: isEvmWaitTxSuccess } =
+      useWaitForTransaction({
+        hash: evmSendTxData?.hash,
+        // onError: () => void evmDisconnect(),
+        // onSuccess: () => void evmDisconnect(),
+      })
+    setEvmWaitTxReceipt(evmWaitTxData)
+
+    evmDisconnect()
+    await open()
+    sendTransaction?.()
+  };
+
+  useEffect(() => {
+    if (tonTranslateStatus && tonConnectUi.connected) {
+      tonTranscationHandler();
+    }
+    if (ethTranslateStatus && (!isEvmWalletDisconnected && !isEvmWalletConnecting)) {
+      ethTranscationHandler();
+    }
+  }, [tonConnectUi.connected, tonTranslateStatus, isEvmWalletDisconnected, isEvmWalletConnecting, ethTranslateStatus]);
+  const walletDisconnect = () => {
+    tonConnectUi.disconnect();
+    evmDisconnect()
+  };
+
   return (
     <LayoutThird title={t('pages.topup.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full overflow-hidden p-4'>
@@ -125,7 +244,7 @@ export default function Index() {
 
           <Button
             colorScheme={tonConnectUi.connected ? 'blue' : 'gray'}
-            onClick={disconnect}
+            onClick={walletDisconnect}
             isDisabled={!tonConnectUi.connected}>
             {t('pages.topup.btn_disconnect')}
           </Button>
@@ -161,11 +280,69 @@ export default function Index() {
             className='w-full'
             isDisabled={fee <= 0}
             colorScheme='blue'
-            onClick={topupHandler}>
-            {t('pages.topup.btn_topup')}
+            onClick={topupTonHandler}>
+            {t('pages.topup.btn_ton_topup')}
           </Button>
+          <div>
+            {tonAddress != "" && (
+              <React.Fragment>
+                <div> env: {import.meta.env.MODE} </div>
+                <div> user rawTonAddress: {rawTonAddress} </div>
+                <div> user friendAddress: {toUserFriendlyAddress(rawTonAddress, import.meta.env.MODE === "development")} </div>
+                <div> topay rawTonAddress: {import.meta.env.VITE_OFFICE_TON_WALLET_ID} </div>
+                <div> topay friendAddress: {toUserFriendlyAddress(import.meta.env.VITE_OFFICE_TON_WALLET_ID, import.meta.env.MODE === "development")} </div>
+              </React.Fragment>
+            )}
+            <div>
+              {tonTxReceipt != null && (
+                <React.Fragment>
+                  <div>Transaction amount: {tonPayAmount} tonWei</div>
+                  <div>Transaction receipt: {tonTxReceipt && stringify(tonTxReceipt, null, 2)}</div>
+                  <div>
+                    <a href={`https://testnet.tonviewer.com/${toUserFriendlyAddress(import.meta.env.VITE_OFFICE_TON_WALLET_ID, import.meta.env.MODE === "development")}`}>Transaction View</a>
+                  </div>
+                </React.Fragment>
+              )}
+            </div>
+          </div>
+          <Button
+            className='w-full'
+            isDisabled={fee <= 0}
+            colorScheme='blue'
+            onClick={topupEthHandler}>
+            {t('pages.topup.btn_eth_topup')}
+          </Button>
+          <div>
+            sent {evmPayAmount} ether to {import.meta.env.VITE_OFFICE_EVM_WALLET_ID}
+            <div>tx Hash: {evmWaitTxReceipt?.hash}</div>
+            <div>
+              tx Receipt: <pre>{evmWaitTxReceipt && stringify(evmWaitTxReceipt, null, 2)}</pre>
+              {String(selectedEvmNetworkId) === "11155111" && (
+                <div>
+                  <a href={`https://sepolia.etherscan.io/tx/${evmWaitTxReceipt?.hash}`}>sepolia Etherscan</a>
+                </div>
+              )}
+              {String(selectedEvmNetworkId) === "1" && (
+                <div>
+                  <a href={`https://etherscan.io/tx/${evmWaitTxReceipt?.hash}`}>main Etherscan</a>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </LayoutThird>
+    </LayoutThird >
   );
 }
+
+export async function getTonValueForUSD(): Promise<any> {
+  const response = await axios.get('https://tonapi.io/v2/rates?tokens=ton&currencies=ton%2Cusd%2Crub');
+  const prices = response.data.rates.TON.prices;
+  return prices.USD;
+};
+
+export async function getEthValueForUSD(): Promise<any> {
+  const response = await axios.get('https://api.coinbase.com/v2/prices/ETH-USD/spot');
+  const data = response.data.data;
+  return data.amount;
+};

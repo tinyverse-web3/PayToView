@@ -12,10 +12,12 @@ import {
   usePrepareSendTransaction,
   useSendTransaction,
   useWaitForTransaction,
+  useDisconnect,
+  useConnect,
 } from 'wagmi'
 import { useWeb3ModalState } from '@web3modal/wagmi/react'
 import { parseEther, Hex, stringify } from 'viem'
-
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 export default function Index() {
   useTitle('PayToView');
@@ -27,9 +29,11 @@ export default function Index() {
   const [debouncedPayAmount] = useDebounce(payAmount, 500)
 
   const { selectedNetworkId } = useWeb3ModalState()
-
-  var comment = "tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4&app=payToView";
-  const txDataHex = `0x${BigInt("0x" + Buffer.from(comment).toString("hex")).toString(16)}` as Hex
+  const { open } = useWeb3Modal()
+  var commitText = "tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4&app=payToView";
+  const txDataHex = `0x${BigInt("0x" + Buffer.from(commitText).toString("hex")).toString(16)}` as Hex
+  const { disconnect } = useDisconnect()
+  const { connect } = useConnect()
 
   const { config } = usePrepareSendTransaction({
     to: debouncedToWalletAddress,
@@ -65,7 +69,10 @@ export default function Index() {
               placeholder="0.05"
               value={payAmount}
             />
-
+            <button onClick={() => open()}>open wallet</button>
+            <div>    </div>
+            <button onClick={() => connect()}>connect wallet</button>
+            <div>    </div>
             <button disabled={!sendTransaction} type="submit">
               Send
             </button>
@@ -76,6 +83,7 @@ export default function Index() {
                 Successfully sent {payAmount} ether to {toWalletAddress}
                 <div>Transaction Hash: {data?.hash}</div>
                 <div>
+
                   Transaction Receipt: <pre>{stringify(receipt, null, 2)}</pre>
                   {String(selectedNetworkId) === "11155111" && (
                     <div>
