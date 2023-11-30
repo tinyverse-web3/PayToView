@@ -130,7 +130,7 @@ export default function Index() {
       messages: [
         {
           address: officePayAddress,
-          amount: tonPayAmount,
+          amount: amount.toFixed(0),
           payload: payload,
         },
       ],
@@ -189,7 +189,7 @@ export default function Index() {
       toast.error('fee cannot be less than 10');
       return;
     }
-    setEvmPayAmount(amount.toString());
+    setEvmPayAmount(amount.toFixed(0));
 
     if (isEvmWalletDisconnected || isEvmWalletConnecting) {
       toast.error('Please topup again for connect wallet');
@@ -201,10 +201,10 @@ export default function Index() {
     ).toString(16)}` as Hex;
     const { config } = usePrepareSendTransaction({
       to: import.meta.env.VITE_OFFICE_EVM_WALLET_ID,
-      value: parseEther(evmPayAmount),
+      value: parseEther(amount.toFixed(0)),
       data: evmTxData,
       enabled: Boolean(
-        import.meta.env.VITE_OFFICE_EVM_WALLET_ID && evmPayAmount != '',
+        import.meta.env.VITE_OFFICE_EVM_WALLET_ID && amount.toString() != '',
       ),
       // onError: () => void evmDisconnect(),
       // onSuccess: () => void evmDisconnect(),
