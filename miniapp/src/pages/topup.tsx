@@ -28,7 +28,7 @@ import LayoutThird from '@/layout/LayoutThird';
 import { TonConnectButton } from '@tonconnect/ui-react';
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
-import { BOC as BOC1, Builder } from 'ton3-core';
+import { BOC, Builder } from 'ton3-core';
 import { Address } from 'ton3-core';
 import { hideStr } from '@/lib/utils';
 import { beginCell } from '@ton/core';
