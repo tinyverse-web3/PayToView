@@ -13,7 +13,7 @@ require (
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3
 	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231130054141-b8b7a54d057f
-	github.com/tinyverse-web3/tvbase v0.0.0-20231127140909-2938c8bf2b08
+	github.com/tinyverse-web3/tvbase v0.0.0-20231130081907-d30d67393d25
 	github.com/tonkeeper/tongo v1.4.1
 )
 

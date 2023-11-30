@@ -46,11 +46,15 @@ func parseCmdParams() (string, string, string) {
 			logger.Fatalf("GetFullPath error: %v", err)
 		}
 		_, err = os.Stat(dataPath)
-		if os.IsNotExist(err) {
-			err := os.MkdirAll(dataPath, 0755)
+		if !os.IsNotExist(err) {
+			err := os.RemoveAll(dataPath)
 			if err != nil {
-				logger.Fatalf("MkdirAll error: %v", err)
+				logger.Fatalf("RemoveAll error: %v", err)
 			}
+		}
+		err = os.MkdirAll(dataPath, 0755)
+		if err != nil {
+			logger.Fatalf("MkdirAll error: %v", err)
 		}
 		cfg := NewDefaultAppConfig()
 		file, _ := json.MarshalIndent(cfg, "", " ")
