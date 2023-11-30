@@ -2,11 +2,12 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@chakra-ui/react';
 import { useWebApp, useCloudStorage } from '@vkruglikov/react-telegram-web-app';
-
 import TvsWasm from '@/lib/tvsWasm';
 import paytoview from '@/lib/paytoview';
 import dauth from '@/lib/dauth';
+import { generatePassword } from '@/lib/utils';
 import { useAccountStore } from './store';
+
 export default function Root() {
   const [loading, setLoading] = useState(false);
   const [createStatus, setCreateStatus] = useState(false);
@@ -19,9 +20,15 @@ export default function Root() {
   const webApp = useWebApp();
   const cloudstorage = useCloudStorage();
   const getUserId = async () => {
-    console.log(import.meta.env.MODE);
     if (import.meta.env.MODE === 'development') {
-      return 'sk57799sds1';
+      const localId = localStorage.getItem('localId');
+      if (localId) {
+        return localId;
+      } else {
+        const newId = generatePassword();
+        localStorage.setItem('localId', newId);
+        return newId;
+      }
     } else {
       const webAppUserId = webApp?.initDataUnsafe?.user?.id;
       return (webAppUserId || user).toString() + '8';

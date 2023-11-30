@@ -85,7 +85,7 @@ export default function Index() {
     },
     {
       name: t('pages.topup.title'),
-      icon: '/images/forwarded.png',
+      icon: '/images/topup.png',
       onClick: () => {
         nav(ROUTE_PATH.TOPUP);
       },
@@ -113,7 +113,7 @@ export default function Index() {
 
   useEffect(() => { }, []);
   return (
-    <LayoutThird title={t('pages.index.title')}>
+    <LayoutThird title={t('pages.index.title')} showBack={false}>
       <div className='h-full overflow-hidden flex flex-col'>
         <div className='overflow-y-auto flex-1'>
           <div className='p-4'>
@@ -137,12 +137,8 @@ export default function Index() {
               </div>
             </div> */}
             <div className='text-center mb-4'>
-              <div className='mb-2 text-base'>
-                TVS
-              </div>
-              <div className='font-bold text-xl'>
-                {balance} TVS
-              </div>
+              <div className='mb-2 text-base'>TVS</div>
+              <div className='font-bold text-xl'>{balance} TVS</div>
             </div>
             <div className=' bg-gray-100 p-4 mb-4 rounded-2xl'>
               <SimpleGrid columns={1} columnGap='20px'>
