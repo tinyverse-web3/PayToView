@@ -23,6 +23,7 @@
     "@web3modal/wagmi": "3.3.2",
     "axios": "^1.6.0",
     "buffer": "^6.0.3",
+    "date-fns": "^2.30.0",
     "framer-motion": "^10.16.4",
     "i18next": "^23.5.1",
     "i18next-browser-languagedetector": "^7.1.0",

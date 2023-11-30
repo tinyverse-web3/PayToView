@@ -14,11 +14,15 @@ export interface ListItemProps {
   Ritio: any;
 }
 interface ListState {
+  txList: any[];
+  incomeList: any[];
   publishedList: ListItemProps[];
   paidList: ListItemProps[];
   forwardList: ListItemProps[];
   setPublishedList: (l: ListItemProps[]) => void;
   setPaidList: (l: ListItemProps[]) => void;
+  setTxList: (l: any[]) => void;
+  setIncomeList: (l: any[]) => void;
   setForwardList: (l: ListItemProps[]) => void;
   add: (d: any) => void;
   reset: () => void;
@@ -28,6 +32,8 @@ export const useListStore = create<ListState>()(
   devtools(
     persist(
       (set) => ({
+        txList: [],
+        incomeList: [],
         publishedList: [],
         paidList: [],
         forwardList: [],
@@ -46,6 +52,16 @@ export const useListStore = create<ListState>()(
             forwardList: list,
           });
         },
+        setTxList: (list) => {
+          set({
+            txList: list,
+          });
+        },
+        setIncomeList: (list) => {
+          set({
+            incomeList: list,
+          });
+        },
         add: (d: any) => {
           set((state) => ({
             publishedList: [...state.publishedList, d],
@@ -53,6 +69,7 @@ export const useListStore = create<ListState>()(
         },
         reset: () => {
           set({
+            txList: [],
             publishedList: [],
             paidList: [],
             forwardList: [],

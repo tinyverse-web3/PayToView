@@ -9,6 +9,7 @@
     "forward": "Forward",
     "release": "Publish",
     "change": "Modify",
+    "gas": "Gas",
     "upload": {
       "title": "Upload",
       "description": "Upload a file to IPFS"
@@ -60,6 +61,9 @@
     "detail": {
       "title": "Detail"
     },
+    "tx_list": {
+      "title": "Transaction Record"
+    },
     "topup": {
       "title": "Topup Tvs",
       "placeholder": "Topup fee",
@@ -71,12 +75,14 @@
     "index": {
       "title": "PayToView",
       "address": "Wallet Address",
-      "transaction_record": "transaction record",
+      "transaction_record": "Transaction Record",
       "more": "more",
-      "profit": "24小时收益",
+      "profit": "24 Hour Earnings",
       "tab_1": "Published",
       "tab_2": "Paid",
-      "tab_3": "Forwarded"
+      "tab_3": "Forwarded",
+      "tx_receiver": "Receiver",
+      "tx_sender": "Sender"
     }
   }
 }

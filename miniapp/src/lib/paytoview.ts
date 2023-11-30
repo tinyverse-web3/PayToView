@@ -32,17 +32,28 @@ class PayToView {
       let result;
       if (data) {
         result = await funHandler(JSON.stringify(data));
+        console.log(name + '  result: ');
+        console.log(result);
         if (json) {
-          result = JSON.parse(result);
+          try {
+            result = JSON.parse(result);
+          } catch (error) {
+            console.error(error);
+          }
         }
       } else {
         result = await funHandler();
+        console.log(name + '  result: ');
+        console.log(result);
         if (json) {
-          result = JSON.parse(result);
+          try {
+            result = JSON.parse(result);
+          } catch (error) {
+            console.error(error);
+          }
         }
       }
-      console.log(name + '  result: ');
-      console.log(result);
+
       return result;
     } else {
       const result = await this.dauthRequest.invoke({
@@ -186,6 +197,24 @@ class PayToView {
     });
     return data;
   }
+  async getIncomeWithin24h() {
+    const data = await this.request({
+      name: 'getIncomeWithin24h',
+    });
+    return data;
+  }
+  async getTXDetails() {
+    const data = await this.request({
+      name: 'getTXDetails',
+    });
+    return data;
+  }
+  async getIncomeList() {
+    const data = await this.request({
+      name: 'getIncomeList',
+    });
+    return data;
+  }
   async addFileToIPFS(param: {
     file: File;
     fileName: string;
@@ -195,7 +224,9 @@ class PayToView {
     if (!!window.createAccount) {
       const content = await file2array(param.file);
       console.log(content);
-      console.log(JSON.stringify({ fileName: param.fileName, password: param.password }));
+      console.log(
+        JSON.stringify({ fileName: param.fileName, password: param.password }),
+      );
       const result = await window.addFileToIPFS(
         JSON.stringify({ fileName: param.fileName, password: param.password }),
         content,

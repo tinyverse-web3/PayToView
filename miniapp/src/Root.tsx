@@ -77,6 +77,7 @@ export default function Root() {
     }
     const tvsWasm = new TvsWasm();
     await tvsWasm.initWasm();
+    console.log('initWasm');
     const result = await paytoview.createAccount({
       userID: userId.toString(),
       sssData: tSssData,
@@ -98,10 +99,10 @@ export default function Root() {
     }
   };
   const check = async () => {
-    if (!window.Telegram) {
-      setError(true);
-      return;
-    }
+    // if (!window.Telegram) {
+    //   setError(true);
+    //   return;
+    // }
     setLoading(true);
     await loadTg();
     setLoading(false);
