@@ -40,6 +40,7 @@ export const Upload = ({ onChange }: UploadProps) => {
 
         <input
           type='file'
+          accept='image/*'
           onChange={imageChange}
           className='invisible w-0 h-0'
         />

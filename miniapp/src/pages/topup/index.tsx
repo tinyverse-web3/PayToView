@@ -13,6 +13,7 @@ import {
   FormControl,
   Button,
 } from '@chakra-ui/react';
+import { EthTopupButton } from './components/EthTopupButton';
 import { useEffect, useMemo, useCallback, useState } from 'react';
 import { ListItem } from '@/components/ListItem';
 import { Empty } from '@/components/Empty';
@@ -160,89 +161,9 @@ export default function Index() {
     }
   };
 
-  const topupEthHandler = () => {
-    console.log(isEvmWalletDisconnected);
-    if (!isEvmWalletDisconnected) {
-      ethTranscationHandler();
-    } else {
-      setTonTranslateStatus(true);
-      OpenEvmWallet();
-    }
-  };
-  useEffect(() => {
-    console.log(isEvmWalletDisconnected);
-  }, [isEvmWalletDisconnected]);
-  const ethTranscationHandler = async () => {
-    let usdRatio = 0;
-    try {
-      usdRatio = await getEthValueForUSD();
-      console.log('1eth to Usd: ', usdRatio);
-    } catch (error) {
-      console.error('getEthValueForUSD error: ', error);
-      toast.error('getEthValueForUSD error');
-      return;
-    }
-    toast.success('ton to usd radio: 1ton:' + usdRatio + 'usd');
-
-    const amount = (fee / 1000 / usdRatio) * 1000000000; // 1vs=1/1000usd; 1usd=1/2057.23eth 1eth=10000000000ethwei
-    if (amount < 10) {
-      toast.error('fee cannot be less than 10');
-      return;
-    }
-    setEvmPayAmount(amount.toFixed(0));
-
-    if (isEvmWalletDisconnected || isEvmWalletConnecting) {
-      toast.error('Please topup again for connect wallet');
-      evmDisconnect();
-      return;
-    }
-    const evmTxData = `0x${BigInt(
-      '0x' + Buffer.from(commentText).toString('hex'),
-    ).toString(16)}` as Hex;
-    const { config } = usePrepareSendTransaction({
-      to: import.meta.env.VITE_OFFICE_EVM_WALLET_ID,
-      value: parseEther(amount.toFixed(0)),
-      data: evmTxData,
-      enabled: Boolean(
-        import.meta.env.VITE_OFFICE_EVM_WALLET_ID && amount.toString() != '',
-      ),
-      // onError: () => void evmDisconnect(),
-      // onSuccess: () => void evmDisconnect(),
-    });
-
-    const {
-      data: evmSendTxData,
-      error,
-      isLoading: isEvmSendTxLoading,
-      isError: isEvmSendTxError,
-      sendTransaction,
-    } = useSendTransaction(config);
-    const {
-      data: evmWaitTxData,
-      isLoading: isEvmWaitTxPending,
-      isSuccess: isEvmWaitTxSuccess,
-    } = useWaitForTransaction({
-      hash: evmSendTxData?.hash,
-      // onError: () => void evmDisconnect(),
-      // onSuccess: () => void evmDisconnect(),
-    });
-    setEvmWaitTxReceipt(evmWaitTxData);
-
-    evmDisconnect();
-    await open();
-    sendTransaction?.();
-  };
-
   useEffect(() => {
     if (tonTranslateStatus && tonConnectUi.connected) {
       tonTranscationHandler();
-    }
-    if (
-      ethTranslateStatus &&
-      !isEvmWalletDisconnected &&
-      !isEvmWalletConnecting
-    ) {
-      ethTranscationHandler();
     }
   }, [
     tonConnectUi.connected,
@@ -253,7 +174,6 @@ export default function Index() {
   ]);
   const walletDisconnect = () => {
     tonConnectUi.disconnect();
-    evmDisconnect();
   };
 
   return (
@@ -315,7 +235,7 @@ export default function Index() {
             onClick={topupTonHandler}>
             {t('pages.topup.btn_ton_topup')}
           </Button>
-
+          <EthTopupButton fee={fee} />
           {tonAddress != '' && (
             <React.Fragment>
               <div> env: {import.meta.env.MODE} </div>
@@ -330,8 +250,9 @@ export default function Index() {
               </div>
               <div>
                 {' '}
-                topay rawTonAddress:{' '}
-                {import.meta.env.VITE_OFFICE_TON_WALLET_ID}{' '}
+                topay rawTonAddress: {
+                  import.meta.env.VITE_OFFICE_TON_WALLET_ID
+                }{' '}
               </div>
               <div>
                 {' '}
@@ -346,9 +267,7 @@ export default function Index() {
           {tonTxReceipt != null && (
             <React.Fragment>
               <div>Transaction amount: {tonPayAmount} tonWei</div>
-              <div>
-                Transaction receipt:{stringify(tonTxReceipt, null, 2)}
-              </div>
+              <div>Transaction receipt:{stringify(tonTxReceipt, null, 2)}</div>
               <div>
                 <a
                   href={`https://testnet.tonviewer.com/${toUserFriendlyAddress(
@@ -361,19 +280,13 @@ export default function Index() {
             </React.Fragment>
           )}
 
-          <Button
-            className='w-full'
-            isDisabled={fee <= 0}
-            colorScheme='blue'
-            onClick={topupEthHandler}>
-            {t('pages.topup.btn_eth_topup')}
-          </Button>
-
           {tonAddress != '' && (
             <React.Fragment>
               <div>env: {import.meta.env.MODE} </div>
               <div>user address: {evmWalletAddress}</div>
-              <div>topay address: {import.meta.env.VITE_OFFICE_EVM_WALLET_ID} </div>
+              <div>
+                topay address: {import.meta.env.VITE_OFFICE_EVM_WALLET_ID}{' '}
+              </div>
             </React.Fragment>
           )}
 
@@ -381,7 +294,9 @@ export default function Index() {
             <React.Fragment>
               <div>Transaction amount: {evmPayAmount} tonWei</div>
               <div>Transaction Hash: {evmWaitTxReceipt?.hash}</div>
-              <div>Transaction receipt: {stringify(evmWaitTxReceipt, null, 2)}</div>
+              <div>
+                Transaction receipt: {stringify(evmWaitTxReceipt, null, 2)}
+              </div>
               {String(selectedEvmNetworkId) === '11155111' && (
                 <div>
                   <a
@@ -411,12 +326,4 @@ export async function getTonValueForUSD(): Promise<any> {
   );
   const prices = response.data.rates.TON.prices;
   return prices.USD;
-}
-
-export async function getEthValueForUSD(): Promise<any> {
-  const response = await axios.get(
-    'https://api.coinbase.com/v2/prices/ETH-USD/spot',
-  );
-  const data = response.data.data;
-  return data.amount;
 }
