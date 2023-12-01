@@ -60,7 +60,7 @@ export default function Index() {
 
   const { accountInfo, balance } = useAccountStore((state) => state);
   const commentText = useMemo(
-    () => 'tvswallet=' + accountInfo.address + '&app=payToView',
+    () => 'tvswallet=' + accountInfo.address + '&app=' + import.meta.env.VITE_PAY_APP_NAME,
     [accountInfo.address],
   );
 

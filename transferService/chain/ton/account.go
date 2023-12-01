@@ -122,11 +122,11 @@ func (s *Account) GetContractSeqno(ctx context.Context) (uint32, error) {
 	return ret, nil
 }
 
-func (s *Account) GetLastTxList(ctx context.Context, maxRetries int) ([]ton.Transaction, error) {
+func (s *Account) TryGetAllTxList(ctx context.Context, limit, maxRetries int) ([]ton.Transaction, error) {
 	retryCount := 0
 
 	for retryCount < maxRetries {
-		transactions, err := s.cli.GetLastTransactions(ctx, *s.accountId, MaxTransactionCount)
+		transactions, err := s.GetTxAllList(ctx, limit)
 		if err == nil {
 			if err := s.logTx(transactions); err != nil {
 				return transactions, err
@@ -138,6 +138,44 @@ func (s *Account) GetLastTxList(ctx context.Context, maxRetries int) ([]ton.Tran
 		logger.Errorf("Account.GetLastTxList: cli.GetLastTransactions error: %v. Retry attempt: %d", err, retryCount)
 	}
 	return nil, fmt.Errorf("Account.GetLastTxList: Max retries reached, failed after %d attempts", maxRetries)
+}
+
+func (s *Account) GetTxAllList(ctx context.Context, limit int) ([]ton.Transaction, error) {
+	state, err := s.cli.GetAccountState(ctx, *s.accountId)
+	if err != nil {
+		return nil, err
+	}
+	var res []ton.Transaction
+	lastLt, lastHash := state.LastTransLt, state.LastTransHash
+	for {
+		if lastLt == 0 {
+			break
+		}
+		transactionCount := MaxTransactionCount
+		if limit-len(res) < transactionCount {
+			transactionCount = limit - len(res)
+		}
+		txs, err := s.cli.GetTransactions(ctx, uint32(transactionCount), *s.accountId, lastLt, ton.Bits256(lastHash))
+		if err != nil {
+			if e, ok := err.(liteclient.LiteServerErrorC); ok && int32(e.Code) == -400 { // liteserver can store not full history. in that case it return error -400 for old transactions
+				logger.Warnf("Account.GetLastTxAllList: cli.GetTransactions error :liteclient.LiteServerErrorCerror err.Code == -400, err: %v", err)
+				break
+			} else {
+				logger.Errorf("Account.GetLastTxAllList: cli.GetTransactions other(no code == -400) error: %v", err)
+				continue // return nil, err
+			}
+		}
+		if len(txs) == 0 {
+			break
+		}
+		res = append(res, txs...)
+		if len(res) >= limit {
+			res = res[:limit]
+			break
+		}
+		lastLt, lastHash = res[len(res)-1].PrevTransLt, res[len(res)-1].PrevTransHash
+	}
+	return res, nil
 }
 
 func (s *Account) GetLastTxListUtil(ctx context.Context, lastTxLt uint64, lastTxHash tlb.Bits256, utilLt uint64, utilhash *tlb.Bits256) ([]ton.Transaction, error) {
@@ -161,10 +199,12 @@ func (s *Account) GetLastTxListUtil(ctx context.Context, lastTxLt uint64, lastTx
 		txs, err := getTransactions(ctx, lt, ton.Bits256(hash))
 		if err != nil {
 			if e, ok := err.(liteclient.LiteServerErrorC); ok && int32(e.Code) == -400 { // liteserver can store not full history. in that case it return error -400 for old transactions
+				logger.Warnf("Account.GetLastTxListUtil: cli.GetTransactions error :liteclient.LiteServerErrorCerror err.Code == -400, err: %v", err)
 				break
+			} else {
+				logger.Errorf("Account.GetLastTxListUtil: cli.GetTransactions other(no code == -400) error: %v", err)
+				continue // return nil, err
 			}
-			logger.Errorf("Account.GetLastTxListUtil: getTransactions error: %v", err)
-			return nil, err
 		}
 		txsLen := len(txs)
 		if txsLen == 0 {

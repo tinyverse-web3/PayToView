@@ -30,7 +30,8 @@ export default function Index() {
 
   const { selectedNetworkId } = useWeb3ModalState()
   const { open } = useWeb3Modal()
-  var commitText = "tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4&app=payToView";
+
+  var commitText = "tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4&app=" + import.meta.env.VITE_PAY_APP_NAME;
   const txDataHex = `0x${BigInt("0x" + Buffer.from(commitText).toString("hex")).toString(16)}` as Hex
   const { disconnect } = useDisconnect()
   const { connect } = useConnect()

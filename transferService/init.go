@@ -98,7 +98,7 @@ func initTonTransferService(ctx context.Context, rootPath string, cfg *TonConfig
 
 	service.SetLoadTxsInterval(cfg.LoadTxsInterval)
 	service.SetCheckFailTxsInterval(cfg.CheckFailTxsInterval)
-	err = service.Start(ctx)
+	err = service.Start(ctx, cfg.ForceCreation)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func initEthTransferService(ctx context.Context, rootPath string, cfg *EthConfig
 
 	service.SetLoadTxsInterval(cfg.LoadTxsInterval)
 	service.SetCheckFailTxsInterval(cfg.CheckFailTxsInterval)
-	err = service.Start(ctx)
+	err = service.Start(ctx, cfg.ForceCreation)
 	if err != nil {
 		return nil, err
 	}

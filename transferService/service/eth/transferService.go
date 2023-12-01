@@ -178,7 +178,7 @@ func (s *TransferService) getInitInfoKey() (string, error) {
 	return GetInitInfoKey(accountPk), nil
 }
 
-func (s *TransferService) Start(ctx context.Context) error {
+func (s *TransferService) Start(ctx context.Context, forceCreation bool) error {
 	numCPU := runtime.NumCPU()
 	s.txsChan = make(chan *TransferRecord, numCPU*4)
 
@@ -187,7 +187,7 @@ func (s *TransferService) Start(ctx context.Context) error {
 		return err
 	}
 
-	err = s.loadTxsFromBLockChain(ctx)
+	err = s.loadTxsFromBLockChain(ctx, forceCreation)
 	if err != nil {
 		return err
 	}
@@ -424,8 +424,8 @@ func (s *TransferService) validTx(tx ethChain.Tx) bool {
 	return true
 }
 
-func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
-	if s.isCreation {
+func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreation bool) error {
+	if s.isCreation || forceCreation {
 		txs, err := s.accountInst.GetTxList(ctx, "0", ethChain.MaxTxCount, "asc")
 		if err != nil {
 			return err
