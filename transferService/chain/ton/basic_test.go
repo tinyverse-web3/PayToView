@@ -38,7 +38,7 @@ func TestAccount(t *testing.T) {
 		logger.Fatalf("tonAccount.SetNet error: %v", err)
 	}
 
-	err = tonAccount.SetAccountID("EQB-Hz6V1mK_fN_8O5MDedrmqvhP-vLsIRFUi77HnI85O5pn")
+	err = tonAccount.SetAccountID("0:5bed80a229f00d8bf8d48579a117cfe207497d7be25b2f0e240183855681fc66")
 	if err != nil {
 		logger.Fatalf("tonAccount.SetAccountID error: %v", err)
 	}
@@ -56,6 +56,14 @@ func TestAccount(t *testing.T) {
 	)
 
 	ctx := context.Background()
+	state, err := tonAccount.GetState(ctx)
+	if err != nil {
+		logger.Fatalf("tonAccount.GetState error: %v", err)
+	}
+
+	lastTransHashStr, _ := state.LastTransHash.MarshalJSON()
+	logger.Infof("state:\nstate.LastTransHash:%+v\nstate.LastTransLt:%+v\nstate.Account.Status:%+v",
+		string(lastTransHashStr), state.LastTransLt, state.Account.Status())
 
 	status, err := tonAccount.GetStatus(ctx)
 	if err != nil {
@@ -85,25 +93,30 @@ func TestAccount(t *testing.T) {
 	}
 	logger.Infof("Seqno: %v\n", seqno)
 	maxRetries := 10
-	lastTransactions, err := tonAccount.GetLastTxList(ctx, maxRetries)
+	transactions, err := tonAccount.GetLastTxList(ctx, maxRetries)
 	if err != nil {
 		logger.Fatalf("tonAccount.GetLastTransactions error: %v", err)
 	}
-	logger.Infof("Transactions len: %v", len(lastTransactions))
-
-	transactions, err := tonAccount.GetLastTxList(ctx, maxRetries)
-	if err != nil {
-		logger.Fatalf("tonAccount.GetAllTransactions error: %v", err)
-	}
 	logger.Infof("Transactions len: %v", len(transactions))
 
-	coreTx, err := core.ConvertTransaction(0, lastTransactions[2])
-	if err != nil {
-		logger.Fatalf("ConvertTransaction error: %v", err)
+	for i := 0; i < len(transactions); i++ {
+		transaction := transactions[i]
+		// logger.Infof("index:%d,Transaction: %v", i, transaction)
+		coreTx, err := core.ConvertTransaction(0, transaction)
+		if err != nil {
+			logger.Errorf("ConvertTransaction error: %v", err)
+			continue
+		}
+
+		if coreTx.InMsg.DecodedBody == nil {
+			// logger.Errorf("index:%d,  DecodedBody is nil, coreTx: %+v", i, coreTx)
+			continue
+		}
+		payload, err := GetTransactionPayload(coreTx.InMsg.DecodedBody)
+		if err != nil {
+			logger.Errorf("GetTransactionPayload error: %v", err)
+			continue
+		}
+		logger.Infof("payload: index:%v, payload:%v", i, payload)
 	}
-	payload, err := GetTransactionPayload(coreTx.InMsg.DecodedBody)
-	if err != nil {
-		logger.Fatalf("GetTransactionPayload error: %v", err)
-	}
-	logger.Infof("payload: %v", payload)
 }
