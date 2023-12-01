@@ -41,7 +41,7 @@ export default function Index() {
   }, []);
   return (
     <LayoutThird title={t('pages.forwarded.title')} path={ROUTE_PATH.INDEX}>
-      <div className='h-full overflow-hidden'>
+      <div className='h-full'>
         {/* <div>forwarded.tsx</div> */}
         <BackButton onClick={() => nav(-1)} />
         <div className='h-full overflow-y-auto'>
