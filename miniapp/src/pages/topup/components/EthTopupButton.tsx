@@ -53,7 +53,8 @@ export const EthTopupButton = ({ fee }: Props) => {
   };
   console.log(fee);
   console.log(usdRatio);
-  const amount = useMemo(() => (fee * (1 / 1000) * (1 / usdRatio)).toFixed(8), [fee, usdRatio]);
+  const tvsRatio = 10 ** 3
+  const amount = useMemo(() => (fee * (1 / tvsRatio) * (1 / usdRatio)).toFixed(8), [fee, usdRatio]);
   console.log(amount);
   const evmTxData = useMemo(
     () =>
