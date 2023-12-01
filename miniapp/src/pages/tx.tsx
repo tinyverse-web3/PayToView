@@ -37,7 +37,7 @@ export default function Tx() {
   }, []);
   return (
     <LayoutThird title={t('pages.tx_list.title')} path={ROUTE_PATH.INDEX}>
-      <div className='h-full overflow-hidden p-4'>
+      <div className='p-4'>
         {txList.length === 0 && <Empty />}
         <VStack spacing='10px'>
           {txList.map((item, i) => (

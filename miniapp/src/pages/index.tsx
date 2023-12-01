@@ -43,7 +43,9 @@ export default function Index() {
   const { t } = useTranslation();
   const nav = useNavigate();
   const { income, setIncome } = useListStore((state) => state);
-  const { accountInfo, balance } = useAccountStore((state) => state);
+  const { accountInfo, balance, setBalance } = useAccountStore(
+    (state) => state,
+  );
   const toEarn = () => {
     nav(ROUTE_PATH.EARN);
   };
@@ -91,6 +93,12 @@ export default function Index() {
       },
     },
   ];
+  const getBanance = async () => {
+    const profile = await paytoview.getProfile();
+    if (profile.code === '000000') {
+      setBalance(profile.data.balance);
+    }
+  };
   const toTg = () => {
     window.open('https://t.me/tvnb_bot?start=xyzw');
   };
@@ -117,6 +125,7 @@ export default function Index() {
 
   useEffect(() => {
     getIncomeWithin24h();
+    getBanance();
   }, []);
   return (
     <LayoutThird title={t('pages.index.title')} showBack={false}>
