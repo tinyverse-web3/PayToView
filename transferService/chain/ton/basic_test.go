@@ -2,6 +2,7 @@ package ton
 
 import (
 	"context"
+	"encoding/base64"
 	"net/url"
 	"testing"
 
@@ -113,19 +114,21 @@ func TestAccount(t *testing.T) {
 			continue
 		}
 
-		logger.Infof("tx: index: %d\nTrans: Hash:%+v,Lt:%+v\nPrevTrans: Hash:%+v,Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v",
+		logger.Infof("tx: index: %d\nTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nPrevTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v",
 			index,
 			coreTx.Hash.Hex(),
+			base64.StdEncoding.EncodeToString([]byte(coreTx.Hash[:])),
 			coreTx.Lt,
 			coreTx.PrevTransHash.Hex(),
+			base64.StdEncoding.EncodeToString([]byte(coreTx.PrevTransHash[:])),
 			coreTx.PrevTransLt,
 			coreTx.BlockID.Workchain,
 			coreTx.BlockID.Shard,
 			coreTx.BlockID.Seqno,
 		)
 
-		if !isvalidTx(coreTx) {
-			logger.Error("isvalidTx error: coreTx is invalid")
+		if !isValidTx(coreTx) {
+			logger.Error("isValidTx error: coreTx is invalid")
 			continue
 		} else {
 			validedTxCount++
@@ -140,7 +143,7 @@ func TestAccount(t *testing.T) {
 	logger.Infof("valided tx count: %v", validedTxCount)
 }
 
-func isvalidTx(coreTx *core.Transaction) bool {
+func isValidTx(coreTx *core.Transaction) bool {
 	// skip no tvs transfer tx, because it will be processed in TransferTvs, need payload param
 	if coreTx.InMsg.DecodedBody == nil {
 		logger.Errorf("isvalidTx: coreTx.InMsg.DecodedBody is nil")

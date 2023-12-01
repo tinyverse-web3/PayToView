@@ -2,6 +2,7 @@ package ton
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"net/url"
@@ -51,7 +52,7 @@ type TransferService struct {
 	tvSdkInst            *tvsdk.TvSdk
 	accountInst          *tonChain.Account
 	isCreation           bool
-	initInfo             *TransferInitInfo
+	summaryInfo          *TransferSummaryInfo
 	db                   *levelds.Datastore
 	txsChan              chan *TransferRecord
 	loadTxsInterval      time.Duration
@@ -59,17 +60,17 @@ type TransferService struct {
 	workMutex            sync.Mutex
 }
 
-type TransferInitInfo struct {
-	Lt   uint64
-	Hash *tlb.Bits256
+type TransferSummaryInfo struct {
+	LastTransLt   uint64
+	LastTransHash *tlb.Bits256
 }
 
-func NewTransferService(ctx context.Context, tvSdkInst *tvsdk.TvSdk, tonAccountInst *tonChain.Account, dbPath string) (*TransferService, error) {
+func NewTransferService(ctx context.Context, tvSdkInst *tvsdk.TvSdk, tonAccountInst *tonChain.Account, dbPath string, forceCreation bool) (*TransferService, error) {
 	ret := &TransferService{
 		tvSdkInst:   tvSdkInst,
 		accountInst: tonAccountInst,
 	}
-	err := ret.InitTransferInitInfo(ctx)
+	err := ret.InitTransferInitInfo(ctx, forceCreation)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +94,7 @@ func (s *TransferService) InitDb(dataPath string) (err error) {
 	return nil
 }
 
-func (s *TransferService) InitTransferInitInfo(ctx context.Context) error {
+func (s *TransferService) InitTransferInitInfo(ctx context.Context, forceCreation bool) error {
 	key, err := s.getInitInfoKey()
 	if err != nil {
 		logger.Errorf("TransferService->InitTransferInitInfo: getInitInfoKey error: %s", err.Error())
@@ -101,9 +102,11 @@ func (s *TransferService) InitTransferInitInfo(ctx context.Context) error {
 	}
 
 	data, err := s.tvSdkInst.GetDKVS(key)
-	if errors.Is(err, routing.ErrNotFound) || errors.Is(err, dkvs.ErrNotFound) {
+	if forceCreation || errors.Is(err, routing.ErrNotFound) || errors.Is(err, dkvs.ErrNotFound) {
 		s.isCreation = true
-		logger.Debugf("TransferService->InitTransferInitInfo: summaryInfo isn't exist, GetDKVS error: %s", err.Error())
+		if err != nil {
+			logger.Debugf("TransferService->InitTransferInitInfo: summaryInfo isn't exist, GetDKVS error: %s", err.Error())
+		}
 
 		state, err := s.accountInst.GetState(ctx)
 		if err != nil {
@@ -111,9 +114,9 @@ func (s *TransferService) InitTransferInitInfo(ctx context.Context) error {
 			return err
 		}
 
-		summaryInfo := &TransferInitInfo{
-			Lt:   state.LastTransLt,
-			Hash: &state.LastTransHash,
+		summaryInfo := &TransferSummaryInfo{
+			LastTransLt:   state.LastTransLt,
+			LastTransHash: &state.LastTransHash,
 		}
 		err = s.SyncInitInfo(summaryInfo)
 		if err != nil {
@@ -128,13 +131,13 @@ func (s *TransferService) InitTransferInitInfo(ctx context.Context) error {
 		return err
 	}
 
-	summaryInfo := &TransferInitInfo{}
+	summaryInfo := &TransferSummaryInfo{}
 	err = json.Unmarshal(data, summaryInfo)
 	if err != nil {
 		return err
 	}
 
-	s.initInfo = summaryInfo
+	s.summaryInfo = summaryInfo
 
 	return nil
 }
@@ -147,7 +150,7 @@ func (s *TransferService) SetCheckFailTxsInterval(duration time.Duration) {
 	s.checkFailTxsInterval = duration
 }
 
-func (s *TransferService) SyncInitInfo(initInfo *TransferInitInfo) error {
+func (s *TransferService) SyncInitInfo(initInfo *TransferSummaryInfo) error {
 	key, err := s.getInitInfoKey()
 	if err != nil {
 		logger.Errorf("TransferService->SyncInitInfo: getInitInfoKey error: %s", err.Error())
@@ -166,7 +169,7 @@ func (s *TransferService) SyncInitInfo(initInfo *TransferInitInfo) error {
 		return err
 	}
 
-	s.initInfo = initInfo
+	s.summaryInfo = initInfo
 	return nil
 }
 
@@ -178,7 +181,7 @@ func (s *TransferService) getInitInfoKey() (string, error) {
 	return GetInitInfoKey(accountPk), nil
 }
 
-func (s *TransferService) Start(ctx context.Context, isCreation bool) error {
+func (s *TransferService) Start(ctx context.Context) error {
 	numCPU := runtime.NumCPU()
 	s.txsChan = make(chan *TransferRecord, numCPU*4)
 
@@ -187,7 +190,7 @@ func (s *TransferService) Start(ctx context.Context, isCreation bool) error {
 		return err
 	}
 
-	err = s.loadTxsFromBLockChain(ctx, isCreation)
+	err = s.loadTxsFromBLockChain(ctx)
 	if err != nil {
 		return err
 	}
@@ -365,7 +368,7 @@ func (s *TransferService) Stop() {
 	close(s.txsChan)
 }
 
-func (s *TransferService) IsvalidTx(coreTx *core.Transaction) bool {
+func (s *TransferService) IsValidTx(coreTx *core.Transaction) bool {
 	// skip no tvs transfer tx, because it will be processed in TransferTvs, need payload param
 	if coreTx.InMsg.DecodedBody == nil {
 		logger.Debugf("TransferService->IsvalidTx: coreTx.InMsg.DecodedBody is nil")
@@ -433,10 +436,9 @@ func (s *TransferService) IsvalidTx(coreTx *core.Transaction) bool {
 	return true
 }
 
-func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreation bool) error {
+func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 	handleTxList := func(txList []ton.Transaction) bool {
 		validedTxCount := 0
-		logger.Infof("TransferService->loadTxsFromBLockChain: tx len: %v", len(txList))
 		for index, tx := range txList {
 			coreTx, err := core.ConvertTransaction(0, tx)
 			if err != nil {
@@ -444,18 +446,20 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 				continue
 			}
 
-			logger.Debugf("TransferService->loadTxsFromBLockChain: tx: index: %d\nTrans: Hash:%+v,Lt:%+v\nPrevTrans: Hash:%+v,Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v",
+			logger.Debugf("TransferService->loadTxsFromBLockChain: tx: index: %d\nTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nPrevTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v",
 				index,
 				coreTx.Hash.Hex(),
+				base64.StdEncoding.EncodeToString([]byte(coreTx.Hash[:])),
 				coreTx.Lt,
 				coreTx.PrevTransHash.Hex(),
+				base64.StdEncoding.EncodeToString([]byte(coreTx.PrevTransHash[:])),
 				coreTx.PrevTransLt,
 				coreTx.BlockID.Workchain,
 				coreTx.BlockID.Shard,
 				coreTx.BlockID.Seqno,
 			)
 
-			if !s.IsvalidTx(coreTx) {
+			if !s.IsValidTx(coreTx) {
 				logger.Debugf("TransferService->loadTxsFromBLockChain: coreTx is not valid")
 				continue
 			} else {
@@ -473,12 +477,12 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 				return true
 			}
 		}
-		logger.Debugf("TransferService->loadTxsFromBLockChain: valided tx count: %d", validedTxCount)
+		logger.Debugf("TransferService->loadTxsFromBLockChain: tx: len: %d, valided tx count: %d", len(txList), validedTxCount)
 		return false
 	}
 
-	if s.isCreation || forceCreation {
-		const maxRetryCount = 10
+	if s.isCreation {
+		const maxRetryCount = 100
 		const maxTxCount = 100
 		txList, err := s.accountInst.TryGetAllTxList(ctx, maxTxCount, maxRetryCount)
 		if err != nil {
@@ -505,26 +509,30 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 
 					state, err := s.accountInst.GetState(ctx)
 					if err != nil {
-						logger.Errorf("TransferService->LoadTxsFromBLockChain->go: tonAccountInst.GetState error: %s", err.Error())
+						logger.Errorf("TransferService->loadTxsFromBLockChain->go: tonAccountInst.GetState error: %s", err.Error())
 						return false
 					}
 
-					if state.LastTransLt == s.initInfo.Lt && state.LastTransHash.Hex() == s.initInfo.Hash.Hex() {
+					logger.Debugf("TransferService->loadTxsFromBLockChain->go:\nAccountState: (LastTransLt: %+v, LastTransHashHex: %+v,LastTransHashHexBase64: %s)\nsummaryInfo: (LastTransLt: %+v, LastTransHashHex: %+v, LastTransHashBbase64: %s)",
+						state.LastTransLt, state.LastTransHash.Hex(), base64.StdEncoding.EncodeToString([]byte(state.LastTransHash[:])),
+						s.summaryInfo.LastTransLt, s.summaryInfo.LastTransHash.Hex(), base64.StdEncoding.EncodeToString([]byte(s.summaryInfo.LastTransHash[:])),
+					)
+					if state.LastTransLt == s.summaryInfo.LastTransLt && state.LastTransHash.Hex() == s.summaryInfo.LastTransHash.Hex() {
 						return false
 					}
 
-					txList, err := s.accountInst.GetLastTxListUtil(ctx, state.LastTransLt, state.LastTransHash, s.initInfo.Lt, s.initInfo.Hash)
+					txList, err := s.accountInst.GetLastTxListUtil(ctx, state.LastTransLt, state.LastTransHash, s.summaryInfo.LastTransLt, s.summaryInfo.LastTransHash)
 					if err != nil {
-						logger.Errorf("TransferService->LoadTxsFromBLockChain->go: GetLastTransactionsUtil error: %s", err.Error())
+						logger.Errorf("TransferService->loadTxsFromBLockChain->go: GetLastTransactionsUtil error: %s", err.Error())
 						return false
 					}
 
-					err = s.SyncInitInfo(&TransferInitInfo{
-						Lt:   state.LastTransLt,
-						Hash: &state.LastTransHash,
+					err = s.SyncInitInfo(&TransferSummaryInfo{
+						LastTransLt:   state.LastTransLt,
+						LastTransHash: &state.LastTransHash,
 					})
 					if err != nil {
-						logger.Errorf("TransferService->LoadTxsFromBLockChain->go: SyncSummaryInfo error: %s", err.Error())
+						logger.Errorf("TransferService->loadTxsFromBLockChain->go: SyncSummaryInfo error: %s", err.Error())
 						return false
 					}
 

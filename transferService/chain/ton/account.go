@@ -122,10 +122,10 @@ func (s *Account) GetContractSeqno(ctx context.Context) (uint32, error) {
 	return ret, nil
 }
 
-func (s *Account) TryGetAllTxList(ctx context.Context, limit, maxRetries int) ([]ton.Transaction, error) {
+func (s *Account) TryGetAllTxList(ctx context.Context, limit, maxRetryCount int) ([]ton.Transaction, error) {
 	retryCount := 0
 
-	for retryCount < maxRetries {
+	for retryCount < maxRetryCount {
 		transactions, err := s.GetTxAllList(ctx, limit)
 		if err == nil {
 			if err := s.logTx(transactions); err != nil {
@@ -137,7 +137,7 @@ func (s *Account) TryGetAllTxList(ctx context.Context, limit, maxRetries int) ([
 		retryCount++
 		logger.Errorf("Account.GetLastTxList: cli.GetLastTransactions error: %v. Retry attempt: %d", err, retryCount)
 	}
-	return nil, fmt.Errorf("Account.GetLastTxList: Max retries reached, failed after %d attempts", maxRetries)
+	return nil, fmt.Errorf("Account.GetLastTxList: Max retries reached, failed after %d attempts", maxRetryCount)
 }
 
 func (s *Account) GetTxAllList(ctx context.Context, limit int) ([]ton.Transaction, error) {

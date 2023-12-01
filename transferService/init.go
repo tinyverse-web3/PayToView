@@ -19,7 +19,7 @@ const (
 var logger = ipfsLog.Logger(logName)
 
 func init() {
-	ipfsLog.SetLogLevelRegex(logName, "info")
+	ipfsLog.SetLogLevelRegex(logName, "debug")
 }
 
 func setLogModule(moduleLevels map[string]string) error {
@@ -91,14 +91,14 @@ func initTvSdk(rootPath, password string, isTest bool) (*tvsdk.TvSdk, error) {
 }
 
 func initTonTransferService(ctx context.Context, rootPath string, cfg *TonConfig) (*tonService.TransferService, error) {
-	service, err := tonService.NewTransferService(ctx, tvSdkInst, tonAccountInst, rootPath)
+	service, err := tonService.NewTransferService(ctx, tvSdkInst, tonAccountInst, rootPath, cfg.ForceCreation)
 	if err != nil {
 		return nil, err
 	}
 
 	service.SetLoadTxsInterval(cfg.LoadTxsInterval)
 	service.SetCheckFailTxsInterval(cfg.CheckFailTxsInterval)
-	err = service.Start(ctx, cfg.ForceCreation)
+	err = service.Start(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -106,14 +106,14 @@ func initTonTransferService(ctx context.Context, rootPath string, cfg *TonConfig
 }
 
 func initEthTransferService(ctx context.Context, rootPath string, cfg *EthConfig) (*ethService.TransferService, error) {
-	service, err := ethService.NewTransferService(ctx, tvSdkInst, ethAccountInst, rootPath)
+	service, err := ethService.NewTransferService(ctx, tvSdkInst, ethAccountInst, rootPath, cfg.ForceCreation)
 	if err != nil {
 		return nil, err
 	}
 
 	service.SetLoadTxsInterval(cfg.LoadTxsInterval)
 	service.SetCheckFailTxsInterval(cfg.CheckFailTxsInterval)
-	err = service.Start(ctx, cfg.ForceCreation)
+	err = service.Start(ctx)
 	if err != nil {
 		return nil, err
 	}
