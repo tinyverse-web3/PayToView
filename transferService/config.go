@@ -29,11 +29,13 @@ type ChainConfig struct {
 
 type TonConfig struct {
 	ChainConfig
+	ForceCreation bool
 }
 
 type EthConfig struct {
 	ChainConfig
 	EtherScanApiKey string
+	ForceCreation   bool
 }
 
 type LogConfig struct {
@@ -56,6 +58,7 @@ func NewDefaultAppConfig() *AppConfig {
 				LoadTxsInterval:      5 * time.Second,
 				CheckFailTxsInterval: 5 * time.Second,
 			},
+			ForceCreation: false,
 		},
 		Eth: &EthConfig{
 			ChainConfig: ChainConfig{
@@ -65,6 +68,7 @@ func NewDefaultAppConfig() *AppConfig {
 				CheckFailTxsInterval: 5 * time.Second,
 			},
 			EtherScanApiKey: "6TD7F3VHX9YS62YKRGDHJWPANM4SF7DPBN",
+			ForceCreation:   false,
 		},
 	}
 
