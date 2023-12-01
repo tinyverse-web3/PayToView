@@ -80,9 +80,9 @@ func initEthAccount(id string, etherScanApiKey string, isTest bool, enableLog bo
 	return account, nil
 }
 
-func initTvSdk(rootPath, password string) (*tvsdk.TvSdk, error) {
+func initTvSdk(rootPath, password string, isTest bool) (*tvsdk.TvSdk, error) {
 	ret := tvsdk.NewSdk()
-	err := ret.Init(rootPath, password)
+	err := ret.Init(rootPath, password, isTest)
 	if err != nil {
 		return nil, err
 	}

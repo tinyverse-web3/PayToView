@@ -1,7 +1,7 @@
 package ton
 
 func GetInitInfoKey(accountPk string) string {
-	return "/paytoview-transfer-service-ton/" + accountPk + "/summary"
+	return "/paytoview-transfer-service-ton3/" + accountPk + "/summary"
 }
 
 func GetTxDbKeyPrefix(txTransferState int) string {

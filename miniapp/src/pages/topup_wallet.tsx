@@ -351,7 +351,7 @@ export default function Index() {
               </div>
               <div>
                 <a
-                  href={`https://testnet.tonviewer.com/${toUserFriendlyAddress(
+                  href={`https://${import.meta.env.MODE === 'development' ? 'testnet.' : ""}tonscan.org/address/${toUserFriendlyAddress(
                     import.meta.env.VITE_OFFICE_TON_WALLET_ID,
                     import.meta.env.MODE === 'development',
                   )}`}>

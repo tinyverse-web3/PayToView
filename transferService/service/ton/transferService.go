@@ -18,6 +18,7 @@ import (
 	"github.com/tinyverse-web3/transferService/adnl/core"
 	tonChain "github.com/tinyverse-web3/transferService/chain/ton"
 	"github.com/tinyverse-web3/transferService/tvsdk"
+	"github.com/tinyverse-web3/tvbase/dkvs"
 	"github.com/tonkeeper/tongo/tlb"
 )
 
@@ -99,7 +100,7 @@ func (s *TransferService) InitTransferInitInfo(ctx context.Context) error {
 	}
 
 	data, err := s.tvSdkInst.GetDKVS(key)
-	if errors.Is(err, routing.ErrNotFound) {
+	if errors.Is(err, routing.ErrNotFound) || errors.Is(err, dkvs.ErrNotFound) {
 		s.isCreation = true
 		logger.Debugf("TransferService->InitTransferInitInfo: summaryInfo isn't exist, GetDKVS error: %s", err.Error())
 

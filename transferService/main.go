@@ -34,7 +34,7 @@ func main() {
 		logger.Fatalf("LoadConfig error: %v", err)
 	}
 
-	tvSdkInst, err = initTvSdk(rootPath, tvsAccountPassword)
+	tvSdkInst, err = initTvSdk(rootPath, tvsAccountPassword, env == "dev")
 	if err != nil {
 		logger.Fatalf("initTvSdk error: %v", err)
 	}

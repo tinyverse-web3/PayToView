@@ -65,7 +65,7 @@ func parseCmdParams() (string, string, string) {
 		logger.Infof("init transfer service config success.")
 
 		// init sdk
-		tvSdkInst, err = initTvSdk(dataPath, *tvsAccountPassword)
+		tvSdkInst, err = initTvSdk(dataPath, *tvsAccountPassword, *env == "dev")
 		if err != nil {
 			logger.Fatalf("initTvSdk error: %v", err)
 		}
