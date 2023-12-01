@@ -28,14 +28,15 @@ export async function getEthValueForUSD(): Promise<any> {
 
 export const EthTopupButton = ({ fee }: Props) => {
   const { t } = useTranslation();
-
+  const [loading, setLoading] = useState(false);
+  const [preloading, setPreLoading] = useState(false);
   const { accountInfo } = useAccountStore((state) => state);
   const { open: OpenEvmWallet } = useWeb3Modal();
   const [usdRatio, setUsdRatio] = useState(100);
   const { disconnect: evmDisconnect } = useEvmDisconnect();
   const {
     address: evmWalletAddress,
-    isConnecting: isEvmWalletConnecting,
+    isConnected,
     isDisconnected: isEvmWalletDisconnected,
   } = useEvmAccount();
 
@@ -45,17 +46,18 @@ export const EthTopupButton = ({ fee }: Props) => {
   );
   const topupHandler = () => {
     console.log(isEvmWalletDisconnected);
+    setLoading(true);
     if (!isEvmWalletDisconnected) {
       ethTranscationHandler();
     } else {
       OpenEvmWallet();
     }
   };
-  console.log(fee);
-  console.log(usdRatio);
-  const tvsRatio = 10 ** 3
-  const ethValue = useMemo(() => (fee * (1 / tvsRatio) * (1 / usdRatio)).toFixed(8), [fee, usdRatio]);
-  console.log(ethValue);
+  const tvsRatio = 10 ** 3;
+  const ethValue = useMemo(
+    () => (fee * (1 / tvsRatio) * (1 / usdRatio)).toFixed(8),
+    [fee, usdRatio],
+  );
   const evmTxData = useMemo(
     () =>
       `0x${BigInt('0x' + Buffer.from(commentText).toString('hex')).toString(
@@ -63,17 +65,15 @@ export const EthTopupButton = ({ fee }: Props) => {
       )}` as Hex,
     [commentText],
   );
+
   const { config } = usePrepareSendTransaction({
     to: import.meta.env.VITE_OFFICE_EVM_WALLET_ID,
     value: parseEther(ethValue),
     data: evmTxData,
-    enabled: Boolean(
-      import.meta.env.VITE_OFFICE_EVM_WALLET_ID && ethValue != '',
-    ),
+    enabled: true,
   });
   const getUsdRatio = async () => {
     const usd = await getEthValueForUSD();
-    console.log(usd);
     setUsdRatio(usd);
   };
   useEffect(() => {
@@ -86,9 +86,12 @@ export const EthTopupButton = ({ fee }: Props) => {
     isError: isEvmSendTxError,
     sendTransaction,
   } = useSendTransaction(config);
-  console.log(evmSendTxData);
-  console.log(isEvmSendTxLoading);
-  console.log(isEvmSendTxError);
+
+  useEffect(() => {
+    console.log('evmSendTxData', evmSendTxData);
+    console.log('isEvmSendTxLoading', isEvmSendTxLoading);
+    console.log('isEvmSendTxError', isEvmSendTxError);
+  }, [evmSendTxData, isEvmSendTxLoading, isEvmSendTxError]);
   const {
     data: evmWaitTxData,
     isLoading: isEvmWaitTxPending,
@@ -98,16 +101,42 @@ export const EthTopupButton = ({ fee }: Props) => {
     // onError: () => void evmDisconnect(),
     // onSuccess: () => void evmDisconnect(),
   });
+  useEffect(() => {
+    setPreLoading(isEvmSendTxLoading);
+  }, [isEvmSendTxLoading]);
+  useEffect(() => {
+    if (preloading && !isEvmSendTxLoading) {
+      evmDisconnect();
+      setLoading(false);
+    }
+  }, [isEvmSendTxLoading, preloading]);
+  useEffect(() => {
+    console.log('isConnected');
+    console.log(isConnected);
+    if (isConnected && config.data) {
+      ethTranscationHandler();
+    }
+  }, [isConnected, config.data]);
   const ethTranscationHandler = async () => {
-    console.log(config)
-    await sendTransaction?.();
-    await evmDisconnect();
+    console.log('transation');
+    try {
+      setTimeout(() => {
+        console.log('sendTransaction');
+        console.log(config);
+        sendTransaction?.();
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  useEffect(() => {
+    evmDisconnect();
+  }, []);
   return (
     <Button
       className='w-full'
       isDisabled={fee <= 0}
+      isLoading={loading}
       colorScheme='blue'
       onClick={topupHandler}>
       {t('pages.topup.btn_eth_topup')}

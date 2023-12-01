@@ -53,11 +53,12 @@ import { SendTransactionResult } from '@wagmi/core';
 export default function Index() {
   useTitle('PayToView');
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
   const nav = useNavigate();
 
   // bussiness
-  const [fee, setFee] = useState(10000000000);
+  const [fee, setFee] = useState(1000);
 
   const { accountInfo, balance } = useAccountStore((state) => state);
   const commentText = useMemo(
@@ -151,14 +152,17 @@ export default function Index() {
         setTonTxReceipt(result);
         setTonTranslateStatus(false);
         tonConnectUi.disconnect();
+        setLoading(false);
       })
       .catch((error) => {
         console.error('ton sendTransaction error: ', error);
         setTonTranslateStatus(false);
         tonConnectUi.disconnect();
+        setLoading(false);
       });
   };
   const topupTonHandler = () => {
+    setLoading(true);
     if (tonConnectUi.connected) {
       tonTranscationHandler();
     } else {
@@ -216,6 +220,7 @@ export default function Index() {
               variant='filled'
               value={fee}
               min={0}
+              max={10000}
               onFocus={focusHandler}
               onChange={(_, e: number) => setFee(isNaN(e) ? 0 : e)}>
               <NumberInputField />
@@ -235,91 +240,14 @@ export default function Index() {
         </SimpleGrid>
         <div>
           <Button
-            className='w-full'
+            className='w-full mb-4'
             isDisabled={fee <= 0}
+            isLoading={loading}
             colorScheme='blue'
             onClick={topupTonHandler}>
             {t('pages.topup.btn_ton_topup')}
           </Button>
           <EthTopupButton fee={fee} />
-          {tonAddress != '' && (
-            <React.Fragment>
-              <div> env: {import.meta.env.MODE} </div>
-              <div> user rawTonAddress: {rawTonAddress} </div>
-              <div>
-                {' '}
-                user friendAddress:{' '}
-                {toUserFriendlyAddress(
-                  rawTonAddress,
-                  import.meta.env.MODE === 'development',
-                )}{' '}
-              </div>
-              <div>
-                {' '}
-                topay rawTonAddress: {
-                  import.meta.env.VITE_OFFICE_TON_WALLET_ID
-                }{' '}
-              </div>
-              <div>
-                {' '}
-                topay friendAddress:{' '}
-                {toUserFriendlyAddress(
-                  import.meta.env.VITE_OFFICE_TON_WALLET_ID,
-                  import.meta.env.MODE === 'development',
-                )}{' '}
-              </div>
-            </React.Fragment>
-          )}
-          {tonTxReceipt != null && (
-            <React.Fragment>
-              <div>Transaction amount: {tonPayAmount} tonWei</div>
-              <div>Transaction receipt:{stringify(tonTxReceipt, null, 2)}</div>
-              <div>
-                <a
-                  href={`https://testnet.tonviewer.com/${toUserFriendlyAddress(
-                    import.meta.env.VITE_OFFICE_TON_WALLET_ID,
-                    import.meta.env.MODE === 'development',
-                  )}`}>
-                  Transaction View
-                </a>
-              </div>
-            </React.Fragment>
-          )}
-
-          {tonAddress != '' && (
-            <React.Fragment>
-              <div>env: {import.meta.env.MODE} </div>
-              <div>user address: {evmWalletAddress}</div>
-              <div>
-                topay address: {import.meta.env.VITE_OFFICE_EVM_WALLET_ID}{' '}
-              </div>
-            </React.Fragment>
-          )}
-
-          {evmWaitTxReceipt != null && (
-            <React.Fragment>
-              <div>Transaction amount: {evmPayAmount} tonWei</div>
-              <div>Transaction Hash: {evmWaitTxReceipt?.hash}</div>
-              <div>
-                Transaction receipt: {stringify(evmWaitTxReceipt, null, 2)}
-              </div>
-              {String(selectedEvmNetworkId) === '11155111' && (
-                <div>
-                  <a
-                    href={`https://sepolia.etherscan.io/tx/${evmWaitTxReceipt?.hash}`}>
-                    sepolia Etherscan
-                  </a>
-                </div>
-              )}
-              {String(selectedEvmNetworkId) === '1' && (
-                <div>
-                  <a href={`https://etherscan.io/tx/${evmWaitTxReceipt?.hash}`}>
-                    main Etherscan
-                  </a>
-                </div>
-              )}
-            </React.Fragment>
-          )}
         </div>
       </div>
     </LayoutThird>
