@@ -119,7 +119,7 @@ export default function DetailAdd() {
         PublisherPercent: data.publisherPercent,
       },
       Fee: data.fee,
-      Password: data.password,
+      Password: password,
     });
     console.log('add.tsx->addHandler: result:', result);
     if (result.code !== '000000') {

@@ -85,6 +85,9 @@ export const EthTopupButton = ({ fee }: Props) => {
     isError: isEvmSendTxError,
     sendTransaction,
   } = useSendTransaction(config);
+  console.log(evmSendTxData);
+  console.log(isEvmSendTxLoading);
+  console.log(isEvmSendTxError);
   const {
     data: evmWaitTxData,
     isLoading: isEvmWaitTxPending,
