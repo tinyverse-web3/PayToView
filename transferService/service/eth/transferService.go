@@ -425,32 +425,35 @@ func (s *TransferService) validTx(tx ethChain.Tx) bool {
 }
 
 func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreation bool) error {
+	handleTxList := func(txList []ethChain.Tx) bool {
+		for index, tx := range txList {
+			logger.Debugf("TransferService->loadTxsFromBLockChain: index: %v, tx: %+v", index, tx)
+			if !s.validTx(tx) {
+				logger.Debugf("TransferService->loadTxsFromBLockChain: tx is invalid")
+				continue
+			}
+			payload, _ := ParseCommmentFromTxData(tx.Input)
+			record, err := s.saveTx(ctx, tx.Hash, payload, TxTransferInitState, "init")
+			if err != nil {
+				continue
+			}
+			isStop := s.safeSendToTxsChan(record)
+			if isStop {
+				return true
+			}
+		}
+		return false
+	}
 	if s.isCreation || forceCreation {
-		txs, err := s.accountInst.GetTxList(ctx, "0", ethChain.MaxTxCount, "asc")
+		txList, err := s.accountInst.GetTxList(ctx, "0", ethChain.MaxTxCount, "asc")
 		if err != nil {
 			return err
 		}
 
-		for index, tx := range txs {
-			logger.Debugf("TransferService->loadTxsFromBLockChain: index: %v, tx: %+v", index, tx)
-			if !s.validTx(tx) {
-				logger.Debugf("TransferService->loadTxsFromBLockChain: coreTx is not valid, index:%v, tx: %+v", index, tx)
-				continue
-			}
-
-			payload, _ := ParseCommmentFromTxData(tx.Input)
-			record, err := s.saveTx(ctx, tx.Hash, payload, TxTransferInitState, "init")
-			if err != nil {
-				logger.Errorf("TransferService->loadTxsFromBLockChain: saveTx error: %s", err.Error())
-				continue
-			}
-
-			isStop := s.safeSendToTxsChan(record)
-			if isStop {
-				return nil
-			}
+		abort := handleTxList(txList)
+		if abort {
+			return nil
 		}
-		return nil
 	}
 
 	go func() {
@@ -465,16 +468,16 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 				defer s.workMutex.Unlock()
 
 				workFunc := func() bool {
-					txs, err := s.accountInst.GetTxList(ctx, "0", 1, "desc")
+					txList, err := s.accountInst.GetTxList(ctx, "0", 1, "desc")
 					if err != nil {
 						logger.Errorf("TransferService->LoadTxsFromBLockChain: tonAccountInst.GetState error: %s", err.Error())
 						return false
 					}
-					if len(txs) != 1 {
-						logger.Errorf("TransferService->LoadTxsFromBLockChain: len(txs) != 1, len :%v", len(txs))
+					if len(txList) != 1 {
+						logger.Errorf("TransferService->LoadTxsFromBLockChain: len(txs) != 1, len :%v", len(txList))
 						return false
 					}
-					tx := txs[0]
+					tx := txList[0]
 					logger.Debugf("TransferService->LoadTxsFromBLockChain: tx: %+v", tx)
 
 					if tx.To != s.initInfo.To {
@@ -489,7 +492,7 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 						return false
 					}
 
-					txs, err = s.accountInst.GetTxList(ctx, s.initInfo.BlockNumber, ethChain.MaxTxCount, "asc")
+					txList, err = s.accountInst.GetTxList(ctx, s.initInfo.BlockNumber, ethChain.MaxTxCount, "asc")
 					if err != nil {
 						logger.Errorf("TransferService->LoadTxsFromBLockChain: tonAccountInst.GetState error: %s", err.Error())
 						return false
@@ -507,22 +510,11 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 						return false
 					}
 
-					for index, tx := range txs {
-						logger.Debugf("TransferService->loadTxsFromBLockChain: index: %v, tx: %+v", index, tx)
-						if !s.validTx(tx) {
-							logger.Debugf("TransferService->loadTxsFromBLockChain: tx is not valid, index:%v, tx: %+v", index, tx)
-							continue
-						}
-						payload, _ := ParseCommmentFromTxData(tx.Input)
-						record, err := s.saveTx(ctx, tx.Hash, payload, TxTransferInitState, "init")
-						if err != nil {
-							continue
-						}
-						isStop := s.safeSendToTxsChan(record)
-						if isStop {
-							return true
-						}
+					abort := handleTxList(txList)
+					if abort {
+						return abort
 					}
+
 					return false
 				}
 				abort := workFunc()

@@ -20,6 +20,7 @@ import (
 	"github.com/tinyverse-web3/transferService/tvsdk"
 	"github.com/tinyverse-web3/tvbase/dkvs"
 	"github.com/tonkeeper/tongo/tlb"
+	"github.com/tonkeeper/tongo/ton"
 )
 
 const DBName = "ton.transfer.db"
@@ -433,17 +434,10 @@ func (s *TransferService) IsvalidTx(coreTx *core.Transaction) bool {
 }
 
 func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreation bool) error {
-	if s.isCreation || forceCreation {
-		const maxRetryCount = 10
-		const maxTxCount = 100
-		txs, err := s.accountInst.TryGetAllTxList(ctx, maxTxCount, maxRetryCount)
-		if err != nil {
-			return err
-		}
-
+	handleTxList := func(txList []ton.Transaction) bool {
 		validedTxCount := 0
-		logger.Infof("TransferService->loadTxsFromBLockChain: tx len: %v", len(txs))
-		for index, tx := range txs {
+		logger.Infof("TransferService->loadTxsFromBLockChain: tx len: %v", len(txList))
+		for index, tx := range txList {
 			coreTx, err := core.ConvertTransaction(0, tx)
 			if err != nil {
 				logger.Errorf("TransferService->loadTxsFromBLockChain: core.ConvertTransaction error: %s", err.Error())
@@ -471,17 +465,30 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 			payload, _ := tonChain.GetTransactionPayload(coreTx.InMsg.DecodedBody)
 			record, err := s.saveTx(ctx, coreTx.BlockID.Seqno, payload, TxTransferInitState, "init")
 			if err != nil {
-				logger.Errorf("TransferService->loadTxsFromBLockChain: saveTx error: %s", err.Error())
 				continue
 			}
 
 			isStop := s.safeSendToTxsChan(record)
 			if isStop {
-				return nil
+				return true
 			}
 		}
+		logger.Debugf("TransferService->loadTxsFromBLockChain: valided tx count: %d", validedTxCount)
+		return false
+	}
 
-		return nil
+	if s.isCreation || forceCreation {
+		const maxRetryCount = 10
+		const maxTxCount = 100
+		txList, err := s.accountInst.TryGetAllTxList(ctx, maxTxCount, maxRetryCount)
+		if err != nil {
+			return err
+		}
+
+		abort := handleTxList(txList)
+		if abort {
+			return nil
+		}
 	}
 
 	go func() {
@@ -506,7 +513,7 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 						return false
 					}
 
-					txs, err := s.accountInst.GetLastTxListUtil(ctx, state.LastTransLt, state.LastTransHash, s.initInfo.Lt, s.initInfo.Hash)
+					txList, err := s.accountInst.GetLastTxListUtil(ctx, state.LastTransLt, state.LastTransHash, s.initInfo.Lt, s.initInfo.Hash)
 					if err != nil {
 						logger.Errorf("TransferService->LoadTxsFromBLockChain->go: GetLastTransactionsUtil error: %s", err.Error())
 						return false
@@ -521,44 +528,10 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context, forceCreati
 						return false
 					}
 
-					validedTxCount := 0
-					logger.Infof("TransferService->loadTxsFromBLockChain->go: tx len: %v", len(txs))
-					for index, tx := range txs {
-						coreTx, err := core.ConvertTransaction(0, tx)
-						if err != nil {
-							logger.Errorf("TransferService->loadTxsFromBLockChain->go: core.ConvertTransaction error: %s", err.Error())
-							continue
-						}
-
-						logger.Debugf("TransferService->loadTxsFromBLockChain->go: tx: index: %d\nTrans: Hash:%+v,Lt:%+v\nPrevTrans: Hash:%+v,Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v",
-							index,
-							coreTx.Hash.Hex(),
-							coreTx.Lt,
-							coreTx.PrevTransHash.Hex(),
-							coreTx.PrevTransLt,
-							coreTx.BlockID.Workchain,
-							coreTx.BlockID.Shard,
-							coreTx.BlockID.Seqno,
-						)
-
-						if !s.IsvalidTx(coreTx) {
-							logger.Debugf("TransferService->loadTxsFromBLockChain->go: coreTx is invalid")
-							continue
-						} else {
-							validedTxCount++
-						}
-
-						payload, _ := tonChain.GetTransactionPayload(coreTx.InMsg.DecodedBody)
-						record, err := s.saveTx(ctx, coreTx.BlockID.Seqno, payload, TxTransferInitState, "init")
-						if err != nil {
-							continue
-						}
-						isStop := s.safeSendToTxsChan(record)
-						if isStop {
-							return true
-						}
+					abort := handleTxList(txList)
+					if abort {
+						return abort
 					}
-					logger.Debugf("TransferService->loadTxsFromBLockChain->go: valided tx count: %d", validedTxCount)
 					return false
 				}
 				abort := workFunc()
