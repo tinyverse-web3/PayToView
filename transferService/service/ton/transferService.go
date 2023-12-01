@@ -431,8 +431,9 @@ func (s *TransferService) validTx(coreTx *core.Transaction) bool {
 
 func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 	if s.isCreation {
-		maxRetries := 10
-		txs, err := s.accountInst.GetLastTxList(ctx, maxRetries)
+		const maxRetryCount = 10
+		const maxTxCount = 100
+		txs, err := s.accountInst.TryGetAllTxList(ctx, maxTxCount, maxRetryCount)
 		if err != nil {
 			return err
 		}

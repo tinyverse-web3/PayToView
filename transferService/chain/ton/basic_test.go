@@ -38,7 +38,7 @@ func TestAccount(t *testing.T) {
 		logger.Fatalf("tonAccount.SetNet error: %v", err)
 	}
 
-	err = tonAccount.SetAccountID("0:5bed80a229f00d8bf8d48579a117cfe207497d7be25b2f0e240183855681fc66")
+	err = tonAccount.SetAccountID("0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2")
 	if err != nil {
 		logger.Fatalf("tonAccount.SetAccountID error: %v", err)
 	}
@@ -58,7 +58,7 @@ func TestAccount(t *testing.T) {
 	ctx := context.Background()
 	state, err := tonAccount.GetState(ctx)
 	if err != nil {
-		logger.Fatalf("tonAccount.GetState error: %v", err)
+		logger.Errorf("tonAccount.GetState error: %v", err)
 	}
 
 	lastTransHashStr, _ := state.LastTransHash.MarshalJSON()
@@ -67,33 +67,36 @@ func TestAccount(t *testing.T) {
 
 	status, err := tonAccount.GetStatus(ctx)
 	if err != nil {
-		logger.Fatalf("tonAccount.GetStatus error: %v", err)
+		logger.Errorf("tonAccount.GetStatus error: %v", err)
 	}
 	balance, err := tonAccount.GetBalance(ctx)
 	if err != nil {
-		logger.Fatalf("tonAccount.GetBalance error: %v", err)
+		logger.Errorf("tonAccount.GetBalance error: %v", err)
 	}
 	logger.Infof("Account status: %v Balance: %v", status, balance)
 
 	lastTransLt, err := tonAccount.GetLastTransLt(ctx)
 	if err != nil {
-		logger.Fatalf("tonAccount.GetLastTransLt error: %v", err)
+		logger.Errorf("tonAccount.GetLastTransLt error: %v", err)
 	}
 	logger.Infof("LastTransLt: %v", lastTransLt)
 
 	lastTransHash, err := tonAccount.GetLastTransHash(ctx)
 	if err != nil {
-		logger.Fatalf("tonAccount.GetLastTransHash error: %v", err)
+		logger.Errorf("tonAccount.GetLastTransHash error: %v", err)
 	}
 	logger.Infof("LastTransHash: %v", lastTransHash.Hex())
 
 	seqno, err := tonAccount.GetContractSeqno(ctx)
 	if err != nil {
-		logger.Fatalf("Get seqno error: %v", err)
+		logger.Errorf("Get seqno error: %v", err)
+	} else {
+		logger.Infof("Seqno: %v\n", seqno)
 	}
-	logger.Infof("Seqno: %v\n", seqno)
-	maxRetries := 10
-	transactions, err := tonAccount.GetLastTxList(ctx, maxRetries)
+
+	const maxRetryCount = 10
+	const maxTxCount = 1000
+	transactions, err := tonAccount.TryGetAllTxList(ctx, maxTxCount, maxRetryCount)
 	if err != nil {
 		logger.Fatalf("tonAccount.GetLastTransactions error: %v", err)
 	}
