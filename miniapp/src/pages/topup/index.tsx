@@ -228,14 +228,14 @@ export default function Index() {
           </FormControl>
         </div>
         <SimpleGrid columns={3} spacing='10px' className='mb-4'>
-          <Button colorScheme='teal' onClick={() => setFee(10)}>
-            10 TVS
+          <Button colorScheme='teal' onClick={() => setFee(100)}>
+            100 TVS
           </Button>
-          <Button colorScheme='teal' onClick={() => setFee(20)}>
-            20 TVS
+          <Button colorScheme='teal' onClick={() => setFee(200)}>
+            200 TVS
           </Button>
           <Button colorScheme='teal' onClick={() => setFee(30)}>
-            50 TVS
+            500 TVS
           </Button>
         </SimpleGrid>
         <div>
