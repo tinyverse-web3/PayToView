@@ -90,13 +90,6 @@ export default function Index() {
         nav(ROUTE_PATH.TOPUP);
       },
     },
-    {
-      name: t('pages.topup.title'),
-      icon: '/images/forwarded.png',
-      onClick: () => {
-        nav(ROUTE_PATH.TOPUP_ETH);
-      },
-    },
   ];
   const toTg = () => {
     window.open('https://t.me/tvnb_bot?start=xyzw');
@@ -177,7 +170,7 @@ export default function Index() {
               </SimpleGrid>
             </div>
             <div className='mt-4 mb-4 m-2'>
-              <SimpleGrid columns={5} rowGap='25px'>
+              <SimpleGrid columns={3} rowGap='25px'>
                 {menuList.map((item, i) => (
                   <MenuButton
                     key={i}

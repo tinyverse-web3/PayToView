@@ -23,7 +23,7 @@ export const BlurImage = ({ file, onChange }: BlurImageProps) => {
         type: 'image/jpeg',
       });
       onChange?.(newFile);
-    });
+    }, 'image/jpeg', 0.1);
     return canvas.toDataURL();
   };
   const blurHandler = () => {
