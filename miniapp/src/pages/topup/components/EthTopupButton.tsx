@@ -54,8 +54,8 @@ export const EthTopupButton = ({ fee }: Props) => {
   console.log(fee);
   console.log(usdRatio);
   const tvsRatio = 10 ** 3
-  const amount = useMemo(() => (fee * (1 / tvsRatio) * (1 / usdRatio)).toFixed(8), [fee, usdRatio]);
-  console.log(amount);
+  const ethValue = useMemo(() => (fee * (1 / tvsRatio) * (1 / usdRatio)).toFixed(8), [fee, usdRatio]);
+  console.log(ethValue);
   const evmTxData = useMemo(
     () =>
       `0x${BigInt('0x' + Buffer.from(commentText).toString('hex')).toString(
@@ -65,10 +65,10 @@ export const EthTopupButton = ({ fee }: Props) => {
   );
   const { config } = usePrepareSendTransaction({
     to: import.meta.env.VITE_OFFICE_EVM_WALLET_ID,
-    value: parseEther(amount),
+    value: parseEther(ethValue),
     data: evmTxData,
     enabled: Boolean(
-      import.meta.env.VITE_OFFICE_EVM_WALLET_ID && amount != '',
+      import.meta.env.VITE_OFFICE_EVM_WALLET_ID && ethValue != '',
     ),
   });
   const getUsdRatio = async () => {

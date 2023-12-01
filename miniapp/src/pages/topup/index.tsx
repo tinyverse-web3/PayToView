@@ -125,19 +125,19 @@ export default function Index() {
     }
 
     const tvsRatio = 10 ** 3
-    const tonWeiAmount = (fee * (1 / tvsRatio) * (1 / usdRatio) * (10 ** 9)); // 1vs=1/1000usd; 1usd=1/2.41ton 1ton=1000000000tonwei
+    const tonWeiValue = (fee * (1 / tvsRatio) * (1 / usdRatio) * (10 ** 9)); // 1vs=1/1000usd; 1usd=1/2.41ton 1ton=1000000000tonwei
 
-    if (tonWeiAmount < 10) {
+    if (tonWeiValue < 10) {
       toast.error('ton amount cannot be less than 10');
       return;
     }
-    setTonPayAmount(tonWeiAmount.toFixed());
+    setTonPayAmount(tonWeiValue.toFixed());
     const txDetail = {
       validUntil: Math.floor(Date.now() / 1000) + 600, // unix epoch seconds
       messages: [
         {
           address: officePayAddress,
-          amount: tonWeiAmount.toString(),
+          amount: tonWeiValue.toString(),
           payload: payload,
         },
       ],
