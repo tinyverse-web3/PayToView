@@ -1,4 +1,4 @@
-import { a6 as proxy, a7 as subscribe, a8 as snapshot, a9 as __vitePreload } from "./index-fa35c8e6.js";
+import { a6 as proxy, a7 as subscribe, a8 as snapshot, a9 as __vitePreload } from "./index-c270ebe4.js";
 const o = proxy({ history: ["ConnectWallet"], view: "ConnectWallet", data: void 0 }), T = { state: o, subscribe(e) {
   return subscribe(o, () => e(o));
 }, push(e, t) {
@@ -230,7 +230,7 @@ class d {
   }
   async initUi() {
     if (typeof window < "u") {
-      await __vitePreload(() => import("./index-1059c690.js"), true ? ["assets/index-1059c690.js","assets/index-fa35c8e6.js","assets/index-19740d5d.css"] : void 0);
+      await __vitePreload(() => import("./index-b6301dca.js"), true ? ["assets/index-b6301dca.js","assets/index-c270ebe4.js","assets/index-19740d5d.css"] : void 0);
       const e = document.createElement("wcm-modal");
       document.body.insertAdjacentElement("beforeend", e), p.setIsUiLoaded(true);
     }
