@@ -65,7 +65,7 @@
       "title": "Transaction Record"
     },
     "topup": {
-      "title": "Topup Tvs3",
+      "title": "Topup Tvs4",
       "placeholder": "Topup fee",
       "btn_connect": "Connect Wallet",
       "btn_disconnect": "Disconnect",

@@ -1,4 +1,4 @@
-import { a5 as getDefaultExportFromCjs } from "./index-63ba165c.js";
+import { a5 as getDefaultExportFromCjs } from "./index-fa35c8e6.js";
 var events = { exports: {} };
 var R = typeof Reflect === "object" ? Reflect : null;
 var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {

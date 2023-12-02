@@ -12751,7 +12751,7 @@ const pages$1 = {
     title: "Transaction Record"
   },
   topup: {
-    title: "Topup Tvs3",
+    title: "Topup Tvs4",
     placeholder: "Topup fee",
     btn_connect: "Connect Wallet",
     btn_disconnect: "Disconnect",
@@ -61050,7 +61050,7 @@ async function call(client2, args) {
     return { data: response };
   } catch (err) {
     const data3 = getRevertErrorData(err);
-    const { offchainLookup, offchainLookupSignature } = await __vitePreload(() => import("./ccip-cf7c2f64.js"), true ? [] : void 0);
+    const { offchainLookup, offchainLookupSignature } = await __vitePreload(() => import("./ccip-a3f4c442.js"), true ? [] : void 0);
     if ((data3 == null ? void 0 : data3.slice(0, 10)) === offchainLookupSignature && to) {
       return { data: await offchainLookup(client2, { data: data3, to }) };
     }
@@ -66137,7 +66137,7 @@ async function fetchEnsAddress({
   chainId,
   name
 }) {
-  const { normalize: normalize3 } = await __vitePreload(() => import("./index-82ed6023.js"), true ? [] : void 0);
+  const { normalize: normalize3 } = await __vitePreload(() => import("./index-6430d724.js"), true ? [] : void 0);
   const publicClient = getPublicClient({ chainId });
   const address2 = await publicClient.getEnsAddress({
     name: normalize3(name)
@@ -66154,7 +66154,7 @@ async function fetchEnsAvatar({
   name,
   chainId
 }) {
-  const { normalize: normalize3 } = await __vitePreload(() => import("./index-82ed6023.js"), true ? [] : void 0);
+  const { normalize: normalize3 } = await __vitePreload(() => import("./index-6430d724.js"), true ? [] : void 0);
   const publicClient = getPublicClient({ chainId });
   const avatar = await publicClient.getEnsAvatar({ name: normalize3(name) });
   return avatar;
@@ -82491,7 +82491,7 @@ class Web3ModalScaffold {
     if (!this.initPromise && !isInitialized && CoreHelperUtil.isClient()) {
       isInitialized = true;
       this.initPromise = new Promise(async (resolve) => {
-        await Promise.all([__vitePreload(() => import("./index-edd34dfe.js"), true ? [] : void 0), __vitePreload(() => Promise.resolve().then(() => index$1), true ? void 0 : void 0)]);
+        await Promise.all([__vitePreload(() => import("./index-19291cf4.js"), true ? [] : void 0), __vitePreload(() => Promise.resolve().then(() => index$1), true ? void 0 : void 0)]);
         const modal2 = document.createElement("w3m-modal");
         document.body.insertAdjacentElement("beforeend", modal2);
         resolve();
@@ -83002,7 +83002,7 @@ var CoinbaseWalletConnector = class extends Connector2 {
   async getProvider() {
     var _a5;
     if (!__privateGet$1(this, _provider$1)) {
-      let CoinbaseWalletSDK = (await __vitePreload(() => import("./index-7240e333.js").then((n4) => n4.i), true ? ["assets/index-7240e333.js","assets/events-95d79228.js"] : void 0)).default;
+      let CoinbaseWalletSDK = (await __vitePreload(() => import("./index-5c1ac9e6.js").then((n4) => n4.i), true ? ["assets/index-5c1ac9e6.js","assets/events-dee7389f.js"] : void 0)).default;
       if (typeof CoinbaseWalletSDK !== "function" && typeof CoinbaseWalletSDK.default === "function")
         CoinbaseWalletSDK = CoinbaseWalletSDK.default;
       __privateSet$1(this, _client, new CoinbaseWalletSDK(this.options));
@@ -88246,7 +88246,7 @@ createProvider_fn = async function() {
 };
 _initProvider = /* @__PURE__ */ new WeakSet();
 initProvider_fn = async function() {
-  const { EthereumProvider, OPTIONAL_EVENTS, OPTIONAL_METHODS } = await __vitePreload(() => import("./index.es-f7225e45.js"), true ? ["assets/index.es-f7225e45.js","assets/events-95d79228.js"] : void 0);
+  const { EthereumProvider, OPTIONAL_EVENTS, OPTIONAL_METHODS } = await __vitePreload(() => import("./index.es-23d58c41.js"), true ? ["assets/index.es-23d58c41.js","assets/events-dee7389f.js"] : void 0);
   const [defaultChain, ...optionalChains] = this.chains.map(({ id: id2 }) => id2);
   if (defaultChain) {
     const {
@@ -123243,7 +123243,8 @@ function App() {
       manifestUrl: "https://tinyverse-web3.github.io/paytoview/tonconnect-manifest.json",
       uiPreferences: { theme: THEME.LIGHT },
       actionsConfiguration: {
-        // twaReturnUrl: 'https://t.me/tvnb_bot', //'https://t.me/tc_twa_test_bot'
+        twaReturnUrl: "https://t.me/tvnb_bot"
+        //'https://t.me/tc_twa_test_bot'
       },
       children: /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "h-full", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
