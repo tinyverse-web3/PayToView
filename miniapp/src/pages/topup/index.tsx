@@ -12,6 +12,7 @@ import {
   NumberInput,
   FormControl,
   Button,
+  useRadio,
 } from '@chakra-ui/react';
 import { EthTopupButton } from './components/EthTopupButton';
 import { useEffect, useMemo, useCallback, useState } from 'react';
@@ -104,7 +105,7 @@ export default function Index() {
     const officePayAddress = import.meta.env.VITE_OFFICE_TON_WALLET_ID || '';
     let usdRatio = 0;
     try {
-      usdRatio = await getTonValueForUSD();
+      usdRatio = await getTonToUsdRatio();
       console.log('1ton to usd:', usdRatio);
     } catch (error) {
       console.error('getTonValueForUSD error: ', error);
@@ -125,23 +126,12 @@ export default function Index() {
       return;
     }
 
-    // 1tonwei to ?tvs
-    // 1$ = 1000 tvs
-    // 1 ton = 2.4 $ 
-    // (1 ton / 2.4) = (1000000000 tonwei / 2.4) = 1 $ = 1000 tvs
-    // 1 tvs = 1 $ / 1000 = (1000000000 tonwei  / 2.4) / 1000
-
-    // 1tvs to ?tonwei
-    // 1$ = 1000 tvs
-    // 1 ton = 2.4 $ 
-    // (1 ton / 2.4) = (1000000000 tonwei / 2.4) = 1 $ = 1000 tvs
-    // (1000000000 tonwei / 2.4) / 1000  = 1 tvs  
-    // 1 tvs =  (1000000000 tonwei / 2.4) / 1000
-    // fee = 10 * 1 tvs = (1000000000 tonwei / 2.4) / 1000 * 10 = (1000000 tonwei / 2.4) * 10
-
-    const tonWeiValue = fee * 1000000 / 2.38
-    // const tvsRatio = 10 ** 3
-    // const tonWeiValue = (fee * (1 / tvsRatio) * (1 / usdRatio) * (10 ** 9)); // 1vs=1/1000usd; 1usd=1/2.41ton 1ton=1000000000tonwei
+    debugger
+    const usdToTvsRatio = 1000
+    const tonWeiValue = parseInt(calculateWeitonAmount(fee, usdRatio, usdToTvsRatio).toFixed(0), 10)
+    console.log(tonWeiValue)
+    const tvsValue = parseInt(calculateTvsAmount(tonWeiValue, usdRatio, usdToTvsRatio).toFixed(0), 10)
+    console.log(tvsValue)
 
     if (tonWeiValue < 10) {
       toast.error('ton amount cannot be less than 10');
@@ -269,10 +259,26 @@ export default function Index() {
   );
 }
 
-export async function getTonValueForUSD(): Promise<any> {
+export async function getTonToUsdRatio(): Promise<any> {
   const response = await axios.get(
     'https://tonapi.io/v2/rates?tokens=ton&currencies=ton%2Cusd%2Crub',
   );
   const prices = response.data.rates.TON.prices;
   return prices.USD;
+}
+
+function calculateWeitonAmount(tvsAmount: number, tonToUsdRatio: number, usdToTonRatio: number): number {
+  const usdAmount = tvsAmount / usdToTonRatio;
+  const tonAmount = usdAmount / tonToUsdRatio;
+  const weitonLen = 1000000000
+  const weitonAmount = tonAmount * weitonLen;
+  return weitonAmount;
+}
+
+function calculateTvsAmount(weitonAmount: number, tonToUsdRatio: number, usdToTonRatio: number): number {
+  const weitonLen = 1000000000
+  const tonAmount = weitonAmount / weitonLen;
+  const usdAmount = tonAmount * tonToUsdRatio;
+  const tvsAmount = usdAmount * usdToTonRatio;
+  return tvsAmount;
 }
