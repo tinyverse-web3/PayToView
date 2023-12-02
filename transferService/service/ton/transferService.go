@@ -213,12 +213,13 @@ func (s *TransferService) handleInitTxs(ctx context.Context) (err error) {
 		}
 		defer results.Close()
 
-		for result := range results.Next() {
-			err = s.db.Delete(ctx, datastore.NewKey(result.Key))
-			if err != nil {
-				logger.Errorf("TransferService->handleInitTxs: db.Delete error: %s", err.Error())
-			}
-		}
+		// TODO: delete
+		// for result := range results.Next() {
+		// 	err = s.db.Delete(ctx, datastore.NewKey(result.Key))
+		// 	if err != nil {
+		// 		logger.Errorf("TransferService->handleInitTxs: db.Delete error: %s", err.Error())
+		// 	}
+		// }
 		return nil
 	}
 

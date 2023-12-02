@@ -11,5 +11,5 @@ const (
 var logger = ipfsLog.Logger(logName)
 
 func init() {
-	ipfsLog.SetLogLevelRegex(logName, "error")
+	ipfsLog.SetLogLevelRegex(logName, "info")
 }

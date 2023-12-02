@@ -14,7 +14,7 @@ import (
 )
 
 func TestBocMessage(t *testing.T) {
-	bocStr := "te6cckECGAEAA94AAuGIAPw+fSusxX75v/h3Jgbztc1V8J/15dhCIqkXfY85HnJ2GfG0ejLk52Mmw5bjTXUbbzNZw5/49ojZpAMF7bW+zGN25I7Oy3ZTxtCzQBzxjFm0vks4P9Sm7vWr6tafdwRfNBCmpoxf/////AAAAAAADgEXAgE0AhYBFP8A9KQT9LzyyAsDAgEgBBECAUgFCALm0AHQ0wMhcbCSXwTgItdJwSCSXwTgAtMfIYIQcGx1Z70ighBkc3RyvbCSXwXgA/pAMCD6RAHIygfL/8nQ7UTQgQFA1yH0BDBcgQEI9ApvoTGzkl8H4AXTP8glghBwbHVnupI4MOMNA4IQZHN0crqSXwbjDQYHAHgB+gD0BDD4J28iMFAKoSG+8uBQghBwbHVngx6xcIAYUATLBSbPFlj6Ahn0AMtpF8sfUmDLPyDJgED7AAYAilAEgQEI9Fkw7UTQgQFA1yDIAc8W9ADJ7VQBcrCOI4IQZHN0coMesXCAGFAFywVQA88WI/oCE8tqyx/LP8mAQPsAkl8D4gIBIAkQAgEgCg8CAVgLDAA9sp37UTQgQFA1yH0BDACyMoHy//J0AGBAQj0Cm+hMYAIBIA0OABmtznaiaEAga5Drhf/AABmvHfaiaEAQa5DrhY/AABG4yX7UTQ1wsfgAWb0kK29qJoQICga5D6AhhHDUCAhHpJN9KZEM5pA+n/mDeBKAG3gQFImHFZ8xhAT48oMI1xgg0x/TH9MfAvgju/Jk7UTQ0x/TH9P/9ATRUUO68qFRUbryogX5AVQQZPkQ8qP4ACSkyMsfUkDLH1Iwy/9SEPQAye1U+A8B0wchwACfbFGTINdKltMH1AL7AOgw4CHAAeMAIcAC4wABwAORMOMNA6TIyx8Syx/L/xITFBUAbtIH+gDU1CL5AAXIygcVy//J0Hd0gBjIywXLAiLPFlAF+gIUy2sSzMzJc/sAyEAUgQEI9FHypwIAcIEBCNcY+gDTP8hUIEeBAQj0UfKnghBub3RlcHSAGMjLBcsCUAbPFlAE+gIUy2oSyx/LP8lz+wACAGyBAQjXGPoA0z8wUiSBAQj0WfKnghBkc3RycHSAGMjLBcsCUAXPFlAD+gITy2rLHxLLP8lz+wAACvQAye1UAFEAAAAAKamjF0gHnwKpofqN4lqbTd/X3IYj7lBKl2unsutIavQ0cNFWQADGQgA/D59K6zFfvm/+HcmBvO1zVXwn/Xl2EIiqRd9jzkecnaAJiWgAAAAAAAAAAAAAAAAAAAAAAABodHRwczovL3Rpbnl2ZXJzZS13ZWIzLmdpdGh1Yi5pby9wYXl0b3ZpZXcvBQcWOw=="
+	bocStr := "b5ee9c720101010100660000c80000000074767377616c6c65743d303830313132323033643366313261323533366539393963343066346436623338353430386463663730623531623630323664353439326233303134346264646134383438353665266170703d706179546f56696577"
 	c, err := boc.DeserializeSinglRootBase64(bocStr)
 	if err != nil {
 		cells, err := boc.DeserializeBocHex(bocStr)
@@ -35,12 +35,12 @@ func TestBocMessage(t *testing.T) {
 
 func TestAccount(t *testing.T) {
 	tonAccount := NewAccount()
-	err := tonAccount.SetNet(true)
+	err := tonAccount.SetNet(false) // prod: false dev: true
 	if err != nil {
 		logger.Fatalf("tonAccount.SetNet error: %v", err)
 	}
 
-	err = tonAccount.SetAccountID("0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2")
+	err = tonAccount.SetAccountID("0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b")
 	if err != nil {
 		logger.Fatalf("tonAccount.SetAccountID error: %v", err)
 	}
@@ -138,7 +138,7 @@ func TestAccount(t *testing.T) {
 			logger.Errorf("GetTransactionPayload error: %v", err)
 			continue
 		}
-		logger.Infof("payload: index:%v, payload:%v", index, payload)
+		logger.Infof("payload: payload:%v", payload)
 	}
 	logger.Infof("valided tx count: %v", validedTxCount)
 }
@@ -171,7 +171,7 @@ func isValidTx(coreTx *core.Transaction) bool {
 		logger.Errorf("isvalidTx: payload is empty")
 		return false
 	} else {
-		logger.Infof("isvalidTx: payload: %s", param)
+		// logger.Infof("isvalidTx: payload: %s", param)
 	}
 
 	values, err := url.ParseQuery(param)
@@ -185,10 +185,10 @@ func isValidTx(coreTx *core.Transaction) bool {
 		return false
 	}
 
-	appName := values.Get("app")
-	if appName != "mini-paytoview" {
-		logger.Errorf("isvalidTx: app name: %s", appName)
-	}
+	// appName := values.Get("app")
+	// if appName != "mini-paytoview" {
+	// 	logger.Errorf("isvalidTx: app name: %s", appName)
+	// }
 
 	return true
 }
