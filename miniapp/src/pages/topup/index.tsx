@@ -132,13 +132,13 @@ export default function Index() {
       toast.error('ton amount cannot be less than 10');
       return;
     }
-    setTonPayAmount(tonWeiValue.toFixed());
+    setTonPayAmount(tonWeiValue.toFixed(0));
     const txDetail = {
       validUntil: Math.floor(Date.now() / 1000) + 600, // unix epoch seconds
       messages: [
         {
           address: officePayAddress,
-          amount: tonWeiValue.toString(),
+          amount: tonWeiValue.toFixed(0),
           payload: payload,
         },
       ],
