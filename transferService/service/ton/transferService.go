@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"math"
 	"net/url"
 	"runtime"
 	"strconv"
@@ -45,6 +46,7 @@ type TransferRecord struct {
 	Ts      int64
 	Seqno   uint32
 	Payload string
+	Value   int64
 	Desc    string
 }
 
@@ -214,12 +216,12 @@ func (s *TransferService) handleInitTxs(ctx context.Context) (err error) {
 		defer results.Close()
 
 		// TODO: delete
-		// for result := range results.Next() {
-		// 	err = s.db.Delete(ctx, datastore.NewKey(result.Key))
-		// 	if err != nil {
-		// 		logger.Errorf("TransferService->handleInitTxs: db.Delete error: %s", err.Error())
-		// 	}
-		// }
+		for result := range results.Next() {
+			err = s.db.Delete(ctx, datastore.NewKey(result.Key))
+			if err != nil {
+				logger.Errorf("TransferService->handleInitTxs: db.Delete error: %s", err.Error())
+			}
+		}
 		return nil
 	}
 
@@ -241,7 +243,7 @@ func (s *TransferService) handleInitTxs(ctx context.Context) (err error) {
 			continue
 		}
 
-		err = s.transferTvs(record, 100, 3, "paytoview/transferService")
+		err = s.transferTvs(record, 3, "paytoview/transferService")
 		if err != nil {
 			s.saveFailTx(ctx, record, err.Error())
 			continue
@@ -348,7 +350,7 @@ func (s *TransferService) waitTxsChan(ctx context.Context) {
 					record.Seqno,
 					record)
 
-				err := s.transferTvs(record, 100, 3, "paytoview/transferService/ton")
+				err := s.transferTvs(record, 3, "paytoview/transferService/ton")
 				if err != nil {
 					s.saveFailTx(ctx, record, err.Error())
 					continue
@@ -447,7 +449,7 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 				continue
 			}
 
-			logger.Debugf("TransferService->loadTxsFromBLockChain: tx: index: %d\nTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nPrevTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v",
+			logger.Debugf("TransferService->loadTxsFromBLockChain: tx: index: %d\nTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nPrevTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v\nInMsg Value:%+v",
 				index,
 				coreTx.Hash.Hex(),
 				base64.StdEncoding.EncodeToString([]byte(coreTx.Hash[:])),
@@ -458,6 +460,7 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 				coreTx.BlockID.Workchain,
 				coreTx.BlockID.Shard,
 				coreTx.BlockID.Seqno,
+				coreTx.InMsg.Value,
 			)
 
 			if !s.IsValidTx(coreTx) {
@@ -468,7 +471,7 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 			}
 
 			payload, _ := tonChain.GetTransactionPayload(coreTx.InMsg.DecodedBody)
-			record, err := s.saveTx(ctx, coreTx.BlockID.Seqno, payload, TxTransferInitState, "init")
+			record, err := s.saveTx(ctx, coreTx.BlockID.Seqno, payload, coreTx.InMsg.Value, TxTransferInitState, "init")
 			if err != nil {
 				continue
 			}
@@ -565,7 +568,7 @@ func (s *TransferService) safeSendToTxsChan(record *TransferRecord) (abort bool)
 }
 
 func (s *TransferService) saveSuccTx(ctx context.Context, record *TransferRecord) error {
-	_, err := s.saveTx(ctx, record.Seqno, record.Payload, TxTransferSuccState, "succ")
+	_, err := s.saveTx(ctx, record.Seqno, record.Payload, record.Value, TxTransferSuccState, "succ")
 	if err != nil {
 		return err
 	}
@@ -581,7 +584,7 @@ func (s *TransferService) saveSuccTx(ctx context.Context, record *TransferRecord
 }
 
 func (s *TransferService) saveFailTx(ctx context.Context, record *TransferRecord, errDesc string) error {
-	_, err := s.saveTx(ctx, record.Seqno, record.Payload, TxTransferFailState, errDesc)
+	_, err := s.saveTx(ctx, record.Seqno, record.Payload, record.Value, TxTransferFailState, errDesc)
 	if err != nil {
 		return err
 	}
@@ -592,15 +595,16 @@ func (s *TransferService) saveFailTx(ctx context.Context, record *TransferRecord
 	return nil
 }
 
-func (s *TransferService) saveTx(ctx context.Context, seqno uint32, payload string, txTransferState int, errDesc string) (*TransferRecord, error) {
+func (s *TransferService) saveTx(ctx context.Context, seqno uint32, payload string, value int64, txTransferState int, errDesc string) (*TransferRecord, error) {
 	key := s.getTxWriteDbKey(seqno, txTransferState)
-	value := &TransferRecord{
+	record := &TransferRecord{
 		Ts:      time.Now().UnixMicro(),
 		Seqno:   seqno,
 		Payload: payload,
+		Value:   value,
 		Desc:    errDesc,
 	}
-	data, err := json.Marshal(value)
+	data, err := json.Marshal(record)
 	if err != nil {
 		logger.Errorf("TransferService->saveTx: json.Marshal error: %s", err.Error())
 		return nil, err
@@ -611,7 +615,7 @@ func (s *TransferService) saveTx(ctx context.Context, seqno uint32, payload stri
 		logger.Errorf("TransferService->saveTx: db.Put error: %s", err.Error())
 		return nil, err
 	}
-	return value, nil
+	return record, nil
 }
 
 func (s *TransferService) deleteTx(ctx context.Context, record *TransferRecord, txTransferState int) error {
@@ -640,7 +644,7 @@ func (s *TransferService) GetBalance(ctx context.Context) (uint64, error) {
 	return s.accountInst.GetBalance(ctx)
 }
 
-func (s *TransferService) transferTvs(record *TransferRecord, amount uint64, fee uint64, commit string) error {
+func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, commit string) error {
 	payload := record.Payload
 
 	// payload = "https://tinyverse-web3.github.io/paytoview?app=paytoview&tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4"
@@ -652,7 +656,19 @@ func (s *TransferService) transferTvs(record *TransferRecord, amount uint64, fee
 	app := values.Get("app")
 	logger.Debugf("TransferService->TransferTvs: tvswallet: %s, app: %s", walletId, app)
 
-	err := s.tvSdkInst.TransferTvs(walletId, amount, fee, commit)
+	usdRatio, err := GetTonValueForUSD()
+	if err != nil {
+		logger.Errorf("TransferService->TransferTvs: GetTonValueForUSD error: %s", err.Error())
+		return err
+	}
+
+	tonWei := float64(record.Value)
+	weiLength := float64(1000000000)
+	floatTvs := (tonWei / weiLength) / (usdRatio / 1000)
+	tvs := math.Round(floatTvs)
+
+	logger.Debugf("TransferService->TransferTvs:\nton: %v, usdRatio: %.4f, float tvsAmount: %.4f, tvsAmount: %v", tonWei/weiLength, usdRatio, floatTvs, tvs)
+	err = s.tvSdkInst.TransferTvs(walletId, uint64(tvs), fee, commit)
 	if err != nil {
 		walletId := s.tvSdkInst.GetWallID()
 		balance := s.tvSdkInst.GetBalance()

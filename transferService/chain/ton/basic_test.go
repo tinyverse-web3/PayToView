@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"testing"
 
+	ipfsLog "github.com/ipfs/go-log/v2"
 	"github.com/stretchr/testify/require"
 	"github.com/tinyverse-web3/transferService/adnl/core"
 	"github.com/tonkeeper/tongo/abi"
@@ -34,6 +35,7 @@ func TestBocMessage(t *testing.T) {
 }
 
 func TestAccount(t *testing.T) {
+	ipfsLog.SetLogLevelRegex(logName, "debug")
 	tonAccount := NewAccount()
 	err := tonAccount.SetNet(false) // prod: false dev: true
 	if err != nil {
@@ -114,7 +116,7 @@ func TestAccount(t *testing.T) {
 			continue
 		}
 
-		logger.Infof("tx: index: %d\nTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nPrevTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v",
+		logger.Infof("tx: index: %d\nTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nPrevTrans: HashHex:%+v, HashBase64:%+v, Lt:%+v\nBlockID: Workchain:%+v,Shard:%X,Seqno:%+v\nInMsg Value:%+v",
 			index,
 			coreTx.Hash.Hex(),
 			base64.StdEncoding.EncodeToString([]byte(coreTx.Hash[:])),
@@ -125,6 +127,7 @@ func TestAccount(t *testing.T) {
 			coreTx.BlockID.Workchain,
 			coreTx.BlockID.Shard,
 			coreTx.BlockID.Seqno,
+			coreTx.InMsg.Value,
 		)
 
 		if !isValidTx(coreTx) {
@@ -170,8 +173,6 @@ func isValidTx(coreTx *core.Transaction) bool {
 	if param == "" {
 		logger.Errorf("isvalidTx: payload is empty")
 		return false
-	} else {
-		// logger.Infof("isvalidTx: payload: %s", param)
 	}
 
 	values, err := url.ParseQuery(param)
