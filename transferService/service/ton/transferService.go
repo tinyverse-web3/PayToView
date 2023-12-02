@@ -27,6 +27,7 @@ import (
 
 const DBName = "ton.transfer.db"
 const DEFAULT_TTL time.Duration = time.Hour * 24 * (365*100 + 25) // hundred year
+const UsdToTvsRatio = 1000
 
 const (
 	txBasicPrefix  = "/ton/transfer/"
@@ -662,7 +663,7 @@ func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, commit
 		return err
 	}
 
-	tvsValue := math.Round(CalcWeitonAmount(float64(record.Value), usdRatio, 1000))
+	tvsValue := math.Round(CalTvsAmount(float64(record.Value), usdRatio, UsdToTvsRatio))
 	logger.Debugf("TransferService->TransferTvs:\nton wei: %v, usd ratio: %.4f, tvs value: %v", float64(record.Value), usdRatio, tvsValue)
 	err = s.tvSdkInst.TransferTvs(walletId, uint64(tvsValue), fee, commit)
 	if err != nil {
