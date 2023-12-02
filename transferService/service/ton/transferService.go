@@ -656,19 +656,15 @@ func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, commit
 	app := values.Get("app")
 	logger.Debugf("TransferService->TransferTvs: tvswallet: %s, app: %s", walletId, app)
 
-	usdRatio, err := GetTonValueForUSD()
+	usdRatio, err := GetTonToUsdRatio()
 	if err != nil {
 		logger.Errorf("TransferService->TransferTvs: GetTonValueForUSD error: %s", err.Error())
 		return err
 	}
 
-	tonWei := float64(record.Value)
-	weiLength := float64(1000000000)
-	floatTvs := (tonWei / weiLength) / (usdRatio / 1000)
-	tvs := math.Round(floatTvs)
-
-	logger.Debugf("TransferService->TransferTvs:\nton: %v, usdRatio: %.4f, float tvsAmount: %.4f, tvsAmount: %v", tonWei/weiLength, usdRatio, floatTvs, tvs)
-	err = s.tvSdkInst.TransferTvs(walletId, uint64(tvs), fee, commit)
+	tvsValue := math.Round(CalcWeitonAmount(float64(record.Value), usdRatio, 1000))
+	logger.Debugf("TransferService->TransferTvs:\nton wei: %v, usd ratio: %.4f, tvs value: %v", float64(record.Value), usdRatio, tvsValue)
+	err = s.tvSdkInst.TransferTvs(walletId, uint64(tvsValue), fee, commit)
 	if err != nil {
 		walletId := s.tvSdkInst.GetWallID()
 		balance := s.tvSdkInst.GetBalance()

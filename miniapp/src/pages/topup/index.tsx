@@ -128,9 +128,9 @@ export default function Index() {
 
     debugger
     const usdToTvsRatio = 1000
-    const tonWeiValue = parseInt(calculateWeitonAmount(fee, usdRatio, usdToTvsRatio).toFixed(0), 10)
+    const tonWeiValue = parseInt(calcWeitonAmount(fee, usdRatio, usdToTvsRatio).toFixed(0), 10)
     console.log(tonWeiValue)
-    const tvsValue = parseInt(calculateTvsAmount(tonWeiValue, usdRatio, usdToTvsRatio).toFixed(0), 10)
+    const tvsValue = parseInt(calcTvsAmount(tonWeiValue, usdRatio, usdToTvsRatio).toFixed(0), 10)
     console.log(tvsValue)
 
     if (tonWeiValue < 10) {
@@ -267,7 +267,7 @@ export async function getTonToUsdRatio(): Promise<any> {
   return prices.USD;
 }
 
-function calculateWeitonAmount(tvsAmount: number, tonToUsdRatio: number, usdToTonRatio: number): number {
+function calcWeitonAmount(tvsAmount: number, tonToUsdRatio: number, usdToTonRatio: number): number {
   const usdAmount = tvsAmount / usdToTonRatio;
   const tonAmount = usdAmount / tonToUsdRatio;
   const weitonLen = 1000000000
@@ -275,7 +275,7 @@ function calculateWeitonAmount(tvsAmount: number, tonToUsdRatio: number, usdToTo
   return weitonAmount;
 }
 
-function calculateTvsAmount(weitonAmount: number, tonToUsdRatio: number, usdToTonRatio: number): number {
+function calcTvsAmount(weitonAmount: number, tonToUsdRatio: number, usdToTonRatio: number): number {
   const weitonLen = 1000000000
   const tonAmount = weitonAmount / weitonLen;
   const usdAmount = tonAmount * tonToUsdRatio;

@@ -37,7 +37,7 @@ type TonRatesResponse struct {
 var ratesResponse *TonRatesResponse
 var lastFetchTime time.Time
 
-func GetTonValueForUSD() (float64, error) {
+func GetTonToUsdRatio() (float64, error) {
 	if ratesResponse != nil && time.Since(lastFetchTime) < 3*time.Minute {
 		return ratesResponse.Rates.TON.Prices.USD, nil
 	}
@@ -63,4 +63,20 @@ func GetTonValueForUSD() (float64, error) {
 	}
 	lastFetchTime = time.Now()
 	return ratesResponse.Rates.TON.Prices.USD, nil
+}
+
+const weitonLen = 1000000000
+
+func CalcWeitonAmount(tvsAmount, tonToUsdRatio, usdToTonRatio float64) float64 {
+	usdAmount := tvsAmount / usdToTonRatio
+	tonAmount := usdAmount / tonToUsdRatio
+	weitonAmount := tonAmount * weitonLen
+	return weitonAmount
+}
+
+func CalTvsAmount(weitonAmount, tonToUsdRatio, usdToTonRatio float64) float64 {
+	tonAmount := weitonAmount / weitonLen
+	usdAmount := tonAmount * tonToUsdRatio
+	tvsAmount := usdAmount * usdToTonRatio
+	return tvsAmount
 }
