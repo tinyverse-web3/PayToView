@@ -12751,7 +12751,7 @@ const pages$1 = {
     title: "Transaction Record"
   },
   topup: {
-    title: "Topup Tvs1",
+    title: "Topup Tvs2",
     placeholder: "Topup fee",
     btn_connect: "Connect Wallet",
     btn_disconnect: "Disconnect",
@@ -39605,7 +39605,7 @@ const axios$1 = axios;
 let Request$1 = class Request2 {
   constructor() {
     __publicField(this, "baseUrl", "");
-    const { VITE_SDK_HOST, VITE_SDK_LOCAL_HOST } = { "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false };
+    const { VITE_SDK_HOST, VITE_SDK_LOCAL_HOST } = { "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false };
     this.baseUrl = window.JsBridge ? VITE_SDK_LOCAL_HOST : VITE_SDK_HOST;
   }
   /**
@@ -41062,7 +41062,7 @@ const createStoreImpl = (createState2) => {
     return () => listeners.delete(listener);
   };
   const destroy = () => {
-    if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
+    if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
       console.warn(
         "[DEPRECATED] The `destroy` method will be unsupported in a future version. Instead use unsubscribe function returned by subscribe. Everything will be garbage-collected if store is garbage-collected."
       );
@@ -41194,7 +41194,7 @@ const { useDebugValue } = require$$0$1;
 const { useSyncExternalStoreWithSelector } = useSyncExternalStoreExports;
 let didWarnAboutEqualityFn = false;
 function useStore(api2, selector = api2.getState, equalityFn) {
-  if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && equalityFn && !didWarnAboutEqualityFn) {
+  if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && equalityFn && !didWarnAboutEqualityFn) {
     console.warn(
       "[DEPRECATED] Use `createWithEqualityFn` instead of `create` or use `useStoreWithEqualityFn` instead of `useStore`. They can be imported from 'zustand/traditional'. https://github.com/pmndrs/zustand/discussions/1937"
     );
@@ -41211,7 +41211,7 @@ function useStore(api2, selector = api2.getState, equalityFn) {
   return slice2;
 }
 const createImpl = (createState2) => {
-  if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && typeof createState2 !== "function") {
+  if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && typeof createState2 !== "function") {
     console.warn(
       "[DEPRECATED] Passing a vanilla store will be unsupported in a future version. Instead use `import { useStore } from 'zustand'`."
     );
@@ -41253,11 +41253,11 @@ const devtoolsImpl = (fn2, devtoolsOptions = {}) => (set, get2, api2) => {
   const { enabled, anonymousActionType, store, ...options } = devtoolsOptions;
   let extensionConnector;
   try {
-    extensionConnector = (enabled != null ? enabled : ({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") && window.__REDUX_DEVTOOLS_EXTENSION__;
+    extensionConnector = (enabled != null ? enabled : ({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") && window.__REDUX_DEVTOOLS_EXTENSION__;
   } catch (e3) {
   }
   if (!extensionConnector) {
-    if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && enabled) {
+    if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && enabled) {
       console.warn(
         "[zustand devtools middleware] Please install/enable Redux devtools extension"
       );
@@ -41311,7 +41311,7 @@ const devtoolsImpl = (fn2, devtoolsOptions = {}) => (set, get2, api2) => {
     let didWarnAboutReservedActionType = false;
     const originalDispatch = api2.dispatch;
     api2.dispatch = (...a4) => {
-      if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && a4[0].type === "__setState" && !didWarnAboutReservedActionType) {
+      if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && a4[0].type === "__setState" && !didWarnAboutReservedActionType) {
         console.warn(
           '[zustand devtools middleware] "__setState" action type is reserved to set state from the devtools. Avoid using it.'
         );
@@ -41779,7 +41779,7 @@ const newImpl = (config2, baseOptions) => (set, get2, api2) => {
 };
 const persistImpl = (config2, baseOptions) => {
   if ("getStorage" in baseOptions || "serialize" in baseOptions || "deserialize" in baseOptions) {
-    if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
+    if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production") {
       console.warn(
         "[DEPRECATED] `getStorage`, `serialize` and `deserialize` options are deprecated. Use `storage` option instead."
       );
@@ -54000,7 +54000,7 @@ function QRCodeCanvas(props) {
 }
 class Bot {
   forward(ContractID) {
-    const { VITE_TG_BOT } = { "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false };
+    const { VITE_TG_BOT } = { "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false };
     const url = `${VITE_TG_BOT}?start=${window.btoa(
       `cmd=fwd&work_id=${ContractID}`
     )}`;
@@ -54146,7 +54146,7 @@ const IpfsImage = ({ cid, ...rest }) => {
   const { accountInfo } = useAccountStore((state2) => state2);
   console.log("IpfsImage->accountInfo:", accountInfo);
   console.log("IpfsImage->cid:", cid);
-  console.log({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false });
+  console.log({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false });
   const src2 = reactExports.useMemo(() => {
     return lodashExports.template("https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>")({
       cid
@@ -61050,7 +61050,7 @@ async function call(client2, args) {
     return { data: response };
   } catch (err) {
     const data3 = getRevertErrorData(err);
-    const { offchainLookup, offchainLookupSignature } = await __vitePreload(() => import("./ccip-204f2ef7.js"), true ? [] : void 0);
+    const { offchainLookup, offchainLookupSignature } = await __vitePreload(() => import("./ccip-8b9fb4d1.js"), true ? [] : void 0);
     if ((data3 == null ? void 0 : data3.slice(0, 10)) === offchainLookupSignature && to) {
       return { data: await offchainLookup(client2, { data: data3, to }) };
     }
@@ -66137,7 +66137,7 @@ async function fetchEnsAddress({
   chainId,
   name
 }) {
-  const { normalize: normalize3 } = await __vitePreload(() => import("./index-0477812c.js"), true ? [] : void 0);
+  const { normalize: normalize3 } = await __vitePreload(() => import("./index-764c2714.js"), true ? [] : void 0);
   const publicClient = getPublicClient({ chainId });
   const address2 = await publicClient.getEnsAddress({
     name: normalize3(name)
@@ -66154,7 +66154,7 @@ async function fetchEnsAvatar({
   name,
   chainId
 }) {
-  const { normalize: normalize3 } = await __vitePreload(() => import("./index-0477812c.js"), true ? [] : void 0);
+  const { normalize: normalize3 } = await __vitePreload(() => import("./index-764c2714.js"), true ? [] : void 0);
   const publicClient = getPublicClient({ chainId });
   const avatar = await publicClient.getEnsAvatar({ name: normalize3(name) });
   return avatar;
@@ -67303,7 +67303,7 @@ const buildProxyFunction = (objectIs = Object.is, newProxy = (target, handler) =
   };
   const propProxyStates = /* @__PURE__ */ new Map();
   const addPropListener = (prop, propProxyState) => {
-    if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && propProxyStates.has(prop)) {
+    if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && propProxyStates.has(prop)) {
       throw new Error("prop listener already exists");
     }
     if (listeners.size) {
@@ -67325,7 +67325,7 @@ const buildProxyFunction = (objectIs = Object.is, newProxy = (target, handler) =
     listeners.add(listener);
     if (listeners.size === 1) {
       propProxyStates.forEach(([propProxyState, prevRemove], prop) => {
-        if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && prevRemove) {
+        if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && prevRemove) {
           throw new Error("remove already exists");
         }
         const remove2 = propProxyState[3](createPropListener(prop));
@@ -67435,7 +67435,7 @@ function proxy(initialObject = {}) {
 }
 function subscribe(proxyObject, callback, notifyInSync) {
   const proxyState = proxyStateMap.get(proxyObject);
-  if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && !proxyState) {
+  if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && !proxyState) {
     console.warn("Please use proxy object");
   }
   let promise;
@@ -67466,7 +67466,7 @@ function subscribe(proxyObject, callback, notifyInSync) {
 }
 function snapshot(proxyObject, handlePromise) {
   const proxyState = proxyStateMap.get(proxyObject);
-  if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && !proxyState) {
+  if (({ "VITE_IPFS_GATEWAY_URL": "https://dashboard.dkvs.xyz/ipfs/cat?cid=<%= cid %>", "VITE_API_HOST": "http://127.0.0.1:9888/mtv/api", "VITE_API_VERSION": "v0", "VITE_DEFAULT_PASSWORD": "123456", "VITE_TINY_WEB": "https://tinyverse.space/", "VITE_TINY_APP_URL": "https://dev.tinyverse.space/", "VITE_TG_BOT": "https://t.me/tvnb_bot", "VITE_PAY_APP_NAME": "mini-paytoview", "VITE_OFFICE_TON_WALLET_ID": "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b", "VITE_EVM_WALLET_CONNECT_PROJECT_ID": "f83fb108c54552cfc4ebd21f4f77216c", "VITE_OFFICE_EVM_WALLET_ID": "0x563f451c79003571bBFD2Acbcc265C82C0884519", "VITE_SDK_HOST": "http://127.0.0.1:9888", "VITE_SDK_LOCAL_HOST": "http://127.0.0.1:9888", "VITE_IPFS_HOST": "http://127.0.0.1:9888/ipfs", "VITE_DOWONLOAD": "https://tinyverse.space/#/download", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && !proxyState) {
     console.warn("Please use proxy object");
   }
   const [target, ensureVersion, createSnapshot] = proxyState;
@@ -82491,7 +82491,7 @@ class Web3ModalScaffold {
     if (!this.initPromise && !isInitialized && CoreHelperUtil.isClient()) {
       isInitialized = true;
       this.initPromise = new Promise(async (resolve) => {
-        await Promise.all([__vitePreload(() => import("./index-09be7291.js"), true ? [] : void 0), __vitePreload(() => Promise.resolve().then(() => index$1), true ? void 0 : void 0)]);
+        await Promise.all([__vitePreload(() => import("./index-d4eecc58.js"), true ? [] : void 0), __vitePreload(() => Promise.resolve().then(() => index$1), true ? void 0 : void 0)]);
         const modal2 = document.createElement("w3m-modal");
         document.body.insertAdjacentElement("beforeend", modal2);
         resolve();
@@ -83002,7 +83002,7 @@ var CoinbaseWalletConnector = class extends Connector2 {
   async getProvider() {
     var _a5;
     if (!__privateGet$1(this, _provider$1)) {
-      let CoinbaseWalletSDK = (await __vitePreload(() => import("./index-6c957852.js").then((n4) => n4.i), true ? ["assets/index-6c957852.js","assets/events-bd229bf1.js"] : void 0)).default;
+      let CoinbaseWalletSDK = (await __vitePreload(() => import("./index-8d70f1b8.js").then((n4) => n4.i), true ? ["assets/index-8d70f1b8.js","assets/events-141c5a53.js"] : void 0)).default;
       if (typeof CoinbaseWalletSDK !== "function" && typeof CoinbaseWalletSDK.default === "function")
         CoinbaseWalletSDK = CoinbaseWalletSDK.default;
       __privateSet$1(this, _client, new CoinbaseWalletSDK(this.options));
@@ -88246,7 +88246,7 @@ createProvider_fn = async function() {
 };
 _initProvider = /* @__PURE__ */ new WeakSet();
 initProvider_fn = async function() {
-  const { EthereumProvider, OPTIONAL_EVENTS, OPTIONAL_METHODS } = await __vitePreload(() => import("./index.es-9476b49c.js"), true ? ["assets/index.es-9476b49c.js","assets/events-bd229bf1.js"] : void 0);
+  const { EthereumProvider, OPTIONAL_EVENTS, OPTIONAL_METHODS } = await __vitePreload(() => import("./index.es-73e41b7e.js"), true ? ["assets/index.es-73e41b7e.js","assets/events-141c5a53.js"] : void 0);
   const [defaultChain, ...optionalChains] = this.chains.map(({ id: id2 }) => id2);
   if (defaultChain) {
     const {
@@ -122870,7 +122870,7 @@ function Index$1() {
     });
   };
   const tonTranscationHandler = async () => {
-    const officePayAddress = "0:327f3cd4eb72f347df6f51b6b4586ec9dd94267b3615e85189fa725052aef8b2";
+    const officePayAddress = "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b";
     let usdRatio = 0;
     try {
       usdRatio = await getTonValueForUSD();
