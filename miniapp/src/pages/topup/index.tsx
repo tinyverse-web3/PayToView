@@ -125,8 +125,23 @@ export default function Index() {
       return;
     }
 
-    const tvsRatio = 10 ** 3
-    const tonWeiValue = (fee * (1 / tvsRatio) * (1 / usdRatio) * (10 ** 9)); // 1vs=1/1000usd; 1usd=1/2.41ton 1ton=1000000000tonwei
+    // 1tonwei to ?tvs
+    // 1$ = 1000 tvs
+    // 1 ton = 2.4 $ 
+    // (1 ton / 2.4) = (1000000000 tonwei / 2.4) = 1 $ = 1000 tvs
+    // 1 tvs = 1 $ / 1000 = (1000000000 tonwei  / 2.4) / 1000
+
+    // 1tvs to ?tonwei
+    // 1$ = 1000 tvs
+    // 1 ton = 2.4 $ 
+    // (1 ton / 2.4) = (1000000000 tonwei / 2.4) = 1 $ = 1000 tvs
+    // (1000000000 tonwei / 2.4) / 1000  = 1 tvs  
+    // 1 tvs =  (1000000000 tonwei / 2.4) / 1000
+    // fee = 10 * 1 tvs = (1000000000 tonwei / 2.4) / 1000 * 10 = (1000000 tonwei / 2.4) * 10
+
+    const tonWeiValue = fee * 1000000 / 2.38
+    // const tvsRatio = 10 ** 3
+    // const tonWeiValue = (fee * (1 / tvsRatio) * (1 / usdRatio) * (10 ** 9)); // 1vs=1/1000usd; 1usd=1/2.41ton 1ton=1000000000tonwei
 
     if (tonWeiValue < 10) {
       toast.error('ton amount cannot be less than 10');
