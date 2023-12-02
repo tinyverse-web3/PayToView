@@ -32,7 +32,7 @@
                 "-tvsAccountPassword",
                 "12345678",
                 "-env",
-                "dev",
+                "prod",
             ]
         },
         {
