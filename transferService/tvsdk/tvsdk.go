@@ -14,8 +14,6 @@ import (
 	dkvsPb "github.com/tinyverse-web3/tvbase/dkvs/pb"
 )
 
-const defaultTTL time.Duration = time.Hour * 24 * (365*100 + 25)
-
 type TvSdk struct {
 }
 
@@ -46,8 +44,8 @@ func (t *TvSdk) Init(rootPath string, password string, isTest bool) (err error) 
 	return nil
 }
 
-func (t *TvSdk) SetDKVS(key string, value []byte) error {
-	err := sdkutils.SaveToDKVS(key, value, defaultTTL)
+func (t *TvSdk) SetDKVS(key string, value []byte, ttl time.Duration) error {
+	err := sdkutils.SaveToDKVS(key, value, ttl)
 	if err != nil {
 		logger.Errorf("TvSdk.SetDKVS: SetDKVS error: %v", err)
 		return err

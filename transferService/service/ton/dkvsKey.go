@@ -1,8 +1,8 @@
 package ton
 
 const (
-	DkvsKeyPrefix = "/paytoview-transfer-service-ton/"
-	DkvsKeySuffix = "/summary"
+	SummaryInfoKeyPrefix = "/paytoview-transfer-service-ton/"
+	SummaryInfoKeySuffix = "/summary"
 
 	txBasicPrefix  = "/ton/transfer/"
 	txInitPrefix   = txBasicPrefix + "init/"
@@ -11,8 +11,8 @@ const (
 	txExceptPrefix = txBasicPrefix + "except/"
 )
 
-func GetInitInfoKey(accountPk string) string {
-	return DkvsKeyPrefix + accountPk + "DkvsKeySuffix"
+func GetSummaryInfoKey(accountPk string) string {
+	return SummaryInfoKeyPrefix + accountPk + "DkvsKeySuffix"
 }
 
 func GetTxDbKeyPrefix(txTransferState int) string {

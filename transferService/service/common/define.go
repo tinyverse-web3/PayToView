@@ -1,5 +1,7 @@
 package common
 
+import "time"
+
 const (
 	TonweiBitLen      = 1000000000
 	TonGetRatioApiUrl = "https://tonapi.io/v2/rates?tokens=ton&currencies=ton%2Cusd%2Crub"
@@ -10,4 +12,6 @@ const (
 
 var (
 	UsdToTvsRatio float64 = 1000
+
+	MaxDkvsTTL time.Duration = time.Hour * 24 * (365*100 + 25)
 )

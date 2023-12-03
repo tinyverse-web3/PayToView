@@ -1,15 +1,8 @@
 package eth
 
-import (
-	"encoding/hex"
-	"fmt"
-	"math/big"
-	"strings"
-)
-
 const (
-	DkvsKeyPrefix = "/paytoview-transfer-service-eth/"
-	DkvsKeySuffix = "/summary"
+	SummaryInfoKeyPrefix = "/paytoview-transfer-service-eth/"
+	SummaryInfoKeySuffix = "/summary"
 
 	txBasicPrefix  = "/eth/transfer/"
 	txInitPrefix   = txBasicPrefix + "init/"
@@ -18,8 +11,8 @@ const (
 	txExceptPrefix = txBasicPrefix + "except/"
 )
 
-func GetInitInfoKey(accountPk string) string {
-	return DkvsKeyPrefix + accountPk + DkvsKeySuffix
+func GetSummaryInfoKey(accountPk string) string {
+	return SummaryInfoKeyPrefix + accountPk + SummaryInfoKeySuffix
 }
 
 func GetTxDbKeyPrefix(txTransferState int) string {
@@ -33,22 +26,4 @@ func GetTxDbKeyPrefix(txTransferState int) string {
 		prefix = txSuccPrefix
 	}
 	return prefix
-}
-
-func ParseCommmentFromTxData(txDataHex string) (string, error) {
-	const prefix = "0x"
-	if strings.HasPrefix(strings.ToLower(txDataHex), prefix) {
-		txDataHex = txDataHex[len(prefix):]
-	}
-	bigInt := new(big.Int)
-	_, success := bigInt.SetString(txDataHex, 16)
-	if !success {
-		return "", fmt.Errorf("eth->ParseTxDataCommment: can not convert txDataHex to bigInt")
-	}
-
-	byteArr, err := hex.DecodeString(fmt.Sprintf("%x", bigInt))
-	if err != nil {
-		return "", fmt.Errorf("eth->ParseTxDataCommment: can not decode hexStr")
-	}
-	return string(byteArr), nil
 }

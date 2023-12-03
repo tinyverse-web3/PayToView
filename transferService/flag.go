@@ -102,7 +102,7 @@ func initAccountSummaryForDkvs(rootPath string, tvsAccountPassword string) error
 	}
 
 	// init ton dkvs
-	key := ton.GetInitInfoKey(accountPk)
+	key := ton.GetSummaryInfoKey(accountPk)
 	logger.Infof("initAccountSummaryForDkvs: init ton account summary key: %s", key)
 	err = tvSdkInst.SetDKVS(key, nil, 2*time.Second)
 	if err != nil {
@@ -119,7 +119,7 @@ func initAccountSummaryForDkvs(rootPath string, tvsAccountPassword string) error
 	// fmt.Printf("record: %v\n", record)
 
 	// init eth dkvs
-	key = eth.GetInitInfoKey(accountPk)
+	key = eth.GetSummaryInfoKey(accountPk)
 	logger.Infof("initAccountSummaryForDkvs: init eth account summary key: %s", key)
 	err = tvSdkInst.SetDKVS(key, nil, 2*time.Second)
 	if err != nil {

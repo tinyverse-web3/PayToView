@@ -18,13 +18,14 @@ import (
 	ldbopts "github.com/syndtr/goleveldb/leveldb/opt"
 	"github.com/tinyverse-web3/transferService/adnl/core"
 	tonChain "github.com/tinyverse-web3/transferService/chain/ton"
+	"github.com/tinyverse-web3/transferService/service/common"
 	"github.com/tinyverse-web3/transferService/tvsdk"
 	"github.com/tinyverse-web3/tvbase/dkvs"
 	"github.com/tonkeeper/tongo/tlb"
 	"github.com/tonkeeper/tongo/ton"
 )
 
-const dbName = "ton.transfer.db"
+const DBName = "ton.transfer.db"
 
 const (
 	TxTransferInitState = iota
@@ -77,7 +78,7 @@ func NewTransferService(ctx context.Context, tvSdkInst *tvsdk.TvSdk, tonAccountI
 }
 
 func (s *TransferService) InitDb(dataPath string) (err error) {
-	s.db, err = levelds.NewDatastore(dataPath+dbName, &levelds.Options{
+	s.db, err = levelds.NewDatastore(dataPath+DBName, &levelds.Options{
 		Compression: ldbopts.NoCompression,
 	})
 	if err != nil {
@@ -155,7 +156,7 @@ func (s *TransferService) SyncInitInfo(initInfo *TransferSummaryInfo) error {
 		return err
 	}
 
-	err = s.tvSdkInst.SetDKVS(key, value)
+	err = s.tvSdkInst.SetDKVS(key, value, common.MaxDkvsTTL)
 	if err != nil {
 		logger.Errorf("TransferService->SyncInitInfo: SetDKVS error: %s", err.Error())
 		return err
@@ -170,7 +171,7 @@ func (s *TransferService) getInitInfoKey() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return GetInitInfoKey(accountPk), nil
+	return GetSummaryInfoKey(accountPk), nil
 }
 
 func (s *TransferService) Start(ctx context.Context) error {
@@ -457,7 +458,7 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 
 	if s.isCreation {
 		const maxRetryCount = 100
-		const maxTxCount = 100
+		const maxTxCount = 10000
 		txList, err := s.accountInst.TryGetAllTxList(ctx, maxTxCount, maxRetryCount)
 		if err != nil {
 			return err

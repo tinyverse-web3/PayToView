@@ -16,11 +16,12 @@ import (
 	"github.com/libp2p/go-libp2p/core/routing"
 	ldbopts "github.com/syndtr/goleveldb/leveldb/opt"
 	ethChain "github.com/tinyverse-web3/transferService/chain/eth"
+	"github.com/tinyverse-web3/transferService/service/common"
 	"github.com/tinyverse-web3/transferService/tvsdk"
 	"github.com/tinyverse-web3/tvbase/dkvs"
 )
 
-const dbName = "eth.transfer.db"
+const DBName = "eth.transfer.db"
 
 const (
 	TxTransferInitState = iota
@@ -76,7 +77,7 @@ func NewTransferService(ctx context.Context, tvSdkInst *tvsdk.TvSdk, accountInst
 }
 
 func (s *TransferService) InitDb(dataPath string) (err error) {
-	s.db, err = levelds.NewDatastore(dataPath+dbName, &levelds.Options{
+	s.db, err = levelds.NewDatastore(dataPath+DBName, &levelds.Options{
 		Compression: ldbopts.NoCompression,
 	})
 	if err != nil {
@@ -157,7 +158,7 @@ func (s *TransferService) SyncInitInfo(summaryInfo *TransferSummaryInfo) error {
 		return err
 	}
 
-	err = s.tvSdkInst.SetDKVS(key, value)
+	err = s.tvSdkInst.SetDKVS(key, value, common.MaxDkvsTTL)
 	if err != nil {
 		return err
 	}
@@ -171,7 +172,7 @@ func (s *TransferService) getInitInfoKey() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return GetInitInfoKey(accountPk), nil
+	return GetSummaryInfoKey(accountPk), nil
 }
 
 func (s *TransferService) Start(ctx context.Context) error {
@@ -618,27 +619,27 @@ func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, commen
 	values, _ := url.ParseQuery(record.Payload)
 	walletId := values.Get("tvswallet")
 	app := values.Get("app")
-	logger.Debugf("TransferService->TransferTvs: tvswallet: %s, app: %s", walletId, app)
+	logger.Debugf("TransferService->transferTvs: tvswallet: %s, app: %s", walletId, app)
 
 	usdRatio, err := GetEthToUsdRatio()
 	if err != nil {
-		logger.Errorf("TransferService->TransferTvs: GetEthToUsdRatio error: %s", err.Error())
+		logger.Errorf("TransferService->transferTvs: GetEthToUsdRatio error: %s", err.Error())
 		return err
 	}
 
 	ethwei, err := strconv.ParseUint(record.Value, 10, 64)
 	if err != nil {
-		logger.Errorf("TransferService->TransferTvs: ParseUint error: %s", err.Error())
+		logger.Errorf("TransferService->transferTvs: ParseUint error: %s", err.Error())
 		return err
 	}
 
 	tvs := Ethwei2tvs(ethwei, usdRatio)
-	logger.Debugf("TransferService->TransferTvs:\neth wei: %v, usd ratio: %.4f, tvs: %v", record.Value, usdRatio, tvs)
+	logger.Debugf("TransferService->transferTvs:\neth wei: %v, usd ratio: %.4f, tvs: %v", record.Value, usdRatio, tvs)
 	err = s.tvSdkInst.TransferTvs(walletId, tvs, fee, comment)
 	if err != nil {
 		walletId := s.tvSdkInst.GetWallID()
 		balance := s.tvSdkInst.GetBalance()
-		logger.Errorf("TransferService->waitTxsChan: TransferTvs walletID:%v, blance:%v, error: %s", walletId, balance, err.Error())
+		logger.Errorf("TransferService->waitTxsChan: transferTvs walletID:%v, blance:%v, error: %s", walletId, balance, err.Error())
 		return err
 	}
 	return nil
