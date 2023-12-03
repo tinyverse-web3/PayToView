@@ -6,22 +6,21 @@ import (
 	"time"
 )
 
-type CustomProtocolConfig struct {
-	IpfsSyncFile IpfsSyncFileConfig
-}
-
-type IpfsSyncFileConfig struct {
-	IpfsURL string
-}
+const (
+	EnvDev  = "dev"
+	EnvProd = "prod"
+)
 
 type AppConfig struct {
 	Ton       *TonConfig
 	Eth       *EthConfig
+	DkvsEnv   string
 	LogLevels map[string]string
 }
 
 type ChainConfig struct {
 	AccountID            string
+	Env                  string
 	EnableTxLog          bool
 	LoadTxsInterval      time.Duration
 	CheckFailTxsInterval time.Duration
@@ -45,15 +44,21 @@ type LogConfig struct {
 func NewDefaultAppConfig() *AppConfig {
 	ret := AppConfig{
 		LogLevels: map[string]string{
-			"transferService": "debug",
-			"mtv.dauth":       "panic",
-			"dmsg":            "panic",
-			"tvbase":          "info",
-			"dkvs":            "panic",
+			"transferService.main":        "info",
+			"transferService.tvsdk":       "info",
+			"transferService.chain.ton":   "info",
+			"transferService.service.ton": "info",
+			"transferService.chain.eth":   "info",
+			"transferService.service.eth": "info",
+			"mtv.dauth":                   "panic",
+			"tvbase":                      "info",
+			"dmsg":                        "panic",
+			"dkvs":                        "panic",
 		},
 		Ton: &TonConfig{
 			ChainConfig: ChainConfig{
 				AccountID:            "0:7e1f3e95d662bf7cdffc3b930379dae6aaf84ffaf2ec2111548bbec79c8f393b",
+				Env:                  EnvProd,
 				EnableTxLog:          false,
 				LoadTxsInterval:      5 * time.Second,
 				CheckFailTxsInterval: 5 * time.Second,
@@ -63,6 +68,7 @@ func NewDefaultAppConfig() *AppConfig {
 		Eth: &EthConfig{
 			ChainConfig: ChainConfig{
 				AccountID:            "0x563f451c79003571bBFD2Acbcc265C82C0884519",
+				Env:                  EnvProd,
 				EnableTxLog:          false,
 				LoadTxsInterval:      5 * time.Second,
 				CheckFailTxsInterval: 5 * time.Second,
@@ -70,6 +76,7 @@ func NewDefaultAppConfig() *AppConfig {
 			EtherScanApiKey: "6TD7F3VHX9YS62YKRGDHJWPANM4SF7DPBN",
 			ForceCreation:   false,
 		},
+		DkvsEnv: EnvProd,
 	}
 
 	return &ret

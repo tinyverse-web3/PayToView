@@ -14,6 +14,7 @@ import {
   Button,
   useRadio,
 } from '@chakra-ui/react';
+import { hideStr } from '@/lib/utils';
 import { EthTopupButton } from './components/EthTopupButton';
 import { useEffect, useMemo, useCallback, useState } from 'react';
 import { ListItem } from '@/components/ListItem';
@@ -25,6 +26,7 @@ import { ROUTE_PATH } from '@/router';
 import { useTranslation } from 'react-i18next';
 import { useListStore } from '@/store';
 import LayoutThird from '@/layout/LayoutThird';
+import { tvs2tonwei, tonwei2tvs, getTonToUsdRatio, getPayComment, officeTonPayAddress } from '@/lib/utils/coin';
 
 // ton
 import { TonConnectButton } from '@tonconnect/ui-react';
@@ -32,24 +34,10 @@ import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import { CHAIN, toUserFriendlyAddress } from '@tonconnect/ui';
 import { BOC, Builder } from 'ton3-core';
 import { Address } from 'ton3-core';
-import { hideStr } from '@/lib/utils';
+
 import { beginCell } from '@ton/core';
 import { useAccountStore } from '@/store';
 
-// evm
-import { useDebounce } from 'use-debounce';
-import {
-  usePrepareSendTransaction,
-  useSendTransaction,
-  useWaitForTransaction,
-  useConnect as useEvmConnect,
-  useDisconnect as useEvmDisconnect,
-  useAccount as useEvmAccount,
-} from 'wagmi';
-import { useWeb3ModalState } from '@web3modal/wagmi/react';
-import { parseEther, Hex, stringify } from 'viem';
-import { useWeb3Modal } from '@web3modal/wagmi/react';
-import { SendTransactionResult } from '@wagmi/core';
 
 export default function Index() {
   useTitle('PayToView');
@@ -62,10 +50,7 @@ export default function Index() {
   const [fee, setFee] = useState(1000);
 
   const { accountInfo, balance } = useAccountStore((state) => state);
-  const commentText = useMemo(
-    () => 'tvswallet=' + accountInfo.address + '&app=' + import.meta.env.VITE_PAY_APP_NAME,
-    [accountInfo.address],
-  );
+  const payComment = useMemo(() => getPayComment(accountInfo.address), [accountInfo.address]);
 
   // ton
   const [tonTranslateStatus, setTonTranslateStatus] = useState(false);
@@ -74,24 +59,8 @@ export default function Index() {
   const [tonConnectUi] = useTonConnectUI();
   const shortAddress = useMemo(() => hideStr(tonAddress, 5), [tonAddress]);
   const [tonTxReceipt, setTonTxReceipt] = useState<any>(null);
-  const [tonPayAmount, setTonPayAmount] = React.useState('0');
+  const [tonPayValue, setTonPayValue] = React.useState('0');
 
-  // evm
-  const [ethTranslateStatus, setEthTranslateStatus] = useState(false);
-  const { disconnect: evmDisconnect } = useEvmDisconnect();
-  const {
-    address: evmWalletAddress,
-    isConnecting: isEvmWalletConnecting,
-    isDisconnected: isEvmWalletDisconnected,
-  } = useEvmAccount();
-  const { selectedNetworkId: selectedEvmNetworkId } = useWeb3ModalState();
-  const { open: OpenEvmWallet } = useWeb3Modal();
-  const [evmPayAmount, setEvmPayAmount] = React.useState('');
-  // const [evmDebouncedPayAmount] = useDebounce(evmPayAmount, 500)
-  // var  rcepipt: SendTransactionResult = {
-  //   hash : `0x${BigInt("0x" + Buffer.from(commentText).toString("hex")).toString(16)}` as Hex
-  // }
-  const [evmWaitTxReceipt, setEvmWaitTxReceipt] = useState<any>(null);
 
   const focusHandler = (e) => {
     console.log('focus');
@@ -102,7 +71,6 @@ export default function Index() {
     });
   };
   const tonTranscationHandler = async () => {
-    const officePayAddress = import.meta.env.VITE_OFFICE_TON_WALLET_ID || '';
     let usdRatio = 0;
     try {
       usdRatio = await getTonToUsdRatio();
@@ -116,7 +84,7 @@ export default function Index() {
 
     const payload = beginCell()
       .storeUint(0, 32)
-      .storeStringTail(commentText)
+      .storeStringTail(payComment)
       .endCell()
       .toBoc()
       .toString('base64');
@@ -126,24 +94,17 @@ export default function Index() {
       return;
     }
 
-    debugger
-    const usdToTvsRatio = 1000
-    const tonWeiValue = parseInt(calcWeitonAmount(fee, usdRatio, usdToTvsRatio).toFixed(0), 10)
-    console.log(tonWeiValue)
-    const tvsValue = parseInt(calcTvsAmount(tonWeiValue, usdRatio, usdToTvsRatio).toFixed(0), 10)
-    console.log(tvsValue)
+    const amount = tvs2tonwei(fee, usdRatio)
+    console.log('amount(tonwei):', amount)
+    const tvs = tonwei2tvs(amount, usdRatio)
+    console.log('tvs:', tvs)
 
-    if (tonWeiValue < 10) {
-      toast.error('ton amount cannot be less than 10');
-      return;
-    }
-    setTonPayAmount(tonWeiValue.toFixed(0));
     const txDetail = {
       validUntil: Math.floor(Date.now() / 1000) + 600, // unix epoch seconds
       messages: [
         {
-          address: officePayAddress,
-          amount: tonWeiValue.toFixed(0),
+          address: officeTonPayAddress,
+          amount: amount,
           payload: payload,
         },
       ],
@@ -158,6 +119,7 @@ export default function Index() {
         setTonTranslateStatus(false);
         tonConnectUi.disconnect();
         setLoading(false);
+        setTonPayValue(amount);
       })
       .catch((error) => {
         console.error('ton sendTransaction error: ', error);
@@ -183,9 +145,6 @@ export default function Index() {
   }, [
     tonConnectUi.connected,
     tonTranslateStatus,
-    isEvmWalletDisconnected,
-    isEvmWalletConnecting,
-    ethTranslateStatus,
   ]);
   const walletDisconnect = () => {
     tonConnectUi.disconnect();
@@ -259,26 +218,5 @@ export default function Index() {
   );
 }
 
-export async function getTonToUsdRatio(): Promise<any> {
-  const response = await axios.get(
-    'https://tonapi.io/v2/rates?tokens=ton&currencies=ton%2Cusd%2Crub',
-  );
-  const prices = response.data.rates.TON.prices;
-  return prices.USD;
-}
 
-function calcWeitonAmount(tvsAmount: number, tonToUsdRatio: number, usdToTonRatio: number): number {
-  const usdAmount = tvsAmount / usdToTonRatio;
-  const tonAmount = usdAmount / tonToUsdRatio;
-  const weitonLen = 1000000000
-  const weitonAmount = tonAmount * weitonLen;
-  return weitonAmount;
-}
 
-function calcTvsAmount(weitonAmount: number, tonToUsdRatio: number, usdToTonRatio: number): number {
-  const weitonLen = 1000000000
-  const tonAmount = weitonAmount / weitonLen;
-  const usdAmount = tonAmount * tonToUsdRatio;
-  const tvsAmount = usdAmount * usdToTonRatio;
-  return tvsAmount;
-}

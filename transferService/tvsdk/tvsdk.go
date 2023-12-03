@@ -25,7 +25,7 @@ func NewSdk() *TvSdk {
 func (t *TvSdk) Init(rootPath string, password string, isTest bool) (err error) {
 	const appname = "mtv" // must mtv
 
-	// TODO sdk.SetDebugMode(isTest)
+	sdk.SetDebugMode(isTest)
 	err = sdk.StartUpBase(rootPath, appname)
 	if err != nil {
 		logger.Errorf("TvSdk.Init: StartUpBase error: %v", err)

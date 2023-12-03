@@ -22,10 +22,9 @@ const (
 	configFileName  = "config.json"
 )
 
-func parseCmdParams() (string, string, string) {
+func parseCmdParams() (string, string) {
 	rootPath := flag.String("rootPath", defaultPathRoot, "config file path")
 	tvsAccountPassword := flag.String("tvsAccountPassword", "12345678", "account password")
-	env := flag.String("env", "dev", "env dev or prod.")
 	exportTxs := flag.Bool("exportTxs", false, "Export txs.")
 	init := flag.Bool("init", false, "Init.")
 	help := flag.Bool("help", false, "Display help")
@@ -34,13 +33,13 @@ func parseCmdParams() (string, string, string) {
 	if *help {
 		logger.Info("tinverse paytoview chain transfer service for ton and eth")
 		logger.Info("Step1: Run './transferService -rootPath ./data -init'")
-		logger.Info("Step2: Run './transferService -rootPath ./data -tvsAccountPassword 12345678 -env dev' start service.")
-		logger.Info("Step3: Run './transferService -rootPath ./data -exportTxs' export all tx list for ton and eth.")
+		logger.Info("Step2(optional): Edit Config 'vi ./config.json'")
+		logger.Info("Step3: Run './transferService -rootPath ./data -tvsAccountPassword 12345678' start service.")
+		logger.Info("Step4: Run './transferService -rootPath ./data -exportTxs' export all tx list for ton and eth.")
 		os.Exit(0)
 	}
 
 	if *init {
-		// init config
 		dataPath, err := util.GetFullPath(*rootPath)
 		if err != nil {
 			logger.Fatalf("GetFullPath error: %v", err)
@@ -65,13 +64,13 @@ func parseCmdParams() (string, string, string) {
 		logger.Infof("init transfer service config success.")
 
 		// init sdk
-		tvSdkInst, err = initTvSdk(dataPath, *tvsAccountPassword, *env == "dev")
+		tvSdkInst, err = initTvSdk(dataPath, *tvsAccountPassword, cfg.DkvsEnv == EnvDev)
 		if err != nil {
 			logger.Fatalf("initTvSdk error: %v", err)
 		}
 		logger.Infof("init tvsdk account data success.")
 
-		// init transferSummary in dkvs
+		// set account transfer summary init info in dkvs
 		err = initAccountSummaryForDkvs(dataPath, *tvsAccountPassword)
 		if err != nil {
 			logger.Fatalf("initDkvs error: %v", err)
@@ -93,7 +92,7 @@ func parseCmdParams() (string, string, string) {
 		os.Exit(0)
 	}
 
-	return *rootPath, *tvsAccountPassword, *env
+	return *rootPath, *tvsAccountPassword
 }
 
 func initAccountSummaryForDkvs(rootPath string, tvsAccountPassword string) error {

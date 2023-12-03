@@ -9,21 +9,17 @@ import {
   useDisconnect as useEvmDisconnect,
   useAccount as useEvmAccount,
 } from 'wagmi';
-import axios from 'axios';
+
 import { useWeb3ModalState } from '@web3modal/wagmi/react';
 import { parseEther, Hex, stringify } from 'viem';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { toast } from 'react-hot-toast';
 import { useAccountStore } from '@/store';
+
+import { tvs2eth, eth2tvs, getEthToUsdRatio, getPayComment, toEthInputData, officeEthPayAddress } from '@/lib/utils/coin';
+
 interface Props {
   fee: number;
-}
-export async function getEthValueForUSD(): Promise<any> {
-  const response = await axios.get(
-    'https://api.coinbase.com/v2/prices/ETH-USD/spot',
-  );
-  const data = response.data.data;
-  return data.amount;
 }
 
 export const EthTopupButton = ({ fee }: Props) => {
@@ -40,10 +36,8 @@ export const EthTopupButton = ({ fee }: Props) => {
     isDisconnected: isEvmWalletDisconnected,
   } = useEvmAccount();
 
-  const commentText = useMemo(
-    () => 'tvswallet=' + accountInfo.address + '&app=' + import.meta.env.VITE_PAY_APP_NAME,
-    [accountInfo.address],
-  );
+  const payComment = useMemo(() => getPayComment(accountInfo.address), [accountInfo.address]);
+
   const topupHandler = () => {
     console.log(isEvmWalletDisconnected);
     setLoading(true);
@@ -53,27 +47,22 @@ export const EthTopupButton = ({ fee }: Props) => {
       OpenEvmWallet();
     }
   };
-  const tvsRatio = 10 ** 3;
-  const ethValue = useMemo(
-    () => (fee * (1 / tvsRatio) * (1 / usdRatio)).toFixed(8),
-    [fee, usdRatio],
-  );
-  const evmTxData = useMemo(
-    () =>
-      `0x${BigInt('0x' + Buffer.from(commentText).toString('hex')).toString(
-        16,
-      )}` as Hex,
-    [commentText],
-  );
+
+  const value = tvs2eth(fee, usdRatio)
+  console.log('amount(eth):', value)
+  const tvs = eth2tvs(value, usdRatio)
+  console.log('tvs:', tvs)
+
+  const evmTxData = useMemo(() => toEthInputData(payComment), [payComment]);
 
   const { config } = usePrepareSendTransaction({
-    to: import.meta.env.VITE_OFFICE_EVM_WALLET_ID,
-    value: parseEther(ethValue),
+    to: officeEthPayAddress,
+    value: parseEther(value),
     data: evmTxData,
     enabled: true,
   });
   const getUsdRatio = async () => {
-    const usd = await getEthValueForUSD();
+    const usd = await getEthToUsdRatio();
     setUsdRatio(usd);
   };
   useEffect(() => {

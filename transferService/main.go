@@ -16,7 +16,7 @@ var tvSdkInst *tvsdk.TvSdk
 
 func main() {
 
-	rootPath, tvsAccountPassword, env := parseCmdParams()
+	rootPath, tvsAccountPassword := parseCmdParams()
 	rootPath, err := util.GetFullPath(rootPath)
 	if err != nil {
 		logger.Fatalf("GetFullPath error: %v", err)
@@ -40,7 +40,7 @@ func main() {
 		logger.Fatalf("initLog error: %v", err)
 	}
 
-	tvSdkInst, err = initTvSdk(rootPath, tvsAccountPassword, env == "dev")
+	tvSdkInst, err = initTvSdk(rootPath, tvsAccountPassword, cfg.DkvsEnv == EnvDev)
 	if err != nil {
 		logger.Fatalf("initTvSdk error: %v", err)
 	}
@@ -51,7 +51,8 @@ func main() {
 	}
 
 	ctx := context.Background()
-	tonAccountInst, err = initTonAccount(cfg.Ton.AccountID, env == "dev", cfg.Ton.EnableTxLog, rootPath+"log")
+
+	tonAccountInst, err = initTonAccount(cfg.Ton.AccountID, cfg.Ton.Env == EnvDev, cfg.Ton.EnableTxLog, rootPath+"log")
 	if err != nil {
 		logger.Fatalf("initTonAccount error: %v", err)
 	}

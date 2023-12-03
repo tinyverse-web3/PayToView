@@ -7,23 +7,6 @@ import (
 	"time"
 )
 
-func GetInitInfoKey(accountPk string) string {
-	return "/paytoview-transfer-service-ton/" + accountPk + "/summary"
-}
-
-func GetTxDbKeyPrefix(txTransferState int) string {
-	prefix := txInitPrefix
-	switch txTransferState {
-	case TxTransferInitState:
-		prefix = txInitPrefix
-	case TxTransferFailState:
-		prefix = txFailPrefix
-	case TxTransferSuccState:
-		prefix = txSuccPrefix
-	}
-	return prefix
-}
-
 type TonRatesResponse struct {
 	Rates struct {
 		TON struct {
@@ -34,11 +17,13 @@ type TonRatesResponse struct {
 	} `json:"rates"`
 }
 
+const weitonLen = 1000000000
+
 var ratesResponse *TonRatesResponse
 var lastFetchTime time.Time
 
 func GetTonToUsdRatio() (float64, error) {
-	if ratesResponse != nil && time.Since(lastFetchTime) < 3*time.Minute {
+	if ratesResponse != nil && time.Since(lastFetchTime) < 30*time.Second {
 		return ratesResponse.Rates.TON.Prices.USD, nil
 	}
 
@@ -64,8 +49,6 @@ func GetTonToUsdRatio() (float64, error) {
 	lastFetchTime = time.Now()
 	return ratesResponse.Rates.TON.Prices.USD, nil
 }
-
-const weitonLen = 1000000000
 
 func CalcWeitonAmount(tvsAmount, tonToUsdRatio, usdToTonRatio float64) float64 {
 	usdAmount := tvsAmount / usdToTonRatio

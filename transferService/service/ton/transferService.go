@@ -375,7 +375,7 @@ func (s *TransferService) Stop() {
 func (s *TransferService) IsValidTx(coreTx *core.Transaction) bool {
 	// skip no tvs transfer tx, because it will be processed in TransferTvs, need payload param
 	if coreTx.InMsg.DecodedBody == nil {
-		logger.Debugf("TransferService->IsvalidTx: coreTx.InMsg.DecodedBody is nil")
+		logger.Debugf("TransferService->IsvalidTx: coreTx.InMsg.DecodedBody is nil, it isn't in tx(need out tx)")
 		return false
 	}
 

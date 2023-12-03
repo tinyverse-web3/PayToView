@@ -20,7 +20,8 @@ function App() {
       manifestUrl='https://tinyverse-web3.github.io/paytoview/tonconnect-manifest.json'
       uiPreferences={{ theme: THEME.LIGHT }}
       actionsConfiguration={{
-        twaReturnUrl: 'https://t.me/tvnb_bot', //'https://t.me/tc_twa_test_bot'
+        // TODO: wait office team fix bug in https://ton-connect.github.io/demo-dapp-with-react-ui
+        // twaReturnUrl: 'https://t.me/tvnb_bot', //'https://t.me/tc_twa_test_bot'
       }}>
       <main className='h-full'>
         <Toaster
