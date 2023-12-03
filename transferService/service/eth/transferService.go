@@ -20,16 +20,7 @@ import (
 	"github.com/tinyverse-web3/tvbase/dkvs"
 )
 
-const DBName = "eth.transfer.db"
-const DEFAULT_TTL time.Duration = time.Hour * 24 * (365*100 + 25) // hundred year
-
-const (
-	txBasicPrefix  = "/eth/transfer/"
-	txInitPrefix   = txBasicPrefix + "init/"
-	txFailPrefix   = txBasicPrefix + "fail/"
-	txSuccPrefix   = txBasicPrefix + "succ/"
-	txExceptPrefix = txBasicPrefix + "except/"
-)
+const dbName = "eth.transfer.db"
 
 const (
 	TxTransferInitState = iota
@@ -70,7 +61,7 @@ func NewTransferService(ctx context.Context, tvSdkInst *tvsdk.TvSdk, accountInst
 		tvSdkInst:   tvSdkInst,
 		accountInst: accountInst,
 	}
-	err := ret.InitTransferInitInfo(ctx, forceCreate)
+	err := ret.InitSummaryInfo(ctx, forceCreate)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +76,7 @@ func NewTransferService(ctx context.Context, tvSdkInst *tvsdk.TvSdk, accountInst
 }
 
 func (s *TransferService) InitDb(dataPath string) (err error) {
-	s.db, err = levelds.NewDatastore(dataPath+DBName, &levelds.Options{
+	s.db, err = levelds.NewDatastore(dataPath+dbName, &levelds.Options{
 		Compression: ldbopts.NoCompression,
 	})
 	if err != nil {
@@ -94,7 +85,7 @@ func (s *TransferService) InitDb(dataPath string) (err error) {
 	return nil
 }
 
-func (s *TransferService) InitTransferInitInfo(ctx context.Context, forceCreate bool) error {
+func (s *TransferService) InitSummaryInfo(ctx context.Context, forceCreate bool) error {
 	key, err := s.getInitInfoKey()
 	if err != nil {
 		return err
@@ -104,7 +95,7 @@ func (s *TransferService) InitTransferInitInfo(ctx context.Context, forceCreate 
 	if forceCreate || errors.Is(err, dkvs.ErrNotFound) || errors.Is(err, routing.ErrNotFound) {
 		s.isCreation = true
 		if err != nil {
-			logger.Debugf("TransferService->InitTransferInitInfo: summaryInfo isn't exist, GetDKVS error: %s", err.Error())
+			logger.Debugf("TransferService->InitSummaryInfo: summaryInfo isn't exist, GetDKVS error: %s", err.Error())
 		}
 
 		summaryInfo := &TransferSummaryInfo{
@@ -132,7 +123,7 @@ func (s *TransferService) InitTransferInitInfo(ctx context.Context, forceCreate 
 	}
 
 	if err != nil {
-		logger.Errorf("TransferService->InitTransferInitInfo: GetDKVS error: %s", err.Error())
+		logger.Errorf("TransferService->InitSummaryInfo: GetDKVS error: %s", err.Error())
 		return err
 	}
 
@@ -166,7 +157,7 @@ func (s *TransferService) SyncInitInfo(summaryInfo *TransferSummaryInfo) error {
 		return err
 	}
 
-	err = s.tvSdkInst.SetDKVS(key, value, DEFAULT_TTL)
+	err = s.tvSdkInst.SetDKVS(key, value)
 	if err != nil {
 		return err
 	}
@@ -371,58 +362,39 @@ func (s *TransferService) Stop() {
 	close(s.txsChan)
 }
 
-func (s *TransferService) validTx(tx ethChain.Tx) bool {
+func (s *TransferService) IsValidTx(tx ethChain.Tx) bool {
 	payload, err := ParseCommmentFromTxData(tx.Input)
 	if err != nil {
-		logger.Errorf("TransferService->validTx: ParseCommmentFromTxData error: %s", err.Error())
+		logger.Errorf("TransferService->IsValidTx: ParseCommmentFromTxData error: %s", err.Error())
 		return false
 	}
+
 	if payload == "" {
-		logger.Debugf("TransferService->validTx: payload is empty")
-		return false
-	}
-
-	// payload = "https://tinyverse-web3.github.io/paytoview?app=paytoview&tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4"
-	// u, err := url.Parse(payload)
-	// if err != nil {
-	// 	logger.Errorf("TransferService->waitTxsChan: url.Parse error: %s", err.Error())
-	// 	return "", "", fmt.Errorf("TransferService->waitTxsChan: url.Parse error: %s", err.Error())
-	// }
-	// param := u.RawQuery
-
-	param := payload // u.RawQuery
-	if param == "" {
-		logger.Errorf("TransferService->validTx: payload is empty")
+		logger.Errorf("TransferService->IsValidTx: payload is empty")
 		return false
 	} else {
-		logger.Debugf("TransferService->validTx: payload: %s", param)
+		logger.Debugf("TransferService->IsValidTx: payload: %s", payload)
 	}
 
-	values, err := url.ParseQuery(param)
+	values, err := url.ParseQuery(payload)
 	if err != nil {
-		logger.Errorf("TransferService->validTx: url.ParseQuery error: %s", err.Error())
+		logger.Errorf("TransferService->IsValidTx: url.ParseQuery error: %s", err.Error())
 		return false
 	}
 	walletId := values.Get("tvswallet")
 	if walletId == "" {
-		logger.Debugf("TransferService->validTx: walletId is empty")
+		logger.Debugf("TransferService->IsValidTx: walletId is empty")
 		return false
 	}
 
-	// app := values.Get("app")
-	// if app != "payToView" {
-	// 	logger.Debugf("TransferService->validTx: app is not paytoview")
-	// 	return false
-	// }
-
 	isExistTx := s.isExistTx(tx.Hash)
 	if isExistTx {
-		logger.Debugf("TransferService->validTx: isExistTx tx: %+v", tx)
+		logger.Debugf("TransferService->IsValidTx: isExistTx tx: %+v", tx)
 		return false
 	}
 
 	if !s.tvSdkInst.IsExistWallet(walletId) {
-		logger.Debugf("TransferService->validTx: tvswallet: %s isn't exist", walletId)
+		logger.Debugf("TransferService->IsValidTx: tvswallet: %s isn't exist", walletId)
 		return false
 	}
 
@@ -454,7 +426,7 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 				tx.GasUsed,
 			)
 
-			if !s.validTx(tx) {
+			if !s.IsValidTx(tx) {
 				logger.Debugf("TransferService->loadTxsFromBLockChain: tx is invalid")
 				continue
 			}
@@ -642,11 +614,8 @@ func (s *TransferService) GetBalance() (string, error) {
 	return s.accountInst.GetBalance()
 }
 
-func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, payComment string) error {
-	payload := record.Payload
-
-	param := payload
-	values, _ := url.ParseQuery(param)
+func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, comment string) error {
+	values, _ := url.ParseQuery(record.Payload)
 	walletId := values.Get("tvswallet")
 	app := values.Get("app")
 	logger.Debugf("TransferService->TransferTvs: tvswallet: %s, app: %s", walletId, app)
@@ -664,8 +633,8 @@ func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, payCom
 	}
 
 	tvs := Ethwei2tvs(ethwei, usdRatio)
-	logger.Debugf("TransferService->TransferTvs:\nton wei: %v, usd ratio: %.4f, tvs: %v", record.Value, usdRatio, tvs)
-	err = s.tvSdkInst.TransferTvs(walletId, tvs, fee, payComment)
+	logger.Debugf("TransferService->TransferTvs:\neth wei: %v, usd ratio: %.4f, tvs: %v", record.Value, usdRatio, tvs)
+	err = s.tvSdkInst.TransferTvs(walletId, tvs, fee, comment)
 	if err != nil {
 		walletId := s.tvSdkInst.GetWallID()
 		balance := s.tvSdkInst.GetBalance()

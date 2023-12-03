@@ -136,7 +136,7 @@ func TestAccount(t *testing.T) {
 		} else {
 			validedTxCount++
 		}
-		payload, err := GetTransactionPayload(coreTx.InMsg.DecodedBody)
+		payload, err := GetTxPayload(coreTx.InMsg.DecodedBody)
 		if err != nil {
 			logger.Errorf("GetTransactionPayload error: %v", err)
 			continue
@@ -158,7 +158,7 @@ func isValidTx(coreTx *core.Transaction) bool {
 		return false
 	}
 
-	payload, err := GetTransactionPayload(coreTx.InMsg.DecodedBody)
+	payload, err := GetTxPayload(coreTx.InMsg.DecodedBody)
 	if err != nil {
 		logger.Errorf("isvalidTx: tonChain.GetTransactionPayload error: %s", err.Error())
 		return false

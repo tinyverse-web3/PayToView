@@ -7,8 +7,19 @@ import (
 	"strings"
 )
 
+const (
+	DkvsKeyPrefix = "/paytoview-transfer-service-eth/"
+	DkvsKeySuffix = "/summary"
+
+	txBasicPrefix  = "/eth/transfer/"
+	txInitPrefix   = txBasicPrefix + "init/"
+	txFailPrefix   = txBasicPrefix + "fail/"
+	txSuccPrefix   = txBasicPrefix + "succ/"
+	txExceptPrefix = txBasicPrefix + "except/"
+)
+
 func GetInitInfoKey(accountPk string) string {
-	return "/paytoview-transfer-service-eth/" + accountPk + "/summary"
+	return DkvsKeyPrefix + accountPk + DkvsKeySuffix
 }
 
 func GetTxDbKeyPrefix(txTransferState int) string {
