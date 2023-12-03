@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
-	"math"
 	"net/url"
 	"runtime"
 	"strconv"
@@ -27,7 +26,6 @@ import (
 
 const DBName = "ton.transfer.db"
 const DEFAULT_TTL time.Duration = time.Hour * 24 * (365*100 + 25) // hundred year
-const UsdToTvsRatio = 1000
 
 const (
 	txBasicPrefix  = "/ton/transfer/"
@@ -46,8 +44,8 @@ const (
 type TransferRecord struct {
 	Ts      int64
 	Seqno   uint32
-	Payload string
 	Value   int64
+	Payload string
 	Desc    string
 }
 
@@ -663,9 +661,9 @@ func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, commit
 		return err
 	}
 
-	tvsValue := math.Round(CalTvsAmount(float64(record.Value), usdRatio, UsdToTvsRatio))
-	logger.Debugf("TransferService->TransferTvs:\nton wei: %v, usd ratio: %.4f, tvs value: %v", float64(record.Value), usdRatio, tvsValue)
-	err = s.tvSdkInst.TransferTvs(walletId, uint64(tvsValue), fee, commit)
+	tvs := Tonwei2tvs(record.Value, usdRatio)
+	logger.Debugf("TransferService->TransferTvs:\nton wei: %v, usd ratio: %.4f, tvs value: %v", float64(record.Value), usdRatio, tvs)
+	err = s.tvSdkInst.TransferTvs(walletId, tvs, fee, commit)
 	if err != nil {
 		walletId := s.tvSdkInst.GetWallID()
 		balance := s.tvSdkInst.GetBalance()

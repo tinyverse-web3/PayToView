@@ -3,11 +3,14 @@ package ton
 import (
 	"encoding/json"
 	"io"
+	"math"
 	"net/http"
 	"time"
+
+	"github.com/tinyverse-web3/transferService/service/common"
 )
 
-type TonRatesResponse struct {
+type TonRateResp struct {
 	Rates struct {
 		TON struct {
 			Prices struct {
@@ -17,49 +20,48 @@ type TonRatesResponse struct {
 	} `json:"rates"`
 }
 
-const weitonLen = 1000000000
-
-var ratesResponse *TonRatesResponse
-var lastFetchTime time.Time
+var (
+	tonRateResp          *TonRateResp
+	lastFetchTonRateTime time.Time
+)
 
 func GetTonToUsdRatio() (float64, error) {
-	if ratesResponse != nil && time.Since(lastFetchTime) < 30*time.Second {
-		return ratesResponse.Rates.TON.Prices.USD, nil
+	if tonRateResp != nil && time.Since(lastFetchTonRateTime) < 30*time.Second {
+		return tonRateResp.Rates.TON.Prices.USD, nil
 	}
 
-	url := "https://tonapi.io/v2/rates?tokens=ton&currencies=ton%2Cusd%2Crub"
-	ratesResp, err := http.Get(url)
+	ratesResp, err := http.Get(common.TonGetRatioApiUrl)
 	if err != nil {
-		logger.Errorf("getTonValueForUSD: http.Get error: %v", err)
+		logger.Errorf("GetTonToUsdRatio: http.Get error: %v", err)
 		return 0, err
 	}
 	defer ratesResp.Body.Close()
 
 	body, err := io.ReadAll(ratesResp.Body)
 	if err != nil {
-		logger.Errorf("getTonValueForUSD: io.ReadAll error: %v", err)
+		logger.Errorf("GetTonToUsdRatio: io.ReadAll error: %v", err)
 		return 0, err
 	}
 
-	err = json.Unmarshal(body, &ratesResponse)
+	err = json.Unmarshal(body, &tonRateResp)
 	if err != nil {
-		logger.Errorf("getTonValueForUSD: json.Unmarshal error: %v", err)
+		logger.Errorf("GetTonToUsdRatio: json.Unmarshal error: %v", err)
 		return 0, err
 	}
-	lastFetchTime = time.Now()
-	return ratesResponse.Rates.TON.Prices.USD, nil
+	lastFetchTonRateTime = time.Now()
+	return tonRateResp.Rates.TON.Prices.USD, nil
 }
 
-func CalcWeitonAmount(tvsAmount, tonToUsdRatio, usdToTonRatio float64) float64 {
-	usdAmount := tvsAmount / usdToTonRatio
-	tonAmount := usdAmount / tonToUsdRatio
-	weitonAmount := tonAmount * weitonLen
-	return weitonAmount
+func Tvs2tonwei(tvs uint64, toUsdRatio float64) int64 {
+	usd := float64(tvs) / common.UsdToTvsRatio
+	ton := usd / toUsdRatio
+	tonwei := ton * common.TonweiBitLen
+	return int64(math.Round(tonwei))
 }
 
-func CalTvsAmount(weitonAmount, tonToUsdRatio, usdToTonRatio float64) float64 {
-	tonAmount := weitonAmount / weitonLen
-	usdAmount := tonAmount * tonToUsdRatio
-	tvsAmount := usdAmount * usdToTonRatio
-	return tvsAmount
+func Tonwei2tvs(tonwei int64, toUsdRatio float64) uint64 {
+	ton := float64(tonwei) / common.TonweiBitLen
+	usd := ton * toUsdRatio
+	tvs := usd * common.UsdToTvsRatio
+	return uint64(math.Round((tvs)))
 }

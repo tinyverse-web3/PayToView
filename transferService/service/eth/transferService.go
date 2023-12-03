@@ -6,6 +6,7 @@ import (
 	"errors"
 	"net/url"
 	"runtime"
+	"strconv"
 	"sync"
 	"time"
 
@@ -39,6 +40,7 @@ const (
 type TransferRecord struct {
 	Ts      int64
 	TxHash  string
+	Value   string
 	Payload string
 	Desc    string
 }
@@ -240,7 +242,7 @@ func (s *TransferService) handleInitTxs(ctx context.Context) (err error) {
 			continue
 		}
 
-		err = s.transferTvs(record, 100, 3, "paytoview/transferService")
+		err = s.transferTvs(record, 3, "paytoview/transferService")
 		if err != nil {
 			s.saveFailTx(ctx, record, err.Error())
 			continue
@@ -347,7 +349,7 @@ func (s *TransferService) waitTxsChan(ctx context.Context) {
 					record.TxHash,
 					record)
 
-				err := s.transferTvs(record, 100, 3, "paytoview/transferService/eth")
+				err := s.transferTvs(record, 3, "paytoview/transferService/eth")
 				if err != nil {
 					s.saveFailTx(ctx, record, err.Error())
 					continue
@@ -430,13 +432,34 @@ func (s *TransferService) validTx(tx ethChain.Tx) bool {
 func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 	handleTxList := func(txList []ethChain.Tx) bool {
 		for index, tx := range txList {
-			logger.Debugf("TransferService->loadTxsFromBLockChain: index: %v, tx: %+v", index, tx)
+			txBasicFormat := "BlockNumber:%+v\nTimeStamp:%+v\nHash:%+v\nNonce:%+v\nBlockHash:%+v\nTransactionIndex:%+v\nFrom:%+v\nTo:%v\nValue:%+v\nGas:%+v\nGasPrice:%+v\n"
+			txAdFormat := "TxReceiptStatus:%+v\nInput:%+v\nContractAddress:%+v\nCumulativeGasUsed:%+v\nGasUsed:%+v"
+			logger.Debugf("TransferService->loadTxsFromBLockChain: tx: index: %d\n"+txBasicFormat+txAdFormat,
+				index,
+				tx.BlockNumber,
+				tx.TimeStamp,
+				tx.Hash,
+				tx.Nonce,
+				tx.BlockHash,
+				tx.TransactionIndex,
+				tx.From,
+				tx.To,
+				tx.Value,
+				tx.Gas,
+				tx.GasPrice,
+				tx.TxReceiptStatus,
+				tx.Input,
+				tx.ContractAddress,
+				tx.CumulativeGasUsed,
+				tx.GasUsed,
+			)
+
 			if !s.validTx(tx) {
 				logger.Debugf("TransferService->loadTxsFromBLockChain: tx is invalid")
 				continue
 			}
 			payload, _ := ParseCommmentFromTxData(tx.Input)
-			record, err := s.saveTx(ctx, tx.Hash, payload, TxTransferInitState, "init")
+			record, err := s.saveTx(ctx, tx.Hash, payload, tx.Value, TxTransferInitState, "init")
 			if err != nil {
 				continue
 			}
@@ -543,7 +566,7 @@ func (s *TransferService) safeSendToTxsChan(record *TransferRecord) (abort bool)
 }
 
 func (s *TransferService) saveSuccTx(ctx context.Context, record *TransferRecord) error {
-	_, err := s.saveTx(ctx, record.TxHash, record.Payload, TxTransferSuccState, "succ")
+	_, err := s.saveTx(ctx, record.TxHash, record.Payload, record.Value, TxTransferSuccState, "succ")
 	if err != nil {
 		return err
 	}
@@ -559,7 +582,7 @@ func (s *TransferService) saveSuccTx(ctx context.Context, record *TransferRecord
 }
 
 func (s *TransferService) saveFailTx(ctx context.Context, record *TransferRecord, errDesc string) error {
-	_, err := s.saveTx(ctx, record.TxHash, record.Payload, TxTransferFailState, errDesc)
+	_, err := s.saveTx(ctx, record.TxHash, record.Payload, record.Value, TxTransferFailState, errDesc)
 	if err != nil {
 		return err
 	}
@@ -570,15 +593,16 @@ func (s *TransferService) saveFailTx(ctx context.Context, record *TransferRecord
 	return nil
 }
 
-func (s *TransferService) saveTx(ctx context.Context, txHash string, payload string, txTransferState int, errDesc string) (*TransferRecord, error) {
+func (s *TransferService) saveTx(ctx context.Context, txHash string, payload string, value string, txTransferState int, errDesc string) (*TransferRecord, error) {
 	key := s.getTxWriteDbKey(txHash, txTransferState)
-	value := &TransferRecord{
+	record := &TransferRecord{
 		Ts:      time.Now().UnixMicro(),
+		Value:   value,
 		TxHash:  txHash,
 		Payload: payload,
 		Desc:    errDesc,
 	}
-	data, err := json.Marshal(value)
+	data, err := json.Marshal(record)
 	if err != nil {
 		logger.Errorf("TransferService->saveTx: json.Marshal error: %s", err.Error())
 		return nil, err
@@ -589,7 +613,7 @@ func (s *TransferService) saveTx(ctx context.Context, txHash string, payload str
 		logger.Errorf("TransferService->saveTx: db.Put error: %s", err.Error())
 		return nil, err
 	}
-	return value, nil
+	return record, nil
 }
 
 func (s *TransferService) deleteTx(ctx context.Context, record *TransferRecord, txTransferState int) error {
@@ -618,19 +642,30 @@ func (s *TransferService) GetBalance() (string, error) {
 	return s.accountInst.GetBalance()
 }
 
-func (s *TransferService) transferTvs(record *TransferRecord, amount uint64, fee uint64, commit string) error {
+func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, payComment string) error {
 	payload := record.Payload
 
-	// payload = "https://tinyverse-web3.github.io/paytoview?app=paytoview&tvswallet=080112209e622d535ff6364ec8a7bf2b94624c377560f0d5fb7ebb4bfcb3eb023555a1b4"
-	// u, _ := url.Parse(payload)
-	// param := u.RawQuery
-	param := payload // u.RawQuery
+	param := payload
 	values, _ := url.ParseQuery(param)
 	walletId := values.Get("tvswallet")
 	app := values.Get("app")
 	logger.Debugf("TransferService->TransferTvs: tvswallet: %s, app: %s", walletId, app)
 
-	err := s.tvSdkInst.TransferTvs(walletId, amount, fee, commit)
+	usdRatio, err := GetEthToUsdRatio()
+	if err != nil {
+		logger.Errorf("TransferService->TransferTvs: GetEthToUsdRatio error: %s", err.Error())
+		return err
+	}
+
+	ethwei, err := strconv.ParseUint(record.Value, 10, 64)
+	if err != nil {
+		logger.Errorf("TransferService->TransferTvs: ParseUint error: %s", err.Error())
+		return err
+	}
+
+	tvs := Ethwei2tvs(ethwei, usdRatio)
+	logger.Debugf("TransferService->TransferTvs:\nton wei: %v, usd ratio: %.4f, tvs: %v", record.Value, usdRatio, tvs)
+	err = s.tvSdkInst.TransferTvs(walletId, tvs, fee, payComment)
 	if err != nil {
 		walletId := s.tvSdkInst.GetWallID()
 		balance := s.tvSdkInst.GetBalance()

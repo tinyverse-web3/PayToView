@@ -107,7 +107,7 @@ func (t *TvSdk) GetAccountStorePubkey() (string, error) {
 	return ret, nil
 }
 
-func (t *TvSdk) TransferTvs(walletID string, amount uint64, fee uint64, info string) error {
+func (t *TvSdk) TransferTvs(walletID string, amount uint64, fee uint64, comment string) error {
 	myWalletInst := tvwallet.GetWalletInst()
 	walletAddr, err := keyutils.TranslateKeyStringToProtoBuf(walletID)
 	if err != nil {
@@ -115,8 +115,7 @@ func (t *TvSdk) TransferTvs(walletID string, amount uint64, fee uint64, info str
 		return err
 	}
 
-	comments := []byte(info)
-	err = myWalletInst.TransferScoreWait(walletAddr, amount, fee, comments)
+	err = myWalletInst.TransferScoreWait(walletAddr, amount, fee, []byte(comment))
 	if err != nil {
 		logger.Errorf("TvSdk.TransferTvs: TransferScoreWait error: %v", err)
 		return err
