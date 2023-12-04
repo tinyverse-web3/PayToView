@@ -128,36 +128,39 @@ export default function DetailEdit() {
           )}
         </div>
         <div>
-          <div className='mb-2 flex items-center'>
-            <div className='font-bold mb-2 w-28'>Title</div>
+        <div className='mb-2 flex items-center'>
+            <div className='font-bold w-28 leading-none'>Title</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Name}
             </div>
           </div>
-          <div className='mb-2 flex items-center'>
-            <div className='font-bold mb-2 w-28'>Description</div>
-            <div className='text-sm flex-1'>
-              {detail.contractInfo?.ContractInfo?.Content.Description}
+          {detail.contractInfo?.ContractInfo?.Content.Description && (
+            <div className='mb-2 flex items-center'>
+              <div className='font-bold w-28'>Description</div>
+              <div className='text-sm flex-1'>
+                {detail.contractInfo?.ContractInfo?.Content.Description}
+              </div>
             </div>
-          </div>
-          <div className='mb-2 flex items-center'>
-            <div className='font-bold mb-2 w-28'>File Type</div>
+          )}
+
+          <div className='flex items-center  mb-2'>
+            <div className='font-bold w-28 leading-none'>File Type</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Content.ContentType}
             </div>
           </div>
           <div className='mb-2 flex items-center'>
-            <div className='font-bold mb-2 w-28'>Creater</div>
+            <div className='font-bold w-28'>Creater</div>
             <div className='text-sm flex-1 break-all'>{detail.walletKey}</div>
           </div>
           <div className='mb-2 flex items-center'>
-            <div className='font-bold mb-2 w-28'>Fee</div>
+            <div className='font-bold w-28'>Fee</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Fee}
             </div>
           </div>
           <div className='mb-2 flex items-center'>
-            <div className='font-bold mb-2 w-28'>分成比例</div>
+            <div className='font-bold mb-2 w-28'>{t('pages.publish.divide_ratio')}</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Ratio?.PublisherPercent}
             </div>

@@ -23,9 +23,10 @@ export default function Page({
           {showBack && (
             <>
               <BackButton onClick={() => goBack()} />
-              <div className='px-3 text-5' onClick={goBack}>
+              
+              {/* <div className='px-3 text-5' onClick={goBack}>
                 <Icon icon='mdi:arrow-left' className=' w-6 h-6 z-2' />
-              </div>
+              </div> */}
             </>
           )}
         </div>
