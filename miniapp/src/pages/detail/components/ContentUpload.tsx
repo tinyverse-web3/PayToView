@@ -17,9 +17,8 @@ import { BlurImage } from '@/components/BlurImage';
 
 interface ContentUploadProps {
   onChange?: (data: any) => void;
-  type?: 'image' | 'text';
 }
-export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
+export const ContentUpload = ({ onChange }: ContentUploadProps) => {
   const { t } = useTranslation();
   const [data, { set }] = useMap({
     title: 'PayToView First Image',
