@@ -54,7 +54,6 @@ type TransferSummaryInfo struct {
 	Hash             string `json:"hash"`
 	TransactionIndex string `json:"transactionIndex"`
 	To               string `json:"to"`
-	Input            string `json:"input"`
 }
 
 func NewTransferService(ctx context.Context, tvSdkInst *tvsdk.TvSdk, accountInst *ethChain.Account, dbPath string, forceCreate bool) (*TransferService, error) {
@@ -101,19 +100,6 @@ func (s *TransferService) InitSummaryInfo(ctx context.Context, forceCreate bool)
 
 		summaryInfo := &TransferSummaryInfo{
 			BlockNumber: "0",
-		}
-		txList, err := s.accountInst.GetTxList(ctx, "0", 1, "desc")
-		if err != nil {
-			return err
-		}
-		if len(txList) == 1 {
-			summaryInfo = &TransferSummaryInfo{
-				BlockNumber:      txList[0].BlockNumber,
-				Hash:             txList[0].Hash,
-				TransactionIndex: txList[0].TransactionIndex,
-				To:               txList[0].To,
-				Input:            txList[0].Input,
-			}
 		}
 
 		err = s.SyncInitInfo(summaryInfo)
@@ -445,11 +431,7 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 		return false
 	}
 	if s.isCreation {
-		txList, err := s.accountInst.GetTxList(ctx, "0", ethChain.MaxTxCount, "asc")
-		if err != nil {
-			return err
-		}
-
+		txList, _ := s.accountInst.GetTxList(ctx, s.summaryInfo.BlockNumber, ethChain.MaxTxCount, "desc")
 		abort := handleTxList(txList)
 		if abort {
 			return nil
@@ -468,42 +450,24 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 				defer s.workMutex.Unlock()
 
 				workFunc := func() bool {
-					txList, err := s.accountInst.GetTxList(ctx, "0", 1, "desc")
+					txList, err := s.accountInst.GetTxList(ctx, s.summaryInfo.BlockNumber, ethChain.MaxTxCount, "desc")
 					if err != nil {
-						logger.Errorf("TransferService->LoadTxsFromBLockChain: tonAccountInst.GetState error: %s", err.Error())
+						logger.Errorf("TransferService->LoadTxsFromBLockChain: tonAccountInst.GetTxList error: %s", err.Error())
 						return false
 					}
-					if len(txList) != 1 {
-						logger.Errorf("TransferService->LoadTxsFromBLockChain: len(txs) != 1, len :%v", len(txList))
-						return false
-					}
-					tx := txList[0]
-					logger.Debugf("TransferService->LoadTxsFromBLockChain: tx: %+v", tx)
+					lastTx := txList[0]
+					logger.Debugf("TransferService->LoadTxsFromBLockChain: tx: %+v", lastTx)
 
-					if tx.To != s.summaryInfo.To {
-						logger.Errorf("TransferService->LoadTxsFromBLockChain: tx.To != s.initInfo.To")
-						return false
-					}
-
-					if tx.BlockNumber < s.summaryInfo.BlockNumber {
-						return false
-					}
-					if tx.BlockNumber == s.summaryInfo.BlockNumber && tx.TransactionIndex <= s.summaryInfo.TransactionIndex {
-						return false
-					}
-
-					txList, err = s.accountInst.GetTxList(ctx, s.summaryInfo.BlockNumber, ethChain.MaxTxCount, "asc")
-					if err != nil {
-						logger.Errorf("TransferService->LoadTxsFromBLockChain: tonAccountInst.GetState error: %s", err.Error())
+					if (lastTx.BlockNumber < s.summaryInfo.BlockNumber) ||
+						(lastTx.BlockNumber == s.summaryInfo.BlockNumber && lastTx.TransactionIndex <= s.summaryInfo.TransactionIndex) {
 						return false
 					}
 
 					err = s.SyncInitInfo(&TransferSummaryInfo{
-						BlockNumber:      tx.BlockNumber,
-						Hash:             tx.Hash,
-						TransactionIndex: tx.TransactionIndex,
-						To:               tx.To,
-						Input:            tx.Input,
+						BlockNumber:      lastTx.BlockNumber,
+						Hash:             lastTx.Hash,
+						TransactionIndex: lastTx.TransactionIndex,
+						To:               lastTx.To,
 					})
 					if err != nil {
 						logger.Errorf("TransferService->LoadTxsFromBLockChain: SyncSummaryInfo error: %s", err.Error())

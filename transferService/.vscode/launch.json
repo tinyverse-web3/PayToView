@@ -31,8 +31,6 @@
                 "./data",
                 "-tvsAccountPassword",
                 "12345678",
-                "-env",
-                "prod",
             ]
         },
         {

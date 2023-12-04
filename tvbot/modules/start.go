@@ -130,10 +130,14 @@ func showWorkView(c tb.Context) {
 		urlParam := fmt.Sprintf("https://p2v.tinyverse.space/#/detail/view?contract=%s", workId)
 		viewButton = menu.WebApp("View", &tb.WebApp{URL: urlParam})
 	} else { //no payment
-		workIdStr := fmt.Sprintf("work_id=%s", wi.Id)
-		pay_to_view.Data = workIdStr
-		log.Logger.Infof("workIdStr: %s", workIdStr)
-		viewButton = pay_to_view
+		// workIdStr := fmt.Sprintf("work_id=%s", wi.Id)
+		// pay_to_view.Data = workIdStr
+		// log.Logger.Infof("workIdStr: %s", workIdStr)
+		// viewButton = pay_to_view
+
+		//change jump to miniapp pay page
+		urlParam := fmt.Sprintf("https://p2v.tinyverse.space/#/detail?contract=%s", workId)
+		viewButton = menu.WebApp("View", &tb.WebApp{URL: urlParam})
 	}
 	menu.Inline(
 		menu.Row(
