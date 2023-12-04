@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { SpinLoading } from '@/components/SpinLoading';
 import { Icon } from '@iconify/react';
 import { BackButton } from '@vkruglikov/react-telegram-web-app';
+import { ROUTE_PATH } from '@/router';
 
 export default function Page({
   children,
@@ -13,6 +14,7 @@ export default function Page({
   const nav = useNavigate();
   const goBack = () => {
     nav(path || -1);
+    window.history.length > 1 ? nav(path || -1) : nav(ROUTE_PATH.INDEX);
   };
   return (
     <main className='h-full relative'>
@@ -20,7 +22,7 @@ export default function Page({
         <div className='w-10 min-w-[2.5rem]'>
           {showBack && (
             <>
-              <BackButton onClick={() => nav(-1)} />
+              <BackButton onClick={() => goBack()} />
               <div className='px-3 text-5' onClick={goBack}>
                 <Icon icon='mdi:arrow-left' className=' w-6 h-6 z-2' />
               </div>

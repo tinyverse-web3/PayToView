@@ -14,7 +14,7 @@ interface ContentUploadProps {
 export const ContentUpload = ({ onChange }: ContentUploadProps) => {
   const { t } = useTranslation();
   const [data, { set }] = useMap({
-    title: 'PayToView First Image',
+    title: '',
     description: '',
     password: '',
     content: '',

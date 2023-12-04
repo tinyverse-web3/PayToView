@@ -13,5 +13,5 @@ export const IpfsImage = ({ cid, ...rest }: Props) => {
       cid,
     });
   }, [cid, accountInfo.publicKey]);
-  return <Image src={src} {...rest} />;
+  return <Image src={src} {...rest} fallbackSrc="/image-loading.png" />;
 };

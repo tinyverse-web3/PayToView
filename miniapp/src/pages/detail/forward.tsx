@@ -108,7 +108,12 @@ export default function DetailEdit() {
               <div className='flex justify-center items-center'>
                 <div className='w-48 h-48'>
                   <PhotoView src={previewSrc}>
-                    <Image src={previewSrc} height='100%' fit='cover' />
+                    <Image
+                      src={previewSrc}
+                      height='100%'
+                      fit='cover'
+                      fallbackSrc='/image-loading.png'
+                    />
                   </PhotoView>
                 </div>
               </div>

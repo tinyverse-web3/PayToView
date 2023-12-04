@@ -111,7 +111,12 @@ export default function DetailView() {
               <div className='flex justify-center items-center'>
                 <div className='w-48 h-48'>
                   <PhotoView src={contentSrc}>
-                    <Image src={contentSrc} height='100%' fit='cover' />
+                    <Image
+                      src={contentSrc}
+                      height='100%'
+                      fit='cover'
+                      fallbackSrc='/image-loading.png'
+                    />
                   </PhotoView>
                 </div>
               </div>
@@ -155,7 +160,7 @@ export default function DetailView() {
             </div>
           </div>
         </div>
-        {type.indexOf('image') < 0 && (
+        {type.indexOf('text') > -1 && (
           <Button
             colorScheme='messenger'
             size='lg'
