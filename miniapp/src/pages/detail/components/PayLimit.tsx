@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { use } from 'i18next';
 
 interface PayLimitProps {
-  type: 'image' | 'text';
+  type: string;
   onChange?: (data: any) => void;
 }
 

@@ -132,25 +132,7 @@ export default function Index() {
       <div className='h-full overflow-hidden flex flex-col'>
         <div className='overflow-y-auto flex-1'>
           <div className='p-4'>
-            {/* <div className='bg-gray-100 p-4 mb-4 rounded-2xl'>
-              <div className='flex mb-6 items-center'>
-                <Image
-                  src='/logo.png'
-                  className='w-6 h-6 bg-gray-200 rounded-full mr-6'></Image>
-                <div className='break-all'><Address address={accountInfo.publicKey} /></div>
-              </div>
-              <div className='flex justify-between items-end '>
-                <div className='flex items-end'>
-                  <span className='mr-2 text-4xl font-bold leading-none'>
-                    {balance}
-                  </span>
-                  <span className='text-sm leading-none mb-1'>TVS</span>
-                </div>
-                <p className='text-xs text-gray-500 leading-none mb-1'>
-                  Tinyverse
-                </p>
-              </div>
-            </div> */}
+
             <div className='text-center mb-4'>
               <div className='mb-2 text-base'>TVS</div>
               <div className='font-bold text-xl'>{balance} TVS</div>
@@ -207,7 +189,7 @@ export default function Index() {
             </div> */}
             <div className='bg-gray-50 p-4 rounded-lg'>
               <div
-                className='mb-2 font-bold text-lg'
+                className='mb-2 font-bold text-sm'
                 style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span className='text-xm ml-2'>
                   {t('pages.index.transaction_record')}

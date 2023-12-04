@@ -12,6 +12,7 @@
     "gas": "Gas",
     "upload": {
       "title": "Upload",
+      "blur": "Blur",
       "description": "Upload a file to IPFS"
     },
     "empty": {

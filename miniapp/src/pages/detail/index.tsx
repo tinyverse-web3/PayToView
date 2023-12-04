@@ -1,7 +1,6 @@
 import { Button, Image, Card, CardBody, HStack } from '@chakra-ui/react';
 import { useEffect, useState, useMemo } from 'react';
 import { useTitle } from 'react-use';
-import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ROUTE_PATH } from '@/router';
 import { useDetailStore, useListStore } from '@/store';
@@ -12,6 +11,7 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { template } from 'lodash';
 import LayoutThird from '@/layout/LayoutThird';
 import { toast } from 'react-hot-toast';
+import { image } from 'stackblur-canvas';
 export default function DetailIndex() {
   useTitle('PayToView');
   const [searchParams] = useSearchParams();
@@ -63,7 +63,10 @@ export default function DetailIndex() {
   );
   console.log('previewSrc:', previewSrc);
   // var contentSrc = previewSrc;
-
+  const type = useMemo(
+    () => detail?.contractInfo?.ContractInfo?.Content.ContentType || '',
+    [detail?.contractInfo?.ContractInfo?.Content.ContentType],
+  );
   useEffect(() => {
     if (ContractID) {
       getContractDetail();
@@ -72,31 +75,47 @@ export default function DetailIndex() {
   return (
     <LayoutThird title={t('pages.detail.title')}>
       <div className='min-h-ful p-4'>
-        {/* <div>read.tsx</div> */}
-        <BackButton onClick={toIndex} />
         <div className='mb-4'>
-          <PhotoProvider>
+          {type.indexOf('image') > -1 ? (
+            <PhotoProvider>
+              <div className='flex justify-center items-center'>
+                <div className='w-48 h-48'>
+                  <PhotoView src={previewSrc}>
+                    <Image src={previewSrc} height='100%' fit='cover' />
+                  </PhotoView>
+                </div>
+              </div>
+            </PhotoProvider>
+          ) : (
             <div className='flex justify-center items-center'>
               <div className='w-48 h-48'>
-                <PhotoView src={previewSrc}>
-                  <Image src={previewSrc} height='100%' fit='cover' />
-                </PhotoView>
+                <Image src='/icon-txt.png' height='100%' fit='cover' />
               </div>
             </div>
-          </PhotoProvider>
+          )}
         </div>
         <div>
-        <div className='mb-2 flex items-center'>
+          <div className='mb-2 flex items-center'>
             <div className='font-bold mb-2 w-28'>Title</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Name}
             </div>
           </div>
           <div className='mb-2 flex items-center'>
-            <div className='font-bold mb-2 w-28'>Creater</div>
-            <div className='text-sm flex-1 break-all'>
-              {detail.walletKey}
+            <div className='font-bold mb-2 w-28'>Description</div>
+            <div className='text-sm flex-1'>
+              {detail.contractInfo?.ContractInfo?.Content.Description}
             </div>
+          </div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>File Type</div>
+            <div className='text-sm flex-1'>
+              {detail.contractInfo?.ContractInfo?.Content.ContentType}
+            </div>
+          </div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Creater</div>
+            <div className='text-sm flex-1 break-all'>{detail.walletKey}</div>
           </div>
           <div className='mb-2 flex items-center'>
             <div className='font-bold mb-2 w-28'>Fee</div>

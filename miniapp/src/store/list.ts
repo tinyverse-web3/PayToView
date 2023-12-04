@@ -8,7 +8,8 @@ export interface ListItemProps {
   CommissionContractName: string;
   Fee: number;
   Cid: string;
-  ContentType: 'text' | 'image' | 'video' | 'audio' | 'file';
+  ContentType: string;
+  Description: string;
   CidForpreview: string;
   Ipfs?: string;
   Ritio: any;

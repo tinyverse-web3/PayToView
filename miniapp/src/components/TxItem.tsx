@@ -21,7 +21,7 @@ export const TxItem = ({ item, onClick }: TxItemProps) => {
         ) : (
           <Icon
             icon='mdi:arrow-up-bold-circle-outline'
-            className='text-3xl mr-4 text-blue-500'
+            className='text-3xl mr-4 text-[#1296db]'
           />
         )}
         <div className='flex-1'>
