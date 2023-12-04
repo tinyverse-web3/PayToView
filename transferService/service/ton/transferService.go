@@ -484,7 +484,6 @@ func (s *TransferService) loadTxsFromBLockChain(ctx context.Context) error {
 
 					state, err := s.accountInst.GetState(ctx)
 					if err != nil {
-						logger.Errorf("TransferService->loadTxsFromBLockChain->go: tonAccountInst.GetState error: %s", err.Error())
 						return false
 					}
 
