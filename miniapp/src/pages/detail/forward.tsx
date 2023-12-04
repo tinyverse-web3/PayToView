@@ -103,7 +103,7 @@ export default function DetailEdit() {
           />
         </FormControl>
         <div className='mb-4'>
-          {type.indexOf('image') > -1 ? (
+          {type.indexOf('image') > -1 && (
             <PhotoProvider>
               <div className='flex justify-center items-center'>
                 <div className='w-48 h-48'>
@@ -113,7 +113,8 @@ export default function DetailEdit() {
                 </div>
               </div>
             </PhotoProvider>
-          ) : (
+          )}
+          {type.indexOf('text') > -1 && (
             <div className='flex justify-center items-center'>
               <div className='w-48 h-48'>
                 <Image src='/icon-txt.png' height='100%' fit='cover' />

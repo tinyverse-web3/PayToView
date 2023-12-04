@@ -27,6 +27,16 @@ export default function DetailIndex() {
   const toPay = async () => {
     if (!ContractID) return;
     setLoading(true);
+    const profile = await paytoview.getProfile();
+    const { balance } = profile?.data || {};
+    if (balance < detail?.contractInfo?.ContractInfo?.Fee + 10) {
+      toast.success('The balance is insufficient, please top up!', {
+        duration: 2000,
+      });
+      setLoading(false);
+      nav(ROUTE_PATH.TOPUP);
+      return;
+    }
     const result = await paytoview.payToView({
       ContractID: ContractID,
     });
@@ -61,8 +71,6 @@ export default function DetailIndex() {
       }),
     [detail.contractInfo?.ContractInfo?.Content?.CidForpreview],
   );
-  console.log('previewSrc:', previewSrc);
-  // var contentSrc = previewSrc;
   const type = useMemo(
     () => detail?.contractInfo?.ContractInfo?.Content.ContentType || '',
     [detail?.contractInfo?.ContractInfo?.Content.ContentType],
@@ -76,7 +84,7 @@ export default function DetailIndex() {
     <LayoutThird title={t('pages.detail.title')}>
       <div className='min-h-ful p-4'>
         <div className='mb-4'>
-          {type.indexOf('image') > -1 ? (
+          {type.indexOf('image') > -1 && (
             <PhotoProvider>
               <div className='flex justify-center items-center'>
                 <div className='w-48 h-48'>
@@ -86,7 +94,8 @@ export default function DetailIndex() {
                 </div>
               </div>
             </PhotoProvider>
-          ) : (
+          )}
+          {type.indexOf('text') > -1 && (
             <div className='flex justify-center items-center'>
               <div className='w-48 h-48'>
                 <Image src='/icon-txt.png' height='100%' fit='cover' />
