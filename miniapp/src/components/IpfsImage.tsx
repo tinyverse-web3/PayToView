@@ -8,9 +8,6 @@ interface Props {
 }
 export const IpfsImage = ({ cid, ...rest }: Props) => {
   const { accountInfo } = useAccountStore((state) => state);
-  console.log('IpfsImage->accountInfo:', accountInfo);
-  console.log('IpfsImage->cid:', cid);
-  console.log(import.meta.env);
   const src = useMemo(() => {
     return template(import.meta.env.VITE_IPFS_GATEWAY_URL)({
       cid,

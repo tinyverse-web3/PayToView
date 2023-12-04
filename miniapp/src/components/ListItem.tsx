@@ -55,6 +55,12 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
       // );
     }
   };
+  const type = useMemo(() => {
+    if (!item?.ContentType) {
+      return '';
+    }
+    return item?.ContentType?.indexOf('image') > -1 ? 'image' : 'text';
+  }, [item?.ContentType]);
   const qrCodeurl = useMemo(() => {
     return `type=url&value=${location.origin}/#/detail/read?contract=${item?.ContractName}`;
   }, [item?.ContractName]);
@@ -63,15 +69,12 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
       <div
         className='w-full h-full flex justify-center items-center'
         onClick={onClick}>
-        {item?.ContentType === 'image' ? (
+        {type === 'image' && item ? (
           <IpfsImage cid={item.CidForpreview} />
         ) : (
           <div className='p-4  h-full'>
-            <div className='break-all overflow-hidden h-full '>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam
-              reiciendis praesentium enim quod! Impedit sequi itaque qui, autem
-              nam voluptatum quaerat placeat adipisci quia. Dolorem cumque a
-              accusantium atque repellat.
+            <div className='break-all flex justify-center items-center overflow-y-auto h-full '>
+              {item?.Description}...
             </div>
           </div>
         )}
@@ -87,7 +90,7 @@ export const ListItem = ({ item, onClick, isForward = true }: Props) => {
             icon={
               <Icon
                 icon='ph:share-fat-bold'
-                className='text-xl text-blue-500'
+                className='text-xl text-[#1296db]'
               />
             }
           />

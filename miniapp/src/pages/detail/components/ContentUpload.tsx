@@ -1,13 +1,6 @@
 import {
   FormControl,
   Input,
-  Textarea,
-  FormLabel,
-  InputGroup,
-  NumberInput,
-  NumberInputField,
-  InputRightAddon,
-  SimpleGrid,
 } from '@chakra-ui/react';
 import { Upload } from '@/components/Upload';
 import { useEffect } from 'react';
@@ -17,15 +10,15 @@ import { BlurImage } from '@/components/BlurImage';
 
 interface ContentUploadProps {
   onChange?: (data: any) => void;
-  type?: 'image' | 'text';
 }
-export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
+export const ContentUpload = ({ onChange }: ContentUploadProps) => {
   const { t } = useTranslation();
   const [data, { set }] = useMap({
     title: 'PayToView First Image',
     description: '',
     password: '',
     content: '',
+    type: '',
     textLimit: 0,
     image: null,
     previewImage: null,
@@ -34,7 +27,9 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
     set('title', e.target.value);
   };
   const imageChange = async (file: File) => {
+    console.log(file);
     await set('image', file as any);
+    await set('type', file.type);
   };
   const blurChange = async (file: File) => {
     console.log(file);
@@ -66,25 +61,15 @@ export const ContentUpload = ({ onChange, type }: ContentUploadProps) => {
   );
   return (
     <div>
-      {/* <div>ContentUpload.tsx</div> */}
-      {type === 'image' ? (
-        <SimpleGrid columns={2} spacing={4} className='mb-4'>
-          <Upload onChange={imageChange} />
-          <div>
+      <div className='flex justify-center items-center mb-4'>
+        <Upload onChange={imageChange} />
+        {data.type.indexOf('image') > -1 && (
+          <div className='ml-4'>
             <BlurImage file={data.image} onChange={blurChange} />
           </div>
-        </SimpleGrid>
-      ) : (
-        <FormControl>
-          <Textarea
-            value={data.content}
-            onChange={contentChange}
-            placeholder='Content'
-            size='sm'
-            variant='filled'
-          />
-        </FormControl>
-      )}
+        )}
+      </div>
+
       <FormControl className='mb-4'>
         <Input
           type='text'

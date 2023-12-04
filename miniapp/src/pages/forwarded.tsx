@@ -4,7 +4,7 @@ import { ListItem } from '@/components/ListItem';
 import { Empty } from '@/components/Empty';
 import { useTitle } from 'react-use';
 import { useNavigate } from 'react-router-dom';
-import { BackButton } from '@vkruglikov/react-telegram-web-app';
+
 import { Icon } from '@iconify/react';
 import { ROUTE_PATH } from '@/router';
 import { useTranslation } from 'react-i18next';
@@ -42,8 +42,6 @@ export default function Index() {
   return (
     <LayoutThird title={t('pages.forwarded.title')} path={ROUTE_PATH.INDEX}>
       <div className='h-full'>
-        {/* <div>forwarded.tsx</div> */}
-        <BackButton onClick={() => nav(-1)} />
         <div className='h-full overflow-y-auto'>
           <div className='p-4'>
             {forwardList.length === 0 && <Empty />}

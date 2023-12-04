@@ -4,7 +4,6 @@ import { ListItem } from '@/components/ListItem';
 import { Empty } from '@/components/Empty';
 import { useTitle } from 'react-use';
 import { useNavigate } from 'react-router-dom';
-import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { Icon } from '@iconify/react';
 import { ROUTE_PATH } from '@/router';
 import { flattenListData } from '@/lib/utils';
@@ -46,18 +45,14 @@ export default function Index() {
   }, []);
   return (
     <LayoutThird title={t('pages.published.title')} path={ROUTE_PATH.INDEX}>
-      <div className='h-full overflow-hidden'>
-        {/* <div>published.tsx</div> */}
-        <BackButton onClick={() => nav(-1)} />
-        <div className='h-full overflow-y-auto'>
-          <div className='p-4'>
-            {publishedList.length === 0 && <Empty />}
-            <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
-              {publishedList.map((v, i) => (
-                <ListItem item={v} key={i} onClick={() => toDetail(v)} />
-              ))}
-            </SimpleGrid>
-          </div>
+      <div className='h-full overflow-y-auto'>
+        <div className='p-4'>
+          {publishedList.length === 0 && <Empty />}
+          <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
+            {publishedList.map((v, i) => (
+              <ListItem item={v} key={i} onClick={() => toDetail(v)} />
+            ))}
+          </SimpleGrid>
         </div>
       </div>
     </LayoutThird>

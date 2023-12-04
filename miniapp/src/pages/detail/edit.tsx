@@ -1,6 +1,5 @@
 import { Button, Image, Card, CardBody } from '@chakra-ui/react';
 import { useTitle } from 'react-use';
-import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { PayLimit } from './components/PayLimit';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +12,6 @@ export default function DetailEdit() {
   return (
     <div className='min-h-ful p-4'>
       {/* <div>edit.tsx</div> */}
-      <BackButton onClick={() => nav(-1)} />
       <div className='mb-4'>
         {type !== 'image' ? (
           <div className='flex justify-center items-center'>

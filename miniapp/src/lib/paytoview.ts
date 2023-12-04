@@ -32,8 +32,7 @@ class PayToView {
       let result;
       if (data) {
         result = await funHandler(JSON.stringify(data));
-        console.log(name + '  result: ');
-        console.log(result);
+
         if (json) {
           try {
             result = JSON.parse(result);
@@ -41,10 +40,11 @@ class PayToView {
             console.error(error);
           }
         }
+        console.log(name + '  result: ');
+        console.log(result);
       } else {
         result = await funHandler();
-        console.log(name + '  result: ');
-        console.log(result);
+
         if (json) {
           try {
             result = JSON.parse(result);
@@ -52,6 +52,8 @@ class PayToView {
             console.error(error);
           }
         }
+        console.log(name + '  result: ');
+        console.log(result);
       }
 
       return result;

@@ -46,7 +46,7 @@ export const BlurImage = ({ file, onChange }: BlurImageProps) => {
   }, [file]);
   return (
     <div className='flex justify-center items-center w-40 h-40 mx-auto max-w-full'>
-      <div className='w-full h-full flex flex-col  items-center justify-center text-blue-500'>
+      <div className='w-full h-full flex flex-col  items-center justify-center text-[#1296db]'>
         {preview ? (
           <img src={preview} className='w-full h-full' />
         ) : (
@@ -54,7 +54,7 @@ export const BlurImage = ({ file, onChange }: BlurImageProps) => {
             <div>
               <img src='/images/preview.png' className='w-12 h-12 mb-2' />
               <div className='text-18px text-center'>
-                {t('common.upload.title')}
+                {t('common.upload.blur')}
               </div>
             </div>
           </div>

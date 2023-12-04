@@ -9,10 +9,9 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
-
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { ROUTE_PATH } from '@/router';
 import { useTitle } from 'react-use';
-import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-use';
@@ -81,6 +80,10 @@ export default function DetailEdit() {
       inline: 'center',
     });
   };
+  const type = useMemo(
+    () => detail?.contractInfo?.ContractInfo?.Content.ContentType || '',
+    [detail?.contractInfo?.ContractInfo?.Content.ContentType],
+  );
   useEffect(() => {
     if (ContractID) {
       getContractDetail();
@@ -89,8 +92,6 @@ export default function DetailEdit() {
   return (
     <LayoutThird title={t('pages.forward.title')}>
       <div className='min-h-ful p-4'>
-        {/* <div>forward.tsx</div> */}
-        <BackButton onClick={() => nav(-1)} />
         <FormControl className='mb-4'>
           <Input
             type='text'
@@ -102,17 +103,42 @@ export default function DetailEdit() {
           />
         </FormControl>
         <div className='mb-4'>
-          <div className='flex justify-center items-center'>
-            <div className='w-48 h-48'>
-              <Image src={previewSrc} height='100%' fit='cover' />
+          {type.indexOf('image') > -1 && (
+            <PhotoProvider>
+              <div className='flex justify-center items-center'>
+                <div className='w-48 h-48'>
+                  <PhotoView src={previewSrc}>
+                    <Image src={previewSrc} height='100%' fit='cover' />
+                  </PhotoView>
+                </div>
+              </div>
+            </PhotoProvider>
+          )}
+          {type.indexOf('text') > -1 && (
+            <div className='flex justify-center items-center'>
+              <div className='w-48 h-48'>
+                <Image src='/icon-txt.png' height='100%' fit='cover' />
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div>
           <div className='mb-2 flex items-center'>
             <div className='font-bold mb-2 w-28'>Title</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Name}
+            </div>
+          </div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Description</div>
+            <div className='text-sm flex-1'>
+              {detail.contractInfo?.ContractInfo?.Content.Description}
+            </div>
+          </div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>File Type</div>
+            <div className='text-sm flex-1'>
+              {detail.contractInfo?.ContractInfo?.Content.ContentType}
             </div>
           </div>
           <div className='mb-2 flex items-center'>

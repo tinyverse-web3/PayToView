@@ -1,7 +1,6 @@
 import { Button, Image, Card, CardBody, HStack } from '@chakra-ui/react';
 import { useEffect, useState, useMemo } from 'react';
 import { useTitle } from 'react-use';
-import { BackButton } from '@vkruglikov/react-telegram-web-app';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ROUTE_PATH } from '@/router';
 import { useDetailStore, useListStore } from '@/store';
@@ -21,10 +20,7 @@ export default function DetailView() {
   const [paid, setPaid] = useState(false);
   const [detail, setDetail] = useState<any>({});
   const [contentSrc, setContentSrc] = useState<any>({});
-  const webApp = useWebApp();
-  const toIndex = () => {
-    nav(ROUTE_PATH.INDEX, { replace: true });
-  };
+
   const getData = async () => {
     if (!ContractID) return;
     const result = await paytoview.getViewPassword({ ContractID: ContractID });
@@ -34,8 +30,22 @@ export default function DetailView() {
         Cid: detail.contractInfo?.ContractInfo?.Content?.Cid,
         Password: result.data,
       });
-      if (res) {
-        const localFile = new Blob([new Uint8Array(res)], { type: 'application/octet-stream' });
+      if (
+        res &&
+        detail?.contractInfo?.ContractInfo?.Content?.ContentType.indexOf(
+          'image',
+        ) > -1
+      ) {
+        const localFile = new Blob([new Uint8Array(res)], {
+          type: 'application/octet-stream',
+        });
+        const url = URL.createObjectURL(localFile);
+        setContentSrc(url);
+      } else {
+        const localFile = new Blob([new Uint8Array(res)], {
+          type: detail?.contractInfo?.ContractInfo?.Content?.ContentType,
+          endings: 'native',
+        });
         const url = URL.createObjectURL(localFile);
         setContentSrc(url);
       }
@@ -73,15 +83,21 @@ export default function DetailView() {
   );
   console.log('previewSrc:', previewSrc);
   // var contentSrc = previewSrc;
-
+  const type = useMemo(
+    () => detail?.contractInfo?.ContractInfo?.Content.ContentType || '',
+    [detail?.contractInfo?.ContractInfo?.Content.ContentType],
+  );
+  const openFile = () => {
+    window.open(contentSrc, '_blank');
+  };
   useEffect(() => {
     if (ContractID) {
       getContractDetail();
     }
   }, [ContractID]);
   useEffect(() => {
-    console.log('paid:', paid)
-    console.log('ContractID:', ContractID)
+    console.log('paid:', paid);
+    console.log('ContractID:', ContractID);
     if (ContractID && paid) {
       getData();
     }
@@ -89,24 +105,43 @@ export default function DetailView() {
   return (
     <LayoutThird title={t('pages.detail.title')} path={ROUTE_PATH.INDEX}>
       <div className='min-h-ful p-4'>
-        {/* <div>read.tsx</div> */}
-        <BackButton onClick={toIndex} />
         <div className='mb-4'>
-          <PhotoProvider>
+          {type.indexOf('image') > -1 && (
+            <PhotoProvider>
+              <div className='flex justify-center items-center'>
+                <div className='w-48 h-48'>
+                  <PhotoView src={contentSrc}>
+                    <Image src={contentSrc} height='100%' fit='cover' />
+                  </PhotoView>
+                </div>
+              </div>
+            </PhotoProvider>
+          )}
+          {type.indexOf('text') > -1 && (
             <div className='flex justify-center items-center'>
               <div className='w-48 h-48'>
-                <PhotoView src={contentSrc}>
-                  <Image src={contentSrc} height='100%' fit='cover' />
-                </PhotoView>
+                <Image src='/icon-txt.png' height='100%' fit='cover' />
               </div>
             </div>
-          </PhotoProvider>
+          )}
         </div>
         <div>
           <div className='mb-2 flex items-center'>
             <div className='font-bold mb-2 w-28'>Title</div>
             <div className='text-sm flex-1'>
               {detail.contractInfo?.ContractInfo?.Name}
+            </div>
+          </div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>Description</div>
+            <div className='text-sm flex-1'>
+              {detail.contractInfo?.ContractInfo?.Content.Description}
+            </div>
+          </div>
+          <div className='mb-2 flex items-center'>
+            <div className='font-bold mb-2 w-28'>File Type</div>
+            <div className='text-sm flex-1'>
+              {detail.contractInfo?.ContractInfo?.Content.ContentType}
             </div>
           </div>
           <div className='mb-2 flex items-center'>
@@ -120,6 +155,16 @@ export default function DetailView() {
             </div>
           </div>
         </div>
+        {type.indexOf('image') < 0 && (
+          <Button
+            colorScheme='messenger'
+            size='lg'
+            className='w-full mb-2'
+            onClick={openFile}>
+            Open
+          </Button>
+        )}
+
         <Button
           colorScheme='messenger'
           size='lg'

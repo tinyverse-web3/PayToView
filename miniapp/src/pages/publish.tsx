@@ -24,7 +24,7 @@ export default function DetailAdd() {
     title: 'PayToView First Image',
     content: '',
     description: '',
-    password: '',
+    type: '',
     image: undefined,
     previewImage: undefined,
     fee: 300,
@@ -37,13 +37,13 @@ export default function DetailAdd() {
   const { add } = useListStore((state) => state);
 
   const [tabIndex, setTabIndex] = useState(0);
-  const type = useMemo(() => (tabIndex === 0 ? 'image' : 'text'), [tabIndex]);
   const contentChange = (v) => {
     set('title', v.title);
     set('content', v.content);
     // set('password', v.password);
     set('description', v.description);
     set('image', v.image);
+    set('type', v.type);
     set('previewImage', v.previewImage);
   };
   const payChange = (v) => {
@@ -90,26 +90,26 @@ export default function DetailAdd() {
       contentCid = ipfsResult.data;
     }
     let previewCid;
-    if (data.previewImage) {
+    if (data.previewImage && data.type.indexOf('image') > -1) {
       const ipfsResult = await paytoview.addFileToIPFS({
         fileName: data.title,
         file: data.previewImage,
       });
       previewCid = ipfsResult.data;
     }
-    if (!contentCid || !previewCid) {
+    if (!contentCid || (data.type.indexOf('image') > -1 && !previewCid)) {
       setLoading(false);
       toast('cid is error');
       console.error('cid is error');
       return;
     }
     const result = await paytoview.deployPayToView({
-      Name: data.title + '_' + uuidv4(),
+      Name: data.title,
       CommissionName: commissionContract,
       Content: {
         Cid: contentCid,
         Description: data.description,
-        ContentType: type,
+        ContentType: data.type,
         CidForpreview: previewCid,
       },
       Ratio: {
@@ -136,7 +136,6 @@ export default function DetailAdd() {
       <div className='min-h-ful py-4'>
         {/* <div>add.tsx</div> */}
 
-        <BackButton onClick={() => nav(-1)} />
         {/* <Tabs
         variant='soft-rounded'
         align='center'
@@ -149,11 +148,11 @@ export default function DetailAdd() {
         </TabList>
       </Tabs> */}
         <div className='mb-4 px-4'>
-          <ContentUpload type={type} onChange={contentChange} />
+          <ContentUpload onChange={contentChange} />
         </div>
         <div className='px-4'>
           <div className='mb-4'>
-            <PayLimit type={type} onChange={payChange} />
+            <PayLimit type={data.type} onChange={payChange} />
           </div>
           <Button
             colorScheme='messenger'

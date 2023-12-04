@@ -8,6 +8,7 @@ export const flattenListData = (list: any[]) => {
     Fee: v.ContractInfo.Content.Fee,
     CidForpreview: v.ContractInfo.Content.CidForpreview,
     ContentType: v.ContractInfo.Content.ContentType,
+    Description: v.ContractInfo.Content.Description,
     Ritio: v.Ritio,
   }));
 };
