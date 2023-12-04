@@ -67,11 +67,11 @@
     },
     "topup": {
       "title": "Topup Tvs4",
-      "placeholder": "Topup fee",
+      "placeholder": "Top up amount",
       "btn_connect": "Connect Wallet",
       "btn_disconnect": "Disconnect",
-      "btn_ton_topup": "Ton Wallet Topup",
-      "btn_eth_topup": "Eth Wallet Topup"
+      "btn_ton_topup": "Top up with Ton Wallet",
+      "btn_eth_topup": "Top up with Eth Wallet"
     },
     "index": {
       "title": "PayToView",

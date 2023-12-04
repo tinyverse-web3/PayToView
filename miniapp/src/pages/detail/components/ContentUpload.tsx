@@ -1,13 +1,6 @@
 import {
   FormControl,
   Input,
-  Textarea,
-  FormLabel,
-  InputGroup,
-  NumberInput,
-  NumberInputField,
-  InputRightAddon,
-  SimpleGrid,
 } from '@chakra-ui/react';
 import { Upload } from '@/components/Upload';
 import { useEffect } from 'react';
