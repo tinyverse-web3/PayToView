@@ -627,12 +627,12 @@ func (s *TransferService) transferTvs(record *TransferRecord, fee uint64, commen
 	}
 
 	tvs := Tonwei2tvs(record.Value, usdRatio)
-	logger.Debugf("TransferService->transferTvs:\nton wei: %v, usd ratio: %.4f, tvs value: %v", float64(record.Value), usdRatio, tvs)
+	logger.Debugf("TransferService->transferTvs:\nton wei: %v, usd ratio: %.4f, tvs value: %v", record.Value, usdRatio, tvs)
 	err = s.tvSdkInst.TransferTvs(walletId, tvs, fee, comment)
 	if err != nil {
 		walletId := s.tvSdkInst.GetWallID()
 		balance := s.tvSdkInst.GetBalance()
-		logger.Errorf("TransferService->waitTxsChan: transferTvs walletID:%v, blance:%v, error: %s", walletId, balance, err.Error())
+		logger.Errorf("TransferService->transferTvs: TransferTvs walletID:%v, blance:%v, error: %s", walletId, balance, err.Error())
 		return err
 	}
 	return nil
