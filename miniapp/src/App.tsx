@@ -8,6 +8,7 @@ import { THEME, TonConnectUIProvider, TonConnect } from '@tonconnect/ui-react';
 import { use } from 'i18next';
 import { useEffect } from 'react';
 
+
 function App() {
   const webApp = useWebApp();
   useEffect(() => {
@@ -16,32 +17,35 @@ function App() {
     }
   }, []);
   return (
-    <TonConnectUIProvider
-      manifestUrl='https://tinyverse-web3.github.io/paytoview/tonconnect-manifest.json'
-      uiPreferences={{ theme: THEME.LIGHT }}
-      actionsConfiguration={{
-        // TODO: wait office team fix bug in https://ton-connect.github.io/demo-dapp-with-react-ui
-        // twaReturnUrl: 'https://t.me/tvnb_bot', //'https://t.me/tc_twa_test_bot'
-      }}>
-      <main className='h-full'>
-        <Toaster
-          containerStyle={{ zIndex: 9999999, wordBreak: 'break-all' }}
-          position='top-center'
-          reverseOrder={false}
-          toastOptions={{
-            duration: 2000,
-          }}
-        />
-        <WebAppProvider
-          options={{
-            smoothButtonsTransition: true,
-          }}>
-          <ChakraProvider>
-            <RouterProvider router={router}></RouterProvider>
-          </ChakraProvider>
-        </WebAppProvider>
-      </main>
-    </TonConnectUIProvider>
+
+      <TonConnectUIProvider
+        manifestUrl='https://tinyverse-web3.github.io/paytoview/tonconnect-manifest.json'
+        uiPreferences={{ theme: THEME.LIGHT }}
+        actionsConfiguration={
+          {
+            // TODO: wait office team fix bug in https://ton-connect.github.io/demo-dapp-with-react-ui
+            // twaReturnUrl: 'https://t.me/tvnb_bot', //'https://t.me/tc_twa_test_bot'
+          }
+        }>
+        <main className='h-full'>
+          <Toaster
+            containerStyle={{ zIndex: 9999999, wordBreak: 'break-all' }}
+            position='top-center'
+            reverseOrder={false}
+            toastOptions={{
+              duration: 2000,
+            }}
+          />
+          <WebAppProvider
+            options={{
+              smoothButtonsTransition: true,
+            }}>
+            <ChakraProvider>
+              <RouterProvider router={router}></RouterProvider>
+            </ChakraProvider>
+          </WebAppProvider>
+        </main>
+      </TonConnectUIProvider>
   );
 }
 

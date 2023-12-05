@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable no-undef */
 import wasmUrl from '@/assets/main.wasm?url';
-// const wasmUrl = 'http://192.168.1.104:5500/wasm/main.wasm';
+// const wasmUrl = 'http://192.168.1.107:5500/wasm/main.wasm';
 (() => {
   const E = () => {
     const M = new Error('not implemented');
