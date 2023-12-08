@@ -15,10 +15,16 @@ func logInit() {
 	log.InitModule(App_Name, Log_Level)
 }
 
+// prepare environment
 func envInit() {
 
-	//prepare environment
-	if err := dotenv.Load(); err != nil {
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Logger.Fatal("Error getting current working directory:", err)
+	}
+	env := currentDir + "/.env"
+	log.Logger.Infof("Loading .env file from: %s", env)
+	if err := dotenv.Load(env); err != nil {
 		log.Logger.Fatal("Error loading .env file, launch failed")
 	}
 	if os.Getenv("BOT_TOKEN") == "" {
@@ -28,10 +34,6 @@ func envInit() {
 		log.Logger.Infof("Token from .env: %s", BOT_TOKEN)
 	}
 	if os.Getenv("SDK_ROOT_PATH") == "" {
-		currentDir, err := os.Getwd()
-		if err != nil {
-			log.Logger.Fatal("Error getting current working directory:", err)
-		}
 		SDK_ROOT_PATH = currentDir
 		log.Logger.Infof("SDK_ROOT_PATH from current work dir: %s", SDK_ROOT_PATH)
 	} else {
