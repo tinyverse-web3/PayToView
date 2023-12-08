@@ -14,20 +14,15 @@ var (
 	App_Name    = "mtv"
 	Log_Level   = "debug"
 
-	//TVBot
-	//root path
-	TVBOT_ROOT_PATH = "/home/tvbot"
-	//TVBOT_ROOT_PATH = "."
-
 	//SDK
 	//root path
-	SDK_ROOT_PATH = TVBOT_ROOT_PATH + "/" + App_Name
+	SDK_ROOT_PATH = ""
 
 	//gin web server port
 	Web_Port = "7070"
 
 	//bot config
-	BOT_TOKEN    = "6591734251:AAHnToeu-ZTeJ2ThYqhpdejF_B37HSy726g"
+	BOT_TOKEN    = "" //for product @pay2view_bot
 	MONGO_DB_URI = "mongodb://localhost:27017"
 
 	//ipfs
