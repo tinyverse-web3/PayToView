@@ -20,5 +20,5 @@ ssh "$user@$ip" 'killall transferService'
 echo "copy to $user@$ip"
 scp ./transferService "$user@$ip:/tinyverse/topup/"
 
-echo "start ..."
-ssh "$user@$ip" 'nohup /tinyverse/topup/transferService -rootPath /tinyverse/topup/data -tvsAccountPassword 12345678 > /tinyverse/topup/log.log 2>&1 &'
+# echo "start ..."
+# ssh "$user@$ip" 'nohup /tinyverse/topup/transferService -rootPath /tinyverse/topup/data -tvsAccountPassword 12345678 > /tinyverse/topup/log.log 2>&1 &'
