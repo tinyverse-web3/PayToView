@@ -11,9 +11,9 @@ require (
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.8.4
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
-	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3
-	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231130091142-a814cb74067b
-	github.com/tinyverse-web3/tvbase v0.0.0-20231130081907-d30d67393d25
+	github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231121111740-d4f43ed01e8d
+	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231214062513-0f2b81c10d36
+	github.com/tinyverse-web3/tvbase v0.0.0-20231214024648-1131762355d6
 	github.com/tonkeeper/tongo v1.4.1
 )
 
@@ -26,7 +26,6 @@ require (
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
 	github.com/tklauser/numcpus v0.6.1 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
-	golang.org/x/mobile v0.0.0-20230818142238-7088062f872d // indirect
 )
 
 require (
@@ -43,7 +42,7 @@ require (
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
-	// github.com/btcsuite/btcd/chaincfg/chainhash v1.0.2
+	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.2 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/ceramicnetwork/go-dag-jose v0.1.0 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
@@ -69,7 +68,7 @@ require (
 	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/flynn/noise v1.0.0 // indirect
 	github.com/francoispqt/gojay v1.2.13 // indirect
-	github.com/gabriel-vasile/mimetype v1.4.1 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/go-kit/log v0.2.1 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
@@ -246,15 +245,15 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.25.0 // indirect
 	go4.org v0.0.0-20230225012048-214862532bf5 // indirect
-	golang.org/x/crypto v0.12.0 // indirect
+	golang.org/x/crypto v0.16.0 // indirect
 	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63 // indirect
-	golang.org/x/mod v0.12.0 // indirect
-	golang.org/x/net v0.14.0 // indirect
+	golang.org/x/mod v0.14.0 // indirect
+	golang.org/x/net v0.19.0 // indirect
 	golang.org/x/oauth2 v0.8.0 // indirect
-	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.11.0 // indirect
-	golang.org/x/text v0.12.0 // indirect
-	golang.org/x/tools v0.12.1-0.20230818130535-1517d1a3ba60 // indirect
+	golang.org/x/sync v0.5.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/tools v0.16.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	gonum.org/v1/gonum v0.13.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
