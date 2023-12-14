@@ -1057,10 +1057,10 @@ github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhV
 github.com/tidwall/pretty v1.2.0 h1:RWIZEg2iJ8/g6fDDYzMpobmaoGh5OLl4AXtGUGPcqCs=
 github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3 h1:LrXCuZKnbnTQnS0UcJOnJYjznPWbE7HoW7aR+UGkfDw=
 github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3/go.mod h1:R1p7/i/09d/+94T/ZBaINg3u+bFL3pjXMtVmKxUEyYA=
-github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231214015440-ee30ac9e66d5 h1:oJrwrP5J+uq9Tdaj1oZ5hypxINfNYnnNWg0usNWZoVs=
-github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231214015440-ee30ac9e66d5/go.mod h1:NOo5pZAl1zOVhWnzqOtVVYeaM9z+nBDfUaOYDvQudcY=
-github.com/tinyverse-web3/tvbase v0.0.0-20231213112449-58d46c456bb5 h1:5gHd84Nd836Zalp8LfZd5DACUb09hUB4GcsfARP4ZL8=
-github.com/tinyverse-web3/tvbase v0.0.0-20231213112449-58d46c456bb5/go.mod h1:ck3INyPY5mSkKfJh7KFqHjZW12sU+55pBxkIAUuKC/4=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231214024804-5848b260496d h1:qIcThWQ+iT2z+TNMyDiRcDzFnspbHle7xykNmTIwluE=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231214024804-5848b260496d/go.mod h1:d4TkXNxNwvohhK1Psk1J97Nwpdzri4sq3iyujhKQ2MY=
+github.com/tinyverse-web3/tvbase v0.0.0-20231214024648-1131762355d6 h1:h83TKa4zhFdkq1qjQHOwXDSQL7lRZBEcMUXPRP73FY4=
+github.com/tinyverse-web3/tvbase v0.0.0-20231214024648-1131762355d6/go.mod h1:ck3INyPY5mSkKfJh7KFqHjZW12sU+55pBxkIAUuKC/4=
 github.com/tinyverse-web3/tvutil v0.0.0-20230719073602-eff568f409f6 h1:TzYij1wjXvlXcz7UmeTVs+eo5qn1/VNax2619N1KaGI=
 github.com/tinyverse-web3/tvutil v0.0.0-20230719073602-eff568f409f6/go.mod h1:XYYRVZmUhYLAIGSTpT2HPSyK/XNyV2v+Ghpz4pNEIek=
 github.com/tj/assert v0.0.3 h1:Df/BlaZ20mq6kuai7f5z2TvPFiwC3xaWJSDQNiIS3Rk=
