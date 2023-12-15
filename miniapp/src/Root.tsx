@@ -118,7 +118,7 @@ export default function Root() {
           <div className='text-center'>
             <Spinner color='blue.500' size='lg' />
             {createStatus && (
-              <div className='text-sm text-blue-700 mt-2'>账号创建中</div>
+              <div className='text-sm text-blue-700 mt-2'>Account creation in progress</div>
             )}
           </div>
         </div>
