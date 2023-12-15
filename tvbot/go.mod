@@ -7,7 +7,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/microcosm-cc/bluemonday v1.0.1
 	github.com/telegram-mini-apps/init-data-golang v1.1.2
-	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231214024804-5848b260496d
+	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231215032954-0cab5ce3137d
 	go.mongodb.org/mongo-driver v1.9.1
 	golang.org/x/mobile v0.0.0-20231127183840-76ac6878050a
 	gopkg.in/telebot.v3 v3.1.3
