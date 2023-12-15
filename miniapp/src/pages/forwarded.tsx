@@ -47,7 +47,7 @@ export default function Index() {
             {forwardList.length === 0 && <Empty />}
             <SimpleGrid columns={2} spacingX='10px' spacingY='10px'>
               {forwardList.map((v, i) => (
-                <ListItem item={v} key={i} isForward={false} />
+                <ListItem item={v} key={i} />
               ))}
             </SimpleGrid>
           </div>

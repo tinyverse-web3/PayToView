@@ -56,7 +56,7 @@ export default function DetailEdit() {
         ContractID: ContractID,
       });
       if (result.code === '000000') {
-        bot.forward(ContractID);
+        bot.forward(result.data);
       } else {
         toast.error(result.msg);
       }
