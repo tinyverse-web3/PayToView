@@ -17,7 +17,7 @@ var (
 func Start(c tb.Context) error {
 	m := c.Message()
 	userId := strconv.FormatInt(c.Sender().ID, 10)
-	userId = userId + "13" // for test
+	userId = userId + "14" // for test
 	isExist := checkUserExists(userId)
 	if m.Private() && isExist {
 		showBotView(c)
@@ -67,7 +67,7 @@ func showBotView(c tb.Context) {
 
 func showBotMainView(c tb.Context) {
 	userId := strconv.FormatInt(c.Sender().ID, 10)
-	userId = userId + "13" // for test
+	userId = userId + "14" // for test
 	ai := getAccountInfo(userId)
 	var accountInfo = "<b>TVN wallet account address:      </b><i>%s</i>\n\n<b>TVN points balance:                        </b><i>%s</i>\n\n<b>Total revenue (last 24 hours):      </b><i>%s</i>"
 	accountInfoStr := fmt.Sprintf(accountInfo, ai.Address, ai.Balance, ai.Income)
@@ -104,7 +104,7 @@ func showBotMainView(c tb.Context) {
 
 func showWorkView(c tb.Context) {
 	userId := strconv.FormatInt(c.Sender().ID, 10)
-	userId = userId + "13" // for test
+	userId = userId + "14" // for test
 	startPayload := c.Message().Payload
 	queryMap := parseParameters(startPayload)
 	workId := queryMap["work_id"]
@@ -151,7 +151,7 @@ func showWorkView(c tb.Context) {
 
 // func PayToViewButtonTap(c tb.Context) error {
 // 	userId := strconv.FormatInt(c.Sender().ID, 10)
-// 	userId = userId + "13" // for test
+// 	userId = userId + "14" // for test
 // 	callbackData := c.Callback().Data
 // 	queryMap := parseParameters(callbackData)
 // 	workId := queryMap["work_id"]
@@ -176,7 +176,7 @@ func showWorkView(c tb.Context) {
 
 func PayToViewButtonTap(c tb.Context) error {
 	userId := strconv.FormatInt(c.Sender().ID, 10)
-	userId = userId + "13" // for test
+	userId = userId + "14" // for test
 	callbackData := c.Callback().Data
 	queryMap := parseInlineQueryArgs(callbackData)
 	workId := queryMap["work_id"]
