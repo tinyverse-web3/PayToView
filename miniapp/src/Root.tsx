@@ -31,7 +31,7 @@ export default function Root() {
       }
     } else {
       const webAppUserId = webApp?.initDataUnsafe?.user?.id;
-      return (webAppUserId || user).toString() + '12';
+      return (webAppUserId || user).toString() + '13';
     }
   };
   const loadApp = async () => {
