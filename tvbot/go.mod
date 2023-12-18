@@ -7,7 +7,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/microcosm-cc/bluemonday v1.0.1
 	github.com/telegram-mini-apps/init-data-golang v1.1.2
-	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231215032954-0cab5ce3137d
+	github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231218031202-1381d302daf8
 	go.mongodb.org/mongo-driver v1.9.1
 	golang.org/x/mobile v0.0.0-20231127183840-76ac6878050a
 	gopkg.in/telebot.v3 v3.1.3
@@ -201,7 +201,7 @@ require (
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
-	github.com/tinyverse-web3/tvbase v0.0.0-20231214024648-1131762355d6 // indirect
+	github.com/tinyverse-web3/tvbase v0.0.0-20231215042827-9fad22a0ab4f // indirect
 	github.com/tinyverse-web3/tvutil v0.0.0-20230719073602-eff568f409f6 // indirect
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
 	github.com/tklauser/numcpus v0.6.1 // indirect
