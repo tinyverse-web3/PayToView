@@ -30,6 +30,14 @@ func getWorkInfo(workId string) *WorkInfo {
 		log.Logger.Errorf("getWorkInfo--->%v", err)
 		return nil
 	}
+	if contract == nil {
+		log.Logger.Errorf("getWorkInfo--->contract is nil")
+		return nil
+	}
+	if walletKey == "" {
+		log.Logger.Errorf("getWorkInfo--->walletKey is nil")
+		return nil
+	}
 	return &WorkInfo{
 		Id:          workId,
 		Title:       contract.Name,
@@ -54,6 +62,10 @@ func getAccountInfo(userId string) accountInfo {
 	ac, err := BM.GetAccountProfile(userId)
 	if err != nil {
 		log.Logger.Error("getAccountInfo--->%v", err)
+		return accountInfo{}
+	}
+	if ac == nil {
+		log.Logger.Error("getAccountInfo--->ac is nil")
 		return accountInfo{}
 	}
 	return accountInfo{
