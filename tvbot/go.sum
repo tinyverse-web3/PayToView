@@ -1059,6 +1059,8 @@ github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3 h1:LrX
 github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3/go.mod h1:R1p7/i/09d/+94T/ZBaINg3u+bFL3pjXMtVmKxUEyYA=
 github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231218031202-1381d302daf8 h1:6FE20eIDuAhZ9Wc6LF4cVXlQYV0KeF/YnhxXpFHkXGM=
 github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231218031202-1381d302daf8/go.mod h1:kqAoFTf9bxnnXqeX8nZhMm09QxlVTtF8ThgumiBrb0Q=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231218092505-8c4182f6e5ee h1:7gAM4+zx1RQThlsNR9W35GV9myv6rChXEWIAU05iCAA=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20231218092505-8c4182f6e5ee/go.mod h1:kqAoFTf9bxnnXqeX8nZhMm09QxlVTtF8ThgumiBrb0Q=
 github.com/tinyverse-web3/tvbase v0.0.0-20231215042827-9fad22a0ab4f h1:SeEBPvEOERlwiQzJ8V0WDhIZDnUXdBdd9NcoxWzAahQ=
 github.com/tinyverse-web3/tvbase v0.0.0-20231215042827-9fad22a0ab4f/go.mod h1:ck3INyPY5mSkKfJh7KFqHjZW12sU+55pBxkIAUuKC/4=
 github.com/tinyverse-web3/tvutil v0.0.0-20230719073602-eff568f409f6 h1:TzYij1wjXvlXcz7UmeTVs+eo5qn1/VNax2619N1KaGI=
