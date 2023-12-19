@@ -34,10 +34,16 @@ func getWorkInfo(workId string) *WorkInfo {
 		log.Logger.Errorf("getWorkInfo--->contract is nil")
 		return nil
 	}
+	log.Logger.Infof("getWorkInfo--->contract:%+v", contract)
 	if walletKey == "" {
 		log.Logger.Errorf("getWorkInfo--->walletKey is nil")
 		return nil
 	}
+	if contract.Ratio == nil {
+		log.Logger.Errorf("getWorkInfo--->contract.Ratio is nil")
+		return nil
+	}
+
 	return &WorkInfo{
 		Id:          workId,
 		Title:       contract.Name,
