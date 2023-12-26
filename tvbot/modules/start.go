@@ -17,7 +17,9 @@ var (
 func Start(c tb.Context) error {
 	m := c.Message()
 	userId := strconv.FormatInt(c.Sender().ID, 10)
+	log.Logger.Infof("real userId = %s", userId)
 	userId = userId + "16" // for test
+	log.Logger.Infof("test userId = %s", userId)
 	isExist := checkUserExists(userId)
 	if m.Private() && isExist {
 		showBotView(c)
@@ -255,5 +257,25 @@ func showRechargeCompletedView(c tb.Context) {
 	_, err = b.Send(c.Message().Sender, p, menu)
 	if err != nil {
 		log.Logger.Error(err)
+	}
+}
+
+func Help_Menu(c tb.Context) error {
+	if !c.Message().Private() {
+		sel.Inline(sel.Row(sel.URL("Click here", "https://tinyverse.space/")))
+		c.Reply("Contact me to get help.", sel)
+	} else {
+		gen_help_buttons(c, help_caption, true)
+	}
+	return nil
+}
+
+func gen_help_buttons(c tb.Context, text string, Reply bool) {
+	sel.Inline(sel.Row(sel.URL("Help", "https://tinyverse.space/")),
+		sel.Row(sel.URL("Start", fmt.Sprintf("https://t.me/%s?start=", BOT_USERNAME))))
+	if Reply {
+		c.Reply(text, sel)
+	} else {
+		c.Edit(text, sel)
 	}
 }
