@@ -22,6 +22,7 @@ func GatherHandlers() map[string]HANDLE {
 
 	// start.go
 	HANDLERS["start"] = HANDLE{FUNC: Start}
+	HANDLERS["help"] = HANDLE{FUNC: Help_Menu}
 	return HANDLERS
 }
 
