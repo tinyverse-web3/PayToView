@@ -1057,8 +1057,8 @@ github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhV
 github.com/tidwall/pretty v1.2.0 h1:RWIZEg2iJ8/g6fDDYzMpobmaoGh5OLl4AXtGUGPcqCs=
 github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3 h1:LrXCuZKnbnTQnS0UcJOnJYjznPWbE7HoW7aR+UGkfDw=
 github.com/tinyverse-web3/mtv_go_utils v0.0.0-20231106030246-7c7900de29b3/go.mod h1:R1p7/i/09d/+94T/ZBaINg3u+bFL3pjXMtVmKxUEyYA=
-github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20240102021308-9d095ab61168 h1:TALhOgIfRB8iW/8ZOLGr3fzwoGQDeJzYTdaulC/IRx8=
-github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20240102021308-9d095ab61168/go.mod h1:TRpnau2odIb60swNbpitvEccYnhqca8XhaaRqiBNvpY=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20240102092008-1ab38fdb845c h1:HRulfXsCTIwSwQqAX0k5wiZ72rvDPOpvvcXKiWfIv4U=
+github.com/tinyverse-web3/tinyverse_sdk v0.0.0-20240102092008-1ab38fdb845c/go.mod h1:TRpnau2odIb60swNbpitvEccYnhqca8XhaaRqiBNvpY=
 github.com/tinyverse-web3/tvbase v0.0.0-20231222095421-078fba2cca94 h1:9drc93cIGbtB2d2CBoQ8zZ/1XoDIwUM0IbOELBiiIkI=
 github.com/tinyverse-web3/tvbase v0.0.0-20231222095421-078fba2cca94/go.mod h1:ck3INyPY5mSkKfJh7KFqHjZW12sU+55pBxkIAUuKC/4=
 github.com/tinyverse-web3/tvutil v0.0.0-20230719073602-eff568f409f6 h1:TzYij1wjXvlXcz7UmeTVs+eo5qn1/VNax2619N1KaGI=
